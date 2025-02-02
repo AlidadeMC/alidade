@@ -41,6 +41,7 @@ struct RecentLocationsListSection: View {
                     }
                     #if os(iOS)
                         .listRowBackground(Color.clear)
+                        .listRowSeparator(.hidden)
                     #endif
             }
             .onDelete { indexSet in

@@ -24,7 +24,7 @@ func hideNavigationBar() {
 
 @main
 struct MCMapsApp: App {
-    @State private var creationContiuation: CheckedContinuation<CartographyMapFile?, any Error>?
+    @State private var creationContinuation: CheckedContinuation<CartographyMapFile?, any Error>?
     @State private var displayCreationWindow = false
     @State private var proxyMap = CartographyMap(seed: 0, mcVersion: "1.21", name: "My World", pins: [])
     
@@ -41,7 +41,7 @@ struct MCMapsApp: App {
         DocumentGroupLaunchScene {
             NewDocumentButton("Create Map", for: CartographyMapFile.self) {
                 try await withCheckedThrowingContinuation { continuation in
-                    self.creationContiuation = continuation
+                    self.creationContinuation = continuation
                     self.displayCreationWindow = true
                 }
             }
@@ -52,16 +52,16 @@ struct MCMapsApp: App {
                         .toolbar {
                             ToolbarItem(placement: .confirmationAction) {
                                 Button("Create") {
-                                    creationContiuation?.resume(returning: .init(map: proxyMap))
-                                    creationContiuation = nil
+                                    creationContinuation?.resume(returning: .init(map: proxyMap))
+                                    creationContinuation = nil
                                     displayCreationWindow = false
                                 }
                             }
 
                             ToolbarItem(placement: .cancellationAction) {
                                 Button("Cancel") {
-                                    creationContiuation?.resume(throwing: CocoaError(CocoaError.userCancelled))
-                                    creationContiuation = nil
+                                    creationContinuation?.resume(throwing: CocoaError(CocoaError.userCancelled))
+                                    creationContinuation = nil
                                     displayCreationWindow = false
                                 }
                             }

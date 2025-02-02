@@ -16,39 +16,28 @@ enum CartographyMapViewState: Equatable {
 }
 
 struct ContentView: View {
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     @Environment(\.dismiss) private var dismissWindow
     @Binding var file: CartographyMapFile
     @State private var viewModel = CartographyMapViewModel()
     
-    private var subtitle: String {
-        let seed = String(file.map.seed)
-        return "\(file.map.name) - Minecraft \(file.map.mcVersion) | Seed: " + seed
-    }
-
     var body: some View {
         Group {
-            #if os(macOS)
-            NavigationSplitView {
-                CartographyMapSidebar(viewModel: $viewModel, file: $file)
-            } detail: {
-                Group {
-                    LocationBadge(location: viewModel.worldRange.position)
+#if os(macOS)
+            CartographyMapSplitView(viewModel: $viewModel, file: $file)
+                .toolbar {
+                    toolbarContent
                 }
-                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomLeading)
-                .background(
-                    CartographyMapView(state: viewModel.state)
-                )
-            }
-            .navigationSubtitle(subtitle)
-            .toolbar {
-                toolbarContent
-            }
-            #else
-            ZStack {
+#else
+            AdaptableSidebarSheetView(isPresented: $viewModel.displaySidebarSheet) {
                 CartographyMapView(state: viewModel.state)
                     .edgesIgnoringSafeArea(.all)
+            } sheet: {
+                CartographyMapSidebarSheet(viewModel: $viewModel, file: $file) {
+                    toolbarContent
+                }
             }
-            #endif
+#endif
         }
         .navigationTitle(file.map.name)
         .animation(.default, value: file.map.recentLocations)
@@ -59,68 +48,64 @@ struct ContentView: View {
         .onChange(of: viewModel.worldDimension) { _, newValue in
             Task { await viewModel.refreshMap(file.map.seed, for: file.map.mcVersion) }
         }
-        #if os(iOS)
+#if os(iOS)
         .onAppear {
             hideNavigationBar()
         }
-        .sheet(isPresented: $viewModel.displaySidebarSheet) {
-            CartographyMapSidebarSheet(viewModel: $viewModel, file: $file) {
-                toolbarContent
-            }
-        }
-        #endif
+#endif
         .sheet(isPresented: $viewModel.displayChangeSeedForm) {
             NavigationStack {
                 MapCreatorForm(worldName: $file.map.name, mcVersion: $file.map.mcVersion, seed: $file.map.seed)
                     .formStyle(.grouped)
                     .navigationTitle("Update World")
-                #if os(iOS)
+#if os(iOS)
                     .navigationBarBackButtonHidden()
-                #endif
+#endif
                     .toolbar {
                         ToolbarItem(placement: .confirmationAction) {
                             Button("Done") {
                                 viewModel.submitWorldChanges(
                                     seed: file.map.seed,
-                                    mcVersion: file.map.mcVersion)
+                                    mcVersion: file.map.mcVersion,
+                                    horizontalSizeClass)
                             }
                         }
                         ToolbarItem(placement: .cancellationAction) {
                             Button("Cancel") {
-                                viewModel.cancelWorldChanges()
+                                viewModel.cancelWorldChanges(horizontalSizeClass)
                             }
                         }
                     }
             }
         }
         .sheet(isPresented: $viewModel.displayNewPinForm) {
-            #if os(iOS)
+#if os(iOS)
             viewModel.displaySidebarSheet = true
-            #endif
+#endif
         } content: {
             NavigationStack {
                 PinCreatorForm(location: viewModel.locationToPin) { pin in
                     file.map.pins.append(pin)
                 }
                 .formStyle(.grouped)
-                #if os(iOS)
+#if os(iOS)
                 .navigationBarBackButtonHidden()
-                #endif
+#endif
             }
         }
     }
-
+    
     private var toolbarContent: some ToolbarContent {
         Group {
-            #if os(iOS)
+#if os(iOS)
             ToolbarTitleMenu {
                 Picker(selection: $viewModel.worldDimension) {
                     Label("Overworld", systemImage: "tree").tag(MinecraftWorld.Dimension.overworld)
                     Label("Nether", systemImage: "flame").tag(MinecraftWorld.Dimension.nether)
                     Label("End", systemImage: "sparkles").tag(MinecraftWorld.Dimension.end)
                 } label: { }
-                .labelStyle(.titleAndIcon)
-                .pickerStyle(.palette)
+                    .labelStyle(.titleAndIcon)
+                    .pickerStyle(.palette)
                 Button {
                     viewModel.presentWorldChangesForm()
                 } label: {
@@ -136,8 +121,8 @@ struct ContentView: View {
                 }
                 .fontWeight(.bold)
             }
-            #endif
-
+#endif
+            
             ToolbarItem {
                 Button {
                     Task {
@@ -148,7 +133,7 @@ struct ContentView: View {
                 }
             }
             
-            #if os(macOS)
+#if os(macOS)
             ToolbarItem {
                 Button {
                     viewModel.presentWorldChangesForm()
@@ -167,7 +152,7 @@ struct ContentView: View {
                 }
                 .pickerStyle(.palette)
             }
-            #endif
+#endif
         }
     }
 }

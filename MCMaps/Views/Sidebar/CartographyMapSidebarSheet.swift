@@ -24,6 +24,8 @@ struct CartographyMapSidebarSheet<T: ToolbarContent>: View {
                 .listStyle(.plain)
                 .navigationBarBackButtonHidden()
 #if os(iOS)
+                .scrollContentBackground(.hidden)
+                .background(.clear)
                 .navigationBarTitleDisplayMode(.inline)
 #endif
                 .navigationTitle(file.map.name)
@@ -34,5 +36,6 @@ struct CartographyMapSidebarSheet<T: ToolbarContent>: View {
         .presentationBackgroundInteraction(.enabled(upThrough: .large))
         .presentationBackground(.regularMaterial)
         .interactiveDismissDisabled()
+        
     }
 }

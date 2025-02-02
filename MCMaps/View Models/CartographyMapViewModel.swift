@@ -14,8 +14,7 @@ import SwiftUI
 @MainActor
 class CartographyMapViewModel {
     #if os(iOS)
-    var displaySidebarSheet = true
-    var sidebarSheetDetent = PresentationDetent.smallSearch
+    var displaySidebarSheet = false
     #endif
     var displayChangeSeedForm = false
     var displayNewPinForm = false
@@ -79,20 +78,20 @@ class CartographyMapViewModel {
         displayChangeSeedForm = true
     }
 
-    func cancelWorldChanges() {
+    func cancelWorldChanges(_ sizeClass: UserInterfaceSizeClass?) {
         displayChangeSeedForm = false
         #if os(iOS)
-        displaySidebarSheet = true
+        displaySidebarSheet = sizeClass == .compact
         #endif
     }
     
-    func submitWorldChanges(seed: Int64, mcVersion: String) {
+    func submitWorldChanges(seed: Int64, mcVersion: String, _ sizeClass: UserInterfaceSizeClass?) {
         displayChangeSeedForm = false
         Task {
             await refreshMap(seed, for: mcVersion)
         }
         #if os(iOS)
-        displaySidebarSheet = true
+        displaySidebarSheet = sizeClass == .compact
         #endif
     }
     

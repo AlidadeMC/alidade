@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		9504030F2D4D7E0A00F51903 /* CubiomesKit in Frameworks */ = {isa = PBXBuildFile; productRef = 9504030E2D4D7E0A00F51903 /* CubiomesKit */; };
+		952254622D4FEF3800CB77C7 /* BottomSheet in Frameworks */ = {isa = PBXBuildFile; productRef = 952254612D4FEF3800CB77C7 /* BottomSheet */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,6 +71,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9504030F2D4D7E0A00F51903 /* CubiomesKit in Frameworks */,
+				952254622D4FEF3800CB77C7 /* BottomSheet in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -131,6 +133,7 @@
 			name = Alidade;
 			packageProductDependencies = (
 				9504030E2D4D7E0A00F51903 /* CubiomesKit */,
+				952254612D4FEF3800CB77C7 /* BottomSheet */,
 			);
 			productName = MCMaps;
 			productReference = 950402CF2D4D522100F51903 /* Alidade.app */;
@@ -216,6 +219,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				9504030D2D4D7E0A00F51903 /* XCLocalSwiftPackageReference "CubiomesKit" */,
+				952254602D4FEF3800CB77C7 /* XCRemoteSwiftPackageReference "BottomSheet" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 950402D02D4D522100F51903 /* Products */;
@@ -633,10 +637,26 @@
 		};
 /* End XCLocalSwiftPackageReference section */
 
+/* Begin XCRemoteSwiftPackageReference section */
+		952254602D4FEF3800CB77C7 /* XCRemoteSwiftPackageReference "BottomSheet" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/lucaszischka/BottomSheet";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.1.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
 		9504030E2D4D7E0A00F51903 /* CubiomesKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = CubiomesKit;
+		};
+		952254612D4FEF3800CB77C7 /* BottomSheet */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 952254602D4FEF3800CB77C7 /* XCRemoteSwiftPackageReference "BottomSheet" */;
+			productName = BottomSheet;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
