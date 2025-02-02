@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+#if os(iOS)
 struct AdaptableSidebarSheetView<Content: View, Sheet: View>: View {
     @Binding var sheetDisplayed: Bool
     @State private var sheetDisplayedInternally = false
@@ -161,3 +162,4 @@ private struct AdaptableSidebarSheetInternalView<Content: View, Sheet: View>: Vi
         }
     }
 }
+#endif
