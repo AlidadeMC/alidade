@@ -29,7 +29,9 @@ and run the project for your targeted platform.
 
 ## License
 
-(C) 2025 Marquis Kurt. All rights reserved.
+The source code to Alidade is licensed under the Mozilla Public License
+v2.0. For more information on your rights, refer to the license terms in
+LICENSE.txt or visit https://www.mozilla.org/en-US/MPL/2.0/.
 
 **Alidade** is made possible by the following open source libraries:
 
