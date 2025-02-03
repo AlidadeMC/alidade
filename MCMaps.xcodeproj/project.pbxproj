@@ -37,7 +37,7 @@
 		9504037F2D4DAD3700F51903 /* Exceptions for "MCMaps" folder in "Alidade" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				Info.plist,
+				Resources/Info.plist,
 			);
 			target = 950402CE2D4D522100F51903 /* Alidade */;
 		};
@@ -410,7 +410,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = MCMaps/MCMaps.entitlements;
+				CODE_SIGN_ENTITLEMENTS = MCMaps/Resources/MCMaps.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MCMaps/Preview Content\"";
@@ -418,7 +418,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = MCMaps/Info.plist;
+				INFOPLIST_FILE = MCMaps/Resources/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Alidade;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "(C) 2025 Marquis Kurt. All rights reserved.";
@@ -455,7 +455,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = MCMaps/MCMaps.entitlements;
+				CODE_SIGN_ENTITLEMENTS = MCMaps/Resources/MCMaps.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MCMaps/Preview Content\"";
@@ -463,7 +463,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = MCMaps/Info.plist;
+				INFOPLIST_FILE = MCMaps/Resources/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Alidade;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "(C) 2025 Marquis Kurt. All rights reserved.";
