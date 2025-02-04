@@ -8,9 +8,9 @@
       location = "group:README.md">
    </FileRef>
    <FileRef
-      location = "group:CubiomesKit">
+      location = "group:MCMaps.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:MCMaps.xcodeproj">
+      location = "group:CubiomesKit">
    </FileRef>
 </Workspace>

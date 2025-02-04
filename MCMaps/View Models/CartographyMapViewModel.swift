@@ -13,9 +13,9 @@ import SwiftUI
 @Observable
 @MainActor
 class CartographyMapViewModel {
-    #if os(iOS)
+#if os(iOS)
     var displaySidebarSheet = false
-    #endif
+#endif
     var displayChangeSeedForm = false
     var displayNewPinForm = false
     var state = CartographyMapViewState.loading
@@ -24,7 +24,7 @@ class CartographyMapViewModel {
     var worldRange = MinecraftWorldRange(
         origin: Point3D(x: 0, y: 15, z: 0),
         scale: Point3D(x: 256, y: 1, z: 256))
-
+    
     var positionLabel: String {
         let xPos = String(worldRange.position.x)
         let zPos = String(worldRange.position.z)
@@ -34,29 +34,31 @@ class CartographyMapViewModel {
     var locationToPin: CGPoint = .zero
     
     init() {}
-
+    
     func filterPinsByQuery(pins: [CartographyMapPin]) -> [CartographyMapPin] {
         if searchQuery.isEmpty { return pins }
         return pins.filter { pin in
-            pin.name.lowercased().contains(searchQuery)
-        }
-    }
-
-    func refreshMap(_ seed: Int64, for version: String) async {
-        state = .loading
-        let world = MinecraftWorld(version: version, seed: seed)
-        if let mapData = world.snapshot(in: worldRange, dimension: worldDimension) {
-            state = .success(mapData)
-        } else {
-            state = .unavailable
+            pin.name.lowercased().contains(searchQuery.lowercased())
         }
     }
     
+    func refreshMap(_ seed: Int64, for version: String) async {
+        state = .loading
+        do {
+            let world = try MinecraftWorld(version: version, seed: seed)
+            let mapData = world.snapshot(in: worldRange, dimension: worldDimension)
+            state = .success(mapData)
+        } catch {
+            state = .unavailable
+        }
+        
+    }
+    
     func goTo(position: CGPoint, seed: Int64, mcVersion: String) {
-        worldRange.position = .init(cgPoint: position)
+        worldRange.position = .init(x: Int32(position.x), y: worldRange.position.y, z: Int32(position.y))
         Task { await refreshMap(seed, for: mcVersion) }
     }
-
+    
     func goToRegexPosition(
         _ position: Regex<(Substring, Substring, Substring)>.RegexOutput,
         seed: Int64,
@@ -70,19 +72,19 @@ class CartographyMapViewModel {
         searchQuery = ""
         completion(truePosition)
     }
-
+    
     func presentWorldChangesForm() {
-        #if os(iOS)
+#if os(iOS)
         displaySidebarSheet = false
-        #endif
+#endif
         displayChangeSeedForm = true
     }
-
+    
     func cancelWorldChanges(_ sizeClass: UserInterfaceSizeClass?) {
         displayChangeSeedForm = false
-        #if os(iOS)
+#if os(iOS)
         displaySidebarSheet = sizeClass == .compact
-        #endif
+#endif
     }
     
     func submitWorldChanges(seed: Int64, mcVersion: String, _ sizeClass: UserInterfaceSizeClass?) {
@@ -90,15 +92,15 @@ class CartographyMapViewModel {
         Task {
             await refreshMap(seed, for: mcVersion)
         }
-        #if os(iOS)
+#if os(iOS)
         displaySidebarSheet = sizeClass == .compact
-        #endif
+#endif
     }
     
     func presentNewPinForm(for location: CGPoint) {
-        #if os(iOS)
+#if os(iOS)
         displaySidebarSheet = false
-        #endif
+#endif
         displayNewPinForm = true
         locationToPin = location
     }

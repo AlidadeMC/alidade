@@ -8,7 +8,7 @@ import Foundation
         return
     }
     let originalData = try Data(contentsOf: .init(filePath: originalDataPath))
-    let mcWorld = MinecraftWorld(version: "1.2", seed: 3257840388504953787)
+    let mcWorld = try MinecraftWorld(version: "1.2", seed: 3257840388504953787)
     let data = mcWorld.snapshot(
         in: .init(
             origin: .init(x: 116, y: 15, z: -31),
@@ -16,4 +16,10 @@ import Foundation
         dimension: .overworld)
 
     #expect(data == originalData)
+}
+
+@Test func worldInitStopsWithInvalidVersion() async throws {
+    #expect(throws: MinecraftWorld.WorldError.invalidVersionNumber) {
+        try MinecraftWorld(version: "lorelei", seed: 123)
+    }
 }

@@ -4,31 +4,7 @@
 import CubiomesInternal
 import Foundation
 
-public struct Point3D<T: Numeric> {
-    public var x: T
-    public var y: T
-    public var z: T
-
-    public init(x: T, y: T, z: T) {
-        self.x = x
-        self.y = y
-        self.z = z
-    }
-
-    public init(cgPoint: CGPoint) where T == Int {
-        self.x = Int(cgPoint.x)
-        self.y = 1
-        self.z = Int(cgPoint.y)
-    }
-
-    public init(cgPoint: CGPoint) where T == Int32 {
-        self.x = Int32(cgPoint.x)
-        self.y = 1
-        self.z = Int32(cgPoint.y)
-    }
-}
-
-public struct MinecraftWorldRange {
+public struct MinecraftWorldRange: Sendable {
     public var position: Point3D<Int32>
     public var scale: Point3D<Int32>
     public var size: Int32
@@ -41,7 +17,10 @@ public struct MinecraftWorldRange {
 }
 
 public struct MinecraftWorld {
-    public enum Dimension {
+    public enum WorldError: Error {
+        case invalidVersionNumber
+    }
+    public enum Dimension: Sendable {
         case overworld, nether, end
 
         var cbDimension: CubiomesInternal.Dimension {
@@ -61,8 +40,10 @@ public struct MinecraftWorld {
         self.seed = seed
     }
     
-    public init(version: String, seed: Int64) {
-        self.version = MCVersion(rawValue: UInt32(str2mc(version)))
+    public init(version: String, seed: Int64) throws(WorldError) {
+        let mcVersion = MCVersion(rawValue: UInt32(str2mc(version)))
+        guard mcVersion != MC_UNDEF else { throw .invalidVersionNumber }
+        self.version = mcVersion
         self.seed = seed
     }
 
@@ -70,7 +51,7 @@ public struct MinecraftWorld {
         in range: MinecraftWorldRange,
         dimension: Dimension = .overworld,
         pixelScale pixelsPerCell: Int32 = 4
-    ) -> Data? {
+    ) -> Data {
         var generator = Generator()
         let flags: UInt32 = UInt32(largeBiomes ? LARGE_BIOMES : 0)
         seedGenerator(&generator, Int32(version.rawValue), flags, seed, dimension.cbDimension.rawValue)
@@ -110,7 +91,7 @@ public struct MinecraftWorld {
     }
 }
 
-func ppmData(_ pixels: [CUnsignedChar], size: CGSize) -> Data? {
+func ppmData(_ pixels: [CUnsignedChar], size: CGSize) -> Data {
     let header = "P6\n\(Int(size.width)) \(Int(size.height))\n255\n"
     var file = Data(header.utf8)
     file.append(contentsOf: pixels)
