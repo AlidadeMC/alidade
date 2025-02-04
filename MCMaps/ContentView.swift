@@ -80,7 +80,7 @@ struct ContentView: View {
         }
         .sheet(isPresented: $viewModel.displayNewPinForm) {
 #if os(iOS)
-            viewModel.displaySidebarSheet = true
+            viewModel.displaySidebarSheet = horizontalSizeClass == .compact
 #endif
         } content: {
             NavigationStack {

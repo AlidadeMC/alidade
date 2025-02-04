@@ -35,7 +35,7 @@ class CartographyMapViewModel {
     
     init() {}
 
-    func filterPinsByQuery(pins: [Pin]) -> [Pin] {
+    func filterPinsByQuery(pins: [CartographyMapPin]) -> [CartographyMapPin] {
         if searchQuery.isEmpty { return pins }
         return pins.filter { pin in
             pin.name.lowercased().contains(searchQuery)

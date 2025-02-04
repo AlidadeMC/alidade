@@ -12,15 +12,15 @@ struct PinCreatorForm: View {
     var location: CGPoint
 
     @State private var name: String = "Pin"
-    @State private var color: Pin.Color = .blue
+    @State private var color: CartographyMapPin.Color = .blue
 
-    var completion: (Pin) -> Void
+    var completion: (CartographyMapPin) -> Void
     
     var body: some View {
         Form {
             TextField("Name", text: $name)
             Picker("Color", selection: $color) {
-                ForEach(Pin.Color.allCases, id: \.self) { pinColor in
+                ForEach(CartographyMapPin.Color.allCases, id: \.self) { pinColor in
                     Text("\(pinColor)".localizedCapitalized)
                         .tag(pinColor)
                 }
@@ -39,7 +39,7 @@ struct PinCreatorForm: View {
             ToolbarItem(placement: .confirmationAction) {
                 Button("Create") {
                     dismiss()
-                    completion(Pin(position: location, name: name, color: color))
+                    completion(CartographyMapPin(position: location, name: name, color: color))
                 }
             }
             ToolbarItem(placement: .cancellationAction) {

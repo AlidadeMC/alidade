@@ -13,7 +13,7 @@ struct PinnedLibrarySection: View {
 
     var body: some View {
         Section("Library") {
-            ForEach(viewModel.filterPinsByQuery(pins: file.map.pins), id: \.self) { (pin: Pin) in
+            ForEach(viewModel.filterPinsByQuery(pins: file.map.pins), id: \.self) { (pin: CartographyMapPin) in
                 CartographyMapPinView(pin: pin)
                     .onTapGesture {
                         viewModel
@@ -27,7 +27,7 @@ struct PinnedLibrarySection: View {
                             Label("Go Here", systemImage: "location")
                         }
                         Menu("Color", systemImage: "paintpalette") {
-                            ForEach(Pin.Color.allCases, id: \.self) { pinColor in
+                            ForEach(CartographyMapPin.Color.allCases, id: \.self) { pinColor in
                                 Button {
                                     recolorPins(to: pinColor) { realPin in
                                         realPin.name == pin.name && realPin.position == pin.position
@@ -48,7 +48,7 @@ struct PinnedLibrarySection: View {
         }
     }
     
-    func recolorPins(to color: Pin.Color, where predicate: @escaping (Pin) -> Bool) {
+    func recolorPins(to color: CartographyMapPin.Color, where predicate: @escaping (CartographyMapPin) -> Bool) {
         for (index, pin) in file.map.pins.enumerated() where predicate(pin) {
             file.map.pins[index].color = color
         }

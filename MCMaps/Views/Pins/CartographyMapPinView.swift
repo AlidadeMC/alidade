@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CartographyMapPinView: View {
-    var pin: Pin
+    var pin: CartographyMapPin
 
     var body: some View {
         HStack {
