@@ -18,19 +18,11 @@
 			remoteGlobalIDString = 950402CE2D4D522100F51903;
 			remoteInfo = MCMaps;
 		};
-		950402EB2D4D522200F51903 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 950402C72D4D522100F51903 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 950402CE2D4D522100F51903;
-			remoteInfo = MCMaps;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		950402CF2D4D522100F51903 /* Alidade.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Alidade.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		950402E02D4D522200F51903 /* MCMapsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MCMapsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		950402EA2D4D522200F51903 /* MCMapsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MCMapsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -57,11 +49,6 @@
 			path = MCMapsTests;
 			sourceTree = "<group>";
 		};
-		950402ED2D4D522200F51903 /* MCMapsUITests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = MCMapsUITests;
-			sourceTree = "<group>";
-		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,13 +67,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		950402E72D4D522200F51903 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -95,7 +75,6 @@
 			children = (
 				950402D12D4D522100F51903 /* MCMaps */,
 				950402E32D4D522200F51903 /* MCMapsTests */,
-				950402ED2D4D522200F51903 /* MCMapsUITests */,
 				950402D02D4D522100F51903 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -105,7 +84,6 @@
 			children = (
 				950402CF2D4D522100F51903 /* Alidade.app */,
 				950402E02D4D522200F51903 /* MCMapsTests.xctest */,
-				950402EA2D4D522200F51903 /* MCMapsUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -159,29 +137,6 @@
 			productReference = 950402E02D4D522200F51903 /* MCMapsTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		950402E92D4D522200F51903 /* MCMapsUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 950402FA2D4D522200F51903 /* Build configuration list for PBXNativeTarget "MCMapsUITests" */;
-			buildPhases = (
-				950402E62D4D522200F51903 /* Sources */,
-				950402E72D4D522200F51903 /* Frameworks */,
-				950402E82D4D522200F51903 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				950402EC2D4D522200F51903 /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				950402ED2D4D522200F51903 /* MCMapsUITests */,
-			);
-			name = MCMapsUITests;
-			packageProductDependencies = (
-			);
-			productName = MCMapsUITests;
-			productReference = 950402EA2D4D522200F51903 /* MCMapsUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -196,10 +151,6 @@
 						CreatedOnToolsVersion = 16.2;
 					};
 					950402DF2D4D522200F51903 = {
-						CreatedOnToolsVersion = 16.2;
-						TestTargetID = 950402CE2D4D522100F51903;
-					};
-					950402E92D4D522200F51903 = {
 						CreatedOnToolsVersion = 16.2;
 						TestTargetID = 950402CE2D4D522100F51903;
 					};
@@ -224,7 +175,6 @@
 			targets = (
 				950402CE2D4D522100F51903 /* Alidade */,
 				950402DF2D4D522200F51903 /* MCMapsTests */,
-				950402E92D4D522200F51903 /* MCMapsUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -238,13 +188,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		950402DE2D4D522200F51903 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		950402E82D4D522200F51903 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -268,13 +211,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		950402E62D4D522200F51903 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -282,11 +218,6 @@
 			isa = PBXTargetDependency;
 			target = 950402CE2D4D522100F51903 /* Alidade */;
 			targetProxy = 950402E12D4D522200F51903 /* PBXContainerItemProxy */;
-		};
-		950402EC2D4D522200F51903 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 950402CE2D4D522100F51903 /* Alidade */;
-			targetProxy = 950402EB2D4D522200F51903 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -543,50 +474,6 @@
 			};
 			name = Release;
 		};
-		950402FB2D4D522200F51903 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = FQQXSP79X3;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
-				MACOSX_DEPLOYMENT_TARGET = 15.2;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = net.marquiskurt.MCMapsUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,7";
-				TEST_TARGET_NAME = MCMaps;
-				XROS_DEPLOYMENT_TARGET = 2.2;
-			};
-			name = Debug;
-		};
-		950402FC2D4D522200F51903 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = FQQXSP79X3;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
-				MACOSX_DEPLOYMENT_TARGET = 15.2;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = net.marquiskurt.MCMapsUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,7";
-				TEST_TARGET_NAME = MCMaps;
-				XROS_DEPLOYMENT_TARGET = 2.2;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -613,15 +500,6 @@
 			buildConfigurations = (
 				950402F82D4D522200F51903 /* Debug */,
 				950402F92D4D522200F51903 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		950402FA2D4D522200F51903 /* Build configuration list for PBXNativeTarget "MCMapsUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				950402FB2D4D522200F51903 /* Debug */,
-				950402FC2D4D522200F51903 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

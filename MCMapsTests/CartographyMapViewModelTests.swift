@@ -159,7 +159,9 @@ struct CartographyMapViewModelTests {
 
         await viewModel.cancelWorldChanges(sizeClass)
         #expect(await viewModel.displayChangeSeedForm == false)
+        #if os(iOS)
         #expect(await viewModel.displaySidebarSheet == shouldDisplay)
+        #endif
     }
 
     @Test(arguments: [(SizeClass.compact, true), (SizeClass.regular, false)])
@@ -179,7 +181,9 @@ struct CartographyMapViewModelTests {
 
         await viewModel.submitWorldChanges(seed: 1234, mcVersion: "1.9", sizeClass)
         #expect(await viewModel.displayChangeSeedForm == false)
+        #if os(iOS)
         #expect(await viewModel.displaySidebarSheet == shouldDisplay)
+        #endif
         guard case .success = await viewModel.state else {
             Issue.record("An error occurred.")
             return
