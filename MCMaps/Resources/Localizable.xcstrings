@@ -1,0 +1,94 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "(%lld, %lld)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "(%1$lld, %2$lld)"
+          }
+        }
+      }
+    },
+    "Back" : {
+
+    },
+    "Cancel" : {
+
+    },
+    "Color" : {
+
+    },
+    "Create" : {
+
+    },
+    "Create Map" : {
+
+    },
+    "Create Pin" : {
+
+    },
+    "Dimension" : {
+
+    },
+    "Done" : {
+
+    },
+    "End" : {
+
+    },
+    "Go Here" : {
+
+    },
+    "Go To..." : {
+
+    },
+    "Library" : {
+
+    },
+    "Location" : {
+
+    },
+    "Minecraft Version" : {
+
+    },
+    "Name" : {
+
+    },
+    "Nether" : {
+
+    },
+    "No Map Available" : {
+
+    },
+    "Not a valid Minecraft version." : {
+
+    },
+    "Overworld" : {
+
+    },
+    "Pin..." : {
+
+    },
+    "Recents" : {
+
+    },
+    "Refresh" : {
+
+    },
+    "Remove from Recents" : {
+
+    },
+    "Seed" : {
+
+    },
+    "This seed will be converted to: `%@`" : {
+
+    },
+    "Update World" : {
+
+    }
+  },
+  "version" : "1.0"
+}
