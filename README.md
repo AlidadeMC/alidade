@@ -20,8 +20,8 @@ the surrounding world, and pin your favorite locations.
 - macOS 15.0 Sequoia or later
 
 Clone this repository using `git clone --recursive`, then open the
-`MCMaps.xcodeproj` file in Xcode. Select the **Alidade** target to build
-and run the project for your targeted platform.
+`Alidade.xcworkspace` file in Xcode. Select the **Alidade** target to
+build and run the project for your targeted platform.
 
 > **Note**  
 > While Apple Vision Pro is listed as a supported target, support for this

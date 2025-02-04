@@ -27,7 +27,10 @@ let package = Package(
             dependencies: ["Cubiomes", "CubiomesInternal"]),
         .testTarget(
             name: "CubiomesKitTests",
-            dependencies: ["CubiomesKit"]
+            dependencies: ["CubiomesKit"],
+            resources: [
+                .process("Resources")
+            ]
         ),
     ]
 )

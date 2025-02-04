@@ -2,16 +2,18 @@ import Testing
 import Foundation
 @testable import CubiomesKit
 
-@Test func example() async throws {
-    // Write your test here and use APIs like `#expect(...)` to check expected conditions.
-    let currentPath = FileManager.default.currentDirectoryPath
+@Test func snapshotMatchesOriginalImage() async throws {
+    guard let originalDataPath = Bundle.module.path(forResource: "map", ofType: "ppm") else {
+        Issue.record("Snapshot can't be found.")
+        return
+    }
+    let originalData = try Data(contentsOf: .init(filePath: originalDataPath))
     let mcWorld = MinecraftWorld(version: "1.2", seed: 3257840388504953787)
     let data = mcWorld.snapshot(
         in: .init(
-            origin: .init(x: 116, 15, z: -31),
+            origin: .init(x: 116, y: 15, z: -31),
             scale: .init(x: 256, y: 1, z: 256)),
-        dimension: .nether)
+        dimension: .overworld)
 
-    let url = URL(filePath: currentPath + "/map.ppm")
-    try data?.write(to: url)
+    #expect(data == originalData)
 }

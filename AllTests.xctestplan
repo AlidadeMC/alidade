@@ -1,0 +1,31 @@
+{
+  "configurations" : [
+    {
+      "id" : "CEDDAD9C-F7D8-4E74-AD60-51D6F95F62BA",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "testTimeoutsEnabled" : true
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:CubiomesKit",
+        "identifier" : "CubiomesKitTests",
+        "name" : "CubiomesKitTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:MCMaps.xcodeproj",
+        "identifier" : "950402DF2D4D522200F51903",
+        "name" : "MCMapsTests"
+      }
+    }
+  ],
+  "version" : 1
+}
