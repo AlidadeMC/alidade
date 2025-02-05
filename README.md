@@ -11,7 +11,26 @@ the surrounding world, and pin your favorite locations.
 > **Note**  
 > Alidade is prerelease software. The current feature set, design, and
 > overall functionality is not final and will change over time. Proceed
-> with caution! 
+> with caution!
+
+## Why make Alidade?
+
+The Minecraft community has made countless seed mapping tools and
+libraries such as Chunkbase, Mineatlas, and Amidst. These tools work
+great on the desktop, and they will likely suffice for you. However, they
+don't address or solve the things I look for in an seed map app for my
+personal use cases, which include:
+
+- A native app that works across Mac, iPhone, and iPad, tuned for each
+  platform, respectively
+- Pinning common or favorite locations I visit frequently
+- Deep integrations into the Apple ecosystem
+- A "file over app" approach, where pinned locations, worlds I explore
+  frequently, etc., are all save in a simple JSON file
+  
+Alidade isn't being built to strictly _compete_ with the other tools
+out there, but it exists as an addition to that market.
+
 
 ## Build from source
 
