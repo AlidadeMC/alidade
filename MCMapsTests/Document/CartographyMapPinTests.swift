@@ -20,7 +20,7 @@ struct CartographyMapPinTests {
         (CartographyMapPin.Color.orange, Color.orange),
         (CartographyMapPin.Color.pink, Color.pink),
         (CartographyMapPin.Color.red, Color.red),
-        (CartographyMapPin.Color.yellow, Color.yellow)
+        (CartographyMapPin.Color.yellow, Color.yellow),
     ])
     func pinColorMapsToSwiftUI(pinColor: CartographyMapPin.Color, swiftUIColor: Color) async throws {
         #expect(pinColor.swiftUIColor == swiftUIColor)

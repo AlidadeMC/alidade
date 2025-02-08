@@ -48,7 +48,7 @@ struct CartographyMapViewModelTests {
         let letztesJar = CartographyMapPin(position: .init(x: 1847, y: 1847), name: "Hotel Letztes Jahr")
         let pins = [
             CartographyMapPin(position: .zero, name: "Some Location"),
-            letztesJar
+            letztesJar,
         ]
         let viewModel = await CartographyMapViewModel()
         await MainActor.run {
