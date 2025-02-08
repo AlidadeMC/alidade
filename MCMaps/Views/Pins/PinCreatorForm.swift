@@ -28,7 +28,12 @@ struct PinCreatorForm: View {
             Section {
                 HStack {
                     Spacer()
-                    CartographyMapPinView(pin: .init(position: location, name: name, color: color))
+                    CartographyNamedLocationView(
+                        name: name,
+                        location: location,
+                        systemImage: "mappin",
+                        color: color.swiftUIColor
+                     )
                     Spacer()
                 }
             }

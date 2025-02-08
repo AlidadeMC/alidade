@@ -26,7 +26,12 @@ struct CartographyMapSidebar: View {
             if let results = searchResults, !viewModel.searchQuery.isEmpty {
                 Group {
                     if let jumpToCoordinate = results.coordinates.first {
-                        CartographyMapPinView(pin: .init(position: jumpToCoordinate, name: "Jump Here", color: .green))
+                        CartographyNamedLocationView(
+                            name: "Jump Here",
+                            location: jumpToCoordinate,
+                            systemImage: "figure.run",
+                            color: .accent
+                        )
                             .onTapGesture {
                                 withAnimation {
                                     viewModel

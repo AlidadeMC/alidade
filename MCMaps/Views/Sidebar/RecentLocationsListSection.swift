@@ -20,7 +20,12 @@ struct RecentLocationsListSection: View {
     var body: some View {
         Section("Recents") {
             ForEach(Array(recentLocations.enumerated().reversed()), id: \.offset) { (idx, pos) in
-                CartographyRecentLocationView(location: pos)
+                CartographyNamedLocationView(
+                    name: "Location",
+                    location: pos,
+                    systemImage: "location.fill",
+                    color: .gray
+                )
                     .onTapGesture {
                         goToPosition?(pos)
                     }

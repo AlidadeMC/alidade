@@ -15,7 +15,7 @@ struct PinnedLibrarySection: View {
     var body: some View {
         Section("Library") {
             ForEach(pins, id: \.self) { (pin: CartographyMapPin) in
-                CartographyMapPinView(pin: pin)
+                CartographyNamedLocationView(pin: pin)
                     .onTapGesture {
                         viewModel
                             .goTo(position: pin.position, seed: file.map.seed, mcVersion: file.map.mcVersion)
