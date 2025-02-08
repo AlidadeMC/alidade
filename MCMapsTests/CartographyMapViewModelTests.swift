@@ -43,27 +43,6 @@ struct CartographyMapViewModelTests {
         #expect(await viewModel.positionLabel == "X: 1847, Z: 1847")
     }
 
-    @Test(arguments: ["", "letz", "Letz", "hotel", "Hotel"])
-    func viewModelFiltersPins(query: String) async throws {
-        let letztesJar = CartographyMapPin(position: .init(x: 1847, y: 1847), name: "Hotel Letztes Jahr")
-        let pins = [
-            CartographyMapPin(position: .zero, name: "Some Location"),
-            letztesJar,
-        ]
-        let viewModel = await CartographyMapViewModel()
-        await MainActor.run {
-            viewModel.searchQuery = query
-        }
-
-        if query.isEmpty {
-            #expect(await viewModel.filterPinsByQuery(pins: pins) == pins)
-        } else {
-            let filtered = await viewModel.filterPinsByQuery(pins: pins)
-            #expect(filtered.count == 1)
-            #expect(filtered.first == letztesJar)
-        }
-    }
-
     @Test(arguments: [("1.2", 123, true), ("fail", 123, false)])
     func viewModelRefreshMap(version: String, seed: Int64, shouldSucceed: Bool) async throws {
         let viewModel = await CartographyMapViewModel()
@@ -92,25 +71,6 @@ struct CartographyMapViewModelTests {
             Issue.record("An error occurred.")
             return
         }
-    }
-
-    @Test func viewModelGoesToRegexPosition() async throws {
-        let positionMatch = "1847, 1847".matches(of: /(-?\d+), (-?\d+)/)
-        guard let regexPosition = positionMatch.first else {
-            Issue.record("Regex didn't match.")
-            return
-        }
-        let viewModel = await CartographyMapViewModel()
-        #expect(await viewModel.worldRange.position == .init(x: 0, y: 15, z: 0))
-
-        await viewModel.goToRegexPosition(regexPosition.output, seed: 123, mcVersion: "1.8") { point in
-            #expect(point == .init(x: 1847, y: 1847))
-        }
-        guard case .success = await viewModel.state else {
-            Issue.record("An error occurred.")
-            return
-        }
-        #expect(await viewModel.worldRange.position == .init(x: 1847, y: 15, z: 1847))
     }
 
     @Test func viewModelPresentsWorldChangesForm() async throws {

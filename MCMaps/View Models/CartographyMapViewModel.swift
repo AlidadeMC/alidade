@@ -35,14 +35,6 @@ class CartographyMapViewModel {
 
     init() {}
 
-    @available(*, deprecated, message: "Use the search service to filter pins.")
-    func filterPinsByQuery(pins: [CartographyMapPin]) -> [CartographyMapPin] {
-        if searchQuery.isEmpty { return pins }
-        return pins.filter { pin in
-            pin.name.lowercased().contains(searchQuery.lowercased())
-        }
-    }
-
     func refreshMap(_ seed: Int64, for version: String) async {
         state = .loading
         do {
@@ -58,21 +50,6 @@ class CartographyMapViewModel {
     func goTo(position: CGPoint, seed: Int64, mcVersion: String) {
         worldRange.position = .init(x: Int32(position.x), y: worldRange.position.y, z: Int32(position.y))
         Task { await refreshMap(seed, for: mcVersion) }
-    }
-
-    @available(*, deprecated, message: "Use the search service rather than handling the regex output directly.")
-    func goToRegexPosition(
-        _ position: Regex<(Substring, Substring, Substring)>.RegexOutput,
-        seed: Int64,
-        mcVersion: String,
-        completion: @escaping (CGPoint) -> Void
-    ) {
-        let coordinateX = position.1
-        let coordinateY = position.2
-        let truePosition = CGPoint(x: Double(coordinateX) ?? 0, y: Double(coordinateY) ?? 0)
-        goTo(position: truePosition, seed: seed, mcVersion: mcVersion)
-        searchQuery = ""
-        completion(truePosition)
     }
 
     func presentWorldChangesForm() {
