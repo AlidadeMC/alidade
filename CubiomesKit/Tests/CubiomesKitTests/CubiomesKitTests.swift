@@ -1,5 +1,6 @@
-import Testing
 import Foundation
+import Testing
+
 @testable import CubiomesKit
 
 @Test func snapshotMatchesOriginalImage() async throws {
@@ -8,7 +9,7 @@ import Foundation
         return
     }
     let originalData = try Data(contentsOf: .init(filePath: originalDataPath))
-    let mcWorld = try MinecraftWorld(version: "1.2", seed: 3257840388504953787)
+    let mcWorld = try MinecraftWorld(version: "1.2", seed: 3_257_840_388_504_953_787)
     let data = mcWorld.snapshot(
         in: .init(
             origin: .init(x: 116, y: 15, z: -31),

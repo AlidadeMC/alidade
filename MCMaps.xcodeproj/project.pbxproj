@@ -102,6 +102,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				95DDE9672D57D0E9002B29D9 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				950402D12D4D522100F51903 /* MCMaps */,
@@ -167,6 +168,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				9504030D2D4D7E0A00F51903 /* XCLocalSwiftPackageReference "CubiomesKit" */,
+				95DDE9652D57D0E1002B29D9 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 950402D02D4D522100F51903 /* Products */;
@@ -218,6 +220,10 @@
 			isa = PBXTargetDependency;
 			target = 950402CE2D4D522100F51903 /* Alidade */;
 			targetProxy = 950402E12D4D522200F51903 /* PBXContainerItemProxy */;
+		};
+		95DDE9672D57D0E9002B29D9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = 95DDE9662D57D0E9002B29D9 /* SwiftLintBuildToolPlugin */;
 		};
 /* End PBXTargetDependency section */
 
@@ -513,10 +519,26 @@
 		};
 /* End XCLocalSwiftPackageReference section */
 
+/* Begin XCRemoteSwiftPackageReference section */
+		95DDE9652D57D0E1002B29D9 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SimplyDanny/SwiftLintPlugins";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.58.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
 		9504030E2D4D7E0A00F51903 /* CubiomesKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = CubiomesKit;
+		};
+		95DDE9662D57D0E9002B29D9 /* SwiftLintBuildToolPlugin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 95DDE9652D57D0E1002B29D9 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */;
+			productName = "plugin:SwiftLintBuildToolPlugin";
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -14,7 +14,7 @@ struct LocationBadge: View {
     private var locationLabel: String {
         let xPos = String(Int(location.x))
         let yPos = String(Int(location.y))
-        
+
         return "X: \(xPos), Z: \(yPos)"
     }
 
@@ -25,7 +25,7 @@ struct LocationBadge: View {
     init(location: Point3D<Int32>) {
         self.location = CGPoint(x: Double(location.x), y: Double(location.z))
     }
-    
+
     var body: some View {
         HStack {
             Label(locationLabel, systemImage: "location.fill")

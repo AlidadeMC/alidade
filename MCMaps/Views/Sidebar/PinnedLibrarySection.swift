@@ -40,14 +40,14 @@ struct PinnedLibrarySection: View {
                             }
                         }
                     }
-                #if os(iOS)
-                    .listRowBackground(Color.clear)
-                    .listRowSeparator(.hidden)
-                #endif
+                    #if os(iOS)
+                        .listRowBackground(Color.clear)
+                        .listRowSeparator(.hidden)
+                    #endif
             }
         }
     }
-    
+
     func recolorPins(to color: CartographyMapPin.Color, where predicate: @escaping (CartographyMapPin) -> Bool) {
         for (index, pin) in file.map.pins.enumerated() where predicate(pin) {
             file.map.pins[index].color = color

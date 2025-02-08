@@ -5,9 +5,10 @@
 //  Created by Marquis Kurt on 04-02-2025.
 //
 
-@testable import Alidade
-import Testing
 import SwiftUI
+import Testing
+
+@testable import Alidade
 
 struct CartographyMapPinTests {
     @Test(arguments: [
@@ -19,7 +20,7 @@ struct CartographyMapPinTests {
         (CartographyMapPin.Color.orange, Color.orange),
         (CartographyMapPin.Color.pink, Color.pink),
         (CartographyMapPin.Color.red, Color.red),
-        (CartographyMapPin.Color.yellow, Color.yellow),
+        (CartographyMapPin.Color.yellow, Color.yellow)
     ])
     func pinColorMapsToSwiftUI(pinColor: CartographyMapPin.Color, swiftUIColor: Color) async throws {
         #expect(pinColor.swiftUIColor == swiftUIColor)

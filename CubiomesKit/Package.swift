@@ -9,7 +9,8 @@ private let wrapIntegers = CSetting.unsafeFlags(["-fwrapv"])
 private let ignoreCubiomes = [
     "-Wno-implicit-int",
     "-Wno-implicit-function-declaration",
-    "-Wno-conversion"]
+    "-Wno-conversion"
+]
 
 let package = Package(
     name: "CubiomesKit",
@@ -17,7 +18,7 @@ let package = Package(
     products: [
         .library(
             name: "CubiomesKit",
-            targets: ["CubiomesKit"]),
+            targets: ["CubiomesKit"])
     ],
     targets: [
         .target(
@@ -39,6 +40,6 @@ let package = Package(
             resources: [
                 .process("Resources")
             ]
-        ),
+        )
     ]
 )

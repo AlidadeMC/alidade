@@ -15,19 +15,19 @@ struct CartographyMapSidebarSheet<T: ToolbarContent>: View {
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     @Binding var viewModel: CartographyMapViewModel
     @Binding var file: CartographyMapFile
-    
+
     var sheetToolbar: () -> T
-    
+
     var body: some View {
         NavigationStack {
             CartographyMapSidebar(viewModel: $viewModel, file: $file)
                 .listStyle(.plain)
                 .navigationBarBackButtonHidden()
-#if os(iOS)
-                .scrollContentBackground(.hidden)
-                .background(.clear)
-                .navigationBarTitleDisplayMode(.inline)
-#endif
+                #if os(iOS)
+                    .scrollContentBackground(.hidden)
+                    .background(.clear)
+                    .navigationBarTitleDisplayMode(.inline)
+                #endif
                 .navigationTitle(file.map.name)
                 .navigationDocument(file, preview: SharePreview(file.map.name))
                 .toolbar { sheetToolbar() }
@@ -36,6 +36,6 @@ struct CartographyMapSidebarSheet<T: ToolbarContent>: View {
         .presentationBackgroundInteraction(.enabled(upThrough: .large))
         .presentationBackground(.regularMaterial)
         .interactiveDismissDisabled()
-        
+
     }
 }

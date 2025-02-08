@@ -15,7 +15,7 @@ struct PinCreatorForm: View {
     @State private var color: CartographyMapPin.Color = .blue
 
     var completion: (CartographyMapPin) -> Void
-    
+
     var body: some View {
         Form {
             TextField("Name", text: $name)
@@ -53,9 +53,9 @@ struct PinCreatorForm: View {
 
 #Preview {
     NavigationStack {
-        PinCreatorForm(location: .init(x: 1847, y: 1963)) { newPin in
-            
+        PinCreatorForm(location: .init(x: 1847, y: 1963)) { _ in
+
         }
-            .formStyle(.grouped)
+        .formStyle(.grouped)
     }
 }

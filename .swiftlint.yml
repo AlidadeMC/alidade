@@ -1,0 +1,30 @@
+allow_zero_lintable_files: false
+check_for_updates: true
+force_cast: warning
+force_try:
+  severity: warning
+line_length: 120
+type_body_length:
+  - 300
+  - 400
+file_length:
+  warning: 500
+  error: 1200
+
+type_name:
+  min_length: 3
+  max_length:
+    warning: 40
+    error: 50
+  excluded: iPhone
+  allowed_symbols: ["_"]
+identifier_name:
+  min_length:
+    error: 2
+  excluded:
+    - x
+    - y
+    - up
+    - id
+    - URL
+reporter: "xcode"

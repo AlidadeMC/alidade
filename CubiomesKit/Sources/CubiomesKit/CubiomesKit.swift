@@ -39,7 +39,7 @@ public struct MinecraftWorld {
         self.version = version
         self.seed = seed
     }
-    
+
     public init(version: String, seed: Int64) throws(WorldError) {
         let mcVersion = MCVersion(rawValue: UInt32(str2mc(version)))
         guard mcVersion != MC_UNDEF else { throw .invalidVersionNumber }
@@ -65,7 +65,7 @@ public struct MinecraftWorld {
             y: range.position.y,
             sy: range.scale.y
         )
-        
+
         let biomeIds = allocCache(&generator, _range)
         genBiomes(&generator, biomeIds, _range)
 
@@ -86,7 +86,7 @@ public struct MinecraftWorld {
             2
         )
         biomeIds?.deallocate()
-        
+
         return ppmData(rgbData, size: .init(width: Double(imgWidth), height: Double(imgHeight)))
     }
 }

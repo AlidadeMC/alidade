@@ -5,9 +5,10 @@
 //  Created by Marquis Kurt on 04-02-2025.
 //
 
-@testable import Alidade
 import SwiftUI
 import Testing
+
+@testable import Alidade
 
 class Helper {}
 

@@ -30,7 +30,7 @@ struct CartographyMapSplitView: View {
             )
         }
         #if os(macOS)
-        .navigationSubtitle(subtitle)
+            .navigationSubtitle(subtitle)
         #endif
     }
 }

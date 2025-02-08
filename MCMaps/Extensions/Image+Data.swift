@@ -9,14 +9,14 @@ import SwiftUI
 
 extension Image {
     #if os(macOS)
-    init?(data: Data) {
-        guard let nsImage = NSImage(data: data) else { return nil }
-        self.init(nsImage: nsImage)
-    }
+        init?(data: Data) {
+            guard let nsImage = NSImage(data: data) else { return nil }
+            self.init(nsImage: nsImage)
+        }
     #elseif os(iOS)
-    init?(data: Data) {
-        guard let uiImage = UIImage(data: data) else { return nil }
-        self.init(uiImage: uiImage)
-    }
+        init?(data: Data) {
+            guard let uiImage = UIImage(data: data) else { return nil }
+            self.init(uiImage: uiImage)
+        }
     #endif
 }

@@ -10,27 +10,27 @@ import SwiftUI
 struct CartographyMapPin: Codable, Hashable {
     enum Color: String, Codable, Hashable, CaseIterable {
         case red, orange, yellow, green, blue, indigo, brown, gray, pink
-        
+
         var swiftUIColor: SwiftUI.Color {
             switch self {
             case .red:
-                    .red
+                .red
             case .orange:
-                    .orange
+                .orange
             case .yellow:
-                    .yellow
+                .yellow
             case .green:
-                    .green
+                .green
             case .blue:
-                    .blue
+                .blue
             case .indigo:
-                    .indigo
+                .indigo
             case .brown:
-                    .brown
+                .brown
             case .gray:
-                    .gray
+                .gray
             case .pink:
-                    .pink
+                .pink
             }
         }
     }

@@ -5,16 +5,17 @@
 //  Created by Marquis Kurt on 31-01-2025.
 //
 
-@testable import Alidade
 import Testing
+
+@testable import Alidade
 
 struct CartographyMapFileTests {
     @Test func initEmpty() async throws {
         let file = CartographyMapFile(map: .sampleFile)
-        
+
         #expect(file.map == .sampleFile)
     }
-    
+
     @Test func initFromData() async throws {
         guard let map = Self.packMcmetaFile.data(using: .utf8) else {
             Issue.record("Failed to convert to a Data object.")
@@ -24,7 +25,7 @@ struct CartographyMapFileTests {
 
         #expect(file.map.name == "Pack.mcmeta")
         #expect(file.map.mcVersion == "1.2")
-        #expect(file.map.seed == 3257840388504953787)
+        #expect(file.map.seed == 3_257_840_388_504_953_787)
         #expect(file.map.pins.count == 2)
         #expect(file.map.recentLocations?.count == 1)
     }
@@ -36,7 +37,7 @@ struct CartographyMapFileTests {
         }
         let file = try CartographyMapFile(decoding: map)
         let exported = try file.prepareForExport()
-        
+
         #expect(exported == map)
     }
 }

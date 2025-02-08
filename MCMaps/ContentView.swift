@@ -20,24 +20,24 @@ struct ContentView: View {
     @Environment(\.dismiss) private var dismissWindow
     @Binding var file: CartographyMapFile
     @State private var viewModel = CartographyMapViewModel()
-    
+
     var body: some View {
         Group {
-#if os(macOS)
-            CartographyMapSplitView(viewModel: $viewModel, file: $file)
-                .toolbar {
-                    toolbarContent
+            #if os(macOS)
+                CartographyMapSplitView(viewModel: $viewModel, file: $file)
+                    .toolbar {
+                        toolbarContent
+                    }
+            #else
+                AdaptableSidebarSheetView(isPresented: $viewModel.displaySidebarSheet) {
+                    CartographyMapView(state: viewModel.state)
+                        .edgesIgnoringSafeArea(.all)
+                } sheet: {
+                    CartographyMapSidebarSheet(viewModel: $viewModel, file: $file) {
+                        toolbarContent
+                    }
                 }
-#else
-            AdaptableSidebarSheetView(isPresented: $viewModel.displaySidebarSheet) {
-                CartographyMapView(state: viewModel.state)
-                    .edgesIgnoringSafeArea(.all)
-            } sheet: {
-                CartographyMapSidebarSheet(viewModel: $viewModel, file: $file) {
-                    toolbarContent
-                }
-            }
-#endif
+            #endif
         }
         .navigationTitle(file.map.name)
         .animation(.default, value: file.map.recentLocations)
@@ -45,22 +45,22 @@ struct ContentView: View {
         .task {
             await viewModel.refreshMap(file.map.seed, for: file.map.mcVersion)
         }
-        .onChange(of: viewModel.worldDimension) { _, newValue in
+        .onChange(of: viewModel.worldDimension) { _, _ in
             Task { await viewModel.refreshMap(file.map.seed, for: file.map.mcVersion) }
         }
-#if os(iOS)
-        .onAppear {
-            hideNavigationBar()
-        }
-#endif
+        #if os(iOS)
+            .onAppear {
+                hideNavigationBar()
+            }
+        #endif
         .sheet(isPresented: $viewModel.displayChangeSeedForm) {
             NavigationStack {
                 MapCreatorForm(worldName: $file.map.name, mcVersion: $file.map.mcVersion, seed: $file.map.seed)
                     .formStyle(.grouped)
                     .navigationTitle("Update World")
-#if os(iOS)
-                    .navigationBarBackButtonHidden()
-#endif
+                    #if os(iOS)
+                        .navigationBarBackButtonHidden()
+                    #endif
                     .toolbar {
                         ToolbarItem(placement: .confirmationAction) {
                             Button("Done") {
@@ -79,50 +79,51 @@ struct ContentView: View {
             }
         }
         .sheet(isPresented: $viewModel.displayNewPinForm) {
-#if os(iOS)
-            viewModel.displaySidebarSheet = horizontalSizeClass == .compact
-#endif
+            #if os(iOS)
+                viewModel.displaySidebarSheet = horizontalSizeClass == .compact
+            #endif
         } content: {
             NavigationStack {
                 PinCreatorForm(location: viewModel.locationToPin) { pin in
                     file.map.pins.append(pin)
                 }
                 .formStyle(.grouped)
-#if os(iOS)
-                .navigationBarBackButtonHidden()
-#endif
+                #if os(iOS)
+                    .navigationBarBackButtonHidden()
+                #endif
             }
         }
     }
-    
+
     private var toolbarContent: some ToolbarContent {
         Group {
-#if os(iOS)
-            ToolbarTitleMenu {
-                Picker(selection: $viewModel.worldDimension) {
-                    Label("Overworld", systemImage: "tree").tag(MinecraftWorld.Dimension.overworld)
-                    Label("Nether", systemImage: "flame").tag(MinecraftWorld.Dimension.nether)
-                    Label("End", systemImage: "sparkles").tag(MinecraftWorld.Dimension.end)
-                } label: { }
+            #if os(iOS)
+                ToolbarTitleMenu {
+                    Picker(selection: $viewModel.worldDimension) {
+                        Label("Overworld", systemImage: "tree").tag(MinecraftWorld.Dimension.overworld)
+                        Label("Nether", systemImage: "flame").tag(MinecraftWorld.Dimension.nether)
+                        Label("End", systemImage: "sparkles").tag(MinecraftWorld.Dimension.end)
+                    } label: {
+                    }
                     .labelStyle(.titleAndIcon)
                     .pickerStyle(.palette)
-                Button {
-                    viewModel.presentWorldChangesForm()
-                } label: {
-                    Label("Update World", systemImage: "tree")
+                    Button {
+                        viewModel.presentWorldChangesForm()
+                    } label: {
+                        Label("Update World", systemImage: "tree")
+                    }
                 }
-            }
-            ToolbarItem(placement: .navigation) {
-                Button {
-                    viewModel.displaySidebarSheet = false
-                    dismissWindow()
-                } label: {
-                    Label("Back", systemImage: "chevron.left")
+                ToolbarItem(placement: .navigation) {
+                    Button {
+                        viewModel.displaySidebarSheet = false
+                        dismissWindow()
+                    } label: {
+                        Label("Back", systemImage: "chevron.left")
+                    }
+                    .fontWeight(.bold)
                 }
-                .fontWeight(.bold)
-            }
-#endif
-            
+            #endif
+
             ToolbarItem {
                 Button {
                     Task {
@@ -132,27 +133,27 @@ struct ContentView: View {
                     Label("Refresh", systemImage: "arrow.clockwise")
                 }
             }
-            
-#if os(macOS)
-            ToolbarItem {
-                Button {
-                    viewModel.presentWorldChangesForm()
-                } label: {
-                    Label("Update World", systemImage: "info.circle")
+
+            #if os(macOS)
+                ToolbarItem {
+                    Button {
+                        viewModel.presentWorldChangesForm()
+                    } label: {
+                        Label("Update World", systemImage: "info.circle")
+                    }
                 }
-            }
-            
-            ToolbarItem(placement: .secondaryAction) {
-                Picker(selection: $viewModel.worldDimension) {
-                    Label("Overworld", systemImage: "tree").tag(MinecraftWorld.Dimension.overworld)
-                    Label("Nether", systemImage: "flame").tag(MinecraftWorld.Dimension.nether)
-                    Label("End", systemImage: "sparkles").tag(MinecraftWorld.Dimension.end)
-                } label: {
-                    Label("Dimension", systemImage: "map")
+
+                ToolbarItem(placement: .secondaryAction) {
+                    Picker(selection: $viewModel.worldDimension) {
+                        Label("Overworld", systemImage: "tree").tag(MinecraftWorld.Dimension.overworld)
+                        Label("Nether", systemImage: "flame").tag(MinecraftWorld.Dimension.nether)
+                        Label("End", systemImage: "sparkles").tag(MinecraftWorld.Dimension.end)
+                    } label: {
+                        Label("Dimension", systemImage: "map")
+                    }
+                    .pickerStyle(.palette)
                 }
-                .pickerStyle(.palette)
-            }
-#endif
+            #endif
         }
     }
 }

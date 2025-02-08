@@ -8,158 +8,159 @@
 import SwiftUI
 
 #if os(iOS)
-struct AdaptableSidebarSheetView<Content: View, Sheet: View>: View {
-    @Binding var sheetDisplayed: Bool
-    @State private var sheetDisplayedInternally = false
-    var preferredSidebarWidthFraction = 0.317
-    var content: () -> Content
-    var sheet: () -> Sheet
-    
-    init(preferredSidebarWidthFraction: Double = 0.317, content: @escaping () -> Content, sheet: @escaping () -> Sheet) {
-        self.sheetDisplayedInternally = false
-        self._sheetDisplayed = .init(projectedValue: .constant(false))
-        self.preferredSidebarWidthFraction = preferredSidebarWidthFraction
-        self.content = content
-        self.sheet = sheet
-        self._sheetDisplayed = $sheetDisplayedInternally
-    }
-    
-    init(
-        isPresented: Binding<Bool>,
-        preferredSidebarWidthFraction: Double = 0.317,
-        content: @escaping () -> Content,
-        sheet: @escaping () -> Sheet
-    ) {
-        self._sheetDisplayed = isPresented
-        self.preferredSidebarWidthFraction = preferredSidebarWidthFraction
-        self.content = content
-        self.sheet = sheet
-    }
-    
-    
-    var body: some View {
-        AdaptableSidebarSheetInternalView(
-            sheetDisplayed: $sheetDisplayed,
-            preferredSidebarWidthFraction: preferredSidebarWidthFraction,
-            content: content,
-            sheet: sheet
-        )
-    }
-}
+    struct AdaptableSidebarSheetView<Content: View, Sheet: View>: View {
+        @Binding var sheetDisplayed: Bool
+        @State private var sheetDisplayedInternally = false
+        var preferredSidebarWidthFraction = 0.317
+        var content: () -> Content
+        var sheet: () -> Sheet
 
+        init(
+            preferredSidebarWidthFraction: Double = 0.317, content: @escaping () -> Content,
+            sheet: @escaping () -> Sheet
+        ) {
+            self.sheetDisplayedInternally = false
+            self._sheetDisplayed = .init(projectedValue: .constant(false))
+            self.preferredSidebarWidthFraction = preferredSidebarWidthFraction
+            self.content = content
+            self.sheet = sheet
+            self._sheetDisplayed = $sheetDisplayedInternally
+        }
 
-private struct AdaptableSidebarSheetInternalView<Content: View, Sheet: View>: View {
-    enum Breakpoint {
-        case small, medium, large
+        init(
+            isPresented: Binding<Bool>,
+            preferredSidebarWidthFraction: Double = 0.317,
+            content: @escaping () -> Content,
+            sheet: @escaping () -> Sheet
+        ) {
+            self._sheetDisplayed = isPresented
+            self.preferredSidebarWidthFraction = preferredSidebarWidthFraction
+            self.content = content
+            self.sheet = sheet
+        }
+
+        var body: some View {
+            AdaptableSidebarSheetInternalView(
+                sheetDisplayed: $sheetDisplayed,
+                preferredSidebarWidthFraction: preferredSidebarWidthFraction,
+                content: content,
+                sheet: sheet
+            )
+        }
     }
-    @State private var currentBreakpoint = Breakpoint.large
-    @State private var eligibleToResize = true
-    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
-    @Binding var sheetDisplayed: Bool
-    
-    var preferredSidebarWidthFraction: CGFloat
-    var content: () -> Content
-    var sheet: () -> Sheet
 
-    private var dragGesture: some Gesture {
-        let shorthandMin = 32.0
-        let shorthandMax = 48.0
-        let longhandMin = 128.0
-        let longhandMax = 256.0
+    private struct AdaptableSidebarSheetInternalView<Content: View, Sheet: View>: View {
+        enum Breakpoint {
+            case small, medium, large
+        }
+        @State private var currentBreakpoint = Breakpoint.large
+        @State private var eligibleToResize = true
+        @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+        @Binding var sheetDisplayed: Bool
 
-        let positiveShorthand = shorthandMin ... shorthandMax
-        let negativeShorthand = -shorthandMax ... -shorthandMin
-        let positiveLonghand = longhandMin ... longhandMax
-        let negativeLonghand = -longhandMax ... -longhandMin
-        
-        return DragGesture(minimumDistance: shorthandMin / 2)
-            .onChanged { value in
-                if !eligibleToResize { return }
-                let height = value.translation.height
-                switch (currentBreakpoint, height) {
-                case (.small, positiveShorthand), (.large, negativeShorthand):
-                    withAnimation(.spring) {
-                        eligibleToResize = false
-                        currentBreakpoint = .medium
-                    } completion: {
-                        eligibleToResize = true
+        var preferredSidebarWidthFraction: CGFloat
+        var content: () -> Content
+        var sheet: () -> Sheet
+
+        private var dragGesture: some Gesture {
+            let shorthandMin = 32.0
+            let shorthandMax = 48.0
+            let longhandMin = 128.0
+            let longhandMax = 256.0
+
+            let positiveShorthand = shorthandMin...shorthandMax
+            let negativeShorthand = -shorthandMax ... -shorthandMin
+            let positiveLonghand = longhandMin...longhandMax
+            let negativeLonghand = -longhandMax ... -longhandMin
+
+            return DragGesture(minimumDistance: shorthandMin / 2)
+                .onChanged { value in
+                    if !eligibleToResize { return }
+                    let height = value.translation.height
+                    switch (currentBreakpoint, height) {
+                    case (.small, positiveShorthand), (.large, negativeShorthand):
+                        withAnimation(.spring) {
+                            eligibleToResize = false
+                            currentBreakpoint = .medium
+                        } completion: {
+                            eligibleToResize = true
+                        }
+                    case (.medium, positiveLonghand):
+                        withAnimation(.spring) {
+                            eligibleToResize = false
+                            currentBreakpoint = .large
+                        } completion: {
+                            eligibleToResize = true
+                        }
+                    case (.large, negativeLonghand), (.medium, negativeShorthand):
+                        withAnimation(.spring) {
+                            eligibleToResize = false
+                            currentBreakpoint = .small
+                        } completion: {
+                            eligibleToResize = true
+                        }
+                    default:
+                        break
                     }
-                case (.medium, positiveLonghand):
-                    withAnimation(.spring) {
-                        eligibleToResize = false
-                        currentBreakpoint = .large
-                    } completion: {
-                        eligibleToResize = true
-                    }
-                case (.large, negativeLonghand), (.medium, negativeShorthand):
-                    withAnimation(.spring) {
-                        eligibleToResize = false
-                        currentBreakpoint = .small
-                    } completion: {
-                        eligibleToResize = true
-                    }
-                default:
-                    break
+                }
+        }
+
+        var body: some View {
+            Group {
+                if horizontalSizeClass == .compact {
+                    content()
+                } else {
+                    sidebarLayout
                 }
             }
-    }
-    
-    var body: some View {
-        Group {
-            if horizontalSizeClass == .compact {
-                content()
-            } else {
-                sidebarLayout
+            .onAppear {
+                sheetDisplayed = horizontalSizeClass == .compact
+            }
+            .onChange(of: horizontalSizeClass) { _, newValue in
+                sheetDisplayed = newValue == .compact
+            }
+            .sheet(isPresented: $sheetDisplayed) {
+                sheet()
             }
         }
-        .onAppear {
-            sheetDisplayed = horizontalSizeClass == .compact
-        }
-        .onChange(of: horizontalSizeClass) { _, newValue in
-            sheetDisplayed = newValue == .compact
-        }
-        .sheet(isPresented: $sheetDisplayed) {
-            sheet()
-        }
-    }
-    
-    private var sidebarLayout: some View {
-        GeometryReader { proxy in
-            HStack {
-                VStack {
+
+        private var sidebarLayout: some View {
+            GeometryReader { proxy in
+                HStack {
                     VStack {
-                        sheet()
-                            .frame(maxHeight: height(relativeTo: proxy))
-                        Capsule()
-                            .fill(.selection)
-                            .frame(width: 64, height: 8)
-                            .gesture(dragGesture)
+                        VStack {
+                            sheet()
+                                .frame(maxHeight: height(relativeTo: proxy))
+                            Capsule()
+                                .fill(.selection)
+                                .frame(width: 64, height: 8)
+                                .gesture(dragGesture)
+                        }
+                        .padding(.vertical)
+                        .background(Color.systemBackground)
+                        .clipShape(RoundedRectangle(cornerRadius: 10))
+                        Spacer()
                     }
-                    .padding(.vertical)
-                    .background(Color.systemBackground)
-                    .clipShape(RoundedRectangle(cornerRadius: 10))
+                    .frame(width: proxy.size.width * preferredSidebarWidthFraction)
+                    .padding()
                     Spacer()
                 }
-                .frame(width: proxy.size.width * preferredSidebarWidthFraction)
-                .padding()
-                Spacer()
-            }
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
-            .background {
-                content()
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+                .background {
+                    content()
+                }
             }
         }
-    }
 
-    private func height(relativeTo proxy: GeometryProxy) -> CGFloat {
-        return switch currentBreakpoint {
-        case .small:
-            108
-        case .medium:
-            proxy.size.height * 0.5
-        case .large:
-            .infinity
+        private func height(relativeTo proxy: GeometryProxy) -> CGFloat {
+            return switch currentBreakpoint {
+            case .small:
+                108
+            case .medium:
+                proxy.size.height * 0.5
+            case .large:
+                .infinity
+            }
         }
     }
-}
 #endif

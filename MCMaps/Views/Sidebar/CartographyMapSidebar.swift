@@ -15,12 +15,12 @@ struct CartographyMapSidebar: View {
 
     private var searchBarPlacement: SearchFieldPlacement {
         #if os(macOS)
-        return .sidebar
+            return .sidebar
         #else
-        return .navigationBarDrawer(displayMode: .always)
+            return .navigationBarDrawer(displayMode: .always)
         #endif
     }
-    
+
     var body: some View {
         List {
             if !file.map.pins.isEmpty {
@@ -42,11 +42,12 @@ struct CartographyMapSidebar: View {
             if let position = positionMatch.first?.output {
                 Button {
                     viewModel.goToRegexPosition(
-                            position,
-                            seed: file.map.seed,
-                            mcVersion: file.map.mcVersion) { truePosition in
+                        position,
+                        seed: file.map.seed,
+                        mcVersion: file.map.mcVersion
+                    ) { truePosition in
                         pushToRecentLocations(truePosition)
-                                dismissSearch()
+                        dismissSearch()
                     }
                 } label: {
                     Label("Go to: " + viewModel.searchQuery, systemImage: "location.fill")
@@ -54,7 +55,7 @@ struct CartographyMapSidebar: View {
             }
         }
     }
-    
+
     func pushToRecentLocations(_ position: CGPoint) {
         if file.map.recentLocations == nil {
             file.map.recentLocations = [position]
