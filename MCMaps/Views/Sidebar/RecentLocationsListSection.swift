@@ -26,28 +26,28 @@ struct RecentLocationsListSection: View {
                     systemImage: "location.fill",
                     color: .gray
                 )
-                    .onTapGesture {
+                .onTapGesture {
+                    goToPosition?(pos)
+                }
+                .contextMenu {
+                    Button {
+                        viewModel.presentNewPinForm(for: pos)
+                    } label: {
+                        Label("Pin...", systemImage: "mappin")
+                    }
+                    Button {
                         goToPosition?(pos)
+                    } label: {
+                        Label("Go Here", systemImage: "location")
                     }
-                    .contextMenu {
-                        Button {
-                            viewModel.presentNewPinForm(for: pos)
-                        } label: {
-                            Label("Pin...", systemImage: "mappin")
-                        }
-                        Button {
-                            goToPosition?(pos)
-                        } label: {
-                            Label("Go Here", systemImage: "location")
-                        }
-                        Button("Remove from Recents", role: .destructive) {
-                            file.map.recentLocations?.remove(at: idx)
-                        }
+                    Button("Remove from Recents", role: .destructive) {
+                        file.map.recentLocations?.remove(at: idx)
                     }
-                    #if os(iOS)
-                        .listRowBackground(Color.clear)
-                        .listRowSeparator(.hidden)
-                    #endif
+                }
+                #if os(iOS)
+                    .listRowBackground(Color.clear)
+                    .listRowSeparator(.hidden)
+                #endif
             }
             .onDelete { indexSet in
                 file.map.recentLocations?.remove(atOffsets: indexSet)

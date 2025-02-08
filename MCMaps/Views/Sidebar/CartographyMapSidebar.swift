@@ -32,18 +32,13 @@ struct CartographyMapSidebar: View {
                             systemImage: "figure.run",
                             color: .accent
                         )
-                            .onTapGesture {
-                                withAnimation {
-                                    viewModel
-                                        .goTo(
-                                            position: jumpToCoordinate,
-                                            seed: file.map.seed,
-                                            mcVersion: file.map.mcVersion
-                                        )
-                                    pushToRecentLocations(jumpToCoordinate)
-                                    viewModel.searchQuery = ""
-                                }
+                        .onTapGesture {
+                            withAnimation {
+                                viewModel.go(to: jumpToCoordinate, relativeTo: file)
+                                pushToRecentLocations(jumpToCoordinate)
+                                viewModel.searchQuery = ""
                             }
+                        }
                     }
 
                     if !results.pins.isEmpty {
@@ -66,7 +61,7 @@ struct CartographyMapSidebar: View {
             }
             if file.map.recentLocations?.isEmpty == false {
                 RecentLocationsListSection(viewModel: $viewModel, file: $file) { (position: CGPoint) in
-                    viewModel.goTo(position: position, seed: file.map.seed, mcVersion: file.map.mcVersion)
+                    viewModel.go(to: position, relativeTo: file)
                 }
             }
         }

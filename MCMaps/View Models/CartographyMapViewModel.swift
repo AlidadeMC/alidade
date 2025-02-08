@@ -35,6 +35,7 @@ class CartographyMapViewModel {
 
     init() {}
 
+    @available(*, deprecated, message: "Use refreshMap(for:)")
     func refreshMap(_ seed: Int64, for version: String) async {
         state = .loading
         do {
@@ -47,9 +48,26 @@ class CartographyMapViewModel {
 
     }
 
+    func refreshMap(for file: CartographyMapFile) async {
+        state = .loading
+        do {
+            let world = try MinecraftWorld(version: file.map.mcVersion, seed: file.map.seed)
+            let mapData = world.snapshot(in: worldRange, dimension: worldDimension)
+            state = .success(mapData)
+        } catch {
+            state = .unavailable
+        }
+    }
+
+    @available(*, deprecated, message: "Use go(to:,relativeTo:)")
     func goTo(position: CGPoint, seed: Int64, mcVersion: String) {
         worldRange.position = .init(x: Int32(position.x), y: worldRange.position.y, z: Int32(position.y))
         Task { await refreshMap(seed, for: mcVersion) }
+    }
+
+    func go(to position: CGPoint, relativeTo file: CartographyMapFile) {
+        worldRange.position = .init(x: Int32(position.x), y: worldRange.position.y, z: Int32(position.y))
+        Task { await refreshMap(for: file) }
     }
 
     func presentWorldChangesForm() {
@@ -66,10 +84,21 @@ class CartographyMapViewModel {
         #endif
     }
 
+    @available(*, deprecated, message: "Use(submitWorldChanges(to:,_:)")
     func submitWorldChanges(seed: Int64, mcVersion: String, _ sizeClass: UserInterfaceSizeClass?) {
         displayChangeSeedForm = false
         Task {
             await refreshMap(seed, for: mcVersion)
+        }
+        #if os(iOS)
+            displaySidebarSheet = sizeClass == .compact
+        #endif
+    }
+
+    func submitWorldChanges(to file: CartographyMapFile, _ sizeClass: UserInterfaceSizeClass?) {
+        displayChangeSeedForm = false
+        Task {
+            await refreshMap(for: file)
         }
         #if os(iOS)
             displaySidebarSheet = sizeClass == .compact

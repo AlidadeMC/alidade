@@ -1,3 +1,5 @@
+disabled_rules:
+  - trailing_comma
 allow_zero_lintable_files: false
 check_for_updates: true
 force_cast: warning
@@ -19,11 +21,13 @@ type_name:
   excluded: iPhone
   allowed_symbols: ["_"]
 identifier_name:
+  allowed_symbols: ["_"]
   min_length:
     error: 2
   excluded:
     - x
     - y
+    - z
     - up
     - id
     - URL

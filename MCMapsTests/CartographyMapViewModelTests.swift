@@ -46,9 +46,10 @@ struct CartographyMapViewModelTests {
     @Test(arguments: [("1.2", 123, true), ("fail", 123, false)])
     func viewModelRefreshMap(version: String, seed: Int64, shouldSucceed: Bool) async throws {
         let viewModel = await CartographyMapViewModel()
+        let file = CartographyMapFile(map: .init(seed: seed, mcVersion: version, name: "Foo", pins: []))
         #expect(await viewModel.state == .loading)
 
-        await viewModel.refreshMap(seed, for: version)
+        await viewModel.refreshMap(for: file)
 
         if shouldSucceed {
             guard case .success = await viewModel.state else {
@@ -62,10 +63,11 @@ struct CartographyMapViewModelTests {
 
     @Test func viewModelGoesToPosition() async throws {
         let viewModel = await CartographyMapViewModel()
+        let file = CartographyMapFile(map: .sampleFile)
         #expect(await viewModel.state == .loading)
         #expect(await viewModel.worldRange.position == .init(x: 0, y: 15, z: 0))
 
-        await viewModel.goTo(position: .init(x: 1847, y: 1847), seed: 123, mcVersion: "1.8")
+        await viewModel.go(to: .init(x: 1847, y: 1847), relativeTo: file)
         #expect(await viewModel.worldRange.position == .init(x: 1847, y: 15, z: 1847))
         guard case .success = await viewModel.state else {
             Issue.record("An error occurred.")
@@ -140,7 +142,7 @@ struct CartographyMapViewModelTests {
             #expect(await viewModel.displaySidebarSheet == false)
         #endif
 
-        await viewModel.submitWorldChanges(seed: 1234, mcVersion: "1.9", sizeClass)
+        await viewModel.submitWorldChanges(to: .init(map: .sampleFile), sizeClass)
         #expect(await viewModel.displayChangeSeedForm == false)
         #if os(iOS)
             #expect(await viewModel.displaySidebarSheet == shouldDisplay)

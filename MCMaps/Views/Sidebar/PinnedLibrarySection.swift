@@ -17,13 +17,11 @@ struct PinnedLibrarySection: View {
             ForEach(pins, id: \.self) { (pin: CartographyMapPin) in
                 CartographyNamedLocationView(pin: pin)
                     .onTapGesture {
-                        viewModel
-                            .goTo(position: pin.position, seed: file.map.seed, mcVersion: file.map.mcVersion)
+                        viewModel.go(to: pin.position, relativeTo: file)
                     }
                     .contextMenu {
                         Button {
-                            viewModel
-                                .goTo(position: pin.position, seed: file.map.seed, mcVersion: file.map.mcVersion)
+                            viewModel.go(to: pin.position, relativeTo: file)
                         } label: {
                             Label("Go Here", systemImage: "location")
                         }

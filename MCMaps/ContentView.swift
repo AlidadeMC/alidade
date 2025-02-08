@@ -43,10 +43,10 @@ struct ContentView: View {
         .animation(.default, value: file.map.recentLocations)
         .animation(.default, value: viewModel.state)
         .task {
-            await viewModel.refreshMap(file.map.seed, for: file.map.mcVersion)
+            await viewModel.refreshMap(for: file)
         }
         .onChange(of: viewModel.worldDimension) { _, _ in
-            Task { await viewModel.refreshMap(file.map.seed, for: file.map.mcVersion) }
+            Task { await viewModel.refreshMap(for: file) }
         }
         #if os(iOS)
             .onAppear {
@@ -64,10 +64,7 @@ struct ContentView: View {
                     .toolbar {
                         ToolbarItem(placement: .confirmationAction) {
                             Button("Done") {
-                                viewModel.submitWorldChanges(
-                                    seed: file.map.seed,
-                                    mcVersion: file.map.mcVersion,
-                                    horizontalSizeClass)
+                                viewModel.submitWorldChanges(to: file, horizontalSizeClass)
                             }
                         }
                         ToolbarItem(placement: .cancellationAction) {
@@ -127,7 +124,7 @@ struct ContentView: View {
             ToolbarItem {
                 Button {
                     Task {
-                        await viewModel.refreshMap(file.map.seed, for: file.map.mcVersion)
+                        await viewModel.refreshMap(for: file)
                     }
                 } label: {
                     Label("Refresh", systemImage: "arrow.clockwise")

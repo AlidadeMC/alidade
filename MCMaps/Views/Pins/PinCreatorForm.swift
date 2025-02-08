@@ -33,7 +33,7 @@ struct PinCreatorForm: View {
                         location: location,
                         systemImage: "mappin",
                         color: color.swiftUIColor
-                     )
+                    )
                     Spacer()
                 }
             }
