@@ -23,37 +23,57 @@ struct CartographyMapSidebar: View {
 
     var body: some View {
         List {
-            if !file.map.pins.isEmpty {
-                PinnedLibrarySection(viewModel: $viewModel, file: $file)
+            if let results = searchResults, !viewModel.searchQuery.isEmpty {
+                Group {
+                    if let jumpToCoordinate = results.coordinates.first {
+                        CartographyMapPinView(pin: .init(position: jumpToCoordinate, name: "Jump Here", color: .green))
+                            .onTapGesture {
+                                withAnimation {
+                                    viewModel
+                                        .goTo(
+                                            position: jumpToCoordinate,
+                                            seed: file.map.seed,
+                                            mcVersion: file.map.mcVersion
+                                        )
+                                    pushToRecentLocations(jumpToCoordinate)
+                                    viewModel.searchQuery = ""
+                                }
+                            }
+                    }
+
+                    if !results.pins.isEmpty {
+                        PinnedLibrarySection(pins: results.pins, viewModel: $viewModel, file: $file)
+                    }
+                }
+            } else {
+                defaultView
             }
-            if file.map.recentLocations?.isEmpty == false, viewModel.searchQuery.isEmpty {
+        }
+        .frame(minWidth: 175, idealWidth: 200)
+        .searchable(text: $viewModel.searchQuery, placement: searchBarPlacement, prompt: "Go To...")
+        .animation(.default, value: searchResults)
+    }
+
+    private var defaultView: some View {
+        Group {
+            if !file.map.pins.isEmpty {
+                PinnedLibrarySection(pins: file.map.pins, viewModel: $viewModel, file: $file)
+            }
+            if file.map.recentLocations?.isEmpty == false {
                 RecentLocationsListSection(viewModel: $viewModel, file: $file) { (position: CGPoint) in
                     viewModel.goTo(position: position, seed: file.map.seed, mcVersion: file.map.mcVersion)
                 }
             }
         }
-        .frame(minWidth: 175, idealWidth: 200)
-        .searchable(
-            text: $viewModel.searchQuery,
-            placement: searchBarPlacement,
-            prompt: "Go To..."
-        ) {
-            let positionMatch = viewModel.searchQuery.matches(of: /(-?\d+), (-?\d+)/)
-            if let position = positionMatch.first?.output {
-                Button {
-                    viewModel.goToRegexPosition(
-                        position,
-                        seed: file.map.seed,
-                        mcVersion: file.map.mcVersion
-                    ) { truePosition in
-                        pushToRecentLocations(truePosition)
-                        dismissSearch()
-                    }
-                } label: {
-                    Label("Go to: " + viewModel.searchQuery, systemImage: "location.fill")
-                }
-            }
-        }
+    }
+
+    private var world: MinecraftWorld? {
+        try? MinecraftWorld(version: file.map.mcVersion, seed: file.map.seed)
+    }
+
+    private var searchResults: CartographySearchService.SearchResult? {
+        guard let world else { return nil }
+        return CartographySearchService().search(viewModel.searchQuery, world: world, file: file)
     }
 
     func pushToRecentLocations(_ position: CGPoint) {

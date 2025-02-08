@@ -8,12 +8,13 @@
 import SwiftUI
 
 struct PinnedLibrarySection: View {
+    var pins: [CartographyMapPin]
     @Binding var viewModel: CartographyMapViewModel
     @Binding var file: CartographyMapFile
 
     var body: some View {
         Section("Library") {
-            ForEach(viewModel.filterPinsByQuery(pins: file.map.pins), id: \.self) { (pin: CartographyMapPin) in
+            ForEach(pins, id: \.self) { (pin: CartographyMapPin) in
                 CartographyMapPinView(pin: pin)
                     .onTapGesture {
                         viewModel

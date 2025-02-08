@@ -35,6 +35,7 @@ class CartographyMapViewModel {
 
     init() {}
 
+    @available(*, deprecated, message: "Use the search service to filter pins.")
     func filterPinsByQuery(pins: [CartographyMapPin]) -> [CartographyMapPin] {
         if searchQuery.isEmpty { return pins }
         return pins.filter { pin in
@@ -59,6 +60,7 @@ class CartographyMapViewModel {
         Task { await refreshMap(seed, for: mcVersion) }
     }
 
+    @available(*, deprecated, message: "Use the search service rather than handling the regex output directly.")
     func goToRegexPosition(
         _ position: Regex<(Substring, Substring, Substring)>.RegexOutput,
         seed: Int64,
