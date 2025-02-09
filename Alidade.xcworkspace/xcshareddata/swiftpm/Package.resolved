@@ -1,5 +1,5 @@
 {
-  "originHash" : "6427e18e98edb930f3662dca97baf087d80b985254bc74c900411dcd7737ba60",
+  "originHash" : "81566038d95046eb499390b1fb25093739377ef113ccb2edc1c9b1af74319f55",
   "pins" : [
     {
       "identity" : "swiftlintplugins",
@@ -8,6 +8,15 @@
       "state" : {
         "revision" : "7a3d77f3dd9f91d5cea138e52c20cfceabf352de",
         "version" : "0.58.2"
+      }
+    },
+    {
+      "identity" : "viewinspector",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/nalexn/ViewInspector",
+      "state" : {
+        "revision" : "788e7879d38a839c4e348ab0762dcc0364e646a2",
+        "version" : "0.10.1"
       }
     }
   ],

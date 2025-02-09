@@ -64,3 +64,41 @@ struct PinCreatorForm: View {
         .formStyle(.grouped)
     }
 }
+
+#if DEBUG
+    extension PinCreatorForm {
+        var testHooks: TestHooks { TestHooks(target: self) }
+
+        struct TestHooks {
+            private let target: PinCreatorForm
+
+            fileprivate init(target: PinCreatorForm) {
+                self.target = target
+            }
+
+            var name: String {
+                target.name
+            }
+
+            var nameState: State<String> {
+                target._name
+            }
+
+            var color: CartographyMapPin.Color {
+                target.color
+            }
+
+            var colorState: State<CartographyMapPin.Color> {
+                target._color
+            }
+
+            var location: CGPoint {
+                target.location
+            }
+
+            var completion: (CartographyMapPin) -> Void {
+                target.completion
+            }
+        }
+    }
+#endif

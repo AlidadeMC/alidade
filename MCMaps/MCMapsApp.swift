@@ -8,6 +8,7 @@
 import SwiftUI
 
 #if os(iOS)
+    @MainActor
     func hideNavigationBar() {
         let activeScene = UIApplication.shared.connectedScenes
             .filter({ $0.activationState == .foregroundActive })
@@ -76,3 +77,25 @@ struct MCMapsApp: App {
         #endif
     }
 }
+
+#if DEBUG
+    extension MCMapsApp {
+        var testHooks: TestHooks { TestHooks(target: self) }
+
+        struct TestHooks {
+            private let target: MCMapsApp
+
+            fileprivate init(target: MCMapsApp) {
+                self.target = target
+            }
+
+            var displayCreationWindow: Bool {
+                target.displayCreationWindow
+            }
+
+            var proxyMap: CartographyMap {
+                target.proxyMap
+            }
+        }
+    }
+#endif

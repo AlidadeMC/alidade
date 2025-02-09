@@ -9,6 +9,30 @@
     }
   ],
   "defaultOptions" : {
+    "codeCoverage" : {
+      "targets" : [
+        {
+          "containerPath" : "container:CubiomesKit",
+          "identifier" : "CubiomesKit",
+          "name" : "CubiomesKit"
+        },
+        {
+          "containerPath" : "container:CubiomesKit",
+          "identifier" : "CubiomesKitTests",
+          "name" : "CubiomesKitTests"
+        },
+        {
+          "containerPath" : "container:MCMaps.xcodeproj",
+          "identifier" : "950402CE2D4D522100F51903",
+          "name" : "Alidade"
+        },
+        {
+          "containerPath" : "container:MCMaps.xcodeproj",
+          "identifier" : "950402DF2D4D522200F51903",
+          "name" : "MCMapsTests"
+        }
+      ]
+    },
     "testTimeoutsEnabled" : true
   },
   "testTargets" : [

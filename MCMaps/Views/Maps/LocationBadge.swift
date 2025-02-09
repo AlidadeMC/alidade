@@ -45,3 +45,21 @@ struct LocationBadge: View {
     .background(Color.blue)
 
 }
+
+#if DEBUG
+    extension LocationBadge {
+        var testHooks: TestHooks { TestHooks(target: self) }
+
+        struct TestHooks {
+            private let target: LocationBadge
+
+            fileprivate init(target: LocationBadge) {
+                self.target = target
+            }
+
+            var locationLabel: String {
+                target.locationLabel
+            }
+        }
+    }
+#endif

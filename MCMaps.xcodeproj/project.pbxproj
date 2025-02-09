@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		9504030F2D4D7E0A00F51903 /* CubiomesKit in Frameworks */ = {isa = PBXBuildFile; productRef = 9504030E2D4D7E0A00F51903 /* CubiomesKit */; };
+		951FE2BC2D5937630091BE11 /* ViewInspector in Frameworks */ = {isa = PBXBuildFile; productRef = 951FE2BB2D5937630091BE11 /* ViewInspector */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +65,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				951FE2BC2D5937630091BE11 /* ViewInspector in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -133,6 +135,7 @@
 			);
 			name = MCMapsTests;
 			packageProductDependencies = (
+				951FE2BB2D5937630091BE11 /* ViewInspector */,
 			);
 			productName = MCMapsTests;
 			productReference = 950402E02D4D522200F51903 /* MCMapsTests.xctest */;
@@ -169,6 +172,7 @@
 			packageReferences = (
 				9504030D2D4D7E0A00F51903 /* XCLocalSwiftPackageReference "CubiomesKit" */,
 				95DDE9652D57D0E1002B29D9 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */,
+				951FE2BA2D5937630091BE11 /* XCRemoteSwiftPackageReference "ViewInspector" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 950402D02D4D522100F51903 /* Products */;
@@ -520,6 +524,14 @@
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		951FE2BA2D5937630091BE11 /* XCRemoteSwiftPackageReference "ViewInspector" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/nalexn/ViewInspector";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.10.1;
+			};
+		};
 		95DDE9652D57D0E1002B29D9 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SimplyDanny/SwiftLintPlugins";
@@ -534,6 +546,11 @@
 		9504030E2D4D7E0A00F51903 /* CubiomesKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = CubiomesKit;
+		};
+		951FE2BB2D5937630091BE11 /* ViewInspector */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 951FE2BA2D5937630091BE11 /* XCRemoteSwiftPackageReference "ViewInspector" */;
+			productName = ViewInspector;
 		};
 		95DDE9662D57D0E9002B29D9 /* SwiftLintBuildToolPlugin */ = {
 			isa = XCSwiftPackageProductDependency;

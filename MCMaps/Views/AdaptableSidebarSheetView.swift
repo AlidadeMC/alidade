@@ -9,7 +9,7 @@ import SwiftUI
 
 #if os(iOS)
     struct AdaptableSidebarSheetView<Content: View, Sheet: View>: View {
-        @Binding var sheetDisplayed: Bool
+        @Binding private var sheetDisplayed: Bool
         @State private var sheetDisplayedInternally = false
         var preferredSidebarWidthFraction = 0.317
         var content: () -> Content
@@ -163,4 +163,35 @@ import SwiftUI
             }
         }
     }
+
+    #if DEBUG
+        extension AdaptableSidebarSheetView {
+            var testHooks: TestHooks { TestHooks(target: self) }
+
+            struct TestHooks {
+                private let target: AdaptableSidebarSheetView
+
+                fileprivate init(target: AdaptableSidebarSheetView) {
+                    self.target = target
+                }
+
+                var sheetDisplayedInternally: Bool {
+                    target.sheetDisplayedInternally
+                }
+
+                var preferredSidebarWidthFraction: Double {
+                    target.preferredSidebarWidthFraction
+                }
+
+                var content: () -> Content {
+                    target.content
+                }
+
+                var sheet: () -> Sheet {
+                    target.sheet
+                }
+            }
+        }
+    #endif
+
 #endif
