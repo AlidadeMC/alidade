@@ -19,6 +19,10 @@ struct MapCreatorForm: View {
     @State private var invalidVersion = false
     @State private var autoconvert = false
 
+    #if DEBUG
+        internal var didAppear: ((Self) -> Void)?
+    #endif
+
     var body: some View {
         Form {
             TextField("Name", text: $worldName)
@@ -63,6 +67,7 @@ struct MapCreatorForm: View {
         .onAppear {
             versionString = mcVersion
             seedString = String(seed)
+            self.didAppear?(self)
         }
     }
 }
@@ -76,3 +81,22 @@ struct MapCreatorForm: View {
             .navigationTitle("New World")
     }
 }
+
+#if DEBUG
+    extension MapCreatorForm {
+        var testHooks: TestHooks { TestHooks(target: self) }
+
+        struct TestHooks {
+            private let target: MapCreatorForm
+
+            fileprivate init(target: MapCreatorForm) {
+                self.target = target
+            }
+
+            var versionString: String { target.versionString }
+            var seedString: String { target.seedString }
+            var invalidVersion: Bool { target.invalidVersion }
+            var autoconvert: Bool { target.autoconvert }
+        }
+    }
+#endif
