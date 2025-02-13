@@ -96,12 +96,7 @@ struct ContentView: View {
         Group {
             #if os(iOS)
                 ToolbarTitleMenu {
-                    Picker(selection: $viewModel.worldDimension) {
-                        Label("Overworld", systemImage: "tree").tag(MinecraftWorld.Dimension.overworld)
-                        Label("Nether", systemImage: "flame").tag(MinecraftWorld.Dimension.nether)
-                        Label("End", systemImage: "sparkles").tag(MinecraftWorld.Dimension.end)
-                    } label: {
-                    }
+                    WorldDimensionPickerView(selection: $viewModel.worldDimension)
                     .labelStyle(.titleAndIcon)
                     .pickerStyle(.palette)
                     Button {
@@ -118,6 +113,15 @@ struct ContentView: View {
                         Label("Back", systemImage: "chevron.left")
                     }
                     .fontWeight(.bold)
+                }
+            #else
+                ToolbarItem {
+                    Menu {
+                        WorldDimensionPickerView(selection: $viewModel.worldDimension)
+                        .pickerStyle(.inline)
+                    } label: {
+                        Label("Dimension", systemImage: "map")
+                    }
                 }
             #endif
 
@@ -138,17 +142,6 @@ struct ContentView: View {
                     } label: {
                         Label("Update World", systemImage: "info.circle")
                     }
-                }
-
-                ToolbarItem(placement: .secondaryAction) {
-                    Picker(selection: $viewModel.worldDimension) {
-                        Label("Overworld", systemImage: "tree").tag(MinecraftWorld.Dimension.overworld)
-                        Label("Nether", systemImage: "flame").tag(MinecraftWorld.Dimension.nether)
-                        Label("End", systemImage: "sparkles").tag(MinecraftWorld.Dimension.end)
-                    } label: {
-                        Label("Dimension", systemImage: "map")
-                    }
-                    .pickerStyle(.palette)
                 }
             #endif
         }
