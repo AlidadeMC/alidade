@@ -4,18 +4,6 @@
 import CubiomesInternal
 import Foundation
 
-public struct MinecraftWorldRange: Sendable {
-    public var position: Point3D<Int32>
-    public var scale: Point3D<Int32>
-    public var size: Int32
-
-    public init(origin: Point3D<Int32>, scale: Point3D<Int32>, size: Int32 = 4) {
-        self.position = origin
-        self.scale = scale
-        self.size = size
-    }
-}
-
 public struct MinecraftWorld {
     public enum WorldError: Error {
         case invalidVersionNumber
@@ -87,10 +75,12 @@ public struct MinecraftWorld {
         )
         biomeIds?.deallocate()
 
-        return ppmData(rgbData, size: .init(width: Double(imgWidth), height: Double(imgHeight)))
+        let ppmData = PPMData(pixels: rgbData, size: .init(width: Double(imgWidth), height: Double(imgHeight)))
+        return Data(ppm: ppmData)
     }
 }
 
+@available(*, deprecated, message: "Use Data(ppm:) and provide a PPMData type.")
 func ppmData(_ pixels: [CUnsignedChar], size: CGSize) -> Data {
     let header = "P6\n\(Int(size.width)) \(Int(size.height))\n255\n"
     var file = Data(header.utf8)
