@@ -54,25 +54,10 @@ struct ContentView: View {
             }
         #endif
         .sheet(isPresented: $viewModel.displayChangeSeedForm) {
-            NavigationStack {
-                MapCreatorForm(worldName: $file.map.name, mcVersion: $file.map.mcVersion, seed: $file.map.seed)
-                    .formStyle(.grouped)
-                    .navigationTitle("Update World")
-                    #if os(iOS)
-                        .navigationBarBackButtonHidden()
-                    #endif
-                    .toolbar {
-                        ToolbarItem(placement: .confirmationAction) {
-                            Button("Done") {
-                                viewModel.submitWorldChanges(to: file, horizontalSizeClass)
-                            }
-                        }
-                        ToolbarItem(placement: .cancellationAction) {
-                            Button("Cancel") {
-                                viewModel.cancelWorldChanges(horizontalSizeClass)
-                            }
-                        }
-                    }
+            MapEditorFormSheet(file: $file) {
+                viewModel.submitWorldChanges(to: file, horizontalSizeClass)
+            } onCancelChanges: {
+                viewModel.cancelWorldChanges(horizontalSizeClass)
             }
         }
         .sheet(isPresented: $viewModel.displayNewPinForm) {
