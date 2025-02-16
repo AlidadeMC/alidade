@@ -46,9 +46,14 @@ struct CartographyMapSidebar: View {
                     }
 
                     if !results.structures.isEmpty {
-                        Section("Structures") {
-                            ForEach(results.structures, id: \.self) { structurePin in
-                                CartographyNamedLocationView(pin: structurePin)
+                        SearchedStructuresSection(
+                            structures: results.structures,
+                            viewModel: $viewModel,
+                            file: $file
+                        ) { jumpedToPin in
+                            withAnimation {
+                                pushToRecentLocations(jumpedToPin.position)
+                                viewModel.searchQuery = ""
                             }
                         }
                     }
