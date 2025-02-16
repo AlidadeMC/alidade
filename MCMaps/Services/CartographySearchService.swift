@@ -29,9 +29,18 @@ class CartographySearchService {
 
     enum Constants {
         static let coordinateRegex = /(-?\d+), (-?\d+)/
+        static let defaultSearchRadius: Int32 = 20
     }
 
-    func search(_ query: Query, world: MinecraftWorld, file: CartographyMapFile) -> SearchResult {
+    var searchRadius: Int32 = Constants.defaultSearchRadius
+
+    init() {
+        self.searchRadius = Constants.defaultSearchRadius
+    }
+
+    func search(
+        _ query: Query, world: MinecraftWorld, file: CartographyMapFile, currentPosition: Point3D<Int32> = .zero
+    ) -> SearchResult {
         var results = SearchResult()
 
         if let matches = query.matches(of: Constants.coordinateRegex).first?.output {
@@ -45,6 +54,18 @@ class CartographySearchService {
                 continue
             }
             results.pins.append(pin)
+        }
+
+        if let structure = MinecraftStructure(string: query) {
+            let foundStructures = world.findStructures(ofType: structure, at: currentPosition, inRadius: searchRadius)
+            for foundStruct in foundStructures {
+                results.structures
+                    .append(
+                        CartographyMapPin(
+                            position: CGPoint(x: Double(foundStruct.x), y: Double(foundStruct.z)),
+                            name: structure.name)
+                    )
+            }
         }
 
         return results

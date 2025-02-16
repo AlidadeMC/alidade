@@ -44,6 +44,14 @@ struct CartographyMapSidebar: View {
                     if !results.pins.isEmpty {
                         PinnedLibrarySection(pins: results.pins, viewModel: $viewModel, file: $file)
                     }
+
+                    if !results.structures.isEmpty {
+                        Section("Structures") {
+                            ForEach(results.structures, id: \.self) { structurePin in
+                                CartographyNamedLocationView(pin: structurePin)
+                            }
+                        }
+                    }
                 }
             } else {
                 defaultView
@@ -73,7 +81,8 @@ struct CartographyMapSidebar: View {
 
     private var searchResults: CartographySearchService.SearchResult? {
         guard let world else { return nil }
-        return CartographySearchService().search(viewModel.searchQuery, world: world, file: file)
+        return CartographySearchService()
+            .search(viewModel.searchQuery, world: world, file: file, currentPosition: viewModel.worldRange.position)
     }
 
     func pushToRecentLocations(_ position: CGPoint) {

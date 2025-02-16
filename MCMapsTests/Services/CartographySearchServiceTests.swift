@@ -49,4 +49,15 @@ struct CartographySearchServiceTests {
         #expect(results.coordinates.count == 1)
         #expect(results.coordinates.first == position)
     }
+
+    @Test func searchReturnsNearbyStructures() async throws {
+        let world = try MinecraftWorld(version: "1.21.3", seed: 123)
+        let file = CartographyMapFile(map: .sampleFile)
+        let service = CartographySearchService()
+
+        let results = service.search(
+            "mineshaft", world: world, file: file, currentPosition: .init(x: 113, y: 15, z: 430))
+        #expect(results.structures.count == 11)
+        #expect(results.structures.allSatisfy { $0.name == "Mineshaft" })
+    }
 }

@@ -8,7 +8,7 @@
 import CubiomesInternal
 import Foundation
 
-public enum MinecraftStructure {
+public enum MinecraftStructure: Equatable, Sendable, CaseIterable {
     case feature
     case desertPyramid
     case jungleTemple

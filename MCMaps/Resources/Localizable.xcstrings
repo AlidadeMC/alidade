@@ -14,7 +14,13 @@
         }
       }
     },
+    "Ancient City" : {
+
+    },
     "Back" : {
+
+    },
+    "Bastion" : {
 
     },
     "Cancel" : {
@@ -32,6 +38,12 @@
     "Create Pin" : {
 
     },
+    "Desert Pyramid" : {
+
+    },
+    "Desert Well" : {
+
+    },
     "Dimension" : {
 
     },
@@ -41,10 +53,34 @@
     "End" : {
 
     },
+    "End City" : {
+
+    },
+    "End Gateway" : {
+
+    },
+    "End Island" : {
+
+    },
+    "Feature" : {
+
+    },
+    "Fortress" : {
+
+    },
+    "Geode" : {
+
+    },
     "Go Here" : {
 
     },
     "Go To..." : {
+
+    },
+    "Igloo" : {
+
+    },
+    "Jungle Temple" : {
 
     },
     "Library" : {
@@ -53,7 +89,16 @@
     "Location" : {
 
     },
+    "Mansion" : {
+
+    },
     "Minecraft Version" : {
+
+    },
+    "Mineshaft" : {
+
+    },
+    "Monument" : {
 
     },
     "Name" : {
@@ -66,6 +111,12 @@
 
     },
     "Not a valid Minecraft version." : {
+
+    },
+    "Ocean Ruin" : {
+
+    },
+    "Outpost" : {
 
     },
     "Overworld" : {
@@ -83,13 +134,37 @@
     "Remove from Recents" : {
 
     },
+    "Ruined Portal" : {
+
+    },
     "Seed" : {
+
+    },
+    "Shipwreck" : {
+
+    },
+    "Structures" : {
+
+    },
+    "Swamp Hut" : {
 
     },
     "This seed will be converted to: `%@`" : {
 
     },
+    "Trail Ruins" : {
+
+    },
+    "Treasure" : {
+
+    },
+    "Trial Chamber" : {
+
+    },
     "Update World" : {
+
+    },
+    "Village" : {
 
     }
   },
