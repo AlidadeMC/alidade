@@ -20,6 +20,9 @@ let package = Package(
             name: "CubiomesKit",
             targets: ["CubiomesKit"])
     ],
+    dependencies: [
+        .package(url: "https://github.com/pointfreeco/swift-snapshot-testing", from: "1.18.0")
+    ],
     targets: [
         .target(
             name: "Cubiomes",
@@ -36,9 +39,9 @@ let package = Package(
             dependencies: ["Cubiomes", "CubiomesInternal"]),
         .testTarget(
             name: "CubiomesKitTests",
-            dependencies: ["CubiomesKit"],
-            resources: [
-                .process("Resources")
+            dependencies: [
+                "CubiomesKit",
+                .product(name: "SnapshotTesting", package: "swift-snapshot-testing")
             ]
         ),
     ]

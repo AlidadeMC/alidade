@@ -8,7 +8,7 @@
 import Foundation
 
 /// A representation of a point in three-dimensional space.
-public struct Point3D<T: Numeric & Sendable>: Equatable, Sendable {
+public struct Point3D<T: Numeric & Sendable & Hashable>: Equatable, Hashable, Sendable {
     /// The position coordinate along the X axis.
     public var x: T
 
@@ -37,4 +37,16 @@ public struct Point3D<T: Numeric & Sendable>: Equatable, Sendable {
         self.y = 1
         self.z = Int32(cgPoint.y)
     }
+
+    public func offset(by scalarValue: T, appliesToY: Bool = false) -> Self {
+        Self(x: x + scalarValue, y: appliesToY ? y + scalarValue : y, z: z + scalarValue)
+    }
+}
+
+public extension Point3D where T == Int32 {
+    static let zero = Point3D<Int32>(x: 0, y: 0, z: 0)
+}
+
+public extension Point3D where T == Int {
+    static let zero = Point3D<Int>(x: 0, y: 0, z: 0)
 }
