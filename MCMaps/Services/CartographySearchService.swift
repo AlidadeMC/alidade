@@ -39,7 +39,10 @@ class CartographySearchService {
     }
 
     func search(
-        _ query: Query, world: MinecraftWorld, file: CartographyMapFile, currentPosition: Point3D<Int32> = .zero
+        _ query: Query, world: MinecraftWorld,
+        file: CartographyMapFile,
+        currentPosition: Point3D<Int32> = .zero,
+        dimension: MinecraftWorld.Dimension = .overworld
     ) -> SearchResult {
         var results = SearchResult()
 
@@ -57,13 +60,19 @@ class CartographySearchService {
         }
 
         if let structure = MinecraftStructure(string: query) {
-            let foundStructures = world.findStructures(ofType: structure, at: currentPosition, inRadius: searchRadius)
+            let foundStructures = world.findStructures(
+                ofType: structure,
+                at: currentPosition,
+                inRadius: searchRadius,
+                dimension: dimension
+            )
             for foundStruct in foundStructures {
                 results.structures
                     .append(
                         CartographyMapPin(
                             position: CGPoint(x: Double(foundStruct.x), y: Double(foundStruct.z)),
-                            name: structure.name)
+                            name: structure.name,
+                            color: structure.pinColor)
                     )
             }
         }

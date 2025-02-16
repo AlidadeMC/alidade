@@ -87,7 +87,13 @@ struct CartographyMapSidebar: View {
     private var searchResults: CartographySearchService.SearchResult? {
         guard let world else { return nil }
         return CartographySearchService()
-            .search(viewModel.searchQuery, world: world, file: file, currentPosition: viewModel.worldRange.position)
+            .search(
+                viewModel.searchQuery,
+                world: world,
+                file: file,
+                currentPosition: viewModel.worldRange.position,
+                dimension: viewModel.worldDimension
+            )
     }
 
     func pushToRecentLocations(_ position: CGPoint) {

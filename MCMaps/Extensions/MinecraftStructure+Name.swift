@@ -70,4 +70,25 @@ extension MinecraftStructure {
         }
         return nil
     }
+
+    var pinColor: CartographyMapPin.Color {
+        switch self {
+        case .desertWell, .desertPyramid:
+            return .yellow
+        case .mineshaft, .village, .mansion, .treasure:
+            return .brown
+        case .swampHut, .jungleTemple:
+            return .green
+        case .geode, .endCity, .endIsland, .endGateway:
+            return .indigo
+        case .bastion, .fortress, .ruinedPortal, .ruinedPortalN:
+            return .red
+        case .outpost, .feature:
+            return .gray
+        case .trialChambers, .trailRuins:
+            return .orange
+        default:
+            return .blue
+        }
+    }
 }
