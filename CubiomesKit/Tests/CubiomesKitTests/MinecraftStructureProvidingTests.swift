@@ -13,7 +13,7 @@ import Testing
 struct MinecraftStructureProvidingTests {
     @Test func nearbyStructuresFound() async throws {
         let mcWorld = try MinecraftWorld(version: "1.8", seed: 123)
-        let structures = mcWorld.findStructures(ofType: Mineshaft, at: .init(x: 864, y: 15, z: -20), inRadius: 7)
+        let structures = mcWorld.findStructures(ofType: .mineshaft, at: .init(x: 864, y: 15, z: -20), inRadius: 7)
         print(structures)
         #expect(structures.count == 3)
     }

@@ -15,7 +15,7 @@ private enum StructureConstants {
 public protocol MinecraftStructureSearching {
     typealias Coordinate = Point3D<Int32>
     func findStructures(
-        ofType structureType: StructureType, at position: Coordinate, inRadius chunkRadius: Int32,
+        ofType structureType: MinecraftStructure, at position: Coordinate, inRadius chunkRadius: Int32,
         dimension: MinecraftWorld.Dimension
     )
         -> Set<Coordinate>
@@ -23,16 +23,16 @@ public protocol MinecraftStructureSearching {
 
 extension MinecraftWorld: MinecraftStructureSearching {
     public func findStructures(
-        ofType structureType: StructureType, at position: Coordinate, inRadius chunkRadius: Int32 = 1,
+        ofType structureType: MinecraftStructure, at position: Coordinate, inRadius chunkRadius: Int32 = 1,
         dimension: Dimension = .overworld
     ) -> Set<Coordinate> {
         var structures = Set<Coordinate>()
         var generator = generator(in: dimension)
         let blocksInChunkRadius = chunkRadius * StructureConstants.blocksPerChunk
-        let sType = Int32(structureType.rawValue)
+        let sType = Int32(structureType.cbStructure.rawValue)
 
         var surfaceNoise = SurfaceNoise()
-        if dimension == .end, structureType == End_City {
+        if dimension == .end, structureType == .endCity {
             initSurfaceNoise(&surfaceNoise, dimension.cbDimension.rawValue, generator.seed)
         }
     
@@ -70,7 +70,7 @@ extension MinecraftWorld: MinecraftStructureSearching {
                     continue
                 }
 
-                if dimension == .end, structureType == End_City {
+                if dimension == .end, structureType == .endCity {
                     guard isViableEndCityTerrain(&generator, &surfaceNoise, pos.x, pos.z) > 0 else {
                         continue
                     }
