@@ -75,6 +75,12 @@ class CartographySearchService {
                             color: structure.pinColor)
                     )
             }
+
+            let cgPointOrigin = CGPoint(x: Double(currentPosition.x), y: Double(currentPosition.z))
+            results.structures.sort { first, second in
+                first.position
+                    .manhattanDistance(to: cgPointOrigin) < second.position.manhattanDistance(to: cgPointOrigin)
+            }
         }
 
         return results

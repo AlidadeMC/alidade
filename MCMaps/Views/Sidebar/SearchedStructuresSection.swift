@@ -19,6 +19,10 @@ struct SearchedStructuresSection: View {
         Section("Structures") {
             ForEach(structures, id: \.self) { pin in
                 CartographyNamedLocationView(pin: pin)
+                    .coordinateDisplayMode(
+                        .relative(
+                            CGPoint(x: Double(viewModel.worldRange.position.x),
+                                    y: Double(viewModel.worldRange.position.z))))
                     .onTapGesture {
                         viewModel.go(to: pin.position, relativeTo: file)
                         jumpedToStructure?(pin)

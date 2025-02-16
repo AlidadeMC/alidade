@@ -8,10 +8,28 @@
 import SwiftUI
 
 struct CartographyNamedLocationView: View {
+    enum DisplayMode {
+        case absolute, relative(CGPoint)
+    }
+    private var coordinateDisplayMode = DisplayMode.absolute
     var name: String
     var location: CGPoint
     var systemImage: String
     var color: Color
+
+    fileprivate init(
+        name: String,
+        location: CGPoint,
+        systemImage: String,
+        color: Color,
+        displayMode: DisplayMode
+    ) {
+        self.name = name
+        self.location = location
+        self.systemImage = systemImage
+        self.color = color
+        self.coordinateDisplayMode = displayMode
+    }
 
     init(name: String, location: CGPoint, systemImage: String, color: Color) {
         self.name = name
@@ -36,10 +54,32 @@ struct CartographyNamedLocationView: View {
             VStack(alignment: .leading) {
                 Text(name)
                     .font(.headline)
-                Text("(\(Int(location.x)), \(Int(location.y)))")
+                Text(coordinateDisplayText)
                     .font(.subheadline)
                     .fontDesign(.monospaced)
             }
         }
+    }
+
+    private var coordinateDisplayText: String {
+        switch coordinateDisplayMode {
+        case .absolute:
+            return String(localized: "(\(Int(location.x)), \(Int(location.y)))")
+        case .relative(let cGPoint):
+            let distance = location.manhattanDistance(to: cGPoint)
+            return String(localized: "\(Int(distance)) blocks away")
+        }
+    }
+}
+
+extension CartographyNamedLocationView {
+    func coordinateDisplayMode(_ displayMode: Self.DisplayMode) -> Self {
+        CartographyNamedLocationView(
+            name: self.name,
+            location: self.location,
+            systemImage: self.systemImage,
+            color: self.color,
+            displayMode: displayMode
+        )
     }
 }
