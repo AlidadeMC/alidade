@@ -37,11 +37,12 @@ struct CartographyMapFile: FileDocument, Sendable {
     }
 
     init(configuration: ReadConfiguration) throws {
-        guard let contents = configuration.file.regularFileContents else {
-            throw CocoaError(CocoaError.coderReadCorrupt)
+        guard let metadata = configuration.file.fileWrappers?["Info.json"],
+              let metadataContents = metadata.regularFileContents else {
+            throw CocoaError(CocoaError.fileReadCorruptFile)
         }
         let decoder = JSONDecoder()
-        self.map = try decoder.decode(CartographyMap.self, from: contents)
+        self.map = try decoder.decode(CartographyMap.self, from: metadataContents)
     }
 
     func prepareForExport() throws -> Data {
@@ -51,8 +52,11 @@ struct CartographyMapFile: FileDocument, Sendable {
     }
 
     func fileWrapper(configuration: WriteConfiguration) throws -> FileWrapper {
-        let encoded = try prepareForExport()
-        return FileWrapper(regularFileWithContents: encoded)
+        let encodedMetadata = try prepareForExport()
+        let metadataWrapper = FileWrapper(regularFileWithContents: encodedMetadata)
+        return FileWrapper(directoryWithFileWrappers: [
+            "Info.json": metadataWrapper
+        ])
     }
 }
 
