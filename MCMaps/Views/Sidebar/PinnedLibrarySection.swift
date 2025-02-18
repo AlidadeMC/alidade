@@ -14,16 +14,28 @@ struct PinnedLibrarySection: View {
 
     var body: some View {
         Section("Library") {
-            ForEach(pins, id: \.self) { (pin: CartographyMapPin) in
+            ForEach(Array(pins.enumerated()), id: \.element) { (idx: Int, pin: CartographyMapPin) in
                 CartographyNamedLocationView(pin: pin)
                     .onTapGesture {
                         viewModel.go(to: pin.position, relativeTo: file)
+                        viewModel.selectedPinIndex = idx
+                        if !viewModel.displayPinInformation {
+                            viewModel.displayPinInformation.toggle()
+                        }
                     }
                     .contextMenu {
                         Button {
                             viewModel.go(to: pin.position, relativeTo: file)
                         } label: {
                             Label("Go Here", systemImage: "location")
+                        }
+                        Button {
+                            viewModel.selectedPinIndex = idx
+                            if !viewModel.displayPinInformation {
+                                viewModel.displayPinInformation.toggle()
+                            }
+                        } label: {
+                            Label("Get Info", systemImage: "info.circle")
                         }
                         Menu("Color", systemImage: "paintpalette") {
                             ForEach(CartographyMapPin.Color.allCases, id: \.self) { pinColor in

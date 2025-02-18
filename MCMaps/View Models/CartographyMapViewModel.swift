@@ -18,6 +18,8 @@ class CartographyMapViewModel {
     #endif
     var displayChangeSeedForm = false
     var displayNewPinForm = false
+    var displayPinInformation = false
+
     var state = CartographyMapViewState.loading
     var searchQuery = ""
     var worldDimension = MinecraftWorld.Dimension.overworld
@@ -32,6 +34,7 @@ class CartographyMapViewModel {
     }
 
     var locationToPin: CGPoint = .zero
+    var selectedPinIndex = -1
 
     init() {}
 

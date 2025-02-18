@@ -74,6 +74,9 @@
     "Geode" : {
 
     },
+    "Get Info" : {
+
+    },
     "Go Here" : {
 
     },
@@ -111,6 +114,9 @@
 
     },
     "No Map Available" : {
+
+    },
+    "No Pin Selected" : {
 
     },
     "Not a valid Minecraft version." : {

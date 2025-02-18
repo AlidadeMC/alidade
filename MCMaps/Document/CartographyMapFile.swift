@@ -22,7 +22,7 @@ extension CartographyMap {
         ])
 }
 
-struct CartographyMapFile: FileDocument, Sendable {
+struct CartographyMapFile: FileDocument, Sendable, Equatable {
     static var readableContentTypes: [UTType] { [.cartography] }
 
     var map: CartographyMap
@@ -38,7 +38,8 @@ struct CartographyMapFile: FileDocument, Sendable {
 
     init(configuration: ReadConfiguration) throws {
         guard let metadata = configuration.file.fileWrappers?["Info.json"],
-              let metadataContents = metadata.regularFileContents else {
+            let metadataContents = metadata.regularFileContents
+        else {
             throw CocoaError(CocoaError.fileReadCorruptFile)
         }
         let decoder = JSONDecoder()
