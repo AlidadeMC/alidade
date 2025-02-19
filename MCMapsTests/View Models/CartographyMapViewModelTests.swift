@@ -69,4 +69,38 @@ struct CartographyMapViewModelTests {
             return
         }
     }
+
+    @Test func viewModelSubmitsWorldChanges() async throws {
+        let viewModel = await CartographyMapViewModel()
+        let file = CartographyMapFile(map: .sampleFile)
+
+        await MainActor.run {
+            viewModel.currentRoute = .editWorld
+        }
+
+        await viewModel.submitWorldChanges(to: file)
+        #expect(await viewModel.currentRoute == nil)
+        guard case .success = await viewModel.mapState else {
+            Issue.record("An error occurred.")
+            return
+        }
+    }
+
+    @Test func viewModelRouteBindings() async throws {
+        let viewModel = await CartographyMapViewModel()
+        await MainActor.run {
+            viewModel.currentRoute = .editWorld
+        }
+
+        #if os(iOS)
+            #expect(await viewModel.displayCurrentRouteAsInspector.wrappedValue == false)
+            #expect(await viewModel.displayCurrentRouteModally.wrappedValue == false)
+        #else
+            #expect(await viewModel.displayCurrentRouteAsInspector.wrappedValue == false)
+            #expect(await viewModel.displayCurrentRouteModally.wrappedValue == true)
+
+            await viewModel.displayCurrentRouteModally.wrappedValue = false
+            #expect(await viewModel.currentRoute == nil)
+        #endif
+    }
 }

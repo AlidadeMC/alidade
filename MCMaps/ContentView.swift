@@ -16,7 +16,6 @@ enum CartographyMapViewState: Equatable {
 }
 
 struct ContentView: View {
-    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     @Environment(\.dismiss) private var dismissWindow
     @Binding var file: CartographyMapFile
     @State private var viewModel = CartographyMapViewModel()
@@ -66,7 +65,7 @@ struct ContentView: View {
                     }
                 case .editWorld:
                     MapEditorFormSheet(file: $file) {
-                        viewModel.submitWorldChanges(to: file, horizontalSizeClass)
+                        viewModel.submitWorldChanges(to: file)
                     } onCancelChanges: {
                         viewModel.currentRoute = nil
                     }

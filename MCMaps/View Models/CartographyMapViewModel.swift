@@ -98,20 +98,12 @@ class CartographyMapViewModel {
         Task { await refreshMap(for: file) }
     }
 
-    @available(*, deprecated, message: "Set the currentRoute to nil.")
-    func cancelWorldChanges(_ sizeClass: UserInterfaceSizeClass?) {
-        currentRoute = nil
-    }
-
-    func submitWorldChanges(to file: CartographyMapFile, _ sizeClass: UserInterfaceSizeClass?) {
+    /// Submits the user-made changes to the current file and reloads the map.
+    /// - Parameter file: The file to commit the changes to.
+    func submitWorldChanges(to file: CartographyMapFile) {
         currentRoute = nil
         Task {
             await refreshMap(for: file)
         }
-    }
-
-    @available(*, deprecated, message: "Set the currentRoute to .createPin(:)")
-    func presentNewPinForm(for location: CGPoint) {
-        currentRoute = .createPin(location)
     }
 }

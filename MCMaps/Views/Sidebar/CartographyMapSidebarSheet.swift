@@ -15,12 +15,11 @@ struct CartographyMapSidebarSheet<T: ToolbarContent>: View {
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     @Binding var viewModel: CartographyMapViewModel
     @Binding var file: CartographyMapFile
-    @State private var stackPathing: NavigationPath = .init()
 
     var sheetToolbar: () -> T
 
     var body: some View {
-        NavigationStack(path: $stackPathing) {
+        NavigationStack {
             CartographyMapSidebar(viewModel: $viewModel, file: $file)
                 .listStyle(.plain)
                 .navigationBarBackButtonHidden()
@@ -60,13 +59,13 @@ struct CartographyMapSidebarSheet<T: ToolbarContent>: View {
                 MapCreatorForm(worldName: $file.map.name, mcVersion: $file.map.mcVersion, seed: $file.map.seed)
                     .navigationTitle("Edit World")
                     .onDisappear {
-                        viewModel.submitWorldChanges(to: file, horizontalSizeClass)
+                        viewModel.submitWorldChanges(to: file)
                     }
                     .onChange(of: file.map.mcVersion) { _, _ in
-                        viewModel.submitWorldChanges(to: file, horizontalSizeClass)
+                        viewModel.submitWorldChanges(to: file)
                     }
                     .onChange(of: file.map.seed) { _, _ in
-                        viewModel.submitWorldChanges(to: file, horizontalSizeClass)
+                        viewModel.submitWorldChanges(to: file)
                     }
             default:
                 Group {
