@@ -20,9 +20,9 @@ struct MapEditorFormSheetTests {
 
         let form = try sut.navigationStack().view(MapCreatorForm.self)
         #if os(iOS)
-        #expect(try form.navigationBarBackButtonHidden() == true)
+            #expect(try form.navigationBarBackButtonHidden() == true)
         #endif
-        
+
         let toolbar = try form.toolbar()
         #expect(!toolbar.isAbsent)
 
@@ -30,7 +30,7 @@ struct MapEditorFormSheetTests {
         let doneButton = try doneButtonItem.button()
         #expect(try doneButtonItem.placement() == .confirmationAction)
         #expect(try doneButton.labelView().text().string() == "Done")
-        
+
         let cancelButtonItem = try toolbar.item(1)
         let cancelButton = try cancelButtonItem.button()
         #expect(try cancelButtonItem.placement() == .cancellationAction)

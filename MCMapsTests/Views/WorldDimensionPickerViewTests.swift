@@ -18,10 +18,10 @@ struct WorldDimensionPickerViewTests {
         let dimension: Binding<MinecraftWorld.Dimension> = .init(wrappedValue: .overworld)
         let view = WorldDimensionPickerView(selection: dimension)
         let sut = try view.inspect().implicitAnyView()
-        
+
         let picker = try sut.picker()
         #expect(try picker.labelView().text().string() == "Dimension")
-        
+
         let overworld = try picker.label(0)
         #expect(try overworld.title().text().string() == "Overworld")
         #expect(try overworld.icon().image().actualImage() == Image(systemName: "tree"))

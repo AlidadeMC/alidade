@@ -53,6 +53,9 @@
     "Done" : {
 
     },
+    "Edit World" : {
+
+    },
     "End" : {
 
     },
@@ -117,6 +120,12 @@
 
     },
     "No Pin Selected" : {
+
+    },
+    "No Route Available" : {
+
+    },
+    "No view was defined for route %@" : {
 
     },
     "Not a valid Minecraft version." : {

@@ -15,7 +15,7 @@ struct MinecraftStructureNameTests {
     @Test(arguments: [
         ("Mineshaft", MinecraftStructure.mineshaft),
         ("Trial Chamber", MinecraftStructure.trialChambers),
-        ("End City", MinecraftStructure.endCity)
+        ("End City", MinecraftStructure.endCity),
     ])
     func nameReturnsValidMatch(name: String, expected: MinecraftStructure) async throws {
         let potentialStruct = MinecraftStructure(string: name)

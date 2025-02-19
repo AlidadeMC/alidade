@@ -27,7 +27,6 @@ public struct MinecraftWorld {
     public var seed: Int64
     public var largeBiomes = false
 
-
     init(version: MCVersion, seed: Int64) {
         self.version = version
         self.seed = seed

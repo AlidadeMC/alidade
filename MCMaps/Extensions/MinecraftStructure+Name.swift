@@ -63,7 +63,7 @@ extension MinecraftStructure {
 
     init?(string: String) {
         for structure in Self.allCases {
-            if structure.name.localizedLowercase == string.localizedLowercase { // swiftlint:disable:this for_where
+            if structure.name.localizedLowercase == string.localizedLowercase {  // swiftlint:disable:this for_where
                 self = structure
                 return
             }

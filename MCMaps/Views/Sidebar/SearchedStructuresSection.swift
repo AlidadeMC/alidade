@@ -21,8 +21,10 @@ struct SearchedStructuresSection: View {
                 CartographyNamedLocationView(pin: pin)
                     .coordinateDisplayMode(
                         .relative(
-                            CGPoint(x: Double(viewModel.worldRange.position.x),
-                                    y: Double(viewModel.worldRange.position.z))))
+                            CGPoint(
+                                x: Double(viewModel.worldRange.position.x),
+                                y: Double(viewModel.worldRange.position.z)))
+                    )
                     .onTapGesture {
                         viewModel.go(to: pin.position, relativeTo: file)
                         jumpedToStructure?(pin)
@@ -35,7 +37,7 @@ struct SearchedStructuresSection: View {
                             Label("Go Here", systemImage: "location")
                         }
                         Button {
-                            viewModel.presentNewPinForm(for: pin.position)
+                            viewModel.currentRoute = .createPin(pin.position)
                         } label: {
                             Label("Pin...", systemImage: "mappin")
                         }

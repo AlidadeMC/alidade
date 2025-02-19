@@ -8,20 +8,13 @@
 import SwiftUI
 
 struct CartographyMapPinDetailView: View {
-    struct Constants {
-        static let pinHeightMultiplier = 2.5
-        #if os(macOS)
-            static let basePinHeight = 175.0
-        #else
-            static let basePinHeight = 280.0
-        #endif
-    }
     var viewModel: CartographyPinViewModel
 
     var body: some View {
         List {
             VStack(alignment: .leading) {
                 TextField("Name", text: viewModel.pin.name)
+                    .allowsTightening(true)
                     .font(.title)
                     .bold()
                     .textFieldStyle(.plain)
@@ -56,38 +49,17 @@ struct CartographyMapPinDetailView: View {
 
             Section("Color") {
                 HStack {
-                    ForEach(CartographyMapPin.Color.allCases, id: \.self) { pinColor in
-                        Button {
-                            viewModel.pin.wrappedValue.color = pinColor
-                        } label: {
-                            Circle().fill(pinColor.swiftUIColor.gradient)
-                                .frame(width: pinColorHeight, height: pinColorHeight)
-                                .overlay {
-                                    if viewModel.pin.wrappedValue.color == pinColor {
-                                        Circle()
-                                            .fill(Color.white)
-                                            .frame(
-                                                width: pinColorHeight / Constants.pinHeightMultiplier,
-                                                height: pinColorHeight / Constants.pinHeightMultiplier
-                                            )
-                                    }
-                                }
-                        }
-                        .tag(pinColor)
-                        .help(String(describing: pinColor).localizedCapitalized)
-                        .accessibilityLabel(String(describing: pinColor).localizedCapitalized)
-                    }
-                    .buttonStyle(.plain)
+                    Spacer()
+                    CartographyMapPinColorPicker(color: viewModel.pin.color)
+                    Spacer()
                 }
+                .listRowInsets(.init(top: 2, leading: 0, bottom: 2, trailing: 0))
+                .listRowSeparator(.hidden)
             }
         }
         .listStyle(.inset)
         .scrollContentBackground(.hidden)
         .animation(.default, value: viewModel.pin.wrappedValue)
-    }
-
-    private var pinColorHeight: Double {
-        return Constants.basePinHeight / Double(CartographyMapPin.Color.allCases.count)
     }
 }
 

@@ -20,6 +20,7 @@ struct ContentView: View {
     @Environment(\.dismiss) private var dismissWindow
     @Binding var file: CartographyMapFile
     @State private var viewModel = CartographyMapViewModel()
+    @State private var displaySidebarSheet = false
 
     var body: some View {
         Group {
@@ -29,8 +30,8 @@ struct ContentView: View {
                         toolbarContent
                     }
             #else
-                AdaptableSidebarSheetView(isPresented: $viewModel.displaySidebarSheet) {
-                    CartographyMapView(state: viewModel.state)
+                AdaptableSidebarSheetView(isPresented: $displaySidebarSheet) {
+                    CartographyMapView(state: viewModel.mapState)
                         .edgesIgnoringSafeArea(.all)
                 } sheet: {
                     CartographyMapSidebarSheet(viewModel: $viewModel, file: $file) {
@@ -41,7 +42,7 @@ struct ContentView: View {
         }
         .navigationTitle(file.map.name)
         .animation(.default, value: file.map.recentLocations)
-        .animation(.default, value: viewModel.state)
+        .animation(.default, value: viewModel.mapState)
         .task {
             await viewModel.refreshMap(for: file)
         }
@@ -53,26 +54,25 @@ struct ContentView: View {
                 hideNavigationBar()
             }
         #endif
-        .sheet(isPresented: $viewModel.displayChangeSeedForm) {
-            MapEditorFormSheet(file: $file) {
-                viewModel.submitWorldChanges(to: file, horizontalSizeClass)
-            } onCancelChanges: {
-                viewModel.cancelWorldChanges(horizontalSizeClass)
-            }
-        }
-        .sheet(isPresented: $viewModel.displayNewPinForm) {
-            #if os(iOS)
-                viewModel.displaySidebarSheet = horizontalSizeClass == .compact
-            #endif
-        } content: {
-            NavigationStack {
-                PinCreatorForm(location: viewModel.locationToPin) { pin in
-                    file.map.pins.append(pin)
+        .sheet(isPresented: viewModel.displayCurrentRouteModally) {
+            Group {
+                switch viewModel.currentRoute {
+                case .createPin(let cgPoint):
+                    NavigationStack {
+                        PinCreatorForm(location: cgPoint) { pin in
+                            file.map.pins.append(pin)
+                        }
+                        .formStyle(.grouped)
+                    }
+                case .editWorld:
+                    MapEditorFormSheet(file: $file) {
+                        viewModel.submitWorldChanges(to: file, horizontalSizeClass)
+                    } onCancelChanges: {
+                        viewModel.currentRoute = nil
+                    }
+                default:
+                    EmptyView()
                 }
-                .formStyle(.grouped)
-                #if os(iOS)
-                    .navigationBarBackButtonHidden()
-                #endif
             }
         }
     }
@@ -82,17 +82,15 @@ struct ContentView: View {
             #if os(iOS)
                 ToolbarTitleMenu {
                     WorldDimensionPickerView(selection: $viewModel.worldDimension)
-                    .labelStyle(.titleAndIcon)
-                    .pickerStyle(.palette)
-                    Button {
-                        viewModel.presentWorldChangesForm()
-                    } label: {
+                        .labelStyle(.titleAndIcon)
+                        .pickerStyle(.palette)
+                    NavigationLink(value: CartographyRoute.editWorld) {
                         Label("Update World", systemImage: "tree")
                     }
                 }
                 ToolbarItem(placement: .navigation) {
                     Button {
-                        viewModel.displaySidebarSheet = false
+                        displaySidebarSheet = false
                         dismissWindow()
                     } label: {
                         Label("Back", systemImage: "chevron.left")
@@ -103,7 +101,7 @@ struct ContentView: View {
                 ToolbarItem {
                     Menu {
                         WorldDimensionPickerView(selection: $viewModel.worldDimension)
-                        .pickerStyle(.inline)
+                            .pickerStyle(.inline)
                     } label: {
                         Label("Dimension", systemImage: "map")
                     }
@@ -123,16 +121,17 @@ struct ContentView: View {
             #if os(macOS)
                 ToolbarItem {
                     Button {
-                        viewModel.displayPinInformation.toggle()
+                        viewModel.displayCurrentRouteAsInspector.wrappedValue.toggle()
                     } label: {
-                        Label("Pin Inspector", systemImage: "pin")
+                        Label("Pin Inspector", image: "mappin.circle.badge.gearshape.fill")
                     }
+                    .disabled(viewModel.currentRoute?.requiresInspectorDisplay != true)
                 }
                 ToolbarItem {
                     Button {
-                        viewModel.presentWorldChangesForm()
+                        viewModel.currentRoute = .editWorld
                     } label: {
-                        Label("Update World", systemImage: "info.circle")
+                        Label("Update World", image: "globe.desk.badge.gearshape.fill")
                     }
                 }
             #endif

@@ -43,10 +43,10 @@ public struct Point3D<T: Numeric & Sendable & Hashable>: Equatable, Hashable, Se
     }
 }
 
-public extension Point3D where T == Int32 {
-    static let zero = Point3D<Int32>(x: 0, y: 0, z: 0)
+extension Point3D where T == Int32 {
+    public static let zero = Point3D<Int32>(x: 0, y: 0, z: 0)
 }
 
-public extension Point3D where T == Int {
-    static let zero = Point3D<Int>(x: 0, y: 0, z: 0)
+extension Point3D where T == Int {
+    public static let zero = Point3D<Int>(x: 0, y: 0, z: 0)
 }

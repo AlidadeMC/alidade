@@ -15,31 +15,23 @@ struct PinnedLibrarySection: View {
     var body: some View {
         Section("Library") {
             ForEach(Array(pins.enumerated()), id: \.element) { (idx: Int, pin: CartographyMapPin) in
-                CartographyNamedLocationView(pin: pin)
-                    .tag(CartographyMapSidebar.SidebarSelection.pin(idx, pin: pin))
-                #if os(iOS)
-                    .onTapGesture {
-                        viewModel.go(to: pin.position, relativeTo: file)
-                        viewModel.selectedPinIndex = idx
-                        if !viewModel.displayPinInformation {
-                            viewModel.displayPinInformation.toggle()
-                        }
-                    }
-                #endif
+                NavigationLink(value: CartographyRoute.pin(idx, pin: pin)) {
+                    CartographyNamedLocationView(pin: pin)
+                        .tag(CartographyRoute.pin(idx, pin: pin))
+                }.buttonStyle(PlainButtonStyle())
                     .contextMenu {
                         Button {
                             viewModel.go(to: pin.position, relativeTo: file)
                         } label: {
                             Label("Go Here", systemImage: "location")
                         }
-                        Button {
-                            viewModel.selectedPinIndex = idx
-                            if !viewModel.displayPinInformation {
-                                viewModel.displayPinInformation.toggle()
+                        #if os(macOS)
+                            Button {
+                                viewModel.currentRoute = .pin(idx, pin: pin)
+                            } label: {
+                                Label("Get Info", systemImage: "info.circle")
                             }
-                        } label: {
-                            Label("Get Info", systemImage: "info.circle")
-                        }
+                        #endif
                         Menu("Color", systemImage: "paintpalette") {
                             ForEach(CartographyMapPin.Color.allCases, id: \.self) { pinColor in
                                 Button {

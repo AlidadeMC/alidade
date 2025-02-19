@@ -47,11 +47,13 @@ struct PinCreatorForm: View {
                     completion(CartographyMapPin(position: location, name: name, color: color))
                 }
             }
-            ToolbarItem(placement: .cancellationAction) {
-                Button("Cancel") {
-                    dismiss()
+            #if os(macOS)
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("Cancel") {
+                        dismiss()
+                    }
                 }
-            }
+            #endif
         }
     }
 }

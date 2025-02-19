@@ -31,13 +31,15 @@ struct PinCreatorFormTests {
         try doneButton.tap()
     }
 
-    @Test func formCancel() throws {
-        let form =
-            PinCreatorForm(location: .zero) { newPin in
-                Issue.record("Completion handler should not be executing here.")
-            }
-        let sut = try form.inspect().implicitAnyView()
-        let doneButton = try sut.find(button: "Cancel")
-        try doneButton.tap()
-    }
+    #if os(macOS)
+        @Test func formCancel() throws {
+            let form =
+                PinCreatorForm(location: .zero) { newPin in
+                    Issue.record("Completion handler should not be executing here.")
+                }
+            let sut = try form.inspect().implicitAnyView()
+            let doneButton = try sut.find(button: "Cancel")
+            try doneButton.tap()
+        }
+    #endif
 }

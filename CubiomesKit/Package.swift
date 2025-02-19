@@ -41,7 +41,7 @@ let package = Package(
             name: "CubiomesKitTests",
             dependencies: [
                 "CubiomesKit",
-                .product(name: "SnapshotTesting", package: "swift-snapshot-testing")
+                .product(name: "SnapshotTesting", package: "swift-snapshot-testing"),
             ]
         ),
     ]

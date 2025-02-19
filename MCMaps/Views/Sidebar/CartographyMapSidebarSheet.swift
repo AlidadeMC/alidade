@@ -32,28 +32,49 @@ struct CartographyMapSidebarSheet<T: ToolbarContent>: View {
                 .navigationTitle(file.map.name)
                 .navigationDocument(file, preview: SharePreview(file.map.name))
                 .toolbar { sheetToolbar() }
-                .navigationDestination(for: CartographyMapPin.self) { _ in
-                    CartographyMapPinDetailView(viewModel: .init(file: $file, index: viewModel.selectedPinIndex))
-                        .background(Color.clear)
-                        .presentationBackground(.regularMaterial)
+                .navigationDestination(for: CartographyRoute.self) { route in
+                    routingDestination(for: route)
                 }
-        }
-        .onChange(of: viewModel.displayPinInformation) { _, newValue in
-            if newValue, file.map.pins.indices.contains(viewModel.selectedPinIndex) {
-                let pin = file.map.pins[viewModel.selectedPinIndex]
-                stackPathing.append(pin)
-            }
-        }
-        .onChange(of: stackPathing) { _, newValue in
-            if newValue.isEmpty {
-//                viewModel.selectedPinIndex = -1
-                viewModel.displayPinInformation = false
-            }
         }
         .presentationDetents([.smallSearch, .medium, .large])
         .presentationBackgroundInteraction(.enabled(upThrough: .large))
         .presentationBackground(.regularMaterial)
         .interactiveDismissDisabled()
+    }
 
+    private func routingDestination(for route: CartographyRoute) -> some View {
+        Group {
+            switch route {
+            case let .pin(index, pin):
+                CartographyMapPinDetailView(viewModel: .init(file: $file, index: index))
+                    .background(Color.clear)
+                    .presentationBackground(.regularMaterial)
+                    .task {
+                        viewModel.go(to: pin.position, relativeTo: file)
+                    }
+            case let .createPin(location):
+                PinCreatorForm(location: location) { newPin in
+                    file.map.pins.append(newPin)
+                }
+            case .editWorld:
+                MapCreatorForm(worldName: $file.map.name, mcVersion: $file.map.mcVersion, seed: $file.map.seed)
+                    .navigationTitle("Edit World")
+                    .onDisappear {
+                        viewModel.submitWorldChanges(to: file, horizontalSizeClass)
+                    }
+                    .onChange(of: file.map.mcVersion) { _, _ in
+                        viewModel.submitWorldChanges(to: file, horizontalSizeClass)
+                    }
+                    .onChange(of: file.map.seed) { _, _ in
+                        viewModel.submitWorldChanges(to: file, horizontalSizeClass)
+                    }
+            default:
+                Group {
+                    ContentUnavailableView(
+                        "No Route Available", systemImage: "questionmark.circle",
+                        description: Text("No view was defined for route \(String(describing: route))"))
+                }
+            }
+        }
     }
 }

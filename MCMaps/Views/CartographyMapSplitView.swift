@@ -27,17 +27,27 @@ import SwiftUI
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomLeading)
                 .background(
-                    CartographyMapView(state: viewModel.state)
+                    CartographyMapView(state: viewModel.mapState)
                 )
-                .inspector(isPresented: $viewModel.displayPinInformation) {
+                .inspector(isPresented: viewModel.displayCurrentRouteAsInspector) {
                     Group {
-                        if (file.map.pins.indices).contains(viewModel.selectedPinIndex) {
-                            CartographyMapPinDetailView(
-                                viewModel: CartographyPinViewModel(file: $file, index: viewModel.selectedPinIndex))
-                        } else {
-                            ContentUnavailableView("No Pin Selected", systemImage: "mappin")
+                        switch viewModel.currentRoute {
+                        case let .pin(index, _):
+                            Group {
+                                if (file.map.pins.indices).contains(index) {
+                                    CartographyMapPinDetailView(
+                                        viewModel: CartographyPinViewModel(
+                                            file: $file, index: index))
+                                } else {
+                                    ContentUnavailableView("No Pin Selected", systemImage: "mappin")
+                                }
+                            }
+                        default:
+                            EmptyView()
                         }
+
                     }
+                    .inspectorColumnWidth(min: 300, ideal: 325)
                 }
             }
             .navigationSubtitle(subtitle)

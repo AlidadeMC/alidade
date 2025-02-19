@@ -26,18 +26,38 @@ struct RecentLocationsListSection: View {
                     systemImage: "location.fill",
                     color: .gray
                 )
-                .tag(CartographyMapSidebar.SidebarSelection.recent(pos))
+                .tag(CartographyRoute.recent(pos))
                 #if os(iOS)
-                .onTapGesture {
-                    goToPosition?(pos)
-                }
+                    .onTapGesture {
+                        goToPosition?(pos)
+                    }
+                    .swipeActions(edge: .leading) {
+                        NavigationLink(value: CartographyRoute.createPin(pos)) {
+                            Label("Pin...", systemImage: "mappin")
+                        }
+                        .tint(.accentColor)
+                    }
+                    .swipeActions(edge: .trailing) {
+                        Button {
+                            file.map.recentLocations?.remove(at: idx)
+                        } label: {
+                            Label("Remove from Recents", systemImage: "trash")
+                        }
+                        .tint(.red)
+                    }
                 #endif
                 .contextMenu {
-                    Button {
-                        viewModel.presentNewPinForm(for: pos)
-                    } label: {
-                        Label("Pin...", systemImage: "mappin")
-                    }
+                    #if os(iOS)
+                        NavigationLink(value: CartographyRoute.createPin(pos)) {
+                            Label("Pin...", systemImage: "mappin")
+                        }
+                    #else
+                        Button {
+                            viewModel.currentRoute = .createPin(pos)
+                        } label: {
+                            Label("Pin...", systemImage: "mappin")
+                        }
+                    #endif
                     Button {
                         goToPosition?(pos)
                     } label: {

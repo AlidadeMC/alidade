@@ -35,7 +35,7 @@ extension MinecraftWorld: MinecraftStructureSearching {
         if dimension == .end, structureType == .endCity {
             initSurfaceNoise(&surfaceNoise, dimension.cbDimension.rawValue, generator.seed)
         }
-    
+
         let start = position.offset(by: -blocksInChunkRadius)
         let end = position.offset(by: blocksInChunkRadius)
         var structConfig = StructureConfig()
@@ -79,11 +79,11 @@ extension MinecraftWorld: MinecraftStructureSearching {
                         continue
                     }
                 }
-                
+
                 structures.insert(Point3D<Int32>(x: pos.x, y: 1, z: pos.z))
             }
         }
-        
+
         return structures
     }
 }

@@ -22,9 +22,9 @@ public struct PPMData {
     }
 }
 
-public extension Data {
+extension Data {
     /// Initializes a data object from a PPM data block.
-    init(ppm: PPMData) {
+    public init(ppm: PPMData) {
         let header = "P6\n\(Int(ppm.size.width)) \(Int(ppm.size.height))\n255\n"
         var newData = Data(header.utf8)
         newData.append(contentsOf: ppm.pixels)

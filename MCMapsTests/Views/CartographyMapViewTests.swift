@@ -16,7 +16,7 @@ struct CartographyMapViewTests {
     @Test func displayProgressWhenLoading() throws {
         let mapView = CartographyMapView(state: .loading)
         let sut = try mapView.inspect().implicitAnyView()
-        
+
         #expect(mapView.state == .loading)
         #expect(try !sut.group().progressView(0).isAbsent)
     }
@@ -24,7 +24,7 @@ struct CartographyMapViewTests {
     @Test func displayErrorWhenUnavailable() throws {
         let mapView = CartographyMapView(state: .unavailable)
         let sut = try mapView.inspect().implicitAnyView()
-        
+
         #expect(mapView.state == .unavailable)
         #expect(try !sut.group().contentUnavailableView(0).isAbsent)
 
@@ -48,7 +48,7 @@ struct CartographyMapViewTests {
         let data = try Data(contentsOf: imagePath)
         let mapView = CartographyMapView(state: .success(data))
         let sut = try mapView.inspect().implicitAnyView()
-        
+
         #expect(mapView.state == .success(data))
         #expect(try !sut.group().vStack(0).isAbsent)
 
@@ -61,9 +61,9 @@ struct CartographyMapViewTests {
     }
 }
 
-fileprivate extension Image {
+extension Image {
     @MainActor
-    var renderedData: CFData? {
+    fileprivate var renderedData: CFData? {
         let render = ImageRenderer(content: self)
         return render.cgImage?.dataProvider?.data
     }

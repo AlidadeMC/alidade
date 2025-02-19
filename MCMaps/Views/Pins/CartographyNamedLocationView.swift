@@ -9,7 +9,8 @@ import SwiftUI
 
 struct CartographyNamedLocationView: View {
     enum DisplayMode {
-        case absolute, relative(CGPoint)
+        case absolute
+        case relative(CGPoint)
     }
     private var coordinateDisplayMode = DisplayMode.absolute
     var name: String
