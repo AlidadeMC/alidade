@@ -16,6 +16,8 @@ struct PinnedLibrarySection: View {
         Section("Library") {
             ForEach(Array(pins.enumerated()), id: \.element) { (idx: Int, pin: CartographyMapPin) in
                 CartographyNamedLocationView(pin: pin)
+                    .tag(CartographyMapSidebar.SidebarSelection.pin(idx, pin: pin))
+                #if os(iOS)
                     .onTapGesture {
                         viewModel.go(to: pin.position, relativeTo: file)
                         viewModel.selectedPinIndex = idx
@@ -23,6 +25,7 @@ struct PinnedLibrarySection: View {
                             viewModel.displayPinInformation.toggle()
                         }
                     }
+                #endif
                     .contextMenu {
                         Button {
                             viewModel.go(to: pin.position, relativeTo: file)

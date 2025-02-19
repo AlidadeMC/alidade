@@ -29,19 +29,18 @@ import SwiftUI
                 .background(
                     CartographyMapView(state: viewModel.state)
                 )
-            }
-            .navigationSubtitle(subtitle)
-            .inspector(isPresented: $viewModel.displayPinInformation) {
-                Group {
-                    if (file.map.pins.indices).contains(viewModel.selectedPinIndex) {
-                        CartographyMapPinDetailView(
-                            viewModel: CartographyPinViewModel(file: $file, index: viewModel.selectedPinIndex))
-                    } else {
-                        ContentUnavailableView("No Pin Selected", systemImage: "mappin")
+                .inspector(isPresented: $viewModel.displayPinInformation) {
+                    Group {
+                        if (file.map.pins.indices).contains(viewModel.selectedPinIndex) {
+                            CartographyMapPinDetailView(
+                                viewModel: CartographyPinViewModel(file: $file, index: viewModel.selectedPinIndex))
+                        } else {
+                            ContentUnavailableView("No Pin Selected", systemImage: "mappin")
+                        }
                     }
                 }
-
             }
+            .navigationSubtitle(subtitle)
         }
     }
 #endif

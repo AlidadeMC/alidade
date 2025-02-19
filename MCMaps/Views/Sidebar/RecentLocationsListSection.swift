@@ -26,9 +26,12 @@ struct RecentLocationsListSection: View {
                     systemImage: "location.fill",
                     color: .gray
                 )
+                .tag(CartographyMapSidebar.SidebarSelection.recent(pos))
+                #if os(iOS)
                 .onTapGesture {
                     goToPosition?(pos)
                 }
+                #endif
                 .contextMenu {
                     Button {
                         viewModel.presentNewPinForm(for: pos)

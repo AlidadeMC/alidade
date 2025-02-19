@@ -123,6 +123,13 @@ struct ContentView: View {
             #if os(macOS)
                 ToolbarItem {
                     Button {
+                        viewModel.displayPinInformation.toggle()
+                    } label: {
+                        Label("Pin Inspector", systemImage: "pin")
+                    }
+                }
+                ToolbarItem {
+                    Button {
                         viewModel.presentWorldChangesForm()
                     } label: {
                         Label("Update World", systemImage: "info.circle")

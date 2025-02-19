@@ -9,9 +9,14 @@ import CubiomesKit
 import SwiftUI
 
 struct CartographyMapSidebar: View {
+    enum SidebarSelection: Equatable, Hashable {
+        case pin(Int, pin: CartographyMapPin)
+        case recent(CGPoint)
+    }
     @Environment(\.dismissSearch) private var dismissSearch
     @Binding var viewModel: CartographyMapViewModel
     @Binding var file: CartographyMapFile
+    @State private var selection: SidebarSelection?
 
     private var searchBarPlacement: SearchFieldPlacement {
         #if os(macOS)
@@ -22,7 +27,39 @@ struct CartographyMapSidebar: View {
     }
 
     var body: some View {
-        List {
+        Group {
+            #if os(macOS)
+            List(selection: $selection) {
+                listContents
+            }
+            #else
+            List {
+                listContents
+            }
+            #endif
+        }
+
+        .frame(minWidth: 175, idealWidth: 200)
+        .searchable(text: $viewModel.searchQuery, placement: searchBarPlacement, prompt: "Go To...")
+        .animation(.default, value: searchResults)
+        .onChange(of: selection) { _, newValue in
+            switch newValue {
+            case let .pin(idx, pin):
+                viewModel.go(to: pin.position, relativeTo: file)
+                viewModel.selectedPinIndex = idx
+                if !viewModel.displayPinInformation {
+                    viewModel.displayPinInformation.toggle()
+                }
+            case let .recent(location):
+                viewModel.go(to: location, relativeTo: file)
+            default:
+                break
+            }
+        }
+    }
+
+    private var listContents: some View {
+        Group {
             if let results = searchResults, !viewModel.searchQuery.isEmpty {
                 Group {
                     if let jumpToCoordinate = results.coordinates.first {
@@ -37,6 +74,9 @@ struct CartographyMapSidebar: View {
                                 viewModel.go(to: jumpToCoordinate, relativeTo: file)
                                 pushToRecentLocations(jumpToCoordinate)
                                 viewModel.searchQuery = ""
+                                if selection != nil {
+                                    selection = nil
+                                }
                             }
                         }
                     }
@@ -62,9 +102,6 @@ struct CartographyMapSidebar: View {
                 defaultView
             }
         }
-        .frame(minWidth: 175, idealWidth: 200)
-        .searchable(text: $viewModel.searchQuery, placement: searchBarPlacement, prompt: "Go To...")
-        .animation(.default, value: searchResults)
     }
 
     private var defaultView: some View {

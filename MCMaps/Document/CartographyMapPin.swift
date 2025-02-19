@@ -37,4 +37,5 @@ struct CartographyMapPin: Codable, Hashable {
     var position: CGPoint
     var name: String
     var color: Color? = .blue
+    var images: [String]? = []
 }

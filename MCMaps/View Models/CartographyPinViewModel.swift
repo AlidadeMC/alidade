@@ -58,7 +58,11 @@ class CartographyPinViewModel {
     ///
     /// Images consist of user-uploaded screenshots that can be displayed alongside pins.
     func images() -> [Data] {
-        return []
+        let pin = file.wrappedValue.map.pins[index]
+        guard let images = pin.images else { return [] }
+        return images.compactMap { name in
+            file.wrappedValue.images[name]
+        }
     }
 }
 
