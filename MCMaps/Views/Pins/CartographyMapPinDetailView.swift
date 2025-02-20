@@ -15,7 +15,7 @@ struct CartographyMapPinDetailView: View {
             static let photoRowInsets = EdgeInsets(all: 0)
         #else
             static let placeholderVerticalOffset = 16.0
-        static let photoRowInsets = EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20)
+            static let photoRowInsets = EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20)
         #endif
     }
 
@@ -53,7 +53,7 @@ struct CartographyMapPinDetailView: View {
                                         .clipped()
                                         .clipShape(.rect(cornerRadius: 10))
                                 }
-                                PhotosPicker(selection: $photoItem, matching: .images) {
+                                photoPicker {
                                     Label("Add More", systemImage: "plus")
                                 }
                                 .labelStyle(.iconOnly)
@@ -68,11 +68,13 @@ struct CartographyMapPinDetailView: View {
                     .listRowBackground(Color.clear)
                     .listRowInsets(Constants.photoRowInsets)
                 } else {
-                    PhotosPicker(selection: $photoItem, matching: .images) {
+                    photoPicker {
                         Label("Add Photos", systemImage: "plus")
                     }
                     .buttonStyle(.bordered)
+                    #if !os(macOS)
                     .controlSize(.extraLarge)
+                    #endif
                     .frame(maxWidth: .infinity)
                 }
             }
@@ -124,6 +126,54 @@ struct CartographyMapPinDetailView: View {
             }
         }
     }
+
+    private func photoPicker(button: @escaping () -> some View) -> some View {
+        Group {
+            #if os(macOS)
+                Menu {
+                    PhotosPicker("Import From Photos...", selection: $photoItem, matching: .images)
+                    Button {
+                        Task {
+                            await getPhotoFromPanel()
+                        }
+                    } label: {
+                        Text("Add Files...")
+                    }
+                } label: {
+                    button()
+                }
+                .menuStyle(.button)
+                .menuIndicator(.hidden)
+            #else
+                PhotosPicker(selection: $photoItem, matching: .images) {
+                    Label("Add Photos", systemImage: "plus")
+                }
+            #endif
+        }
+    }
+
+    #if os(macOS)
+    private func getPhotoFromPanel() async {
+        let panel = NSOpenPanel()
+        panel.directoryURL = FileManager.default.homeDirectoryForCurrentUser.appending(path: "Pictures")
+        panel.canChooseDirectories = false
+        panel.allowedContentTypes = [.image]
+        panel.begin { response in
+            switch response {
+            case .OK:
+                guard let path = panel.url else { return }
+                do {
+                    let data = try Data(contentsOf: path)
+                    viewModel.uploadImage(data)
+                } catch {
+                    print("Failed to get image...")
+                }
+            default:
+                break
+            }
+        }
+    }
+    #endif
 }
 
 #Preview {
