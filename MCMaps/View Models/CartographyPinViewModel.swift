@@ -35,6 +35,13 @@ class CartographyPinViewModel {
     /// Changes to this property will automatically propagate to the file.
     var pin: Binding<CartographyMapPin>
 
+    /// A binding to the pin's about description.
+    ///
+    /// This binding is intended to be used with text fields and editors to directly manipulate the about
+    /// description's text. It is a mirror of the ``CartographyMapPin/aboutDescription`` property, which will
+    /// automatically generate an empty string if the property wasn't defined before.
+    var pinAboutDescription: Binding<String>
+
     /// A label that can be used to describe the pin's current position.
     var pinLocationLabel: String {
         let location = pin.wrappedValue.position
@@ -52,6 +59,12 @@ class CartographyPinViewModel {
         } set: { newPin in
             file.wrappedValue.map.pins[index] = newPin
         }
+
+        self.pinAboutDescription = .init {
+            return file.wrappedValue.map.pins[index].aboutDescription ?? ""
+        } set: { newValue in
+            file.wrappedValue.map.pins[index].aboutDescription = newValue
+        }
     }
 
     /// Retrieves data blobs for the images associated with this pin.
@@ -62,6 +75,22 @@ class CartographyPinViewModel {
         guard let images = pin.images else { return [] }
         return images.compactMap { name in
             file.wrappedValue.images[name]
+        }
+    }
+
+    /// Uploads a user-selected image to the file.
+    ///
+    /// The image will be given a UUID string, and it will be saved into the file as an HEIC image. The pin will
+    /// contain a path reference to this image so that it remains persistent.
+    ///
+    /// - Parameter data: The data representation of the user-selected image to upload.
+    func uploadImage(_ data: Data) {
+        let imageName = UUID().uuidString + ".heic"
+        file.wrappedValue.images[imageName] = data
+        if file.wrappedValue.map.pins[index].images == nil {
+            file.wrappedValue.map.pins[index].images = [imageName]
+        } else {
+            file.wrappedValue.map.pins[index].images?.append(imageName)
         }
     }
 }

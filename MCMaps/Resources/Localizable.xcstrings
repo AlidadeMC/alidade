@@ -17,6 +17,15 @@
     "%lld blocks away" : {
 
     },
+    "About" : {
+
+    },
+    "Add More" : {
+
+    },
+    "Add Photos" : {
+
+    },
     "Ancient City" : {
 
     },
@@ -189,6 +198,9 @@
 
     },
     "Village" : {
+
+    },
+    "Write a description..." : {
 
     }
   },
