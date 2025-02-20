@@ -19,6 +19,8 @@
 			</array>
 			<key>LSTypeIsPackage</key>
 			<true/>
+			<key>NSUbiquitousDocumentUserActivityType</key>
+			<string>$(PRODUCT_BUNDLE_IDENTIFIER).minecraftmap</string>
 		</dict>
 	</array>
 	<key>UTExportedTypeDeclarations</key>
