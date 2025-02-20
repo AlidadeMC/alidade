@@ -53,29 +53,32 @@ struct CartographyMapPinDetailView: View {
                                         .clipped()
                                         .clipShape(.rect(cornerRadius: 10))
                                 }
-                                photoPicker {
-                                    Label("Add More", systemImage: "plus")
-                                }
-                                .labelStyle(.iconOnly)
-                                .buttonStyle(.bordered)
-                                .controlSize(.extraLarge)
-                                .buttonBorderShape(.circle)
-                                .frame(maxWidth: .infinity)
+                                #if !os(macOS)
+                                    photoPicker
+                                        .labelStyle(.iconOnly)
+                                        .buttonStyle(.bordered)
+                                        .controlSize(.extraLarge)
+                                        .buttonBorderShape(.circle)
+                                        .frame(maxWidth: .infinity)
+                                #endif
                             }
                             .frame(height: 150)
                         }
+                        #if os(macOS)
+                        photoPicker
+                            .padding(.top)
+                        #endif
                     }
                     .listRowBackground(Color.clear)
                     .listRowInsets(Constants.photoRowInsets)
                 } else {
-                    photoPicker {
-                        Label("Add Photos", systemImage: "plus")
-                    }
-                    .buttonStyle(.bordered)
-                    #if !os(macOS)
-                    .controlSize(.extraLarge)
-                    #endif
-                    .frame(maxWidth: .infinity)
+                    photoPicker
+                        .buttonStyle(.bordered)
+                        #if !os(macOS)
+                            .controlSize(.extraLarge)
+                            .buttonBorderShape(.capsule)
+                        #endif
+                        .frame(maxWidth: .infinity)
                 }
             }
             .listRowSeparator(.hidden)
@@ -127,23 +130,23 @@ struct CartographyMapPinDetailView: View {
         }
     }
 
-    private func photoPicker(button: @escaping () -> some View) -> some View {
+    private var photoPicker: some View {
         Group {
             #if os(macOS)
-                Menu {
-                    PhotosPicker("Import From Photos...", selection: $photoItem, matching: .images)
+                HStack {
+                    Text("Add Photos")
+                        .foregroundStyle(.secondary)
+                    PhotosPicker(selection: $photoItem, matching: .images) {
+                        Text("From Photos")
+                    }
                     Button {
                         Task {
                             await getPhotoFromPanel()
                         }
                     } label: {
-                        Text("Add Files...")
+                        Text("From Finder")
                     }
-                } label: {
-                    button()
                 }
-                .menuStyle(.button)
-                .menuIndicator(.hidden)
             #else
                 PhotosPicker(selection: $photoItem, matching: .images) {
                     Label("Add Photos", systemImage: "plus")
@@ -153,26 +156,28 @@ struct CartographyMapPinDetailView: View {
     }
 
     #if os(macOS)
-    private func getPhotoFromPanel() async {
-        let panel = NSOpenPanel()
-        panel.directoryURL = FileManager.default.homeDirectoryForCurrentUser.appending(path: "Pictures")
-        panel.canChooseDirectories = false
-        panel.allowedContentTypes = [.image]
-        panel.begin { response in
-            switch response {
-            case .OK:
-                guard let path = panel.url else { return }
-                do {
-                    let data = try Data(contentsOf: path)
-                    viewModel.uploadImage(data)
-                } catch {
-                    print("Failed to get image...")
+        private func getPhotoFromPanel() async {
+            let panel = NSOpenPanel()
+            panel.directoryURL = FileManager.default.homeDirectoryForCurrentUser.appending(path: "Pictures")
+            panel.canChooseDirectories = false
+            panel.allowedContentTypes = [.image]
+            if let keyWindow = NSApplication.shared.keyWindow {
+                panel.beginSheetModal(for: keyWindow) { response in
+                    switch response {
+                    case .OK:
+                        guard let path = panel.url else { return }
+                        do {
+                            let data = try Data(contentsOf: path)
+                            viewModel.uploadImage(data)
+                        } catch {
+                            print("Failed to get image...")
+                        }
+                    default:
+                        break
+                    }
                 }
-            default:
-                break
             }
         }
-    }
     #endif
 }
 
