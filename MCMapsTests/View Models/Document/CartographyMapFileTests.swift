@@ -36,7 +36,7 @@ struct CartographyMapFileTests {
             return
         }
         let file = try CartographyMapFile(decoding: map)
-        let exported = try file.prepareForExport()
+        let exported = try file.prepareMetadataForExport()
 
         #expect(exported == map)
     }

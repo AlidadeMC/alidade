@@ -8,6 +8,7 @@
 import CubiomesKit
 
 extension MinecraftStructure {
+    /// The localized name for the given Minecraft structure.
     var name: String {
         switch self {
         case .feature:
@@ -61,6 +62,8 @@ extension MinecraftStructure {
         }
     }
 
+    /// Creates a structure from a localized string.
+    /// - Parameter string: The string to parse and match against.
     init?(string: String) {
         for structure in Self.allCases {
             if structure.name.localizedLowercase == string.localizedLowercase {  // swiftlint:disable:this for_where
@@ -71,6 +74,9 @@ extension MinecraftStructure {
         return nil
     }
 
+    /// The pin color associated with the structure.
+    ///
+    /// This is used in the sidebar to display a unique color based on the structure type.
     var pinColor: CartographyMapPin.Color {
         switch self {
         case .desertWell, .desertPyramid:

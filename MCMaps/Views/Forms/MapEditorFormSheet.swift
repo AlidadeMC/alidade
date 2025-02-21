@@ -8,10 +8,19 @@
 import CubiomesKit
 import SwiftUI
 
+/// A sheet that displays the ``MapCreatorForm`` used to automatically edit changes to a world.
+///
+/// This is typically used to display the editor as a modal on macOS.
+///
+/// - SeeAlso: Refer to the documentation for ``MapCreatorForm`` for usage of this view.
 struct MapEditorFormSheet: View {
+    /// The file that is being actively edited.
     @Binding var file: CartographyMapFile
 
+    /// A callback that executes when the player is submitting changes.
     var onSubmitChanges: (() -> Void)?
+
+    /// A callback that executes when the player is cancelling the current operation.
     var onCancelChanges: (() -> Void)?
 
     var body: some View {

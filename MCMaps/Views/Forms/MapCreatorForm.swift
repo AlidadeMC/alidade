@@ -9,9 +9,20 @@ import CubiomesInternal
 import CubiomesKit
 import SwiftUI
 
+/// A view used to create and edit Minecraft world maps using the `.mcmap` format.
+///
+/// This small form is used to collect the world name, Minecraft version, and seed to generate a new file.
+///
+/// The version string is automatically validated to ensure it is a proper Minecraft version before the binding is
+/// updated. Likewise, the seed number can be automatically generated from a string input by using its hash value.
 struct MapCreatorForm: View {
+    /// A binding to the name of the world.
     @Binding var worldName: String
+
+    /// A binding to the Minecraft version used for world generation.
     @Binding var mcVersion: String
+
+    /// A binding to the seed used for world generation.
     @Binding var seed: Int64
 
     @State private var versionString = ""

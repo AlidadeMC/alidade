@@ -7,11 +7,16 @@
 
 import SwiftUI
 
-/// A representation of a user-placed map pin.
+/// A representation of a player-placed map pin.
 struct CartographyMapPin: Codable, Hashable {
+    /// An enumeration representing the various colors a player can assign a pin to.
+    ///
+    /// When being encoded to and decoded from, they are represented as strings. For example, ``blue`` corresponds to
+    /// `"blue"`.
     enum Color: String, Codable, Hashable, CaseIterable {
         case red, orange, yellow, green, blue, indigo, brown, gray, pink
 
+        /// A SwiftUI color that matches the given color.
         var swiftUIColor: SwiftUI.Color {
             switch self {
             case .red:
@@ -51,13 +56,13 @@ struct CartographyMapPin: Codable, Hashable {
 
     /// The image files that are associated with this pin.
     ///
-    /// Images consist of user-uploaded screenshots and are located in the ``CartographyMapFile/Keys/images``
+    /// Images consist of player-uploaded screenshots and are located in the ``CartographyMapFile/Keys/images``
     /// directory.
     var images: [String]? = []
 
-    /// A user-written note that describes this pin.
+    /// A player-written note that describes this pin.
     ///
-    /// This is typically used to describe user-provided information such as the pin's significance, notable areas of
+    /// This is typically used to describe player-provided information such as the pin's significance, notable areas of
     /// interest, and what is nearby.
     var aboutDescription: String? = ""
 }

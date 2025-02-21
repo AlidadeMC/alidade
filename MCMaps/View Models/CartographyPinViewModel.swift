@@ -69,7 +69,7 @@ class CartographyPinViewModel {
 
     /// Retrieves data blobs for the images associated with this pin.
     ///
-    /// Images consist of user-uploaded screenshots that can be displayed alongside pins.
+    /// Images consist of player-uploaded screenshots that can be displayed alongside pins.
     func images() -> [Data] {
         let pin = file.wrappedValue.map.pins[index]
         guard let images = pin.images else { return [] }
@@ -78,12 +78,12 @@ class CartographyPinViewModel {
         }
     }
 
-    /// Uploads a user-selected image to the file.
+    /// Uploads a player-selected image to the file.
     ///
     /// The image will be given a UUID string, and it will be saved into the file as an HEIC image. The pin will
     /// contain a path reference to this image so that it remains persistent.
     ///
-    /// - Parameter data: The data representation of the user-selected image to upload.
+    /// - Parameter data: The data representation of the player-selected image to upload.
     func uploadImage(_ data: Data) {
         let imageName = UUID().uuidString + ".heic"
         file.wrappedValue.images[imageName] = data

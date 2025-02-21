@@ -8,20 +8,22 @@
 import Foundation
 
 /// An enumeration representing the routes available within the app.
+///
+/// - SeeAlso: For more information on its usage, refer to ``CartographyMapViewModel/currentRoute``.
 enum CartographyRoute: Equatable, Hashable, Identifiable {
     /// A unique identifier for the current route.
     var id: UUID { UUID() }
 
-    /// A user-pinned location at a specified index in the file.
+    /// A player-pinned location at a specified index in the file.
     case pin(Int, pin: CartographyMapPin)
 
-    /// A location the user has visited before.
+    /// A location the player has visited before.
     case recent(CGPoint)
 
-    /// The user is requesting to create a pin from a location.
+    /// The player is requesting to create a pin from a location.
     case createPin(CGPoint)
 
-    /// The user is requesting to make changes to the world.
+    /// The player is requesting to make changes to the world.
     case editWorld
 
     /// Whether the route should be displayed as a modal instead of a navigation stack item.

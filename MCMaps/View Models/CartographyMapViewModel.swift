@@ -15,6 +15,11 @@ import SwiftUI
 @MainActor
 class CartographyMapViewModel {
     /// The current route the app is handling.
+    ///
+    /// On iOS and iPadOS, the views handled by route should appear in the adaptable sidebar sheet. On macOS, these
+    /// routes will have ``CartographyRoute/requiresModalDisplay`` and
+    /// ``CartographyRoute/requiresInspectorDisplay`` properties available to determine whether they should be
+    /// displayed as a modal interaction or an inspector pane.
     var currentRoute: CartographyRoute? {
         didSet {
             if currentRoute?.requiresInspectorDisplay == true {
@@ -98,7 +103,7 @@ class CartographyMapViewModel {
         Task { await refreshMap(for: file) }
     }
 
-    /// Submits the user-made changes to the current file and reloads the map.
+    /// Submits the player-made changes to the current file and reloads the map.
     /// - Parameter file: The file to commit the changes to.
     func submitWorldChanges(to file: CartographyMapFile) {
         currentRoute = nil
