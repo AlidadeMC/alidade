@@ -27,6 +27,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          submodules: recursive
       - name: Setup Pages
         uses: actions/configure-pages@v4
       - name: Select Xcode
@@ -35,7 +37,7 @@ jobs:
           xcode-version: '16.2.0'
       - name: Build DocC
         run: |
-          xcodebuild docbuild -scheme Alidade -derivedDataPath /tmp/docbuild -destination 'platform=macOS,name=Any Mac';
+          xcodebuild docbuild -scheme Alidade -derivedDataPath /tmp/docbuild -destination 'generic/platform=macOS';
           
           $(xcrun --find docc) process-archive \
             transform-for-static-hosting /tmp/docbuild/Build/Products/Debug/Alidade.doccarchive \
