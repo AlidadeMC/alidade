@@ -37,6 +37,7 @@ jobs:
           xcode-version: '16.2.0'
       - name: Build DocC
         run: |
+          xcodebuild clean -scheme "MyApp" -destination "generic/platform=macOS"
           xcodebuild docbuild -scheme Alidade -derivedDataPath /tmp/docbuild -destination 'generic/platform=macOS' -skipPackagePluginValidation CODE_SIGNING_ALLOWED=NO;
           
           $(xcrun --find docc) process-archive \
