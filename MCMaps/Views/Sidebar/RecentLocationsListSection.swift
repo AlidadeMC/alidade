@@ -7,14 +7,21 @@
 
 import SwiftUI
 
+/// A section used to display recently visited locations.
+///
+/// This is normally invoked from ``CartographyMapSidebar`` and is almost never instantiated on its own.
 struct RecentLocationsListSection: View {
+    /// The view model the sidebar will interact with.
     @Binding var viewModel: CartographyMapViewModel
+
+    /// The file that the sidebar will read from and write to.
     @Binding var file: CartographyMapFile
 
-    var recentLocations: [CGPoint] {
+    private var recentLocations: [CGPoint] {
         file.map.recentLocations ?? []
     }
 
+    /// A handler that executes when the player has requested to go to a specific location.
     var goToPosition: ((CGPoint) -> Void)?
 
     var body: some View {

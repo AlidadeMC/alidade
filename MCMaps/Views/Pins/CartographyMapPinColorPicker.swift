@@ -7,8 +7,12 @@
 
 import SwiftUI
 
+/// A picker used to pick a color used in a player-created pin.
+///
+/// The picker is displayed as a row of colors. The selected color will have a small white fill, similar to a radio
+/// button.
 struct CartographyMapPinColorPicker: View {
-    enum Constants {
+    private enum Constants {
         static let pinHeightMultiplier = 2.5
         #if os(macOS)
             static let pinColorSize = 20.0
@@ -17,6 +21,7 @@ struct CartographyMapPinColorPicker: View {
         #endif
     }
 
+    /// The color the picker will select.
     @Binding var color: CartographyMapPin.Color?
 
     var body: some View {

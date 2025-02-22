@@ -8,8 +8,12 @@
 import PhotosUI
 import SwiftUI
 
+/// A detail view used to display the contents of a player-created pin.
+///
+/// This detail view also acts as a form to edit various aspects of a pin, such as its color or associated images.
+/// The presentation of this view should be driven by the properties in ``CartographyRoute/pin(_:pin:)``.
 struct CartographyMapPinDetailView: View {
-    enum Constants {
+    private enum Constants {
         #if os(macOS)
             static let placeholderVerticalOffset = 8.0
             static let photoRowInsets = EdgeInsets(all: 0)
@@ -22,6 +26,9 @@ struct CartographyMapPinDetailView: View {
     @State private var photoItem: PhotosPickerItem?
     @State private var photoToUpdate: Image?
 
+    /// The view model driving the pin detail view.
+    ///
+    /// Changes to the pin should automatically propagate upstream to the file hosted in this view model.
     var viewModel: CartographyPinViewModel
 
     var body: some View {

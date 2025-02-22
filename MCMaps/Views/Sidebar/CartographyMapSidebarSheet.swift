@@ -8,14 +8,26 @@
 import SwiftUI
 
 extension PresentationDetent {
+    /// A presentation detent that matches a navigation bar with its search bar visible.
     static var smallSearch = Self.height(108)
 }
 
+/// The sidebar content for the main app on iOS and iPadOS.
+///
+/// This view should be used instead of ``CartographyMapSidebar`` directly. The sidebar sheet also handles appropriate
+/// routing from ``CartographyRoute``.
 struct CartographyMapSidebarSheet<T: ToolbarContent>: View {
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+
+    /// The view model the sidebar will interact with.
     @Binding var viewModel: CartographyMapViewModel
+
+    /// The file that the sidebar will read from and write to.
+    ///
+    /// Notably, the sidebar content will read from recent locations and the player-created pins.
     @Binding var file: CartographyMapFile
 
+    /// The toolbar content for the sheet.
     var sheetToolbar: () -> T
 
     var body: some View {

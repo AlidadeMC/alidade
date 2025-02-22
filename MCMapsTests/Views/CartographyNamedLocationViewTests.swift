@@ -16,10 +16,10 @@ struct CartographyNamedLocationViewTests {
     @Test func initalizeWithPin() throws {
         let view = CartographyNamedLocationView(pin: .init(position: .zero, name: "Pin", color: .blue))
 
-        #expect(view.name == "Pin")
-        #expect(view.location == .zero)
-        #expect(view.color == .blue)
-        #expect(view.systemImage == "mappin")
+        #expect(view.testHooks.name == "Pin")
+        #expect(view.testHooks.location == .zero)
+        #expect(view.testHooks.color == .blue)
+        #expect(view.testHooks.systemImage == "mappin")
     }
 
     @Test func initializeWithParameters() throws {
@@ -30,10 +30,10 @@ struct CartographyNamedLocationViewTests {
             color: .gray
         )
 
-        #expect(view.name == "Location")
-        #expect(view.location == .zero)
-        #expect(view.systemImage == "location.fill")
-        #expect(view.color == .gray)
+        #expect(view.testHooks.name == "Location")
+        #expect(view.testHooks.location == .zero)
+        #expect(view.testHooks.systemImage == "location.fill")
+        #expect(view.testHooks.color == .gray)
     }
 
     @Test func viewLayout() throws {

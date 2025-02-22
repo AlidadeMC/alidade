@@ -7,13 +7,23 @@
 
 import SwiftUI
 
+// NOTE(alicerunsonfedora): Perhaps this can get replaced with the new pin detail view?
+
+/// A form for creating a map pin.
+///
+/// The form allows for a player to assign a name and color to the pin. When the player has confirmed and taps the
+/// "Create" button, the ``completion`` handler is called. Otherwise, the form will dismiss itself automatically.
 struct PinCreatorForm: View {
     @Environment(\.dismiss) private var dismiss
+
+    /// The location where the pin is being created.
     var location: CGPoint
 
     @State private var name: String = "Pin"
     @State private var color: CartographyMapPin.Color = .blue
 
+    /// A completion handler that executes when the player has confirmed the pin they want to create.
+    /// - Parameter pin: The pin the player has created.
     var completion: (CartographyMapPin) -> Void
 
     var body: some View {

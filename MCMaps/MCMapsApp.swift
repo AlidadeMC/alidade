@@ -23,6 +23,7 @@ import SwiftUI
     }
 #endif
 
+/// The main entry point for the Alidade app.
 @main
 struct MCMapsApp: App {
     @State private var creationContinuation: CheckedContinuation<CartographyMapFile?, any Error>?

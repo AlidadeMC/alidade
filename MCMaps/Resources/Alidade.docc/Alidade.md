@@ -25,6 +25,16 @@ relevant parts of the app.
 - ``CartographyMap``
 - ``CartographyMapPin``
 
+### App Entrypoint
+
+- ``MCMapsApp``
+- ``ContentView``
+
+### Navigation
+
+- ``CartographyMapSplitView``
+- ``AdaptableSidebarSheetView``
+
 ### View Models and Routing
 
 - ``CartographyRoute``

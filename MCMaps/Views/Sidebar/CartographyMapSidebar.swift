@@ -8,9 +8,19 @@
 import CubiomesKit
 import SwiftUI
 
+/// The sidebar content for the main app.
+///
+/// This will appear as the sheet content in the app's ``AdaptableSidebarSheetView``, and as the sidebar in the
+/// ``CartographyMapSplitView``.
 struct CartographyMapSidebar: View {
     @Environment(\.dismissSearch) private var dismissSearch
+
+    /// The view model the sidebar will interact with.
     @Binding var viewModel: CartographyMapViewModel
+
+    /// The file that the sidebar will read from and write to.
+    ///
+    /// Notably, the sidebar content will read from recent locations and the player-created pins.
     @Binding var file: CartographyMapFile
 
     private var searchBarPlacement: SearchFieldPlacement {

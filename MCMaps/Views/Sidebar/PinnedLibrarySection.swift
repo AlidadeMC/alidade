@@ -7,9 +7,17 @@
 
 import SwiftUI
 
+/// A section used to display player-created pins in a sidebar.
+///
+/// This is normally invoked from ``CartographyMapSidebar`` and is almost never instantiated on its own.
 struct PinnedLibrarySection: View {
+    /// The player-created pins to display.
     var pins: [CartographyMapPin]
+
+    /// The view model the sidebar will interact with.
     @Binding var viewModel: CartographyMapViewModel
+
+    /// The file that the sidebar will read from and write to.
     @Binding var file: CartographyMapFile
 
     var body: some View {
@@ -54,7 +62,10 @@ struct PinnedLibrarySection: View {
         }
     }
 
-    func recolorPins(to color: CartographyMapPin.Color, where predicate: @escaping (CartographyMapPin) -> Bool) {
+    private func recolorPins(
+        to color: CartographyMapPin.Color,
+        where predicate: @escaping (CartographyMapPin) -> Bool
+    ) {
         for (index, pin) in file.map.pins.enumerated() where predicate(pin) {
             file.map.pins[index].color = color
         }

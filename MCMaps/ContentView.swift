@@ -9,15 +9,13 @@ import CubiomesKit
 import Observation
 import SwiftUI
 
-enum CartographyMapViewState: Equatable {
-    case loading
-    case success(Data)
-    case unavailable
-}
-
+/// The primary content view used to display the app's interface.
 struct ContentView: View {
     @Environment(\.dismiss) private var dismissWindow
+
+    /// The current file the content view is viewing and/or editing.
     @Binding var file: CartographyMapFile
+
     @State private var viewModel = CartographyMapViewModel()
     @State private var displaySidebarSheet = false
 
