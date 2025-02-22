@@ -42,8 +42,7 @@ jobs:
           
           $(xcrun --find docc) process-archive \
             transform-for-static-hosting /tmp/docbuild/Build/Products/Debug/Alidade.doccarchive \
-            --output-path docs \
-            --hosting-base-path 'Alidade';
+            --output-path docs \ ;
           
           echo "<script>window.location.href += \"/documentation/alidade\"</script>" > docs/index.html;
       - name: Upload artifact
