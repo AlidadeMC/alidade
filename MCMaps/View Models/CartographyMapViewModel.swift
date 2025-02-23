@@ -14,6 +14,11 @@ import SwiftUI
 @Observable
 @MainActor
 class CartographyMapViewModel {
+    /// A enumeration of the cardinal directions.
+    enum CardinalDirection {
+        case north, south, east, west
+    }
+
     /// The current route the app is handling.
     ///
     /// On iOS and iPadOS, the views handled by route should appear in the adaptable sidebar sheet. On macOS, these
@@ -100,6 +105,25 @@ class CartographyMapViewModel {
     /// - Parameter file: The file to load the map data from.
     func go(to position: CGPoint, relativeTo file: CartographyMapFile) {
         worldRange.position = .init(x: Int32(position.x), y: worldRange.position.y, z: Int32(position.y))
+        Task { await refreshMap(for: file) }
+    }
+
+    /// Jump in a specified cardinal direction, reloading the map in the current process.
+    /// - Parameter direction: The direction to jump towards.
+    /// - Parameter file: The file to load the map data from.
+    func go(inDirection direction: CardinalDirection, relativeToFile file: CartographyMapFile) {
+        var newPosition = worldRange.position
+        switch direction {
+        case .north:
+            newPosition.z -= worldRange.scale.z
+        case .south:
+            newPosition.z += worldRange.scale.z
+        case .east:
+            newPosition.x += worldRange.scale.x
+        case .west:
+            newPosition.x -= worldRange.scale.x
+        }
+        worldRange.position = newPosition
         Task { await refreshMap(for: file) }
     }
 

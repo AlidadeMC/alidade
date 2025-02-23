@@ -18,6 +18,7 @@ struct ContentView: View {
 
     @State private var viewModel = CartographyMapViewModel()
     @State private var displaySidebarSheet = false
+    @State private var toggleOrnaments = true
 
     var body: some View {
         Group {
@@ -28,8 +29,7 @@ struct ContentView: View {
                     }
             #else
                 AdaptableSidebarSheetView(isPresented: $displaySidebarSheet) {
-                    CartographyMapView(state: viewModel.mapState)
-                        .edgesIgnoringSafeArea(.all)
+                    CartographyOrnamentMap(viewModel: $viewModel, file: $file)
                 } sheet: {
                     CartographyMapSidebarSheet(viewModel: $viewModel, file: $file) {
                         toolbarContent
@@ -78,11 +78,8 @@ struct ContentView: View {
         Group {
             #if os(iOS)
                 ToolbarTitleMenu {
-                    WorldDimensionPickerView(selection: $viewModel.worldDimension)
-                        .labelStyle(.titleAndIcon)
-                        .pickerStyle(.palette)
                     NavigationLink(value: CartographyRoute.editWorld) {
-                        Label("Update World", systemImage: "tree")
+                        Label("Update World", image: "globe.desk.badge.gearshape.fill")
                     }
                 }
                 ToolbarItem(placement: .navigation) {

@@ -47,8 +47,15 @@ relevant parts of the app.
 
 ### Maps
 
+- ``CartographyOrnamentMap``
 - ``CartographyMapView``
 - ``CartographyMapViewState``
+
+
+### Map Ornaments
+
+- ``LocationBadge``
+- ``DirectionNavigator``
 
 ### Editor Forms
 
@@ -58,7 +65,6 @@ relevant parts of the app.
 
 ### Badges and Communication
 
-- ``LocationBadge``
 - ``CartographyNamedLocationView``
 
 ### Pickers
@@ -73,3 +79,7 @@ relevant parts of the app.
 - ``RecentLocationsListSection``
 - ``PinnedLibrarySection``
 - ``SearchedStructuresSection``
+
+### View Modifiers
+
+- ``ZoomableModifier``

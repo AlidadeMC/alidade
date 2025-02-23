@@ -31,13 +31,7 @@ struct CartographyMapSplitView: View {
         NavigationSplitView {
             CartographyMapSidebar(viewModel: $viewModel, file: $file)
         } detail: {
-            Group {
-                LocationBadge(location: viewModel.worldRange.position)
-            }
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomLeading)
-            .background(
-                CartographyMapView(state: viewModel.mapState)
-            )
+            CartographyOrnamentMap(viewModel: $viewModel, file: $file)
             .inspector(isPresented: viewModel.displayCurrentRouteAsInspector) {
                 Group {
                     switch viewModel.currentRoute {
