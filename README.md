@@ -55,3 +55,4 @@ LICENSE.txt or visit https://www.mozilla.org/en-US/MPL/2.0/.
 **Alidade** is made possible by the following open source libraries:
 
 - [**Cubiomes**](https://github.com/Cubitect/cubiomes) - MIT License
+- [**Zoomable**](https://github.com/ryohey/Zoomable) - MIT License

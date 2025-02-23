@@ -183,6 +183,7 @@ private struct AdaptableSidebarSheetInternalView<Content: View, Sheet: View>: Vi
                     Spacer()
                 }
                 .frame(width: proxy.size.width * preferredSidebarWidthFraction)
+                .shadow(radius: 2)
                 .padding()
                 Spacer()
             }

@@ -59,6 +59,8 @@ struct CartographyMapSplitView: View {
                 .inspectorColumnWidth(min: 300, ideal: 325)
             }
         }
+        #if os(macOS)
         .navigationSubtitle(subtitle)
+        #endif
     }
 }

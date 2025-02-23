@@ -25,7 +25,9 @@ enum CartographyMapViewState: Equatable {
 /// A view that displays a Minecraft world map.
 ///
 /// This view is designed to handle dynamic loading of the image, displaying an unavailable message when the map could
-/// not be loaded.
+/// not be loaded. When the map is available and displayed, players can zoom and pan around the map to inspect it more
+/// closely through pinching to zoom and dragging to pan. On macOS, the pointer will change to display zooming in and
+/// out, along with dragging.
 struct CartographyMapView: View {
     /// The view's loading state.
     var state: CartographyMapViewState
@@ -36,10 +38,10 @@ struct CartographyMapView: View {
             case .loading:
                 ProgressView()
             case .success(let data):
-                VStack {
-                    Image(data: data)?.resizable()
-                        .scaledToFill()
-                }
+                Image(data: data)?.resizable()
+                    .interpolation(.none)
+                    .scaledToFill()
+                    .zoomable()
             case .unavailable:
                 ContentUnavailableView("No Map Available", systemImage: "map")
             }
