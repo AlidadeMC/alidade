@@ -45,12 +45,17 @@ relevant parts of the app.
 
 - ``CartographySearchService``
 
+### Ornament View
+
+- ``OrnamentedView``
+- ``Ornament``
+
 ### Maps
 
 - ``CartographyOrnamentMap``
+- ``MapOrnament``
 - ``CartographyMapView``
 - ``CartographyMapViewState``
-
 
 ### Map Ornaments
 
@@ -63,9 +68,10 @@ relevant parts of the app.
 - ``PinCreatorForm``
 - ``MapEditorFormSheet``
 
-### Badges and Communication
+### Named Locations and Pins
 
 - ``CartographyNamedLocationView``
+- ``CartographyMapPinDetailView``
 
 ### Pickers
 

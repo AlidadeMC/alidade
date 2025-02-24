@@ -70,6 +70,24 @@ struct CartographyMapViewModelTests {
         }
     }
 
+    @Test(arguments: [
+        (CartographyMapViewModel.CardinalDirection.north, Point3D<Int32>(x: 0, y: 15, z: -256)),
+        (CartographyMapViewModel.CardinalDirection.west, Point3D<Int32>(x: -256, y: 15, z: 0)),
+        (CartographyMapViewModel.CardinalDirection.east, Point3D<Int32>(x: 256, y: 15, z: 0)),
+        (CartographyMapViewModel.CardinalDirection.south, Point3D<Int32>(x: 0, y: 15, z: 256))
+    ])
+    func viewModelGoesInDirection(
+        direction: CartographyMapViewModel.CardinalDirection,
+        coordinate: Point3D<Int32>
+    ) async throws {
+        let viewModel = await CartographyMapViewModel()
+        let file = CartographyMapFile(map: .sampleFile)
+        #expect(await viewModel.worldRange.position == .init(x: 0, y: 15, z: 0))
+
+        await viewModel.go(inDirection: direction, relativeToFile: file)
+        #expect(await viewModel.worldRange.position == coordinate)
+    }
+
     @Test func viewModelSubmitsWorldChanges() async throws {
         let viewModel = await CartographyMapViewModel()
         let file = CartographyMapFile(map: .sampleFile)

@@ -7,17 +7,11 @@
 
 import SwiftUI
 
-private struct MapOrnament<Content: View>: View {
-    var alignment: Alignment
-    var content: () -> Content
-
-    var body: some View {
-        Group {
-            content()
-        }
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: alignment)
-    }
-}
+/// An ornament used to display content on top of a map.
+///
+/// - Important: This view has been renamed to the general ``Ornament`` view.
+@available(*, deprecated, renamed: "Ornament")
+typealias MapOrnament = Ornament
 
 /// A map view with various ornaments placed on top.
 ///
@@ -27,9 +21,9 @@ private struct MapOrnament<Content: View>: View {
 struct CartographyOrnamentMap: View {
     private enum Constants {
         #if os(macOS)
-        static let locationBadgePlacement = Alignment.bottomLeading
+            static let locationBadgePlacement = Alignment.bottomLeading
         #else
-        static let locationBadgePlacement = Alignment.topTrailing
+            static let locationBadgePlacement = Alignment.topTrailing
         #endif
 
         static let navigatorWheelPlacement = Alignment.bottomTrailing
@@ -42,56 +36,38 @@ struct CartographyOrnamentMap: View {
     /// The file that the map will read from/write to.
     @Binding var file: CartographyMapFile
 
-    @State private var displayOrnaments = true
-
     var body: some View {
-        ZStack {
+        OrnamentedView {
+            CartographyMapView(state: viewModel.mapState)
+                .animation(.interpolatingSpring, value: viewModel.mapState)
+                .edgesIgnoringSafeArea(.all)
+        } ornaments: {
             MapOrnament(alignment: Constants.navigatorWheelPlacement) {
                 DirectionNavigator(viewModel: viewModel, file: file)
             }
             .padding(.trailing, 8)
             .padding(.bottom, horizontalSizeClass == .compact ? 116 : 8)
-            .if(!displayOrnaments) { view in
-                view.hidden()
-            }
             MapOrnament(alignment: Constants.locationBadgePlacement) {
                 VStack(alignment: .trailing) {
                     LocationBadge(location: viewModel.worldRange.position)
                     #if os(iOS)
-                    Menu {
-                        WorldDimensionPickerView(selection: $viewModel.worldDimension)
-                            .pickerStyle(.inline)
-                    } label: {
-                        Label("Dimension", systemImage: "map")
-                    }
-                    .labelStyle(.iconOnly)
-                    .padding()
-                    .foregroundStyle(.primary)
-                    .background(.thinMaterial)
-                    .clipped()
-                    .clipShape(.rect(cornerRadius: 8))
-                    .padding(.trailing, 6)
+                        Menu {
+                            WorldDimensionPickerView(selection: $viewModel.worldDimension)
+                                .pickerStyle(.inline)
+                        } label: {
+                            Label("Dimension", systemImage: "map")
+                        }
+                        .labelStyle(.iconOnly)
+                        .padding()
+                        .foregroundStyle(.primary)
+                        .background(.thinMaterial)
+                        .clipped()
+                        .clipShape(.rect(cornerRadius: 8))
+                        .padding(.trailing, 6)
                     #endif
                 }
             }
             .padding(.trailing, 8)
-            .if(!displayOrnaments) { view in
-                view.hidden()
-            }
         }
-        .animation(.default, value: viewModel.mapState)
-        .animation(.spring(duration: 0.3), value: displayOrnaments)
-        .background(
-            CartographyMapView(state: viewModel.mapState)
-                .animation(.interpolatingSpring, value: viewModel.mapState)
-                .edgesIgnoringSafeArea(.all)
-                .onTapGesture {
-                    #if os(iOS)
-                    withAnimation(.spring(duration: 0.3)) {
-                        displayOrnaments.toggle()
-                    }
-                    #endif
-                }
-        )
     }
 }

@@ -133,29 +133,18 @@ customized by players:
 
 ## Images
 
-@Row(numberOfColumns: 5) {
-    @Column(size: 3) {
-        Pins and other relevant data types might contain images that are
-        associated to them. Officially, the `.mcmap` file format doesn't
-        enforce a consistent naming convention for image files, but
-        Alidade will generate a unique UUID string to be used as the
-        file's name when a player uploads a photo from their Photos
-        library or an image file from their Mac through the Finder.
-        
-        Images that correspond to a given data type, such as a pin, should
-        match the name of the file as it is stored in the 
-        ``CartographyMapFile/Keys/images`` directory, without the folder
-        path. See below for how this is correlated for a pin as an
-        example.
-    }
-    @Column(size: 2) {
-        > Tip: Consider making image file names unique, and don't tie them
-        > with names of data types. Since players can rename these types
-        > at any given moment, having a unique name that isn't associated
-        > with a data type's name ensures stability across rename
-        > operations.
-    }
-}
+Pins and other relevant data types might contain images that are
+associated to them. Officially, the `.mcmap` file format doesn't
+enforce a consistent naming convention for image files, but
+Alidade will generate a unique UUID string to be used as the
+file's name when a player uploads a photo from their Photos
+library or an image file from their Mac through the Finder.
+
+Images that correspond to a given data type, such as a pin, should
+match the name of the file as it is stored in the 
+``CartographyMapFile/Keys/images`` directory, without the folder
+path. See below for how this is correlated for a pin as an
+example.
 
 @Row {
     @Column {
@@ -190,3 +179,9 @@ customized by players:
         ```
     }
 }
+
+> Tip: Consider making image file names unique, and don't tie them
+> with names of data types. Since players can rename these types
+> at any given moment, having a unique name that isn't associated
+> with a data type's name ensures stability across rename
+> operations.

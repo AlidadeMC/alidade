@@ -50,9 +50,9 @@ struct CartographyMapViewTests {
         let sut = try mapView.inspect().implicitAnyView()
 
         #expect(mapView.state == .success(data))
-        #expect(try !sut.group().vStack(0).isAbsent)
+        #expect(try !sut.group().anyView(0).isAbsent)
 
-        let image = try sut.group().vStack(0).image(0)
+        let image = try sut.group().anyView(0).image(0)
         #expect(throws: Never.self) {
             try image.actualImage()
         }
