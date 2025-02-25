@@ -42,6 +42,9 @@ let package = Package(
             dependencies: [
                 "CubiomesKit",
                 .product(name: "SnapshotTesting", package: "swift-snapshot-testing"),
+            ],
+            resources: [
+                .copy("__Snapshots__")
             ]
         ),
     ]

@@ -56,3 +56,7 @@ LICENSE.txt or visit https://www.mozilla.org/en-US/MPL/2.0/.
 
 - [**Cubiomes**](https://github.com/Cubitect/cubiomes) - MIT License
 - [**Zoomable**](https://github.com/ryohey/Zoomable) - MIT License
+
+**Alidade** is also made possible with these invaluable snippets:
+
+- [Xcode Cloud Snapshot Testing](https://gist.github.com/jaanus/7e14b31f7f445435aadac09d24397da8)

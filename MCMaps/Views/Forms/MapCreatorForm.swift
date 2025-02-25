@@ -78,7 +78,9 @@ struct MapCreatorForm: View {
         .onAppear {
             versionString = mcVersion
             seedString = String(seed)
+            #if DEBUG
             self.didAppear?(self)
+            #endif
         }
     }
 }

@@ -24,7 +24,7 @@ struct MinecraftWorldTests {
                 origin: .init(x: 116, y: 15, z: -31),
                 scale: .init(x: 256, y: 1, z: 256)),
             dimension: .overworld)
-        assertSnapshot(of: data, as: .data)
+        assertSnapshot(data: data, testBundleResourceURL: Bundle.module.resourceURL!)
     }
 
     @Test func worldInitStopsWithInvalidVersion() async throws {
