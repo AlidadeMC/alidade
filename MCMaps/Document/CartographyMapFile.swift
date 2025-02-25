@@ -29,7 +29,7 @@ extension CartographyMap {
 /// A structure representing the Minecraft map file format (`.mcmap`).
 ///
 /// This structure is used to open, edit, write, and save files through SwiftUI.
-struct CartographyMapFile: FileDocument, Sendable, Equatable {
+struct CartographyMapFile: Sendable, Equatable {
     /// A typealias representing the mapping of image names to data blobs in the file.
     typealias ImageMap = [String: Data]
 
@@ -50,9 +50,10 @@ struct CartographyMapFile: FileDocument, Sendable, Equatable {
         init() {}
     }
 
-    static var readableContentTypes: [UTType] { [.cartography] }
-
     /// The underlying Minecraft world map driven from the metadata.
+    ///
+    /// > Note: When removing pins from the map, call ``removePin(at:)`` instead of directly removing the pin, as the
+    /// > former ensures that any associated photos are removed.
     var map: CartographyMap
 
     /// A map of all the images available in this file, and the raw data bytes for the images.
@@ -76,6 +77,49 @@ struct CartographyMapFile: FileDocument, Sendable, Equatable {
         self.images = [:]
     }
 
+    /// Prepares the map metadata for an export or save operation.
+    func prepareMetadataForExport() throws -> Data {
+        let encoder = JSONEncoder()
+        encoder.outputFormatting = [.prettyPrinted, .sortedKeys]
+        return try encoder.encode(map)
+    }
+
+    /// Removes a player-created pin at a given index, deleting associated images with it.
+    /// - Parameter index: The index of the pin to remove from the library.
+    mutating func removePin(at index: [CartographyMapPin].Index) {
+        guard map.pins.indices.contains(index) else { return }
+        let pin = map.pins[index]
+        if let images = pin.images {
+            for image in images {
+                self.images[image] = nil
+            }
+        }
+        map.pins.remove(at: index)
+    }
+
+    /// Removes a series of player-created pins at a given index, deleting associated images with it.
+    ///
+    /// This is generally recommended for built-in SwiftUI facilities or mass pin deletion operations.
+    /// - Parameter offsets: The offsets to delete pins from.
+    mutating func removePins(at offsets: IndexSet) {
+        var imagesToDelete = [String]()
+        for offset in offsets {
+            let pin = map.pins[offset]
+            guard let images = pin.images else { continue }
+            imagesToDelete.append(contentsOf: images)
+        }
+        for image in imagesToDelete {
+            self.images[image] = nil
+        }
+        map.pins.remove(atOffsets: offsets)
+    }
+}
+
+// MARK: - FileDocument Conformances
+
+extension CartographyMapFile: FileDocument {
+    static var readableContentTypes: [UTType] { [.cartography] }
+
     /// Creates a file from a read configuration.
     ///
     /// - Note: This is only used via SwiftUI, and it cannot be tested or invoked manually.
@@ -95,13 +139,6 @@ struct CartographyMapFile: FileDocument, Sendable, Equatable {
                 imageMap[key] = data
             }
         }
-    }
-
-    /// Prepares the map metadata for an export or save operation.
-    func prepareMetadataForExport() throws -> Data {
-        let encoder = JSONEncoder()
-        encoder.outputFormatting = [.prettyPrinted, .sortedKeys]
-        return try encoder.encode(map)
     }
 
     /// Creates a file wrapper from a write configuration.
@@ -126,6 +163,10 @@ struct CartographyMapFile: FileDocument, Sendable, Equatable {
         ])
     }
 }
+
+// MARK: - Transferable Conformances
+
+// NOTE(alicerunsonfedora): This should also take the image map into account...
 
 extension CartographyMapFile: Transferable {
     /// A representation of the data for exporting purposes.

@@ -26,6 +26,9 @@
     "Ancient City" : {
 
     },
+    "Are you sure you want to remove %@?" : {
+
+    },
     "Back" : {
 
     },
@@ -47,6 +50,12 @@
     "Create Pin" : {
 
     },
+    "Delete Pin..." : {
+
+    },
+    "Deleting this pin will also remove its photos from the map." : {
+
+    },
     "Desert Pyramid" : {
 
     },
@@ -54,6 +63,9 @@
 
     },
     "Dimension" : {
+
+    },
+    "Don't Remove" : {
 
     },
     "Done" : {
@@ -170,6 +182,9 @@
     "Refresh" : {
 
     },
+    "Remove" : {
+
+    },
     "Remove from Recents" : {
 
     },
@@ -186,6 +201,9 @@
 
     },
     "Swamp Hut" : {
+
+    },
+    "this pin" : {
 
     },
     "This seed will be converted to: `%@`" : {

@@ -5,6 +5,7 @@
 //  Created by Marquis Kurt on 31-01-2025.
 //
 
+import Foundation
 import Testing
 
 @testable import Alidade
@@ -39,6 +40,31 @@ struct CartographyMapFileTests {
         let exported = try file.prepareMetadataForExport()
 
         #expect(exported == map)
+    }
+
+    @Test func pinDeletesAtIndex() async throws {
+        var file = CartographyMapFile(map: .sampleFile, images: [
+            "foo.png": Data()
+        ])
+        file.map.pins[0].images = ["foo.png"]
+        file.removePin(at: file.map.pins.startIndex)
+        #expect(file.images["foo.png"] == nil)
+        #expect(file.images.isEmpty)
+        #expect(file.map.pins.isEmpty)
+    }
+
+    @Test func pinDeletesAtOffsets() async throws {
+        var file = CartographyMapFile(map: .sampleFile, images: [
+            "foo.png": Data(),
+            "bar.png": Data()
+        ])
+        file.map.pins[0].images = ["foo.png"]
+        file.map.pins.append(.init(position: .init(x: 2, y: 2), name: "Don't delete me"))
+        file.map.pins.append(.init(position: .zero, name: "Alt Point", images: ["bar.png"]))
+        file.removePins(at: [0, 2])
+        #expect(file.images.isEmpty)
+        #expect(file.map.pins.count == 1)
+        #expect(file.map.pins[0].name == "Don't delete me")
     }
 }
 

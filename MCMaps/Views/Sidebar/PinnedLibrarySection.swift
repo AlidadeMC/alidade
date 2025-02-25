@@ -20,6 +20,9 @@ struct PinnedLibrarySection: View {
     /// The file that the sidebar will read from and write to.
     @Binding var file: CartographyMapFile
 
+    @State private var displayDeletionPrompt = false
+    @State private var deletionIndex: [CartographyMapPin].Index?
+
     var body: some View {
         Section("Library") {
             ForEach(Array(pins.enumerated()), id: \.element) { (idx: Int, pin: CartographyMapPin) in
@@ -40,26 +43,73 @@ struct PinnedLibrarySection: View {
                                 Label("Get Info", systemImage: "info.circle")
                             }
                         #endif
-                        Menu("Color", systemImage: "paintpalette") {
-                            ForEach(CartographyMapPin.Color.allCases, id: \.self) { pinColor in
-                                Button {
-                                    recolorPins(to: pinColor) { realPin in
-                                        realPin.name == pin.name && realPin.position == pin.position
-                                    }
-                                } label: {
-                                    Text("\(pinColor)".localizedCapitalized)
-                                        .foregroundStyle(pinColor.swiftUIColor)
-                                        .tint(pinColor.swiftUIColor)
-                                }
-                            }
+                        Button(role: .destructive) {
+                            deletionIndex = idx
+                            displayDeletionPrompt.toggle()
+                        } label: {
+                            Label("Delete Pin...", systemImage: "trash")
                         }
+                    }
+                    .swipeActions(edge: .leading) {
+                        Button {
+                            viewModel.go(to: pin.position, relativeTo: file)
+                        } label: {
+                            Label("Go Here", systemImage: "location")
+                        }
+                        .tint(.accentColor)
+                    }
+                    .swipeActions(edge: .trailing) {
+                        Button(role: .destructive) {
+                            deletionIndex = idx
+                            displayDeletionPrompt.toggle()
+                        } label: {
+                            Label("Delete Pin...", systemImage: "trash")
+                        }
+                        #if os(macOS)
+                            Button {
+                                viewModel.currentRoute = .pin(idx, pin: pin)
+                            } label: {
+                                Label("Get Info", systemImage: "info.circle")
+                            }
+                            .tint(.blue)
+                        #endif
                     }
                     #if os(iOS)
                         .listRowBackground(Color.clear)
                         .listRowSeparator(.hidden)
                     #endif
             }
+
         }
+        .alert(
+            "Are you sure you want to remove \(deletionPinName)?",
+            isPresented: $displayDeletionPrompt
+        ) {
+            Button(role: .cancel) {
+                displayDeletionPrompt = false
+                deletionIndex = nil
+            } label: {
+                Text("Don't Remove")
+            }
+            Button(role: .destructive) {
+                displayDeletionPrompt = false
+                if let deletionIndex {
+                    file.removePin(at: deletionIndex)
+                }
+                self.deletionIndex = nil
+            } label: {
+                Text("Remove")
+            }
+        } message: {
+            Text("Deleting this pin will also remove its photos from the map.")
+        }
+    }
+
+    private var deletionPinName: String {
+        if let deletionIndex {
+            return file.map.pins[deletionIndex].name
+        }
+        return String(localized: "this pin")
     }
 
     private func recolorPins(
