@@ -37,8 +37,8 @@ jobs:
           xcode-version: '16.2.0'
       - name: Build DocC
         run: |
-          xcodebuild clean -scheme Alidade -derivedDataPath /tmp/docbuild -destination "generic/platform=macOS"
-          xcodebuild docbuild -scheme Alidade -derivedDataPath /tmp/docbuild -destination 'generic/platform=macOS' -skipPackagePluginValidation CODE_SIGNING_ALLOWED=NO;
+          xcodebuild clean -scheme "Alidade (Debugging)" -derivedDataPath /tmp/docbuild -destination "generic/platform=macOS"
+          xcodebuild docbuild -scheme "Alidade (Debugging)" -derivedDataPath /tmp/docbuild -destination 'generic/platform=macOS' -skipPackagePluginValidation CODE_SIGNING_ALLOWED=NO;
           
           $(xcrun --find docc) process-archive \
             transform-for-static-hosting /tmp/docbuild/Build/Products/Debug/Alidade.doccarchive \
