@@ -1,4 +1,8 @@
-# The .mcmap File Format
+# Minecraft Map packages (.mcmap)
+
+@Metadata {
+    @PageImage(purpose: card, source: "Card-FileFormat")
+}
 
 Learn and understand the file format Alidade uses to read and write
 Minecraft world maps.
@@ -130,6 +134,11 @@ customized by players:
 | ``CartographyMapPin/aboutDescription``     | String | A player-authored description about the pin. |
 | ``CartographyMapPin/color-swift.property`` | String | The pin's associated color.                  |
 | ``CartographyMapPin/images``               | Array  | A list of images associated with this pin.   |
+
+> Tip: To conserve disk space and memory, when players decide to delete
+> pins, any associated images to that pin should also be removed. This is
+> already handled with ``CartographyMapFile/removePins(at:)`` and
+> ``CartographyMapFile/removePin(at:)``.
 
 ## Images
 
