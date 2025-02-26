@@ -44,7 +44,7 @@ let package = Package(
                 .product(name: "SnapshotTesting", package: "swift-snapshot-testing"),
             ],
             resources: [
-                .copy("__Snapshots__")
+                .process("__Snapshots__")
             ]
         ),
     ]
