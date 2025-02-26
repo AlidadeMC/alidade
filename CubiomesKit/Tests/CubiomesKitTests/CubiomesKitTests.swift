@@ -18,13 +18,21 @@ struct MinecraftWorldTests {
     }
 
     @Test func snapshotMatchesOriginalImage() async throws {
+        guard let originalDataURL = Bundle.module.url(
+            forResource: "snapshotMatchesOriginalImage",
+            withExtension: "1"
+        ) else {
+            Issue.record("Original snapshot file is missing!")
+            return
+        }
+        let originalData = try Data(contentsOf: originalDataURL)
         let mcWorld = try MinecraftWorld(version: "1.21", seed: 3_257_840_388_504_953_787)
         let data = mcWorld.snapshot(
             in: .init(
                 origin: .init(x: 116, y: 15, z: -31),
                 scale: .init(x: 256, y: 1, z: 256)),
             dimension: .overworld)
-        assertSnapshot(data: data, testBundleResourceURL: Bundle.module.resourceURL!)
+        #expect(data.hashValue == originalData.hashValue)
     }
 
     @Test func worldInitStopsWithInvalidVersion() async throws {
