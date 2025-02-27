@@ -72,8 +72,8 @@ struct CartographyMapPinDetailView: View {
                             .frame(height: 150)
                         }
                         #if os(macOS)
-                        photoPicker
-                            .padding(.top)
+                            photoPicker
+                                .padding(.top)
                         #endif
                     }
                     .listRowBackground(Color.clear)
@@ -163,7 +163,8 @@ struct CartographyMapPinDetailView: View {
     }
 
     #if os(macOS)
-        private func getPhotoFromPanel() async {
+        @discardableResult
+        private func getPhotoFromPanel() async -> NSOpenPanel {
             let panel = NSOpenPanel()
             panel.directoryURL = FileManager.default.homeDirectoryForCurrentUser.appending(path: "Pictures")
             panel.canChooseDirectories = false
@@ -184,6 +185,7 @@ struct CartographyMapPinDetailView: View {
                     }
                 }
             }
+            return panel
         }
     #endif
 }
@@ -194,3 +196,31 @@ struct CartographyMapPinDetailView: View {
         CartographyMapPinDetailView(viewModel: .init(file: $file, index: 0))
     }
 }
+
+#if DEBUG
+    extension CartographyMapPinDetailView {
+        var testHooks: TestHooks { TestHooks(target: self) }
+
+        struct TestHooks {
+            private let target: CartographyMapPinDetailView
+
+            fileprivate init(target: CartographyMapPinDetailView) {
+                self.target = target
+            }
+
+            var photoItem: PhotosPickerItem? {
+                target.photoItem
+            }
+
+            var photoToUpdate: Image? {
+                target.photoToUpdate
+            }
+
+            #if os(macOS)
+            func openSavePanel() async -> NSOpenPanel {
+                return await target.getPhotoFromPanel()
+            }
+            #endif
+        }
+    }
+#endif

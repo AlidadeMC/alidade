@@ -18,7 +18,6 @@ struct ContentView: View {
 
     @State private var viewModel = CartographyMapViewModel()
     @State private var displaySidebarSheet = false
-    @State private var toggleOrnaments = true
 
     var body: some View {
         Group {
@@ -137,3 +136,25 @@ struct ContentView: View {
     @Previewable @State var file = CartographyMapFile(map: .sampleFile)
     ContentView(file: $file)
 }
+
+#if DEBUG
+    extension ContentView {
+        var testHooks: TestHooks { TestHooks(target: self) }
+
+        struct TestHooks {
+            private let target: ContentView
+
+            fileprivate init(target: ContentView) {
+                self.target = target
+            }
+
+            var displaySidebarSheet: Bool {
+                target.displaySidebarSheet
+            }
+
+            var viewModel: CartographyMapViewModel {
+                target.viewModel
+            }
+        }
+    }
+#endif

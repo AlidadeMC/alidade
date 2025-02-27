@@ -13,7 +13,8 @@ import ViewInspector
 
 @MainActor
 struct AdaptableSidebarSheetViewTests {
-    @Test func viewInitialize() throws {
+    @Test(.enabled(if: platform(is: .iOS)))
+    func viewInitialize() throws {
         let content = {
             return Text("Background!")
         }
@@ -31,7 +32,8 @@ struct AdaptableSidebarSheetViewTests {
         #expect(try contentActualSut.text().string() == contentExpectSut.text().string())
     }
 
-    @Test func viewInitializeWithBinding() throws {
+    @Test(.enabled(if: platform(is: .iOS)))
+    func viewInitializeWithBinding() throws {
         let isPresented = Binding<Bool>(wrappedValue: false)
         let content = {
             return Text("Background!")

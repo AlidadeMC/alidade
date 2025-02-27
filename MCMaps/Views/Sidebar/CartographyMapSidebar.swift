@@ -146,3 +146,29 @@ struct CartographyMapSidebar: View {
         viewModel.currentRoute = .recent(position)
     }
 }
+
+#if DEBUG
+    extension CartographyMapSidebar {
+        var testHooks: TestHooks { TestHooks(target: self) }
+
+        struct TestHooks {
+            private let target: CartographyMapSidebar
+
+            fileprivate init(target: CartographyMapSidebar) {
+                self.target = target
+            }
+
+            var world: MinecraftWorld? {
+                target.world
+            }
+
+            var searchResults: CartographySearchService.SearchResult? {
+                target.searchResults
+            }
+
+            var searchBarPlacement: SearchFieldPlacement {
+                target.searchBarPlacement
+            }
+        }
+    }
+#endif

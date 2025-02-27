@@ -126,7 +126,12 @@ extension CartographyMapFile: FileDocument {
     ///
     /// - Parameter configuration: The configuration to read the file from.
     init(configuration: ReadConfiguration) throws {
-        let fileWrappers = configuration.file.fileWrappers
+        try self.init(fileWrappers: configuration.file.fileWrappers)
+    }
+
+    /// Creates a file from a series of file wrappers.
+    /// - Parameter fileWrappers: The file wrappers to read the file from.
+    init(fileWrappers: [String: FileWrapper]?) throws {
         guard let metadata = fileWrappers?[Keys.metadata], let metadataContents = metadata.regularFileContents else {
             throw CocoaError(CocoaError.fileReadCorruptFile)
         }
@@ -147,6 +152,13 @@ extension CartographyMapFile: FileDocument {
     ///
     /// - Parameter configuration: The configuration to write the file to.
     func fileWrapper(configuration: WriteConfiguration) throws -> FileWrapper {
+        return try wrapper()
+    }
+
+    /// Creates a file wrapper regardless of configuration.
+    ///
+    /// - Note: This is mostly used by SwiftUI, but it exists as a standalone method for testing purposes.
+    func wrapper() throws -> FileWrapper {
         let encodedMetadata = try prepareMetadataForExport()
         let metadataWrapper = FileWrapper(regularFileWithContents: encodedMetadata)
 

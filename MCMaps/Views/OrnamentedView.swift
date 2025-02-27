@@ -43,12 +43,26 @@ struct OrnamentedView<Ornaments: View, BackgroundContent: View>: View {
 
     var content: BackgroundContent
     var ornaments: () -> Ornaments
+    #if DEBUG
+        var tappedGesture: ((Self) -> Void)?
+    #endif
 
     init(content: BackgroundContent, @ViewBuilder ornaments: @escaping () -> Ornaments) {
         self.displayOrnaments = true
         self.content = content
         self.ornaments = ornaments
     }
+
+    #if DEBUG
+        init(
+            content: BackgroundContent, @ViewBuilder ornaments: @escaping () -> Ornaments,
+            tappedGesture: ((Self) -> Void)? = nil
+        ) {
+            self.displayOrnaments = true
+            self.content = content
+            self.ornaments = ornaments
+        }
+    #endif
 
     init(@ViewBuilder _ content: @escaping () -> BackgroundContent, @ViewBuilder ornaments: @escaping () -> Ornaments) {
         self.displayOrnaments = true
@@ -72,16 +86,19 @@ struct OrnamentedView<Ornaments: View, BackgroundContent: View>: View {
 
     private func toggleOrnamentDisplay() {
         #if os(iOS)
-        withAnimation {
-            displayOrnaments.toggle()
-        }
+            withAnimation {
+                displayOrnaments.toggle()
+            }
+            #if DEBUG
+                tappedGesture?(self)
+            #endif
         #endif
     }
 }
 
 #Preview {
     OrnamentedView(content: Color.clear) {
-        MapOrnament(alignment: .center) {
+        Ornament(alignment: .center) {
             Text("Hi there!")
         }
     }

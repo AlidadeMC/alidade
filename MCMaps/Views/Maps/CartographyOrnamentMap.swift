@@ -42,12 +42,12 @@ struct CartographyOrnamentMap: View {
                 .animation(.interpolatingSpring, value: viewModel.mapState)
                 .edgesIgnoringSafeArea(.all)
         } ornaments: {
-            MapOrnament(alignment: Constants.navigatorWheelPlacement) {
+            Ornament(alignment: Constants.navigatorWheelPlacement) {
                 DirectionNavigator(viewModel: viewModel, file: file)
             }
             .padding(.trailing, 8)
             .padding(.bottom, horizontalSizeClass == .compact ? 116 : 8)
-            MapOrnament(alignment: Constants.locationBadgePlacement) {
+            Ornament(alignment: Constants.locationBadgePlacement) {
                 VStack(alignment: .trailing) {
                     LocationBadge(location: viewModel.worldRange.position)
                     #if os(iOS)

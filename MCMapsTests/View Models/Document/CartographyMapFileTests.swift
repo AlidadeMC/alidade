@@ -11,13 +11,15 @@ import Testing
 @testable import Alidade
 
 struct CartographyMapFileTests {
-    @Test func initEmpty() async throws {
+    @Test(.tags(.document))
+    func initEmpty() async throws {
         let file = CartographyMapFile(map: .sampleFile)
 
         #expect(file.map == .sampleFile)
     }
 
-    @Test func initFromData() async throws {
+    @Test(.tags(.document))
+    func initFromData() async throws {
         guard let map = Self.packMcmetaFile.data(using: .utf8) else {
             Issue.record("Failed to convert to a Data object.")
             return
@@ -31,7 +33,23 @@ struct CartographyMapFileTests {
         #expect(file.map.recentLocations?.count == 1)
     }
 
-    @Test func preparesForExport() async throws {
+    @Test(.tags(.document))
+    func initFromFileWrappers() async throws {
+        guard let map = Self.packMcmetaFile.data(using: .utf8) else {
+            Issue.record("Failed to convert to a Data object.")
+            return
+        }
+        var file = try CartographyMapFile(decoding: map)
+        file.images = ["foo.png": Data()]
+        let wrapper = try file.wrapper()
+
+        let newFile = try CartographyMapFile(fileWrappers: wrapper.fileWrappers)
+        #expect(newFile.map == file.map)
+        #expect(newFile.images == ["foo.png": Data()])
+    }
+
+    @Test(.tags(.document))
+    func preparesForExport() async throws {
         guard let map = Self.packMcmetaFile.data(using: .utf8) else {
             Issue.record("Failed to convert to a Data object.")
             return
@@ -42,7 +60,31 @@ struct CartographyMapFileTests {
         #expect(exported == map)
     }
 
-    @Test func pinDeletesAtIndex() async throws {
+    @Test(.tags(.document))
+    func fileWrapper() async throws {
+        guard let map = Self.packMcmetaFile.data(using: .utf8) else {
+            Issue.record("Failed to convert to a Data object.")
+            return
+        }
+        var file = try CartographyMapFile(decoding: map)
+        file.images = ["foo.png": Data()]
+        let wrapper = try file.wrapper()
+
+        #expect(wrapper.isDirectory == true)
+        #expect(wrapper.fileWrappers?["Info.json"] != nil)
+        #expect(wrapper.fileWrappers?["Images"] != nil)
+
+        let infoWrapper = wrapper.fileWrappers?["Info.json"]!
+        #expect(infoWrapper?.isRegularFile == true)
+        #expect(infoWrapper?.regularFileContents == map)
+
+        let imagesWrapper = wrapper.fileWrappers?["Images"]!
+        #expect(imagesWrapper?.isDirectory == true)
+        #expect(imagesWrapper?.fileWrappers?["foo.png"] != nil)
+    }
+
+    @Test(.tags(.document))
+    func pinDeletesAtIndex() async throws {
         var file = CartographyMapFile(map: .sampleFile, images: [
             "foo.png": Data()
         ])
@@ -53,7 +95,8 @@ struct CartographyMapFileTests {
         #expect(file.map.pins.isEmpty)
     }
 
-    @Test func pinDeletesAtOffsets() async throws {
+    @Test(.tags(.document))
+    func pinDeletesAtOffsets() async throws {
         var file = CartographyMapFile(map: .sampleFile, images: [
             "foo.png": Data(),
             "bar.png": Data()

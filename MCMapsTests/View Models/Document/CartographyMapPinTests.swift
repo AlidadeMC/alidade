@@ -11,7 +11,7 @@ import Testing
 @testable import Alidade
 
 struct CartographyMapPinTests {
-    @Test(arguments: [
+    @Test(.tags(.document), arguments: [
         (CartographyMapPin.Color.blue, Color.blue),
         (CartographyMapPin.Color.brown, Color.brown),
         (CartographyMapPin.Color.gray, Color.gray),

@@ -104,13 +104,22 @@
     "Get Info" : {
 
     },
+    "Go East" : {
+
+    },
     "Go Here" : {
 
     },
     "Go North" : {
 
     },
+    "Go South" : {
+
+    },
     "Go To..." : {
+
+    },
+    "Go West" : {
 
     },
     "Igloo" : {

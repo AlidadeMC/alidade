@@ -23,7 +23,8 @@ struct CartographyPinViewModelTests {
         }
     }
 
-    @Test func viewModelInit() async throws {
+    @Test(.tags(.viewModel))
+    func viewModelInit() async throws {
         let file = CartographyMapFile(map: .sampleFile)
         let fileBinding: Binding<CartographyMapFile> = .init(wrappedValue: file)
         let vm = CartographyPinViewModel(file: fileBinding, index: 0)
@@ -36,7 +37,8 @@ struct CartographyPinViewModelTests {
     }
 
     @MainActor
-    @Test func viewModelPinBinding() async throws {
+    @Test(.tags(.viewModel))
+    func viewModelPinBinding() async throws {
         let fileBinding: Binding<CartographyMapFile> = .init(wrappedValue: CartographyMapFile(map: .sampleFile))
         let vm = CartographyPinViewModel(file: fileBinding, index: 0)
 
@@ -47,7 +49,8 @@ struct CartographyPinViewModelTests {
         #expect(fileBinding.wrappedValue.map.pins[0].name == "Geschlossene Erinnerungen")
     }
 
-    @Test func viewModelImageUpload() async throws {
+    @Test(.tags(.viewModel))
+    func viewModelImageUpload() async throws {
         let fileBinding: Binding<CartographyMapFile> = .init(wrappedValue: CartographyMapFile(map: .sampleFile))
         let vm = CartographyPinViewModel(file: fileBinding, index: 0)
 
@@ -62,7 +65,8 @@ struct CartographyPinViewModelTests {
         #expect(fileBinding.wrappedValue.map.pins[0].images?.count == 1)
     }
 
-    @Test func viewModelPinDescription() async throws {
+    @Test(.tags(.viewModel))
+    func viewModelPinDescription() async throws {
         let fileBinding: Binding<CartographyMapFile> = .init(wrappedValue: CartographyMapFile(map: .sampleFile))
         let vm = CartographyPinViewModel(file: fileBinding, index: 0)
         

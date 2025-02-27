@@ -44,20 +44,20 @@ struct DirectionNavigator: View {
                     Button {
                         viewModel.go(inDirection: .west, relativeToFile: file)
                     } label: {
-                        Label("Go North", systemImage: "chevron.left")
+                        Label("Go West", systemImage: "chevron.left")
                             .padding(4)
                     }
                     Button {
                         viewModel.go(inDirection: .east, relativeToFile: file)
                     } label: {
-                        Label("Go North", systemImage: "chevron.right")
+                        Label("Go East", systemImage: "chevron.right")
                             .padding(4)
                     }
                 }
                 Button {
                     viewModel.go(inDirection: .south, relativeToFile: file)
                 } label: {
-                    Label("Go North", systemImage: "chevron.down")
+                    Label("Go South", systemImage: "chevron.down")
                         .padding(4)
                 }
             }
