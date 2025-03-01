@@ -44,6 +44,9 @@
     "Create" : {
 
     },
+    "Create a Map" : {
+
+    },
     "Create Map" : {
 
     },
@@ -170,6 +173,9 @@
     "Ocean Ruin" : {
 
     },
+    "Open a Map..." : {
+
+    },
     "Outpost" : {
 
     },
@@ -206,6 +212,9 @@
     "Shipwreck" : {
 
     },
+    "Show in Finder" : {
+
+    },
     "Structures" : {
 
     },
@@ -230,7 +239,20 @@
     "Update World" : {
 
     },
+    "v%@ (Build %@)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "v%1$@ (Build %2$@)"
+          }
+        }
+      }
+    },
     "Village" : {
+
+    },
+    "Welcome to %@" : {
 
     },
     "Write a description..." : {

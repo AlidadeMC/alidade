@@ -41,6 +41,12 @@ platform and window size, and it applies the appropriate toolbar items.
 This is mostly due to how `DocumentGroup` handles displaying document
 views, where macOS receives no additional navigation view.
 
+Both the iOS and macOS versions of the app use a document launch view to
+provide facilities for creating new maps and opening recent files. The iOS
+version leverages the `DocumentLaunchGroupScene` introduced in iOS 18,
+while the macOS version creates its own view that looks and functions
+similarly to that of other apps like Grids and Xcode.
+
 ## Common Routing
 
 To maintain a consistent routing system between macOS, iOS, and iPadOS, a

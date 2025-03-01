@@ -26,7 +26,23 @@ import SwiftUI
 /// The main entry point for the Alidade app.
 @main
 struct MCMapsApp: App {
-    @State private var creationContinuation: CheckedContinuation<CartographyMapFile?, any Error>?
+    /// The app's display name as it appears in the Info.plist file.
+    static var appName: String {
+        Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String ?? ""
+    }
+
+    /// The app's main version as it appears in the Info.plist file.
+    static var version: String {
+        Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "0.0"
+    }
+
+    /// The app's build number as it appears in the Info.plist file.
+    static var buildNumber: String {
+        Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "0"
+    }
+
+    @Environment(\.openWindow) private var openWindow
+
     @State private var displayCreationWindow = false
     @State private var proxyMap = CartographyMap(seed: 0, mcVersion: "1.21", name: "My World", pins: [])
 
@@ -38,44 +54,18 @@ struct MCMapsApp: App {
                     .toolbarVisibility(.hidden, for: .navigationBar)
                 #endif
         }
-
-        #if os(iOS)
-            DocumentGroupLaunchScene {
-                NewDocumentButton("Create Map", for: CartographyMapFile.self) {
-                    try await withCheckedThrowingContinuation { continuation in
-                        self.creationContinuation = continuation
-                        self.displayCreationWindow = true
+        #if os(macOS)
+            .commands {
+                CommandGroup(after: .windowArrangement) {
+                    Button("Welcome to \(Self.appName)") {
+                        openWindow(id: "launch")
                     }
+                    .keyboardShortcut("0", modifiers: [.shift, .command])
                 }
-                .sheet(isPresented: $displayCreationWindow) {
-                    NavigationStack {
-                        MapCreatorForm(worldName: $proxyMap.name, mcVersion: $proxyMap.mcVersion, seed: $proxyMap.seed)
-                            .navigationTitle("Create Map")
-                            .toolbar {
-                                ToolbarItem(placement: .confirmationAction) {
-                                    Button("Create") {
-                                        creationContinuation?.resume(returning: .init(map: proxyMap))
-                                        creationContinuation = nil
-                                        displayCreationWindow = false
-                                    }
-                                }
-
-                                ToolbarItem(placement: .cancellationAction) {
-                                    Button("Cancel") {
-                                        creationContinuation?.resume(throwing: CocoaError(CocoaError.userCancelled))
-                                        creationContinuation = nil
-                                        displayCreationWindow = false
-                                    }
-                                }
-                            }
-                    }
-                }
-            } background: {
-                Image(.packMcmeta)
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
             }
         #endif
+
+        DocumentLaunchView(displayCreationWindow: $displayCreationWindow, proxyMap: $proxyMap)
     }
 }
 

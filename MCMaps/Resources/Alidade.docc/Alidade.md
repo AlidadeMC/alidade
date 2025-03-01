@@ -74,6 +74,7 @@ contributors to read through.
 - <doc:Architecture>
 - ``MCMapsApp``
 - ``ContentView``
+- ``DocumentLaunchView-6qz0r``
 - ``CartographyMapSplitView``
 - ``AdaptableSidebarSheetView``
 
