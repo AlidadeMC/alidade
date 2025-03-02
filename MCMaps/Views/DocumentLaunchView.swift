@@ -115,7 +115,7 @@ import SwiftUI
                             .offset(x: 24, y: -8)
                             .imageScale(.large)
                         }
-                        .background(Color.white)
+                        .background(.windowBackground)
 
                     recentDocumentsList
                         .frame(width: 300, height: 400)
