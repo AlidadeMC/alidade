@@ -19,4 +19,11 @@ extension CGPoint {
         let deltaY = self.y - other.y
         return abs(deltaX) + abs(deltaY)
     }
+
+    /// A human-readable readout for accessibility purposes.
+    var accessibilityReadout: String {
+        let xVal = Int(x)
+        let yVal = Int(y)
+        return String(localized: "\(xVal), \(yVal)")
+    }
 }

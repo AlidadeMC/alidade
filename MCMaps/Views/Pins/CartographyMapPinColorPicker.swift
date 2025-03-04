@@ -41,6 +41,7 @@ struct CartographyMapPinColorPicker: View {
                                 )
                         }
                     }
+                    .accessibilityValue("Selected", isEnabled: color == pinColor)
             }
             .tag(pinColor)
             .help(String(describing: pinColor).localizedCapitalized)

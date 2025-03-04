@@ -14,8 +14,38 @@
         }
       }
     },
+    "%@, %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@, %2$@"
+          }
+        }
+      }
+    },
+    "%lf, %lf" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$lf, %2$lf"
+          }
+        }
+      }
+    },
     "%lld blocks away" : {
 
+    },
+    "%lld, %lld" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$lld, %2$lld"
+          }
+        }
+      }
     },
     "About" : {
 
@@ -207,6 +237,9 @@
 
     },
     "Seed" : {
+
+    },
+    "Selected" : {
 
     },
     "Shipwreck" : {

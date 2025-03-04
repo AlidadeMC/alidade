@@ -76,6 +76,8 @@ struct CartographyNamedLocationView: View {
                     .fontDesign(.monospaced)
             }
         }
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel("\(name), \(location.accessibilityReadout)")
     }
 
     private var coordinateDisplayText: String {

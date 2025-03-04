@@ -42,6 +42,7 @@ struct CartographyMapView: View {
                     .interpolation(.none)
                     .scaledToFill()
                     .zoomable()
+                    .accessibilityElement()
             case .unavailable:
                 ContentUnavailableView("No Map Available", systemImage: "map")
             }

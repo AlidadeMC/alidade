@@ -33,6 +33,7 @@ struct RecentLocationsListSection: View {
                     systemImage: "location.fill",
                     color: .gray
                 )
+                .accessibilityAddTraits(.isButton)
                 .tag(CartographyRoute.recent(pos))
                 .swipeActions(edge: .leading) {
                     createPinButton(for: pos)
