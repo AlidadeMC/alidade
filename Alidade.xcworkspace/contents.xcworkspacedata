@@ -8,6 +8,9 @@
       location = "group:README.md">
    </FileRef>
    <FileRef
+      location = "group:CONTRIBUTING.MD">
+   </FileRef>
+   <FileRef
       location = "group:MCMaps.xcodeproj">
    </FileRef>
    <FileRef
