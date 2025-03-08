@@ -14,11 +14,7 @@ import Testing
 struct MinecraftBiomeSearchingTests {
     @Test func biomeSearches() async throws {
         let world = try MinecraftWorld(version: "1.8", seed: 123)
-        let biomes = world.findBiomes(
-            ofType: plains,
-            at: .init(x: -255, y: 15, z: 1322),
-            inRadius: 32,
-            dimension: .overworld)
+        let biomes = world.findBiomes(ofType: plains, at: .init(x: -255, y: 15, z: 1322))
         #expect(!biomes.isEmpty)
     }
 }

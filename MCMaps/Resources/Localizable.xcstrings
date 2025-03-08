@@ -65,6 +65,9 @@
     "Bastion" : {
 
     },
+    "Biomes" : {
+
+    },
     "Cancel" : {
 
     },
@@ -191,6 +194,9 @@
     "No Pin Selected" : {
 
     },
+    "No results found." : {
+
+    },
     "No Route Available" : {
 
     },
@@ -234,6 +240,9 @@
 
     },
     "Ruined Portal" : {
+
+    },
+    "Searching..." : {
 
     },
     "Seed" : {

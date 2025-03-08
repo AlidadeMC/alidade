@@ -57,7 +57,7 @@ struct CartographyMapViewTests {
             try image.actualImage()
         }
 
-        #expect(try image.actualImage().renderedData == Image(data: data)?.resizable().renderedData)
+        #expect(try image.actualImage().renderedData == Image(data: data).resizable().renderedData)
     }
 }
 

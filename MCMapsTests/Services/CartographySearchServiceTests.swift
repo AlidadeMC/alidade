@@ -18,7 +18,7 @@ struct CartographySearchServiceTests {
         let file = CartographyMapFile(map: .sampleFile)
         let service = CartographySearchService()
 
-        let results = service.search("", world: world, file: file)
+        let results = await service.search("", world: world, file: file)
         #expect(results.isEmpty)
     }
 
@@ -28,7 +28,7 @@ struct CartographySearchServiceTests {
         let file = CartographyMapFile(map: .sampleFile)
         let service = CartographySearchService()
 
-        let results = service.search(query, world: world, file: file)
+        let results = await service.search(query, world: world, file: file)
         #expect(results.pins.count == 1)
         #expect(results.pins.first == .init(position: .zero, name: "Spawn"))
     }
@@ -45,7 +45,7 @@ struct CartographySearchServiceTests {
         let file = CartographyMapFile(map: .sampleFile)
         let service = CartographySearchService()
 
-        let results = service.search(query, world: world, file: file)
+        let results = await service.search(query, world: world, file: file)
         #expect(results.coordinates.count == 1)
         #expect(results.coordinates.first == position)
     }
@@ -55,9 +55,17 @@ struct CartographySearchServiceTests {
         let file = CartographyMapFile(map: .sampleFile)
         let service = CartographySearchService()
 
-        let results = service.search(
+        let results = await service.search(
             "mineshaft", world: world, file: file, currentPosition: .init(x: 113, y: 15, z: 430))
         #expect(results.structures.count == 11)
         #expect(results.structures.allSatisfy { $0.name == "Mineshaft" })
+    }
+
+    @Test func searchReturnsNearbyBiomes() async throws {
+        let world = try MinecraftWorld(version: "1.21.3", seed: 123)
+        let file = CartographyMapFile(map: .sampleFile)
+        let service = CartographySearchService()
+        let results = await service.search("Frozen River", world: world, file: file, currentPosition: .zero)
+        #expect(!results.biomes.isEmpty)
     }
 }

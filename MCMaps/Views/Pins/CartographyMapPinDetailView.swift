@@ -54,7 +54,7 @@ struct CartographyMapPinDetailView: View {
                         ScrollView(.horizontal) {
                             HStack {
                                 ForEach(viewModel.images(), id: \.self) { imageData in
-                                    Image(data: imageData)?
+                                    Image(data: imageData)
                                         .resizable()
                                         .scaledToFit()
                                         .clipped()

@@ -8,7 +8,7 @@
 import CubiomesInternal
 import Foundation
 
-public struct MinecraftWorld {
+public struct MinecraftWorld: Sendable {
     public enum WorldError: Error {
         case invalidVersionNumber
     }

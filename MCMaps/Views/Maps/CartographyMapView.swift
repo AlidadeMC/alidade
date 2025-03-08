@@ -38,7 +38,8 @@ struct CartographyMapView: View {
             case .loading:
                 ProgressView()
             case .success(let data):
-                Image(data: data)?.resizable()
+                Image(data: data)
+                    .resizable()
                     .interpolation(.none)
                     .scaledToFill()
                     .zoomable()

@@ -24,18 +24,22 @@ class CartographySearchService {
         /// if the player provided a coordinate query.
         var coordinates: [CGPoint]
 
+        /// Nearby biomes that matched within the specified radius.
+        var biomes: [CartographyMapPin]
+
         /// Nearby structures that matched within the specified radius.
         var structures: [CartographyMapPin]
 
         /// Whether the search results are completely empty.
         var isEmpty: Bool {
-            pins.isEmpty && coordinates.isEmpty && structures.isEmpty
+            pins.isEmpty && coordinates.isEmpty && structures.isEmpty && biomes.isEmpty
         }
 
         init() {
             self.pins = []
             self.coordinates = []
             self.structures = []
+            self.biomes = []
         }
     }
 
@@ -65,7 +69,7 @@ class CartographySearchService {
         file: CartographyMapFile,
         currentPosition: Point3D<Int32> = .zero,
         dimension: MinecraftWorld.Dimension = .overworld
-    ) -> SearchResult {
+    ) async -> SearchResult {
         var results = SearchResult()
 
         if let matches = query.matches(of: Constants.coordinateRegex).first?.output {
@@ -105,6 +109,52 @@ class CartographySearchService {
             }
         }
 
+        results.biomes = searchBiomes(
+            query: query,
+            mcVersion: file.map.mcVersion,
+            world: world,
+            pos: currentPosition,
+            dimension: dimension
+        )
+
         return results
+    }
+
+    private func searchBiomes(
+        query: String, mcVersion: String, world: MinecraftWorld, pos: Point3D<Int32>,
+        dimension: MinecraftWorld.Dimension
+    ) -> [CartographyMapPin] {
+        guard let biome = try? MinecraftBiome(string: query, mcVersion: mcVersion) else {
+            return []
+        }
+        var biomes = [CartographyMapPin]()
+        let foundBiomes = world.findBiomes(
+            ofType: biome,
+            at: pos,
+            inRadius: 8000,
+            dimension: dimension
+        )
+        var name: String
+
+        do {
+            name = try biome.name(for: mcVersion)
+        } catch {
+            name = "Unknown Biome"
+        }
+
+        for foundBiome in foundBiomes {
+            biomes.append(
+                CartographyMapPin(
+                    position: CGPoint(x: Double(foundBiome.x), y: Double(foundBiome.z)),
+                    name: name)
+            )
+        }
+
+        let cgPointOrigin = CGPoint(x: Double(pos.x), y: Double(pos.z))
+        biomes.sort { first, second in
+            first.position
+                .manhattanDistance(to: cgPointOrigin) < second.position.manhattanDistance(to: cgPointOrigin)
+        }
+        return biomes
     }
 }

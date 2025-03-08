@@ -13,6 +13,13 @@ import SwiftUI
 /// This will appear as the sheet content in the app's ``AdaptableSidebarSheetView``, and as the sidebar in the
 /// ``CartographyMapSplitView``.
 struct CartographyMapSidebar: View {
+    enum SearchingState: Equatable {
+        case initial
+        case searching
+        case found(CartographySearchService.SearchResult)
+    }
+
+    @Environment(\.isSearching) private var isSearching
     @Environment(\.dismissSearch) private var dismissSearch
 
     /// The view model the sidebar will interact with.
@@ -22,6 +29,8 @@ struct CartographyMapSidebar: View {
     ///
     /// Notably, the sidebar content will read from recent locations and the player-created pins.
     @Binding var file: CartographyMapFile
+
+    @State private var searchingState = SearchingState.initial
 
     private var searchBarPlacement: SearchFieldPlacement {
         #if os(macOS)
@@ -46,7 +55,7 @@ struct CartographyMapSidebar: View {
 
         .frame(minWidth: 175, idealWidth: 200)
         .searchable(text: $viewModel.searchQuery, placement: searchBarPlacement, prompt: "Go To...")
-        .animation(.default, value: searchResults)
+        .animation(.default, value: searchingState)
         .onChange(of: viewModel.currentRoute) { _, newValue in
             switch newValue {
             case let .pin(_, pin):
@@ -57,12 +66,45 @@ struct CartographyMapSidebar: View {
                 break
             }
         }
+        .onSubmit(of: .search) {
+            Task {
+                await search()
+            }
+        }
+        .onChange(of: viewModel.searchQuery) { _, newValue in
+            if newValue.isEmpty {
+                searchingState = .initial
+            }
+        }
     }
 
     private var listContents: some View {
         Group {
-            if let results = searchResults, !viewModel.searchQuery.isEmpty {
-                Group {
+            Group {
+                switch searchingState {
+                case .initial:
+                    defaultView
+                case .searching:
+                    HStack {
+                        Spacer()
+                        Label {
+                            Text("Searching...")
+                                .font(.subheadline)
+                                .bold()
+                        } icon: {
+                            Image(systemName: "magnifyingglass.circle")
+                                .symbolEffect(.breathe)
+                                .imageScale(.large)
+                        }
+                        Spacer()
+                    }
+                    .padding(.vertical)
+                    #if os(iOS)
+                        .listRowBackground(Color.clear)
+                        .listRowInsets(.zero)
+                        .listRowSeparator(.hidden)
+                    #endif
+                case .found(let results):
                     if let jumpToCoordinate = results.coordinates.first {
                         CartographyNamedLocationView(
                             name: "Jump Here",
@@ -86,21 +128,29 @@ struct CartographyMapSidebar: View {
                         PinnedLibrarySection(pins: results.pins, viewModel: $viewModel, file: $file)
                     }
 
-                    if !results.structures.isEmpty {
-                        SearchedStructuresSection(
-                            structures: results.structures,
-                            viewModel: $viewModel,
-                            file: $file
-                        ) { jumpedToPin in
-                            withAnimation {
-                                pushToRecentLocations(jumpedToPin.position)
-                                viewModel.searchQuery = ""
-                            }
+                    GroupedPinsSection(
+                        pins: results.structures,
+                        viewModel: $viewModel,
+                        file: $file
+                    ) { jumpedToPin in
+                        withAnimation {
+                            pushToRecentLocations(jumpedToPin.position)
+                            viewModel.searchQuery = ""
+                            searchingState = .initial
+                        }
+                    }
+
+                    GroupedPinsSection(
+                        name: "Biomes", pins: results.biomes, viewModel: $viewModel, file: $file
+                    ) { jumpedToPin in
+                        withAnimation {
+                            pushToRecentLocations(jumpedToPin.position)
+                            viewModel.searchQuery = ""
+                            searchingState = .initial
                         }
                     }
                 }
-            } else {
-                defaultView
+
             }
         }
     }
@@ -122,18 +172,6 @@ struct CartographyMapSidebar: View {
         try? MinecraftWorld(version: file.map.mcVersion, seed: file.map.seed)
     }
 
-    private var searchResults: CartographySearchService.SearchResult? {
-        guard let world else { return nil }
-        return CartographySearchService()
-            .search(
-                viewModel.searchQuery,
-                world: world,
-                file: file,
-                currentPosition: viewModel.worldRange.position,
-                dimension: viewModel.worldDimension
-            )
-    }
-
     func pushToRecentLocations(_ position: CGPoint) {
         if file.map.recentLocations == nil {
             file.map.recentLocations = [position]
@@ -144,6 +182,25 @@ struct CartographyMapSidebar: View {
             file.map.recentLocations?.remove(at: 0)
         }
         viewModel.currentRoute = .recent(position)
+    }
+
+    private func search() async {
+        guard let world else {
+            searchingState = .initial
+            return
+        }
+        searchingState = .searching
+        let service = CartographySearchService()
+        let results =
+            await service
+            .search(
+                viewModel.searchQuery,
+                world: world,
+                file: file,
+                currentPosition: viewModel.worldRange.position,
+                dimension: viewModel.worldDimension
+            )
+        searchingState = .found(results)
     }
 }
 
@@ -162,12 +219,16 @@ struct CartographyMapSidebar: View {
                 target.world
             }
 
-            var searchResults: CartographySearchService.SearchResult? {
-                target.searchResults
+            var searchState: SearchingState {
+                target.searchingState
             }
 
             var searchBarPlacement: SearchFieldPlacement {
                 target.searchBarPlacement
+            }
+
+            func triggerSearch() async {
+                await target.search()
             }
         }
     }
