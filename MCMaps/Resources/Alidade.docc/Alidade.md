@@ -127,7 +127,7 @@ contributors to read through.
 - ``CartographyMapSidebarSheet``
 - ``RecentLocationsListSection``
 - ``PinnedLibrarySection``
-- ``SearchedStructuresSection``
+- ``GroupedPinsSection``
 
 ### View Modifiers
 

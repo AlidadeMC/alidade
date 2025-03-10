@@ -13,8 +13,14 @@ Read through the release notes for the latest versions of Alidade.
 The following document outlines the changes in each version of the app
 across Mac, iPhone, and iPad.
 
-## 1.0
+### Unreleased
 
-> Important: This version is still a work in progress.
+- Changes the button style on the navigator wheel to allow more lenient
+  mouse presses on macOS (#23).
+- Adds keyboard shortcuts to quickly navigate with the wheel with Command
+  and the arrow keys: i.e., Cmd + Up to go up, Cmd + Left to go left,
+  etc. (#23).
+
+## 1.0 (Build 23) [Beta]
 
 - Initial release.

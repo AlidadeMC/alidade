@@ -15,13 +15,13 @@ import SwiftUI
 struct DirectionNavigator: View {
     private enum Constants {
         #if os(macOS)
-        static let verticalStackSpacing = 4.0
-        static let horizontalStackSpacing = 24.0
-        static let innerPadding = 8.0
+            static let verticalStackSpacing = 4.0
+            static let horizontalStackSpacing = 24.0
+            static let innerPadding = 8.0
         #else
-        static let verticalStackSpacing = 24.0
-        static let horizontalStackSpacing = 64.0
-        static let innerPadding = 24.0
+            static let verticalStackSpacing = 24.0
+            static let horizontalStackSpacing = 64.0
+            static let innerPadding = 24.0
         #endif
     }
 
@@ -38,32 +38,35 @@ struct DirectionNavigator: View {
                     viewModel.go(inDirection: .north, relativeToFile: file)
                 } label: {
                     Label("Go North", systemImage: "chevron.up")
-                        .padding(4)
                 }
+                .keyboardShortcut(.upArrow, modifiers: [.command])
                 HStack(spacing: Constants.horizontalStackSpacing) {
                     Button {
                         viewModel.go(inDirection: .west, relativeToFile: file)
                     } label: {
                         Label("Go West", systemImage: "chevron.left")
-                            .padding(4)
                     }
+                    .keyboardShortcut(.leftArrow, modifiers: [.command])
                     Button {
                         viewModel.go(inDirection: .east, relativeToFile: file)
                     } label: {
                         Label("Go East", systemImage: "chevron.right")
-                            .padding(4)
                     }
+                    .keyboardShortcut(.rightArrow, modifiers: [.command])
                 }
                 Button {
                     viewModel.go(inDirection: .south, relativeToFile: file)
                 } label: {
                     Label("Go South", systemImage: "chevron.down")
-                        .padding(4)
                 }
+                .keyboardShortcut(.downArrow, modifiers: [.command])
             }
             .labelStyle(.iconOnly)
-            .buttonStyle(.plain)
+            #if os(macOS)
+                .buttonStyle(.accessoryBar)
+            #endif
         }
+        .tint(.primary)
         .padding(Constants.innerPadding)
         .background(.thinMaterial)
         .clipped()
