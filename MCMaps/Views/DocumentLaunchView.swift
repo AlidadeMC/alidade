@@ -227,35 +227,26 @@ import SwiftUI
                     }
                     .padding(.vertical, 2)
                     .tag(url)
-                    .onTapGesture(count: 2) {
-                        if selectedFile == url {
-                            openDocument(at: url)
-                        }
-                    }
-                    .onTapGesture(count: 1) {
-                        selectedFile = url
-                    }
-                    .contextMenu {
-                        Button {
-                            Task {
-                                await showInFinder(url: url)
-                            }
-                        } label: {
-                            Label("Show in Finder", systemImage: "folder")
-                        }
-                    }
                 }
             }
             .buttonStyle(.plain)
             .listStyle(.sidebar)
             .background(.thinMaterial)
             .ignoresSafeArea(.container)
-            .onKeyPress(.return) {
-                if let url = selectedFile {
-                    openDocument(at: url)
-                    return .handled
+            .contextMenu(forSelectionType: URL.self) { urls in
+                if urls.count == 1, let url = urls.first {
+                    Button {
+                        Task {
+                            await showInFinder(url: url)
+                        }
+                    } label: {
+                        Label("Show in Finder", systemImage: "folder")
+                    }
                 }
-                return .ignored
+            } primaryAction: { urls in
+                if urls.count == 1, let url = urls.first {
+                    openDocument(at: url)
+                }
             }
         }
 
