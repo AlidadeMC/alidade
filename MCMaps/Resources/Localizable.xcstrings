@@ -266,6 +266,9 @@
     "Selected" : {
 
     },
+    "Send %@ Feedback" : {
+
+    },
     "Shipwreck" : {
 
     },
@@ -323,6 +326,9 @@
           }
         }
       }
+    },
+    "View %@ Documentation" : {
+
     },
     "View maps of the Overworld, the Nether, and the End easily." : {
 

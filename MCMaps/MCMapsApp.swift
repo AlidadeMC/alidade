@@ -43,6 +43,7 @@ struct MCMapsApp: App {
     }
 
     @Environment(\.openWindow) private var openWindow
+    @Environment(\.openURL) private var openURL
 
     @State private var displayCreationWindow = false
     @State private var proxyMap = CartographyMap(seed: 0, mcVersion: "1.21", name: "My World", pins: [])
@@ -70,6 +71,15 @@ struct MCMapsApp: App {
                         openWindow(id: "launch")
                     }
                     .keyboardShortcut("0", modifiers: [.shift, .command])
+                }
+                CommandGroup(after: .help) {
+                    Divider()
+                    if let docs = URL(string: "https://docs.alidade.dev") {
+                        Link("View \(Self.appName) Documentation", destination: docs)
+                    }
+                    if let feedback = URL(string: "https://github.com/alicerunsonfedora/mcmaps/issues") {
+                        Link("Send \(Self.appName) Feedback", destination: feedback)
+                    }
                 }
             }
         #endif
