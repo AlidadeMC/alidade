@@ -129,6 +129,12 @@ contributors to read through.
 - ``PinnedLibrarySection``
 - ``GroupedPinsSection``
 
+### Tips and Onboarding
+
+- ``DirectionNavigatorTip``
+- ``LibraryOnboardingTip``
+- ``WorldDimensionPickerTip``
+
 ### View Modifiers
 
 - ``ZoomableModifier``

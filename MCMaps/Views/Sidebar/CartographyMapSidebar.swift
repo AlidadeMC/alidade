@@ -7,6 +7,7 @@
 
 import CubiomesKit
 import SwiftUI
+import TipKit
 
 /// The sidebar content for the main app.
 ///
@@ -17,6 +18,10 @@ struct CartographyMapSidebar: View {
         case initial
         case searching
         case found(CartographySearchService.SearchResult)
+    }
+
+    private enum LocalTips {
+        static var onboarding = LibraryOnboardingTip()
     }
 
     @Environment(\.isSearching) private var isSearching
@@ -157,6 +162,10 @@ struct CartographyMapSidebar: View {
 
     private var defaultView: some View {
         Group {
+            TipView(LocalTips.onboarding)
+                .tipViewStyle(.miniTip)
+                .listRowSeparator(.hidden)
+                .listRowBackground(Color.clear)
             if !file.map.pins.isEmpty {
                 PinnedLibrarySection(pins: file.map.pins, viewModel: $viewModel, file: $file)
             }
@@ -189,6 +198,7 @@ struct CartographyMapSidebar: View {
             searchingState = .initial
             return
         }
+        LocalTips.onboarding.invalidate(reason: .actionPerformed)
         searchingState = .searching
         let service = CartographySearchService()
         let results =

@@ -8,9 +8,14 @@
 import CubiomesKit
 import Observation
 import SwiftUI
+import TipKit
 
 /// The primary content view used to display the app's interface.
 struct ContentView: View {
+    private enum LocalTips {
+        static let dimensionPicker = WorldDimensionPickerTip()
+    }
+
     @Environment(\.dismiss) private var dismissWindow
 
     /// The current file the content view is viewing and/or editing.
@@ -40,6 +45,7 @@ struct ContentView: View {
         .animation(.default, value: file.map.recentLocations)
         .animation(.default, value: viewModel.mapState)
         .task {
+            await WorldDimensionPickerTip.viewDisplayed.donate()
             await viewModel.refreshMap(for: file)
         }
         .onChange(of: viewModel.worldDimension) { _, _ in
@@ -98,18 +104,24 @@ struct ContentView: View {
                     } label: {
                         Label("Dimension", systemImage: "map")
                     }
+                    .popoverTip(LocalTips.dimensionPicker)
+                    .onChange(of: viewModel.worldDimension) { _, _ in
+                        LocalTips.dimensionPicker.invalidate(reason: .actionPerformed)
+                    }
                 }
             #endif
 
-            ToolbarItem {
-                Button {
-                    Task {
-                        await viewModel.refreshMap(for: file)
+            #if DEBUG
+                ToolbarItem {
+                    Button {
+                        Task {
+                            await viewModel.refreshMap(for: file)
+                        }
+                    } label: {
+                        Label("Refresh", systemImage: "arrow.clockwise")
                     }
-                } label: {
-                    Label("Refresh", systemImage: "arrow.clockwise")
                 }
-            }
+            #endif
 
             #if os(macOS)
                 ToolbarItem {

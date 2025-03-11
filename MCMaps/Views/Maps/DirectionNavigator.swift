@@ -25,6 +25,8 @@ struct DirectionNavigator: View {
         #endif
     }
 
+    private let tip = DirectionNavigatorTip()
+
     /// The view model the navigator will read from.
     var viewModel: CartographyMapViewModel
 
@@ -36,6 +38,7 @@ struct DirectionNavigator: View {
             VStack(spacing: Constants.verticalStackSpacing) {
                 Button {
                     viewModel.go(inDirection: .north, relativeToFile: file)
+                    tip.invalidate(reason: .actionPerformed)
                 } label: {
                     Label("Go North", systemImage: "chevron.up")
                 }
@@ -43,12 +46,14 @@ struct DirectionNavigator: View {
                 HStack(spacing: Constants.horizontalStackSpacing) {
                     Button {
                         viewModel.go(inDirection: .west, relativeToFile: file)
+                        tip.invalidate(reason: .actionPerformed)
                     } label: {
                         Label("Go West", systemImage: "chevron.left")
                     }
                     .keyboardShortcut(.leftArrow, modifiers: [.command])
                     Button {
                         viewModel.go(inDirection: .east, relativeToFile: file)
+                        tip.invalidate(reason: .actionPerformed)
                     } label: {
                         Label("Go East", systemImage: "chevron.right")
                     }
@@ -56,6 +61,7 @@ struct DirectionNavigator: View {
                 }
                 Button {
                     viewModel.go(inDirection: .south, relativeToFile: file)
+                    tip.invalidate(reason: .actionPerformed)
                 } label: {
                     Label("Go South", systemImage: "chevron.down")
                 }
@@ -72,5 +78,11 @@ struct DirectionNavigator: View {
         .clipped()
         .clipShape(Circle())
         .padding(8)
+        .popoverTip(tip, arrowEdge: .top)
+        .onAppear {
+            Task {
+                await DirectionNavigatorTip.viewDisplayed.donate()
+            }
+        }
     }
 }

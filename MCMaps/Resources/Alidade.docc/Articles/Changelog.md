@@ -15,6 +15,9 @@ across Mac, iPhone, and iPad.
 
 ### Unreleased
 
+- Introduces tips for getting started with Alidade, starting with the
+  library/sidebar, navigation controls, and the world dimension picker.
+  This is an ongoing effort aimed to help highlight features (#24).
 - Fixes an issue where documents wouldn't always open on the recent
   projects list in the "Welcome to Alidade" window on macOS (#22).
 - Changes the button style on the navigator wheel to allow more lenient

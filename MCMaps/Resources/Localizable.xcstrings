@@ -68,6 +68,9 @@
     "Biomes" : {
 
     },
+    "Browse and search your library." : {
+
+    },
     "Cancel" : {
 
     },
@@ -84,6 +87,9 @@
 
     },
     "Create Pin" : {
+
+    },
+    "Debug" : {
 
     },
     "Delete Pin..." : {
@@ -158,6 +164,9 @@
     "Go West" : {
 
     },
+    "Hide All Tips" : {
+
+    },
     "Igloo" : {
 
     },
@@ -180,6 +189,9 @@
 
     },
     "Monument" : {
+
+    },
+    "Move around the map." : {
 
     },
     "Name" : {
@@ -239,6 +251,9 @@
     "Remove from Recents" : {
 
     },
+    "Reset Tip Datastore" : {
+
+    },
     "Ruined Portal" : {
 
     },
@@ -254,6 +269,9 @@
     "Shipwreck" : {
 
     },
+    "Show All Tips" : {
+
+    },
     "Show in Finder" : {
 
     },
@@ -263,10 +281,22 @@
     "Swamp Hut" : {
 
     },
+    "Switch between dimensions." : {
+
+    },
+    "Tap any of the arrows or press Command with any arrow key to move around the map." : {
+
+    },
+    "Tap any of the arrows to move around the map." : {
+
+    },
     "this pin" : {
 
     },
     "This seed will be converted to: `%@`" : {
+
+    },
+    "Tips" : {
 
     },
     "Trail Ruins" : {
@@ -281,6 +311,9 @@
     "Update World" : {
 
     },
+    "Use the search bar to look through your pins, or to locate nearby structures and biomes." : {
+
+    },
     "v%@ (Build %@)" : {
       "localizations" : {
         "en" : {
@@ -290,6 +323,9 @@
           }
         }
       }
+    },
+    "View maps of the Overworld, the Nether, and the End easily." : {
+
     },
     "Village" : {
 

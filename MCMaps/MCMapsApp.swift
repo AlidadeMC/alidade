@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import TipKit
 
 #if os(iOS)
     @MainActor
@@ -46,6 +47,14 @@ struct MCMapsApp: App {
     @State private var displayCreationWindow = false
     @State private var proxyMap = CartographyMap(seed: 0, mcVersion: "1.21", name: "My World", pins: [])
 
+    init() {
+        do {
+            try Tips.configure()
+        } catch {
+            print("Failed to configure tips: \(error.localizedDescription)")
+        }
+    }
+
     var body: some Scene {
         DocumentGroup(newDocument: CartographyMapFile(map: .sampleFile)) { configuration in
             ContentView(file: configuration.$document)
@@ -61,6 +70,27 @@ struct MCMapsApp: App {
                         openWindow(id: "launch")
                     }
                     .keyboardShortcut("0", modifiers: [.shift, .command])
+                }
+            }
+        #endif
+        #if DEBUG
+            .commands {
+                CommandMenu("Debug") {
+                    Menu("Tips") {
+                        Button("Show All Tips") {
+                            Tips.showAllTipsForTesting()
+                        }
+                        Button("Hide All Tips") {
+                            Tips.hideAllTipsForTesting()
+                        }
+                        Button("Reset Tip Datastore") {
+                            do {
+                                try Tips.resetDatastore()
+                            } catch {
+                                print("Failed to reset datastore: \(error.localizedDescription)")
+                            }
+                        }
+                    }
                 }
             }
         #endif

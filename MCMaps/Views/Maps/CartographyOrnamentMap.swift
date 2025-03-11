@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import TipKit
 
 /// An ornament used to display content on top of a map.
 ///
@@ -19,6 +20,10 @@ typealias MapOrnament = Ornament
 /// direction navigator wheel, and dimension picker. On iOS and iPadOS, tapping the map will show or hide these
 /// ornaments.
 struct CartographyOrnamentMap: View {
+    private enum LocalTips {
+        static let dimensionPicker = WorldDimensionPickerTip()
+    }
+
     private enum Constants {
         #if os(macOS)
             static let locationBadgePlacement = Alignment.bottomLeading
@@ -64,6 +69,10 @@ struct CartographyOrnamentMap: View {
                         .clipped()
                         .clipShape(.rect(cornerRadius: 8))
                         .padding(.trailing, 6)
+                        .popoverTip(LocalTips.dimensionPicker)
+                        .onChange(of: viewModel.worldDimension) { _, _ in
+                            LocalTips.dimensionPicker.invalidate(reason: .actionPerformed)
+                        }
                     #endif
                 }
             }
