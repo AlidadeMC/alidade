@@ -15,6 +15,8 @@ across Mac, iPhone, and iPad.
 
 ### Unreleased
 
+## 1.0 (Build 25) [Beta]
+
 - Adds new menu bar entries for "Send Alidade Feedback" and "View Alidade
   Documentation" under the Help menu on macOS.
 - Introduces tips for getting started with Alidade, starting with the
