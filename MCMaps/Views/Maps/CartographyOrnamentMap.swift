@@ -8,12 +8,6 @@
 import SwiftUI
 import TipKit
 
-/// An ornament used to display content on top of a map.
-///
-/// - Important: This view has been renamed to the general ``Ornament`` view.
-@available(*, deprecated, renamed: "Ornament")
-typealias MapOrnament = Ornament
-
 /// A map view with various ornaments placed on top.
 ///
 /// The ornament map displays the regular map while having various ornaments on top, such as the location badge,
