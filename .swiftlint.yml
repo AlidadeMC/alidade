@@ -31,4 +31,15 @@ identifier_name:
     - up
     - id
     - URL
+
+custom_rules:
+  cubiomes_internal_use: # rule identifier
+    excluded:
+      - "CubiomesKit/*.swift" # regex that defines paths to exclude during linting. optional
+    name: "External CubiomesInternal Usage" # rule name. optional.
+    regex: "(import CubiomesInternal)" # matching pattern
+    capture_group: 0 # number of regex capture group to highlight the rule violation at. optional.
+    message: "Don't import CubiomesInternal directly outside of CubiomesKit." # violation message. optional.
+    severity: warning # violation severity. optional.
+
 reporter: "xcode"
