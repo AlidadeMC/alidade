@@ -43,15 +43,6 @@ struct MapCreatorForm: View {
                     }
                 }
                 TextField("Seed", text: $seedString)
-                    .onSubmit {
-                        if let realNumber = Int64(seedString) {
-                            seed = realNumber
-                            autoconvert = false
-                        } else {
-                            seed = Int64(seedString.hashValue)
-                            autoconvert = true
-                        }
-                    }
             } header: {
                 Text("World Generation")
             } footer: {
@@ -65,12 +56,22 @@ struct MapCreatorForm: View {
                     self.mcVersion = verString
                 }
             }
+            .onChange(of: seedString) { _, newValue in
+                if let realNumber = Int64(newValue) {
+                    seed = realNumber
+                    autoconvert = false
+                } else {
+                    let isEmptyField = newValue == ""
+                    seed = isEmptyField ? 0 : Int64(newValue.hashValue)
+                    autoconvert = !isEmptyField
+                }
+            }
         }
         .onAppear {
             version = MinecraftVersion(mcVersion)
             seedString = String(seed)
             #if DEBUG
-            self.didAppear?(self)
+                self.didAppear?(self)
             #endif
         }
     }

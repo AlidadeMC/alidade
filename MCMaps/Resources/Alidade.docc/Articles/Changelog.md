@@ -15,6 +15,9 @@ across Mac, iPhone, and iPad.
 
 ### Unreleased
 
+- Updates the new document experience on macOS to match iOS and iPadOS
+  with a new form that lets players enter the Minecraft version and seed
+  before launching into a blank document.
 - Replaces the generic about screen with a more specialized and purpose
   built version on macOS.
 - Replaces the Minecraft version text field with a dropdown menu to
