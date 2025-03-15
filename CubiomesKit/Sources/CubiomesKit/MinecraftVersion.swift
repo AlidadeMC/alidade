@@ -33,7 +33,7 @@ public extension MinecraftVersion {
 
 extension MinecraftVersion: @retroactive CaseIterable {
     public static var allCases: [MinecraftVersion] {
-        return (MC_UNDEF.rawValue...MC_NEWEST.rawValue).map {
+        return (MC_B1_7.rawValue...MC_NEWEST.rawValue).map {
             MCVersion($0)
         }
     }

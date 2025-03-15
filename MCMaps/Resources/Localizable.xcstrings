@@ -215,9 +215,6 @@
     "No view was defined for route %@" : {
 
     },
-    "Not a valid Minecraft version." : {
-
-    },
     "Ocean Ruin" : {
 
     },
@@ -337,6 +334,9 @@
 
     },
     "Welcome to %@" : {
+
+    },
+    "World Generation" : {
 
     },
     "Write a description..." : {

@@ -5,7 +5,6 @@
 //  Created by Marquis Kurt on 01-02-2025.
 //
 
-import CubiomesInternal
 import CubiomesKit
 import SwiftUI
 
@@ -25,10 +24,10 @@ struct MapCreatorForm: View {
     /// A binding to the seed used for world generation.
     @Binding var seed: Int64
 
-    @State private var versionString = ""
     @State private var seedString = ""
     @State private var invalidVersion = false
     @State private var autoconvert = false
+    @State private var version = MC_1_21_WD
 
     #if DEBUG
         internal var didAppear: ((Self) -> Void)?
@@ -38,45 +37,37 @@ struct MapCreatorForm: View {
         Form {
             TextField("Name", text: $worldName)
             Section {
-                TextField("Minecraft Version", text: $versionString)
-            } header: {
-                Text("Minecraft Version")
-            } footer: {
-                if invalidVersion {
-                    Label("Not a valid Minecraft version.", systemImage: "xmark.circle.fill")
-                        .foregroundStyle(Color.red)
+                Picker("Minecraft Version", selection: $version) {
+                    ForEach(MinecraftVersion.allCases, id: \.rawValue) { ver in
+                        Text(String(ver) ?? "?").tag(ver)
+                    }
                 }
-            }
-            .onSubmit {
-                let mcVersion = str2mc(versionString)
-                invalidVersion = mcVersion == MC_UNDEF.rawValue
-                if !invalidVersion {
-                    self.mcVersion = versionString
-                }
-            }
-
-            Section {
                 TextField("Seed", text: $seedString)
+                    .onSubmit {
+                        if let realNumber = Int64(seedString) {
+                            seed = realNumber
+                            autoconvert = false
+                        } else {
+                            seed = Int64(seedString.hashValue)
+                            autoconvert = true
+                        }
+                    }
             } header: {
-                Text("Seed")
+                Text("World Generation")
             } footer: {
                 if autoconvert {
                     let hashedString = String(seedString.hashValue)
                     Text("This seed will be converted to: `\(hashedString)`")
                 }
             }
-            .onSubmit {
-                if let realNumber = Int64(seedString) {
-                    seed = realNumber
-                    autoconvert = false
-                } else {
-                    seed = Int64(seedString.hashValue)
-                    autoconvert = true
+            .onChange(of: version) { _, newValue in
+                if let verString = String(newValue) {
+                    self.mcVersion = verString
                 }
             }
         }
         .onAppear {
-            versionString = mcVersion
+            version = MinecraftVersion(mcVersion)
             seedString = String(seed)
             #if DEBUG
             self.didAppear?(self)
@@ -106,7 +97,6 @@ struct MapCreatorForm: View {
                 self.target = target
             }
 
-            var versionString: String { target.versionString }
             var seedString: String { target.seedString }
             var invalidVersion: Bool { target.invalidVersion }
             var autoconvert: Bool { target.autoconvert }

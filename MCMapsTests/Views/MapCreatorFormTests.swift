@@ -23,7 +23,6 @@ struct MapCreatorFormTests {
         let minecraftVersion: Binding<String> = .init(wrappedValue: "1.21")
         let minecraftSeed: Binding<Int64> = .init(wrappedValue: 123)
         let view = MapCreatorForm(worldName: worldName, mcVersion: minecraftVersion, seed: minecraftSeed) { newView in
-            #expect(newView.testHooks.versionString == "1.21")
             #expect(newView.testHooks.seedString == "123")
         }
         defer { ViewHosting.expel() }
