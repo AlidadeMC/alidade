@@ -83,6 +83,7 @@ contributors to read through.
 - ``CartographyRoute``
 - ``CartographyMapViewModel``
 - ``CartographyPinViewModel``
+- ``DocumentLaunchViewModel``
 
 ### Services
 
@@ -96,7 +97,6 @@ contributors to read through.
 ### Maps
 
 - ``CartographyOrnamentMap``
-- ``MapOrnament``
 - ``CartographyMapView``
 - ``CartographyMapViewState``
 

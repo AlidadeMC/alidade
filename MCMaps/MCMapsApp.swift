@@ -114,7 +114,9 @@ struct MCMapsApp: App {
             }
         #endif
 
-        DocumentLaunchView(displayCreationWindow: $displayCreationWindow, proxyMap: $proxyMap)
+        DocumentLaunchView(
+            viewModel: DocumentLaunchViewModel(displayCreationWindow: $displayCreationWindow, proxyMap: $proxyMap)
+        )
 
         #if os(macOS)
             Window("About \(Self.appName)", id: "about") {

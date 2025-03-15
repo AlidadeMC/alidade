@@ -5,6 +5,7 @@
 //  Created by Marquis Kurt on 15-03-2025.
 //
 
+import Observation
 import SwiftUI
 
 #if os(macOS)
@@ -12,22 +13,11 @@ import SwiftUI
     ///
     /// This will generally be displayed when the app is first loaded.
     struct DocumentLaunchView: Scene {
-        /// Whether the creation window should be visible.
-        ///
-        /// Applicable to iOS and iPadOS.
-        @Binding var displayCreationWindow: Bool
-
-        /// The proxy map used to create a file temporarily.
-        ///
-        /// Applicable to iOS and iPadOS.
-        @Binding var proxyMap: CartographyMap
+        var viewModel: DocumentLaunchViewModel
 
         @Environment(\.dismissWindow) private var dismissWindow
         @Environment(\.newDocument) private var newDocument
         @Environment(\.openDocument) private var openDocument
-
-        @State private var selectedFile: URL?
-        @State private var displayCreationSheet = false
 
         @ScaledMetric private var fileHeight = 36.0
         @ScaledMetric private var filePaddingH = 4.0
@@ -69,23 +59,27 @@ import SwiftUI
                 .frame(width: 600, height: 400)
                 .toolbarVisibility(.hidden, for: .windowToolbar)
                 .containerBackground(.thinMaterial, for: .window)
-                .sheet(isPresented: $displayCreationSheet) {
+                .sheet(isPresented: viewModel.displayCreationWindow) {
                     NavigationStack {
-                        MapCreatorForm(worldName: $proxyMap.name, mcVersion: $proxyMap.mcVersion, seed: $proxyMap.seed)
-                            .navigationTitle("Create Map")
-                            .formStyle(.grouped)
-                            .toolbar {
-                                ToolbarItem(placement: .confirmationAction) {
-                                    Button("Create") {
-                                        createDocument()
-                                    }
-                                }
-                                ToolbarItem(placement: .cancellationAction) {
-                                    Button("Cancel", role: .cancel) {
-                                        displayCreationSheet = false
-                                    }
+                        MapCreatorForm(
+                            worldName: viewModel.proxyMap.name,
+                            mcVersion: viewModel.proxyMap.mcVersion,
+                            seed: viewModel.proxyMap.seed
+                        )
+                        .navigationTitle("Create Map")
+                        .formStyle(.grouped)
+                        .toolbar {
+                            ToolbarItem(placement: .confirmationAction) {
+                                Button("Create") {
+                                    createDocument()
                                 }
                             }
+                            ToolbarItem(placement: .cancellationAction) {
+                                Button("Cancel", role: .cancel) {
+                                    viewModel.displayCreationWindow.wrappedValue = false
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -122,7 +116,7 @@ import SwiftUI
                 Spacer()
                 VStack(alignment: .leading) {
                     Button {
-                        displayCreationSheet.toggle()
+                        viewModel.displayCreationWindow.wrappedValue.toggle()
                     } label: {
                         HStack {
                             Label("Create a Map", systemImage: "document.badge.plus")
@@ -167,7 +161,7 @@ import SwiftUI
         }
 
         private var recentDocumentsList: some View {
-            List(selection: $selectedFile) {
+            List(selection: viewModel.selectedFileURL) {
                 ForEach(recentDocuments, id: \.self) { url in
                     HStack {
                         Image("File Preview")
@@ -178,14 +172,14 @@ import SwiftUI
                             .padding(.horizontal, filePaddingH)
                             .frame(height: fileHeight)
                         VStack(alignment: .leading) {
-                            Text(sanitize(url: url))
+                            Text(viewModel.sanitize(url: url))
                                 .font(.headline)
                             HStack {
-                                if isInMobileDocuments(url) {
+                                if viewModel.isInMobileDocuments(url) {
                                     Image(systemName: "icloud")
                                         .foregroundStyle(.blue)
                                 }
-                                Text(friendlyUrl(url))
+                                Text(viewModel.friendlyUrl(url))
                                     .foregroundStyle(.secondary)
                             }
                         }
@@ -202,7 +196,7 @@ import SwiftUI
                 if urls.count == 1, let url = urls.first {
                     Button {
                         Task {
-                            await showInFinder(url: url)
+                            await viewModel.showInFinder(url: url)
                         }
                     } label: {
                         Label("Show in Finder", systemImage: "folder")
@@ -216,11 +210,11 @@ import SwiftUI
         }
 
         private func createDocument() {
-            proxyMap.pins.append(CartographyMapPin(position: .zero, name: "Spawn Point"))
-            proxyMap.recentLocations?.append(.zero)
-            let newFile = CartographyMapFile(map: proxyMap)
+            viewModel.proxyMap.wrappedValue.pins.append(CartographyMapPin(position: .zero, name: "Spawn Point"))
+            viewModel.proxyMap.wrappedValue.recentLocations?.append(.zero)
+            let newFile = CartographyMapFile(map: viewModel.proxyMap.wrappedValue)
             newDocument(newFile)
-            displayCreationSheet = false
+            viewModel.displayCreationWindow.wrappedValue = false
             Task {
                 // NOTE(alicerunsonfedora): WTF is this bullshit? Can't you just dismiss normally you dirty fuck?
                 try await Task.sleep(nanoseconds: 1000)
@@ -235,35 +229,6 @@ import SwiftUI
                     dismissWindow(id: "launch")
                 } catch {}
             }
-        }
-
-        private func sanitize(url: URL) -> String {
-            return url.lastPathComponent.replacingOccurrences(of: ".mcmap", with: "")
-        }
-
-        private func friendlyUrl(_ url: URL, for currentUser: String = NSUserName()) -> String {
-            let originalDirectory = url.standardizedFileURL.deletingLastPathComponent()
-            if !url.contains(components: ["Users", currentUser]) {
-                return originalDirectory.standardizedFileURL.relativePath
-            }
-            var newPath = URL(filePath: "~/")
-            var newComponents = originalDirectory.pathComponents.dropFirst(3)
-            if newComponents.contains("com~apple~CloudDocs") {
-                newPath = URL(filePath: "iCloud Drive/")
-                newComponents = newComponents.dropFirst(3)
-            }
-            for component in newComponents {
-                newPath = newPath.appending(component: component)
-            }
-            return newPath.relativePath
-        }
-
-        private func isInMobileDocuments(_ url: URL, for currentUser: String = NSUserName()) -> Bool {
-            return url.standardizedFileURL.contains(components: ["Users", currentUser, "com~apple~CloudDocs"])
-        }
-
-        private func showInFinder(url: URL) async {
-            NSWorkspace.shared.activateFileViewerSelecting([url])
         }
     }
 
@@ -280,17 +245,17 @@ import SwiftUI
 
                 @available(macOS 15.0, *)
                 func friendlyUrl(_ url: URL, for currentUser: String) -> String {
-                    target.friendlyUrl(url, for: currentUser)
+                    target.viewModel.friendlyUrl(url, for: currentUser)
                 }
 
                 @available(macOS 15.0, *)
                 func isInMobileDocuments(_ url: URL, for currentUser: String) -> Bool {
-                    target.isInMobileDocuments(url, for: currentUser)
+                    target.viewModel.isInMobileDocuments(url, for: currentUser)
                 }
 
                 @available(macOS 15.0, *)
                 func sanitize(url: URL) -> String {
-                    target.sanitize(url: url)
+                    target.viewModel.sanitize(url: url)
                 }
             }
         }

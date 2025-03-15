@@ -13,35 +13,35 @@ import SwiftUI
     /// This will generally be displayed when the app is first loaded.
     @available(iOS 18.0, *)
     struct DocumentLaunchView: Scene {
-        @State private var creationContinuation: CheckedContinuation<CartographyMapFile?, any Error>?
-        /// Whether the creation window should be visible.
-        ///
-        /// Applicable to iOS and iPadOS.
-        @Binding var displayCreationWindow: Bool
+        typealias DocumentContinuation = CheckedContinuation<CartographyMapFile, any Error>
+        @State private var creationContinuation: DocumentContinuation?
 
-        /// The proxy map used to create a file temporarily.
-        ///
-        /// Applicable to iOS and iPadOS.
-        @Binding var proxyMap: CartographyMap
+        var viewModel: DocumentLaunchViewModel
 
         var body: some Scene {
             DocumentGroupLaunchScene {
                 NewDocumentButton("Create Map", for: CartographyMapFile.self) {
-                    try await withCheckedThrowingContinuation { continuation in
+                    try await withCheckedThrowingContinuation { (continuation: DocumentContinuation) in
                         self.creationContinuation = continuation
-                        self.displayCreationWindow = true
+                        self.viewModel.displayCreationWindow.wrappedValue = true
                     }
                 }
-                .sheet(isPresented: $displayCreationWindow) {
+                .sheet(isPresented: viewModel.displayCreationWindow) {
                     NavigationStack {
-                        MapCreatorForm(worldName: $proxyMap.name, mcVersion: $proxyMap.mcVersion, seed: $proxyMap.seed)
+                        MapCreatorForm(
+                            worldName: viewModel.proxyMap.name,
+                            mcVersion: viewModel.proxyMap.mcVersion,
+                            seed: viewModel.proxyMap.seed
+                        )
                             .navigationTitle("Create Map")
                             .toolbar {
                                 ToolbarItem(placement: .confirmationAction) {
                                     Button("Create") {
-                                        creationContinuation?.resume(returning: .init(map: proxyMap))
+                                        let file: CartographyMapFile = .init(map: viewModel.proxyMap.wrappedValue)
+                                        creationContinuation?
+                                            .resume(returning: file)
                                         creationContinuation = nil
-                                        displayCreationWindow = false
+                                        viewModel.displayCreationWindow.wrappedValue = false
                                     }
                                 }
 
@@ -49,7 +49,7 @@ import SwiftUI
                                     Button("Cancel") {
                                         creationContinuation?.resume(throwing: CocoaError(CocoaError.userCancelled))
                                         creationContinuation = nil
-                                        displayCreationWindow = false
+                                        viewModel.displayCreationWindow.wrappedValue = false
                                     }
                                 }
                             }
@@ -74,7 +74,7 @@ import SwiftUI
                     self.target = target
                 }
                 @available(iOS 18.0, *)
-                var creationContinuation: CheckedContinuation<CartographyMapFile?, any Error>? {
+                var creationContinuation: DocumentContinuation? {
                     target.creationContinuation
                 }
             }
