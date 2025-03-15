@@ -124,30 +124,20 @@ class CartographySearchService {
         query: String, mcVersion: String, world: MinecraftWorld, pos: Point3D<Int32>,
         dimension: MinecraftWorld.Dimension
     ) -> [CartographyMapPin] {
-        guard let biome = try? MinecraftBiome(string: query, mcVersion: mcVersion) else {
+        guard let biome = MinecraftBiome(localizedString: query, mcVersion: mcVersion) else {
             return []
         }
-        var biomes = [CartographyMapPin]()
         let foundBiomes = world.findBiomes(
             ofType: biome,
             at: pos,
             inRadius: 8000,
             dimension: dimension
         )
-        var name: String
-
-        do {
-            name = try biome.name(for: mcVersion)
-        } catch {
-            name = "Unknown Biome"
-        }
-
-        for foundBiome in foundBiomes {
-            biomes.append(
-                CartographyMapPin(
-                    position: CGPoint(x: Double(foundBiome.x), y: Double(foundBiome.z)),
-                    name: name)
-            )
+        let name = biome.localizedString(for: world.version)
+        var biomes = foundBiomes.map { foundBiome in
+            CartographyMapPin(
+                position: CGPoint(x: Double(foundBiome.x), y: Double(foundBiome.z)),
+                name: name)
         }
 
         let cgPointOrigin = CGPoint(x: Double(pos.x), y: Double(pos.z))

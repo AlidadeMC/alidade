@@ -8,8 +8,6 @@
 import CubiomesInternal
 import Foundation
 
-public typealias MinecraftBiome = BiomeID
-
 private enum BiomeConstants {
     static let biomeScale: Int32 = 4
     static let minimumSize: Int32 = 1

@@ -27,13 +27,13 @@ public struct MinecraftWorld: Sendable {
     public var seed: Int64
     public var largeBiomes = false
 
-    init(version: MCVersion, seed: Int64) {
+    init(version: MinecraftVersion, seed: Int64) {
         self.version = version
         self.seed = seed
     }
 
     public init(version: String, seed: Int64) throws(WorldError) {
-        let mcVersion = MCVersion(rawValue: UInt32(str2mc(version)))
+        let mcVersion = MinecraftVersion(version)
         guard mcVersion != MC_UNDEF else { throw .invalidVersionNumber }
         self.version = mcVersion
         self.seed = seed
@@ -42,7 +42,8 @@ public struct MinecraftWorld: Sendable {
     func generator(in dimension: Dimension = .overworld) -> Generator {
         var generator = Generator()
         let flags: UInt32 = UInt32(largeBiomes ? LARGE_BIOMES : 0)
-        seedGenerator(&generator, Int32(version.rawValue), flags, seed, dimension.cbDimension.rawValue)
+        seedGenerator(&generator, version.versionValue, flags, seed, dimension.cbDimension.rawValue)
+    
         return generator
     }
 }

@@ -36,7 +36,10 @@ let package = Package(
             cSettings: [wrapIntegers, .unsafeFlags(ignoreCubiomes)]),
         .target(
             name: "CubiomesKit",
-            dependencies: ["Cubiomes", "CubiomesInternal"]),
+            dependencies: ["Cubiomes", "CubiomesInternal"],
+            resources: [
+                .process("Resources")
+            ]),
         .testTarget(
             name: "CubiomesKitTests",
             dependencies: [
