@@ -122,6 +122,7 @@ import SwiftUI
                 }
                 .frame(width: 600, height: 400)
                 .toolbarVisibility(.hidden, for: .windowToolbar)
+                .containerBackground(.thinMaterial, for: .window)
             }
             .windowStyle(.hiddenTitleBar)
             .windowResizability(.contentSize)

@@ -134,6 +134,7 @@ contributors to read through.
 - ``DirectionNavigatorTip``
 - ``LibraryOnboardingTip``
 - ``WorldDimensionPickerTip``
+- ``AboutWindowView``
 
 ### View Modifiers
 

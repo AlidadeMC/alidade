@@ -50,6 +50,9 @@
     "About" : {
 
     },
+    "About %@" : {
+
+    },
     "Add Photos" : {
 
     },
@@ -266,6 +269,9 @@
     "Send %@ Feedback" : {
 
     },
+    "Send Feedback" : {
+
+    },
     "Shipwreck" : {
 
     },
@@ -327,7 +333,13 @@
     "View %@ Documentation" : {
 
     },
+    "View Documentation" : {
+
+    },
     "View maps of the Overworld, the Nether, and the End easily." : {
+
+    },
+    "View Source Code" : {
 
     },
     "Village" : {

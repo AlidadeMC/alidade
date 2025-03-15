@@ -42,6 +42,10 @@ struct MCMapsApp: App {
         Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "0"
     }
 
+    static var copyrightString: String {
+        Bundle.main.infoDictionary?["NSHumanReadableCopyright"] as? String ?? ""
+    }
+
     @Environment(\.openWindow) private var openWindow
     @Environment(\.openURL) private var openURL
 
@@ -66,6 +70,11 @@ struct MCMapsApp: App {
         }
         #if os(macOS)
             .commands {
+                CommandGroup(replacing: .appInfo) {
+                    Button("About \(Self.appName)") {
+                        openWindow(id: "about")
+                    }
+                }
                 CommandGroup(after: .windowArrangement) {
                     Button("Welcome to \(Self.appName)") {
                         openWindow(id: "launch")
@@ -106,6 +115,17 @@ struct MCMapsApp: App {
         #endif
 
         DocumentLaunchView(displayCreationWindow: $displayCreationWindow, proxyMap: $proxyMap)
+
+        #if os(macOS)
+            Window("About \(Self.appName)", id: "about") {
+                AboutWindowView()
+                    .containerBackground(.thickMaterial, for: .window)
+            }
+            .windowStyle(.hiddenTitleBar)
+            .windowResizability(.contentSize)
+            .windowToolbarStyle(.unified)
+            .windowBackgroundDragBehavior(.enabled)
+        #endif
     }
 }
 

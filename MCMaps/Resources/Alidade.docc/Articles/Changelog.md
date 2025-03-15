@@ -15,6 +15,8 @@ across Mac, iPhone, and iPad.
 
 ### Unreleased
 
+- Replaces the generic about screen with a more specialized and purpose
+  built version on macOS.
 - Replaces the Minecraft version text field with a dropdown menu to
   ensure that valid versions are identifiable and selectable.
 
