@@ -15,6 +15,9 @@ across Mac, iPhone, and iPad.
 
 ### Unreleased
 
+- Replaces the Minecraft version text field with a dropdown menu to
+  ensure that valid versions are identifiable and selectable.
+
 ## 1.0 (Build 25) [Beta]
 
 - Adds new menu bar entries for "Send Alidade Feedback" and "View Alidade
