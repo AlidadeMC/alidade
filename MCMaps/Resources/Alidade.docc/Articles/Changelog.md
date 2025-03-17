@@ -15,6 +15,12 @@ across Mac, iPhone, and iPad.
 
 ### Unreleased
 
+> Note: The following changelist contains information for an unreleased
+> build. To get these features, you will need to build from source.
+> Refer to <doc:Building> for more information.
+
+## 1.0 (Build 27) [Beta]
+
 - Updates the new document experience on macOS to match iOS and iPadOS
   with a new form that lets players enter the Minecraft version and seed
   before launching into a blank document.
