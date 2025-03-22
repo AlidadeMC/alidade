@@ -19,6 +19,10 @@ across Mac, iPhone, and iPad.
 > build. To get these features, you will need to build from source.
 > Refer to <doc:Building> for more information.
 
+- In the pin detail view, the coordinates for both the Overworld and the
+  Nether are displayed. This allows players to identify ways of travel
+  across dimensions, along with marking notable location in the Nether.
+
 ## 1.0 (Build 27) [Beta]
 
 - Updates the new document experience on macOS to match iOS and iPadOS

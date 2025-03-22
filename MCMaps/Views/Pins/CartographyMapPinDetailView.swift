@@ -39,10 +39,23 @@ struct CartographyMapPinDetailView: View {
                     .font(.title)
                     .bold()
                     .textFieldStyle(.plain)
-                Text(viewModel.pinLocationLabel)
-                    .font(.subheadline)
-                    .monospaced()
-                    .foregroundStyle(.secondary)
+                HStack {
+                    Label(viewModel.pinLocationLabel, systemImage: "tree")
+                        .font(.subheadline)
+                        .monospaced()
+                        .foregroundStyle(.secondary)
+                        .help("Location in Overworld: \(viewModel.pinLocationLabel)")
+                        .accessibilityLabel("Location in Overworld")
+                        .accessibilityValue(viewModel.pinLocationLabel)
+                    Label(viewModel.netherTranslatedCoordinate, systemImage: "flame")
+                        .font(.subheadline)
+                        .monospaced()
+                        .foregroundStyle(.secondary)
+                        .help("Location in Nether: \(viewModel.netherTranslatedCoordinate)")
+                        .accessibilityLabel("Location in Nether")
+                        .accessibilityValue(viewModel.netherTranslatedCoordinate)
+                }
+                .padding(.vertical, 2)
             }
 
             .listRowBackground(Color.clear)
@@ -217,9 +230,9 @@ struct CartographyMapPinDetailView: View {
             }
 
             #if os(macOS)
-            func openSavePanel() async -> NSOpenPanel {
-                return await target.getPhotoFromPanel()
-            }
+                func openSavePanel() async -> NSOpenPanel {
+                    return await target.getPhotoFromPanel()
+                }
             #endif
         }
     }

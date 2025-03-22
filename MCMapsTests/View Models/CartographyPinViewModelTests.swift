@@ -60,7 +60,7 @@ struct CartographyPinViewModelTests {
         }
         let data = try Data(contentsOf: .init(filePath: image))
         vm.uploadImage(data)
-        
+
         #expect(!fileBinding.wrappedValue.images.isEmpty)
         #expect(fileBinding.wrappedValue.map.pins[0].images?.count == 1)
     }
@@ -69,10 +69,21 @@ struct CartographyPinViewModelTests {
     func viewModelPinDescription() async throws {
         let fileBinding: Binding<CartographyMapFile> = .init(wrappedValue: CartographyMapFile(map: .sampleFile))
         let vm = CartographyPinViewModel(file: fileBinding, index: 0)
-        
+
         #expect(vm.pinAboutDescription.wrappedValue == "")
-        
+
         vm.pinAboutDescription.wrappedValue = "This is the spawn point."
         #expect(fileBinding.wrappedValue.map.pins[0].aboutDescription == "This is the spawn point.")
+    }
+
+    @Test(.tags(.viewModel))
+    func viewModelPinLabels() async throws {
+        var file = CartographyMapFile(map: .sampleFile)
+        file.map.pins[0].position = CGPoint(x: 1847, y: 1847)
+        let fileBinding: Binding<CartographyMapFile> = .init(wrappedValue: file)
+        let vm = CartographyPinViewModel(file: fileBinding, index: 0)
+
+        #expect(vm.pinLocationLabel == "(1847, 1847)")
+        #expect(vm.netherTranslatedCoordinate == "(231, 231)")
     }
 }

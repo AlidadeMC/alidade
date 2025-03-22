@@ -48,6 +48,18 @@ class CartographyPinViewModel {
         return "(\(Int(location.x)), \(Int(location.y)))"
     }
 
+    /// A label displaying an overworld location as a location in the Nether.
+    ///
+    /// Nether coordinates are scaled by a scale of 1 nether block: 8 overworld blocks. This property is used to
+    /// display this coordinate for players that might want to try reaching a specified location using Nether portals.
+    var netherTranslatedCoordinate: String {
+        let position = pin.wrappedValue.position
+        var nether = CGPoint(x: position.x / 8, y: position.y / 8)
+        nether.x = nether.x.rounded(.toNearestOrAwayFromZero)
+        nether.y = nether.y.rounded(.toNearestOrAwayFromZero)
+        return "(\(Int(nether.x)), \(Int(nether.y)))"
+    }
+
     /// Creates a view model from a file and given index.
     /// - Parameter file: The file that will be modified.
     /// - Parameter index: The location where the pin is found.
