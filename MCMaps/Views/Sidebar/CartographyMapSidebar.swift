@@ -11,7 +11,7 @@ import TipKit
 
 /// The sidebar content for the main app.
 ///
-/// This will appear as the sheet content in the app's ``AdaptableSidebarSheetView``, and as the sidebar in the
+/// This will appear as the sheet content in the app's adaptable sidebar sheet, and as the sidebar in the
 /// ``CartographyMapSplitView``.
 struct CartographyMapSidebar: View {
     enum SearchingState: Equatable {

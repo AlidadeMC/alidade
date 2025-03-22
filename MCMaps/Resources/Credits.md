@@ -5,6 +5,8 @@ Alidade was made possible thanks to the following open-source projects:
 
 - [**Cubiomes**](https://github.com/Cubitect/cubiomes) - MIT License
 - [**Zoomable**](https://github.com/ryohey/Zoomable) - MIT License
+- [**Adaptable Sidebar Sheet**](https://github.com/alicerunsonfedora/adaptablesidebarsheetview) - Mozilla Public License, v2
+
 
 **Special Thanks**
 - Christine Kearney-Kurt

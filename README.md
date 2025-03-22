@@ -56,6 +56,7 @@ LICENSE.txt or visit https://www.mozilla.org/en-US/MPL/2.0/.
 
 - [**Cubiomes**](https://github.com/Cubitect/cubiomes) - MIT License
 - [**Zoomable**](https://github.com/ryohey/Zoomable) - MIT License
+- [**Adaptable Sidebar Sheet**](https://github.com/alicerunsonfedora/adaptablesidebarsheetview) - Mozilla Public License, v2
 
 **Alidade** is also made possible with these invaluable snippets:
 

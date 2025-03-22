@@ -76,7 +76,6 @@ contributors to read through.
 - ``ContentView``
 - ``DocumentLaunchView-6qz0r``
 - ``CartographyMapSplitView``
-- ``AdaptableSidebarSheetView``
 
 ### View Models and Routing
 

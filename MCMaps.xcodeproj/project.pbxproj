@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		9504030F2D4D7E0A00F51903 /* CubiomesKit in Frameworks */ = {isa = PBXBuildFile; productRef = 9504030E2D4D7E0A00F51903 /* CubiomesKit */; };
 		951FE2BC2D5937630091BE11 /* ViewInspector in Frameworks */ = {isa = PBXBuildFile; productRef = 951FE2BB2D5937630091BE11 /* ViewInspector */; };
+		955A44382D8F47C600262A6D /* AdaptableSidebarSheetView in Frameworks */ = {isa = PBXBuildFile; productRef = 955A44372D8F47C600262A6D /* AdaptableSidebarSheetView */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +59,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9504030F2D4D7E0A00F51903 /* CubiomesKit in Frameworks */,
+				955A44382D8F47C600262A6D /* AdaptableSidebarSheetView in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,6 +114,7 @@
 			name = Alidade;
 			packageProductDependencies = (
 				9504030E2D4D7E0A00F51903 /* CubiomesKit */,
+				955A44372D8F47C600262A6D /* AdaptableSidebarSheetView */,
 			);
 			productName = MCMaps;
 			productReference = 950402CF2D4D522100F51903 /* Alidade.app */;
@@ -173,6 +176,7 @@
 				9504030D2D4D7E0A00F51903 /* XCLocalSwiftPackageReference "CubiomesKit" */,
 				95DDE9652D57D0E1002B29D9 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */,
 				951FE2BA2D5937630091BE11 /* XCRemoteSwiftPackageReference "ViewInspector" */,
+				955A44362D8F47C600262A6D /* XCRemoteSwiftPackageReference "AdaptableSidebarSheetView" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 950402D02D4D522100F51903 /* Products */;
@@ -532,6 +536,14 @@
 				minimumVersion = 0.10.1;
 			};
 		};
+		955A44362D8F47C600262A6D /* XCRemoteSwiftPackageReference "AdaptableSidebarSheetView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/alicerunsonfedora/AdaptableSidebarSheetView";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 		95DDE9652D57D0E1002B29D9 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SimplyDanny/SwiftLintPlugins";
@@ -551,6 +563,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 951FE2BA2D5937630091BE11 /* XCRemoteSwiftPackageReference "ViewInspector" */;
 			productName = ViewInspector;
+		};
+		955A44372D8F47C600262A6D /* AdaptableSidebarSheetView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 955A44362D8F47C600262A6D /* XCRemoteSwiftPackageReference "AdaptableSidebarSheetView" */;
+			productName = AdaptableSidebarSheetView;
 		};
 		95DDE9662D57D0E9002B29D9 /* SwiftLintBuildToolPlugin */ = {
 			isa = XCSwiftPackageProductDependency;

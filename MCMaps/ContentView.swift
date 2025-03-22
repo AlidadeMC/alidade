@@ -5,6 +5,7 @@
 //  Created by Marquis Kurt on 31-01-2025.
 //
 
+import AdaptableSidebarSheetView
 import CubiomesKit
 import Observation
 import SwiftUI
@@ -32,7 +33,7 @@ struct ContentView: View {
                         toolbarContent
                     }
             #else
-                AdaptableSidebarSheetView(isPresented: $displaySidebarSheet) {
+                AdaptableSidebarSheet(isPresented: $displaySidebarSheet) {
                     CartographyOrnamentMap(viewModel: $viewModel, file: $file)
                 } sheet: {
                     CartographyMapSidebarSheet(viewModel: $viewModel, file: $file) {

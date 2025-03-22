@@ -56,7 +56,7 @@ and the world information editor.
 
 On iOS and iPadOS, these routes will be displayed as views in the
 navigation stack inside of the main sidebar sheet
-(see ``CartographyMapSidebarSheet`` and ``AdaptableSidebarSheetView``,
+(see ``CartographyMapSidebarSheet`` and the adaptable sidebar sheet view,
 respectively).
 
 macOS displays some of these routes differently based on the type of route
@@ -121,11 +121,11 @@ defined in ``CartographyRoute`` are handled.
 
 ### iOS and iPadOS - Sidebar Sheet
 
-The iOS and iPadOS targets use a custom view type,
-``AdaptableSidebarSheetView``. This view type allows iOS and iPadOS to
-share the same sheet content and scale accordingly based on the width of
-available space. Routes defined with ``CartographyRoute`` will be pushed
-to the navigation stack containing the sheet view.
+The iOS and iPadOS targets use a custom view type, the adaptable sidebar
+sheet. This view type allows iOS and iPadOS to share the same sheet content
+and scale accordingly based on the width of available space. Routes defined
+with ``CartographyRoute`` will be pushed to the navigation stack containing
+the sheet view.
 
 
 The sidebar sheet view is always visible, and it cannot be dismissed

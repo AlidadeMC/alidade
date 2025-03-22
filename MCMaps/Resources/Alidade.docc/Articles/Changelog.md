@@ -22,6 +22,8 @@ across Mac, iPhone, and iPad.
 - In the pin detail view, the coordinates for both the Overworld and the
   Nether are displayed. This allows players to identify ways of travel
   across dimensions, along with marking notable location in the Nether.
+- The adaptable sidebar sheet view has been moved into its own package,
+  which can be found on [GitHub](https://github.com/alicerunsonfedora/adaptablesidebarsheetview).
 
 ## 1.0 (Build 27) [Beta]
 

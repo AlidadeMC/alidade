@@ -1,6 +1,15 @@
 {
-  "originHash" : "74941b10cfd4541fa2fac8994d47f408d20389ec74801c2736bae997d818f5fd",
+  "originHash" : "5175bbe664669fc63e379b8eb512d04ad57656f84c9e6aee23fbc0a6038517c2",
   "pins" : [
+    {
+      "identity" : "adaptablesidebarsheetview",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/alicerunsonfedora/AdaptableSidebarSheetView",
+      "state" : {
+        "branch" : "main",
+        "revision" : "f1d3720344b4b5df20ea6db6a1556575271a0614"
+      }
+    },
     {
       "identity" : "swiftlintplugins",
       "kind" : "remoteSourceControl",
