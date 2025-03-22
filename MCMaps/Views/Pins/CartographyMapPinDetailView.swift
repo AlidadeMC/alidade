@@ -7,6 +7,7 @@
 
 import PhotosUI
 import SwiftUI
+import TipKit
 
 /// A detail view used to display the contents of a player-created pin.
 ///
@@ -21,6 +22,10 @@ struct CartographyMapPinDetailView: View {
             static let placeholderVerticalOffset = 16.0
             static let photoRowInsets = EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20)
         #endif
+    }
+
+    private enum LocalTips {
+        static let photosOnboarding = PinPhotoOnboardingTip()
     }
 
     @State private var photoItem: PhotosPickerItem?
@@ -92,6 +97,7 @@ struct CartographyMapPinDetailView: View {
                     .listRowBackground(Color.clear)
                     .listRowInsets(Constants.photoRowInsets)
                 } else {
+                    TipView(LocalTips.photosOnboarding)
                     photoPicker
                         .buttonStyle(.bordered)
                         #if !os(macOS)
@@ -142,7 +148,9 @@ struct CartographyMapPinDetailView: View {
             Task {
                 guard let newValue else { return }
                 if let data = try await newValue.loadTransferable(type: Data.self) {
-                    viewModel.uploadImage(data)
+                    viewModel.uploadImage(data) {
+                        LocalTips.photosOnboarding.invalidate(reason: .actionPerformed)
+                    }
                 } else {
                     print("Error")
                 }
@@ -189,7 +197,9 @@ struct CartographyMapPinDetailView: View {
                         guard let path = panel.url else { return }
                         do {
                             let data = try Data(contentsOf: path)
-                            viewModel.uploadImage(data)
+                            viewModel.uploadImage(data) {
+                                LocalTips.photosOnboarding.invalidate(reason: .actionPerformed)
+                            }
                         } catch {
                             print("Failed to get image...")
                         }

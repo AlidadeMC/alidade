@@ -24,6 +24,9 @@ across Mac, iPhone, and iPad.
   across dimensions, along with marking notable location in the Nether.
 - The adaptable sidebar sheet view has been moved into its own package,
   which can be found on [GitHub](https://github.com/alicerunsonfedora/adaptablesidebarsheetview).
+- A tip for adding photos to a created pin now displays in the pin's
+  detail view to encourage players to add screenshots or photos from their
+  world (#24).
 
 ## 1.0 (Build 27) [Beta]
 

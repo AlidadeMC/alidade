@@ -96,7 +96,7 @@ class CartographyPinViewModel {
     /// contain a path reference to this image so that it remains persistent.
     ///
     /// - Parameter data: The data representation of the player-selected image to upload.
-    func uploadImage(_ data: Data) {
+    func uploadImage(_ data: Data, completion: (() -> Void)? = nil) {
         let imageName = UUID().uuidString + ".heic"
         file.wrappedValue.images[imageName] = data
         if file.wrappedValue.map.pins[index].images == nil {
@@ -104,6 +104,7 @@ class CartographyPinViewModel {
         } else {
             file.wrappedValue.map.pins[index].images?.append(imageName)
         }
+        completion?()
     }
 }
 
