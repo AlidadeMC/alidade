@@ -2,7 +2,7 @@
 
 @Metadata {
     @PageImage(purpose: icon, source: "AppIcon", alt: "The Alidade app icon")
-    @PageColor(green)
+    @PageColor(red)
 }
 
 Navigate and explore your Minecraft Java worlds.
