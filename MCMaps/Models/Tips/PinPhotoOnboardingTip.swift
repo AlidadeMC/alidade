@@ -14,7 +14,7 @@ struct PinPhotoOnboardingTip: Tip {
     }
 
     var title: Text {
-        Text("Add a photo")
+        Text("Make it memorable.")
     }
 
     var message: Text? {
