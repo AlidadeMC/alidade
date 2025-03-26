@@ -46,6 +46,13 @@ class CartographyMapViewModel {
     /// The current state of the map being loaded.
     var mapState = CartographyMapViewState.loading
 
+    /// Whether the map's colors should correspond to natural colors in the overworld.
+    var renderNaturalColors: Bool {
+        didSet {
+            UserDefaults.standard.set(renderNaturalColors, forKey: .mapNaturalColors)
+        }
+    }
+
     /// The current search query.
     var searchQuery = ""
 
@@ -67,6 +74,10 @@ class CartographyMapViewModel {
     private var displayRouteInspector = false
 
     init() {
+        if !UserDefaults.standard.valueExists(forKey: .mapNaturalColors) {
+            UserDefaults.standard.set(true, forKey: .mapNaturalColors)
+        }
+        self.renderNaturalColors = UserDefaults.standard.bool(forKey: .mapNaturalColors)
         self.displayCurrentRouteModally = .init { [weak self] in
             self?.currentRoute?.requiresModalDisplay ?? false
         } set: { [weak self] newValue in
@@ -93,7 +104,11 @@ class CartographyMapViewModel {
         mapState = .loading
         do {
             let world = try MinecraftWorld(version: file.map.mcVersion, seed: file.map.seed)
-            let mapData = world.snapshot(in: worldRange, dimension: worldDimension)
+            let renderer = MinecraftWorldRenderer(world: world)
+            if renderNaturalColors {
+                renderer.options.insert(.naturalColors)
+            }
+            let mapData = renderer.render(inRegion: worldRange, scale: 4, dimension: worldDimension)
             mapState = .success(mapData)
         } catch {
             mapState = .unavailable

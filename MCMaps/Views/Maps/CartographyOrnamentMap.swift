@@ -51,6 +51,9 @@ struct CartographyOrnamentMap: View {
                     LocationBadge(location: viewModel.worldRange.position)
                     #if os(iOS)
                         Menu {
+                            Toggle(isOn: $viewModel.renderNaturalColors) {
+                                Label("Natural Colors", systemImage: "paintpalette")
+                            }
                             WorldDimensionPickerView(selection: $viewModel.worldDimension)
                                 .pickerStyle(.inline)
                         } label: {

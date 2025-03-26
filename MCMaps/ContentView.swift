@@ -52,6 +52,9 @@ struct ContentView: View {
         .onChange(of: viewModel.worldDimension) { _, _ in
             Task { await viewModel.refreshMap(for: file) }
         }
+        .onChange(of: viewModel.renderNaturalColors) { _, _ in
+            Task { await viewModel.refreshMap(for: file) }
+        }
         #if os(iOS)
             .onAppear {
                 hideNavigationBar()
@@ -100,6 +103,9 @@ struct ContentView: View {
             #else
                 ToolbarItem {
                     Menu {
+                        Toggle(isOn: $viewModel.renderNaturalColors) {
+                            Label("Natural Colors", systemImage: "paintpalette")
+                        }
                         WorldDimensionPickerView(selection: $viewModel.worldDimension)
                             .pickerStyle(.inline)
                     } label: {

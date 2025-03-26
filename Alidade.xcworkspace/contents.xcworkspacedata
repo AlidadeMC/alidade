@@ -16,4 +16,7 @@
    <FileRef
       location = "group:CubiomesKit">
    </FileRef>
+   <FileRef
+      location = "group:DesignLibrary">
+   </FileRef>
 </Workspace>
