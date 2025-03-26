@@ -15,4 +15,8 @@ public enum SemanticColors {
         public static let accentIndigo = Color(.Primitive.Purple._400)
         public static let accentBrown = Color(.Primitive.Orange._600)
     }
+
+    public enum DocumentLaunch {
+        public static let mobileDocument = Color(.Primitive.Blue._300)
+    }
 }

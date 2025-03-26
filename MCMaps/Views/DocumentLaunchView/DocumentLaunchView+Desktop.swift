@@ -5,6 +5,7 @@
 //  Created by Marquis Kurt on 15-03-2025.
 //
 
+import DesignLibrary
 import Observation
 import SwiftUI
 
@@ -177,7 +178,7 @@ import SwiftUI
                             HStack {
                                 if viewModel.isInMobileDocuments(url) {
                                     Image(systemName: "icloud")
-                                        .foregroundStyle(.blue)
+                                        .foregroundStyle(SemanticColors.DocumentLaunch.mobileDocument)
                                 }
                                 Text(viewModel.friendlyUrl(url))
                                     .foregroundStyle(.secondary)
