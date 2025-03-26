@@ -28,10 +28,13 @@ across Mac, iPhone, and iPad.
   detail view to encourage players to add screenshots or photos from their
   world (#24).
 - Alidade is going through a minor visual refresh that matches the new
-  design system being developed and designed. This current releases
+  design system being developed and designed. This current release
   replaces the accent color from the default system green color to the new
-  "Firewatch Red" brand color. The other brand colors have been included
-  as well, but they are currently not in use yet.
+  "Firewatch Red" brand color.
+- The app and document icons, along with the background in the document
+  launch view on iOS and iPadOS have been replaced with new versions that
+  align with the Alidade design system.
+- Fixes visual alignment issues with the "About Alidade" window on macOS.
 
 ## 1.0 (Build 27) [Beta]
 

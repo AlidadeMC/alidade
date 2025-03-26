@@ -24,21 +24,23 @@ struct AboutWindowView: View {
     @State private var creditsPane: AttributedString?
 
     var body: some View {
-        HStack {
+        HStack(spacing: 0) {
             VStack {
-                Image("AppIcon-static")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: Constants.appIconSize, height: Constants.appIconSize)
-                Text(MCMapsApp.appName)
-                    .font(.title)
-                    .bold()
-                Text(version)
-                    .font(.headline)
-                    .foregroundStyle(.secondary)
-                Text(MCMapsApp.copyrightString)
-                    .foregroundStyle(.tertiary)
-                    .padding(.top, 4)
+                VStack {
+                    Image("AppIcon-static")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: Constants.appIconSize, height: Constants.appIconSize)
+                    Text(MCMapsApp.appName)
+                        .font(.title)
+                        .bold()
+                    Text(version)
+                        .font(.headline)
+                        .foregroundStyle(.secondary)
+                    Text(MCMapsApp.copyrightString)
+                        .foregroundStyle(.tertiary)
+                        .padding(.top, 4)
+                }
 
                 VStack {
                     if let github = URL(string: "https://github.com/alicerunsonfedora/mcmaps") {

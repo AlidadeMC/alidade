@@ -40,25 +40,13 @@ import SwiftUI
             WindowGroup(id: "launch") {
                 HStack(spacing: 0) {
                     mainWindow
+                        .padding(10)
                         .frame(width: 300, height: 400)
-                        .overlay(alignment: .topLeading) {
-                            Button {
-                                dismissWindow(id: "launch")
-                            } label: {
-                                Image(systemName: "xmark.circle.fill")
-                                    .foregroundStyle(.secondary.opacity(0.5))
-                            }
-                            .buttonStyle(.plain)
-                            .offset(x: 24, y: -8)
-                            .imageScale(.large)
-                        }
-                        .background(.windowBackground)
-
                     recentDocumentsList
                         .frame(width: 300, height: 400)
                 }
                 .frame(width: 600, height: 400)
-                .toolbarVisibility(.hidden, for: .windowToolbar)
+                .windowMinimizeBehavior(.disabled)
                 .containerBackground(.thinMaterial, for: .window)
                 .sheet(isPresented: viewModel.displayCreationWindow) {
                     NavigationStack {
@@ -113,6 +101,7 @@ import SwiftUI
                     Text(version)
                         .foregroundStyle(.secondary)
                 }
+                .frame(maxWidth: .infinity)
                 .padding(.bottom)
                 Spacer()
                 VStack(alignment: .leading) {
