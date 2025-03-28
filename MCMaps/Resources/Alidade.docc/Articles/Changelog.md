@@ -31,9 +31,12 @@ across Mac, iPhone, and iPad.
   design system being developed and designed. This current release
   replaces the accent color from the default system green color to the new
   "Firewatch Red" brand color.
+- The document launch view on macOS has been redesigned to align with the
+  Apple-provided one on iOS and iPadOS, providing the same visual
+  background and sheet appearance.
 - The app and document icons, along with the background in the document
-  launch view on iOS and iPadOS have been replaced with new versions that
-  align with the Alidade design system.
+  launch view have been replaced with new versions that align with the
+  Alidade design system.
 - Fixes visual alignment issues with the "About Alidade" window on macOS.
 
 ## 1.0 (Build 27) [Beta]

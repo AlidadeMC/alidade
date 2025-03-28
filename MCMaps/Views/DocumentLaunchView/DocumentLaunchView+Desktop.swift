@@ -16,16 +16,16 @@ import SwiftUI
     struct DocumentLaunchView: Scene {
         var viewModel: DocumentLaunchViewModel
 
+        @Environment(\.colorScheme) private var colorScheme
         @Environment(\.dismissWindow) private var dismissWindow
         @Environment(\.newDocument) private var newDocument
         @Environment(\.openDocument) private var openDocument
 
-        @ScaledMetric private var fileHeight = 36.0
-        @ScaledMetric private var filePaddingH = 4.0
-        @ScaledMetric private var filePaddingV = 2.0
-
         private enum Constants {
-            static let appIconSize = 128.0
+            static let appIconSize = 100.0
+            static let documentCornerRadius = 10.0
+            static let paneWidth = 300.0
+            static let paneHeight = 400.0
         }
 
         private var version: String {
@@ -40,10 +40,37 @@ import SwiftUI
             WindowGroup(id: "launch") {
                 HStack(spacing: 0) {
                     mainWindow
-                        .padding(10)
-                        .frame(width: 300, height: 400)
+                        .background(
+                            Color(.documentLaunchSheet)
+                                .clipped()
+                                .clipShape(
+                                    .rect(
+                                        cornerRadii: RectangleCornerRadii(
+                                            topLeading: Constants.documentCornerRadius,
+                                            topTrailing: Constants.documentCornerRadius
+                                        )
+                                    )
+                                )
+                                .shadow(radius: 8, y: 4)
+                                .padding([.top, .leading, .trailing], 16)
+                        )
+                        .background(
+                            Color(.documentLaunchSheet).opacity(0.8)
+                                .clipped()
+                                .clipShape(.rect(cornerRadius: Constants.documentCornerRadius))
+                                .shadow(radius: 8, y: 4)
+                                .padding(4)
+                                .offset(y: 32)
+                        )
+                        .frame(width: Constants.paneWidth, height: Constants.paneHeight)
+                        .background(
+                            Image("pack-mcmeta")
+                                .resizable()
+                                .scaledToFill()
+                                .ignoresSafeArea()
+                        )
                     recentDocumentsList
-                        .frame(width: 300, height: 400)
+                        .frame(width: Constants.paneWidth, height: Constants.paneHeight)
                 }
                 .frame(width: 600, height: 400)
                 .windowMinimizeBehavior(.disabled)
@@ -91,7 +118,7 @@ import SwiftUI
             VStack {
                 Spacer()
                 VStack {
-                    Image("AppIcon-static")
+                    Image("App Pin Static")
                         .resizable()
                         .scaledToFit()
                         .frame(width: Constants.appIconSize, height: Constants.appIconSize)
@@ -147,37 +174,11 @@ import SwiftUI
                 Spacer()
             }
             .padding()
-            .padding(.horizontal, 10)
+            .padding(.horizontal, 26)
         }
 
         private var recentDocumentsList: some View {
-            List(selection: viewModel.selectedFileURL) {
-                ForEach(recentDocuments, id: \.self) { url in
-                    HStack {
-                        Image("File Preview")
-                            .resizable()
-                            .scaledToFit()
-                            .shadow(radius: 1)
-                            .padding(.vertical, filePaddingV)
-                            .padding(.horizontal, filePaddingH)
-                            .frame(height: fileHeight)
-                        VStack(alignment: .leading) {
-                            Text(viewModel.sanitize(url: url))
-                                .font(.headline)
-                            HStack {
-                                if viewModel.isInMobileDocuments(url) {
-                                    Image(systemName: "icloud")
-                                        .foregroundStyle(SemanticColors.DocumentLaunch.mobileDocument)
-                                }
-                                Text(viewModel.friendlyUrl(url))
-                                    .foregroundStyle(.secondary)
-                            }
-                        }
-                    }
-                    .padding(.vertical, 2)
-                    .tag(url)
-                }
-            }
+            RecentDocumentsList(viewModel: viewModel, recentDocuments: recentDocuments)
             .buttonStyle(.plain)
             .listStyle(.sidebar)
             .background(.thinMaterial)
