@@ -201,7 +201,7 @@ import SwiftUI
         }
 
         private func createDocument() {
-            viewModel.proxyMap.wrappedValue.pins.append(CartographyMapPin(position: .zero, name: "Spawn Point"))
+//            viewModel.proxyMap.wrappedValue.pins.append(CartographyMapPin(position: .zero, name: "Spawn Point"))
             viewModel.proxyMap.wrappedValue.recentLocations?.append(.zero)
             let newFile = CartographyMapFile(map: viewModel.proxyMap.wrappedValue)
             newDocument(newFile)

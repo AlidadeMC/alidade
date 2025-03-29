@@ -22,6 +22,7 @@ struct CartographyMapSidebar: View {
 
     private enum LocalTips {
         static var onboarding = LibraryOnboardingTip()
+        static var emptyLibrary = PinActionOnboardingTip()
     }
 
     @Environment(\.isSearching) private var isSearching
@@ -61,6 +62,13 @@ struct CartographyMapSidebar: View {
         .frame(minWidth: 175, idealWidth: 200)
         .searchable(text: $viewModel.searchQuery, placement: searchBarPlacement, prompt: "Go To...")
         .animation(.default, value: searchingState)
+        .onAppear {
+            if file.map.pins.isEmpty {
+                Task {
+                    await PinActionOnboardingTip.libraryEmpty.donate()
+                }
+            }
+        }
         .onChange(of: viewModel.currentRoute) { _, newValue in
             switch newValue {
             case let .pin(_, pin):
@@ -79,6 +87,11 @@ struct CartographyMapSidebar: View {
         .onChange(of: viewModel.searchQuery) { _, newValue in
             if newValue.isEmpty {
                 searchingState = .initial
+            }
+        }
+        .onChange(of: file.map.pins) { _, newValue in
+            if !newValue.isEmpty {
+                LocalTips.emptyLibrary.invalidate(reason: .actionPerformed)
             }
         }
     }
@@ -163,6 +176,10 @@ struct CartographyMapSidebar: View {
     private var defaultView: some View {
         Group {
             TipView(LocalTips.onboarding)
+                .tipViewStyle(.miniTip)
+                .listRowSeparator(.hidden)
+                .listRowBackground(Color.clear)
+            TipView(LocalTips.emptyLibrary)
                 .tipViewStyle(.miniTip)
                 .listRowSeparator(.hidden)
                 .listRowBackground(Color.clear)

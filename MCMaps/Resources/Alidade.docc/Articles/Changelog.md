@@ -25,6 +25,8 @@ across Mac, iPhone, and iPad.
   jarring on light modes.
 - The location badge includes a new transition for the numbers when the
   location changes.
+- A tip for pinning recent locations has been added to guide players to
+  where pinning locations takes place (#24).
 
 ## 1.0 (Build 29) [Beta]
 
