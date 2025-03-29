@@ -45,9 +45,12 @@ struct LocationBadge: View {
                 .padding(2)
                 .padding(.vertical, 1)
                 .padding(.horizontal, 4)
+                .contentTransition(.numericText(value: location.x))
+                .contentTransition(.numericText(value: location.y))
         }
         .background(Capsule().fill(.thinMaterial))
         .padding(8)
+        .animation(.default, value: location)
     }
 }
 

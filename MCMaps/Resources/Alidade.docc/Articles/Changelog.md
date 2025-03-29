@@ -19,6 +19,13 @@ across Mac, iPhone, and iPad.
 > build. To get these features, you will need to build from source.
 > Refer to <doc:Building> for more information.
 
+- Files in iOS and iPadOS now have a corresponding icon that uses the
+  Alidade pin (thanks @joeisanerd)!
+- The map view now has a gray background to make the transitions less
+  jarring on light modes.
+- The location badge includes a new transition for the numbers when the
+  location changes.
+
 ## 1.0 (Build 29) [Beta]
 
 - In the pin detail view, the coordinates for both the Overworld and the
