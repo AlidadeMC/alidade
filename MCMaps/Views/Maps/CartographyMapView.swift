@@ -48,6 +48,5 @@ struct CartographyMapView: View {
                 ContentUnavailableView("No Map Available", systemImage: "map")
             }
         }
-        .background(Color.gray)
     }
 }

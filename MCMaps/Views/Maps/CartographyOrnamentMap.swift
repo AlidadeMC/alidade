@@ -40,6 +40,7 @@ struct CartographyOrnamentMap: View {
             CartographyMapView(state: viewModel.mapState)
                 .animation(.interpolatingSpring, value: viewModel.mapState)
                 .edgesIgnoringSafeArea(.all)
+                .background(Color.gray)
         } ornaments: {
             Ornament(alignment: Constants.navigatorWheelPlacement) {
                 DirectionNavigator(viewModel: viewModel, file: file)
