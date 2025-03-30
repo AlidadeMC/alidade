@@ -8,8 +8,14 @@
 import DesignLibrary
 import SwiftUI
 
+/// A view that displays a list of recent documents.
 struct RecentDocumentsList: View {
+    /// The view model used to interact with recent documents.
     var viewModel: DocumentLaunchViewModel
+
+    /// A list of recent documents the player has interacted with.
+    ///
+    /// This is typically pulled from macOS itself, and it shouldn't be manually crafted.
     var recentDocuments: [URL]
 
     @ScaledMetric private var fileHeight = 36.0

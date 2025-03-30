@@ -7,14 +7,24 @@
 
 import Foundation
 
+/// An enumeration representing various app links.
 enum AppLink: String {
+    /// The link to the app user guide.
     case help = "https://docs.alidade.dev/documentation/alidade/userguide"
+
+    /// The link to the source code.
     case github = "https://github.com/alicerunsonfedora/mcmaps"
+
+    /// The link to the bug reporter.
     case issues = "https://github.com/alicerunsonfedora/mcmaps/issues"
+
+    /// The link to the app's document.
     case docs = "https://docs.alidade.dev/documentation/alidade"
 }
 
 extension URL {
+    /// Create a URL from an app link.
+    /// - Parameter appLink: The app link to create a URL from.
     init?(appLink: AppLink) {
         self.init(string: appLink.rawValue)
     }

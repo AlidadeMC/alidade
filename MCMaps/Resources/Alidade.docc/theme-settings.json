@@ -1,0 +1,126 @@
+{
+  "meta": {
+      "title": "Alidade Docs"
+  },
+  "theme": {
+    "color": {
+      "aside-important-border": "var(--color-alidade-yellow500)",
+      "aside-important-background": {
+        "light": "var(--color-alidade-yellow100)",
+        "dark": "var(--color-alidade-yellow700)"
+      },
+
+      "aside-note-border": "var(--color-alidade-blue500)",
+      "aside-note-background": {
+        "light": "var(--color-alidade-blue100)",
+        "dark": "var(--color-alidade-blue700)"
+      },
+
+      "aside-tip-border": "var(--color-alidade-green500)",
+      "aside-tip-background": {
+        "light": "var(--color-alidade-green100)",
+        "dark": "var(--color-alidade-green700)"
+      },
+
+      "aside-warning-border": "var(--color-alidade-orange500)",
+      "aside-warning-background": {
+        "light": "var(--color-alidade-orange100)",
+        "dark": "var(--color-alidade-orange700)"
+      },
+
+      "button-background": "var(--color-alidade-red500)",
+      "link": {
+        "light": "var(--color-alidade-red500)",
+        "dark": "var(--color-alidade-red300)"
+      },
+
+      "standard-red": "var(--color-alidade-red400)",
+      "standard-orange": "var(--color-alidade-orange400)",
+      "standard-yellow": "var(--color-alidade-yellow400)",
+      "standard-green": "var(--color-alidade-green400)",
+      "standard-blue": "var(--color-alidade-blue400)",
+      "standard-purple": "var(--color-alidade-purple400)",
+
+      "standard-red-documentation-intro-fill": {
+        "light": "var(--color-alidade-red300)",
+        "dark": "var(--color-alidade-red600)"
+      },
+      "standard-orange-documentation-intro-fill": {
+        "light": "var(--color-alidade-orange300)",
+        "dark": "var(--color-alidade-orange600)"
+      },
+      "standard-yellow-documentation-intro-fill": {
+        "light": "var(--color-alidade-yellow300)",
+        "dark": "var(--color-alidade-yellow600)"
+      },
+      "standard-green-documentation-intro-fill": {
+        "light": "var(--color-alidade-green300)",
+        "dark": "var(--color-alidade-green600)"
+      },
+      "standard-blue-documentation-intro-fill": {
+        "light": "var(--color-alidade-blue300)",
+        "dark": "var(--color-alidade-blue600)"
+      },
+      "standard-purple-documentation-intro-fill": {
+        "light": "var(--color-alidade-purple200)",
+        "dark": "var(--color-alidade-purple600)"
+      },
+
+      "alidade-red100": "rgb(255, 221, 214)",
+      "alidade-red200": "rgb(255, 186, 174)",
+      "alidade-red300": "rgb(255, 150, 133)",
+      "alidade-red400": "rgb(254, 111, 91)",
+      "alidade-red500": "rgb(189, 82, 68)",
+      "alidade-red600": "rgb(128, 52, 42)",
+      "alidade-red700": "rgb(70, 26, 20)",
+      "alidade-red800": "rgb(22, 4, 2)",
+      "alidade-orange100": "rgb(255, 230, 220)",
+      "alidade-orange200": "rgb(255, 205, 183)",
+      "alidade-orange300": "rgb(252, 179, 146)",
+      "alidade-orange400": "rgb(248, 153, 109)",
+      "alidade-orange500": "rgb(184, 112, 79)",
+      "alidade-orange600": "rgb(124, 74, 51)",
+      "alidade-orange700": "rgb(69, 39, 26)",
+      "alidade-orange800": "rgb(21, 8, 4)",
+      "alidade-yellow100": "rgb(252, 243, 231)",
+      "alidade-yellow200": "rgb(247, 230, 207)",
+      "alidade-yellow300": "rgb(243, 219, 183)",
+      "alidade-yellow400": "rgb(239, 207, 159)",
+      "alidade-yellow500": "rgb(177, 153, 117)",
+      "alidade-yellow600": "rgb(120, 103, 77)",
+      "alidade-yellow700": "rgb(66, 56, 41)",
+      "alidade-yellow800": "rgb(20, 16, 9)",
+      "alidade-green100": "rgb(221, 232, 220)",
+      "alidade-green200": "rgb(187, 209, 186)",
+      "alidade-green300": "rgb(154, 186, 153)",
+      "alidade-green400": "rgb(122, 164, 121)",
+      "alidade-green500": "rgb(89, 121, 88)",
+      "alidade-green600": "rgb(59, 80, 57)",
+      "alidade-green700": "rgb(29, 43, 29)",
+      "alidade-green800": "rgb(5, 10, 5)",
+      "alidade-blue100": "rgb(205, 223, 232)",
+      "alidade-blue200": "rgb(155, 189, 209)",
+      "alidade-blue300": "rgb(106, 157, 185)",
+      "alidade-blue400": "rgb(53, 124, 160)",
+      "alidade-blue500": "rgb(36, 91, 119)",
+      "alidade-blue600": "rgb(21, 59, 79)",
+      "alidade-blue700": "rgb(7, 30, 42)",
+      "alidade-blue800": "rgb(1, 5, 9)",
+      "alidade-purple100": "rgb(212, 200, 209)",
+      "alidade-purple200": "rgb(170, 148, 162)",
+      "alidade-purple300": "rgb(130, 99, 119)",
+      "alidade-purple400": "rgb(90, 53, 78)",
+      "alidade-purple500": "rgb(65, 37, 56)",
+      "alidade-purple600": "rgb(41, 21, 35)",
+      "alidade-purple700": "rgb(19, 8, 15)",
+      "alidade-purple800": "rgb(3, 1, 2)"
+    },
+    "typography": {
+      "html-font": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\"",
+      "html-font-mono": "SFMono-Regular, \"SF Mono\", Menlo, Consolas, \"Liberation Mono\", monospace"
+    }
+  },
+  "features": {
+    "docs": {}
+  }
+}

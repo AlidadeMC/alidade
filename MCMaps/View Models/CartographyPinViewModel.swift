@@ -96,6 +96,7 @@ class CartographyPinViewModel {
     /// contain a path reference to this image so that it remains persistent.
     ///
     /// - Parameter data: The data representation of the player-selected image to upload.
+    /// - Parameter completion: A completion handler that executes when the image has been uploaded.
     func uploadImage(_ data: Data, completion: (() -> Void)? = nil) {
         let imageName = UUID().uuidString + ".heic"
         file.wrappedValue.images[imageName] = data

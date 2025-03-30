@@ -138,6 +138,7 @@ contributors to read through.
 
 - ``DirectionNavigatorTip``
 - ``LibraryOnboardingTip``
+- ``PinActionOnboardingTip``
 - ``PinPhotoOnboardingTip``
 - ``WorldDimensionPickerTip``
 - ``AboutWindowView``
