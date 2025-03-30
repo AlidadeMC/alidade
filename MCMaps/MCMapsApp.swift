@@ -81,12 +81,13 @@ struct MCMapsApp: App {
                     }
                     .keyboardShortcut("0", modifiers: [.shift, .command])
                 }
-                CommandGroup(after: .help) {
+                CommandGroup(replacing: .help) {
+                    Link("\(Self.appName) Help", destination: URL(appLink: .help)!)
                     Divider()
-                    if let docs = URL(string: "https://docs.alidade.dev") {
+                    if let docs = URL(appLink: .docs) {
                         Link("View \(Self.appName) Documentation", destination: docs)
                     }
-                    if let feedback = URL(string: "https://github.com/alicerunsonfedora/mcmaps/issues") {
+                    if let feedback = URL(appLink: .issues) {
                         Link("Send \(Self.appName) Feedback", destination: feedback)
                     }
                 }
