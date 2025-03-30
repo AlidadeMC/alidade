@@ -62,6 +62,12 @@ contributors to read through.
 
 ## Topics
 
+### Get Started with Alidade
+
+- <doc:UserGuide>
+- <doc:Changelog>
+- <doc:Building>
+
 ### File Format
 
 - <doc:FileFormat>

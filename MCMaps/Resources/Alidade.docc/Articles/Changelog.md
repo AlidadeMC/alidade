@@ -27,6 +27,11 @@ across Mac, iPhone, and iPad.
   location changes.
 - A tip for pinning recent locations has been added to guide players to
   where pinning locations takes place (#24).
+- A new <doc:UserGuide> article collection is available in the
+  documentation to help players learn how to use the app, if they are
+  unfamiliar with using the app, and the tips being displayed aren't
+  helpful to them. Navigating to **Help › Alidade Help** on the Mac will
+  open this user guide collection in their default browser.
 
 ## 1.0 (Build 29) [Beta]
 
