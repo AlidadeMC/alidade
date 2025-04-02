@@ -5,6 +5,7 @@
 //  Created by Marquis Kurt on 31-01-2025.
 //
 
+import CubiomesKit
 import MapKit
 import SwiftUI
 
@@ -35,21 +36,14 @@ struct CartographyMapView: View {
 
     var body: some View {
         Group {
-            switch state {
-            case .loading:
-                ProgressView()
-            case .success(let data):
-                MapKitView(tile: data)
-            //                Image(data: data)
-            //                    .resizable()
-            //                    .interpolation(.none)
-            //                    .scaledToFill()
-            //                    .zoomable()
-            //                    .accessibilityElement()
-            case .unavailable:
-                ContentUnavailableView("No Map Available", systemImage: "map")
+            if let world {
+                MapKitView(world: world)
             }
         }
+    }
+
+    var world: MinecraftWorld? {
+        try? MinecraftWorld(version: "1.21", seed: 123)
     }
 }
 
@@ -69,7 +63,7 @@ private struct MapKitView: NSViewRepresentable {
         }
     }
 
-    var tile: Data
+    var world: MinecraftWorld
 
     func makeNSView(context: Context) -> MKMapView {
         let view = MKMapView(frame: .zero)
@@ -77,14 +71,14 @@ private struct MapKitView: NSViewRepresentable {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.delegate = context.coordinator
         view.isPitchEnabled = false
+        view.showsScale = true
+        view.showsZoomControls = true
+        view.isRotateEnabled = true
+        view.cameraZoomRange = .init(maxCenterCoordinateDistance: 1000)
+        view.canDrawConcurrently = true
 
-        let overlay = CartographyMapOverlay(mapData: tile)
+        let overlay = MinecraftRenderedTileOverlay(world: world)
         view.addOverlay(overlay, level: .aboveLabels)
-
-        let circleOverlay = MKCircle(
-            center: CLLocationCoordinate2D(latitude: 37.754_48, longitude: -122.442_49),
-            radius: 10_000_000)
-        view.addOverlay(circleOverlay, level: .aboveLabels)
 
         return view
     }
@@ -95,25 +89,5 @@ private struct MapKitView: NSViewRepresentable {
 
     func makeCoordinator() -> Coordinator {
         return Coordinator()
-    }
-}
-
-class CartographyMapOverlay: MKTileOverlay {
-    let mapData: Data
-
-    init(mapData: Data) {
-        self.mapData = mapData
-        super.init(urlTemplate: nil)
-        self.canReplaceMapContent = true
-        self.tileSize = CGSize(width: 1024, height: 1024)
-    }
-
-    override func loadTile(at path: MKTileOverlayPath, result: @escaping (Data?, (any Error)?) -> Void) {
-        guard let resourceURL = Bundle.main.url(forResource: "File Preview", withExtension: "png") else {
-            result(mapData, nil)
-            return
-        }
-        let data = try? Data(contentsOf: resourceURL)
-        result(data, nil)
     }
 }
