@@ -42,11 +42,11 @@ struct CartographyOrnamentMap: View {
                 .edgesIgnoringSafeArea(.all)
                 .background(Color.gray)
         } ornaments: {
-            Ornament(alignment: Constants.navigatorWheelPlacement) {
-                DirectionNavigator(viewModel: viewModel, file: file)
-            }
-            .padding(.trailing, 8)
-            .padding(.bottom, horizontalSizeClass == .compact ? 116 : 8)
+//            Ornament(alignment: Constants.navigatorWheelPlacement) {
+//                DirectionNavigator(viewModel: viewModel, file: file)
+//            }
+//            .padding(.trailing, 8)
+//            .padding(.bottom, horizontalSizeClass == .compact ? 116 : 8)
             Ornament(alignment: Constants.locationBadgePlacement) {
                 VStack(alignment: .trailing) {
                     LocationBadge(location: viewModel.worldRange.position)

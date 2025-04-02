@@ -5,6 +5,7 @@
 //  Created by Marquis Kurt on 31-01-2025.
 //
 
+import MapKit
 import SwiftUI
 
 /// An enumeration for the different map view states.
@@ -38,15 +39,81 @@ struct CartographyMapView: View {
             case .loading:
                 ProgressView()
             case .success(let data):
-                Image(data: data)
-                    .resizable()
-                    .interpolation(.none)
-                    .scaledToFill()
-                    .zoomable()
-                    .accessibilityElement()
+                MapKitView(tile: data)
+            //                Image(data: data)
+            //                    .resizable()
+            //                    .interpolation(.none)
+            //                    .scaledToFill()
+            //                    .zoomable()
+            //                    .accessibilityElement()
             case .unavailable:
                 ContentUnavailableView("No Map Available", systemImage: "map")
             }
         }
+    }
+}
+
+private struct MapKitView: NSViewRepresentable {
+    typealias NSViewType = MKMapView
+
+    class Coordinator: NSObject, MKMapViewDelegate {
+        func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+            return switch overlay {
+            case let overlay as MKCircle:
+                MKCircleRenderer(circle: overlay)
+            case let overlay as MKTileOverlay:
+                MKTileOverlayRenderer(tileOverlay: overlay)
+            default:
+                MKOverlayRenderer(overlay: overlay)
+            }
+        }
+    }
+
+    var tile: Data
+
+    func makeNSView(context: Context) -> MKMapView {
+        let view = MKMapView(frame: .zero)
+        view.showsCompass = true
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.delegate = context.coordinator
+        view.isPitchEnabled = false
+
+        let overlay = CartographyMapOverlay(mapData: tile)
+        view.addOverlay(overlay, level: .aboveLabels)
+
+        let circleOverlay = MKCircle(
+            center: CLLocationCoordinate2D(latitude: 37.754_48, longitude: -122.442_49),
+            radius: 10_000_000)
+        view.addOverlay(circleOverlay, level: .aboveLabels)
+
+        return view
+    }
+
+    func updateNSView(_ nsView: MKMapView, context: Context) {
+
+    }
+
+    func makeCoordinator() -> Coordinator {
+        return Coordinator()
+    }
+}
+
+class CartographyMapOverlay: MKTileOverlay {
+    let mapData: Data
+
+    init(mapData: Data) {
+        self.mapData = mapData
+        super.init(urlTemplate: nil)
+        self.canReplaceMapContent = true
+        self.tileSize = CGSize(width: 1024, height: 1024)
+    }
+
+    override func loadTile(at path: MKTileOverlayPath, result: @escaping (Data?, (any Error)?) -> Void) {
+        guard let resourceURL = Bundle.main.url(forResource: "File Preview", withExtension: "png") else {
+            result(mapData, nil)
+            return
+        }
+        let data = try? Data(contentsOf: resourceURL)
+        result(data, nil)
     }
 }
