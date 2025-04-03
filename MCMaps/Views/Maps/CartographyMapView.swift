@@ -32,62 +32,13 @@ enum CartographyMapViewState: Equatable {
 /// out, along with dragging.
 struct CartographyMapView: View {
     /// The view's loading state.
-    var state: CartographyMapViewState
+    var world: MinecraftWorld?
 
     var body: some View {
         Group {
             if let world {
-                MapKitView(world: world)
+                CartographyMinecraftMap(world: world)
             }
         }
-    }
-
-    var world: MinecraftWorld? {
-        try? MinecraftWorld(version: "1.21", seed: 123)
-    }
-}
-
-private struct MapKitView: NSViewRepresentable {
-    typealias NSViewType = MKMapView
-
-    class Coordinator: NSObject, MKMapViewDelegate {
-        func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-            return switch overlay {
-            case let overlay as MKCircle:
-                MKCircleRenderer(circle: overlay)
-            case let overlay as MKTileOverlay:
-                MKTileOverlayRenderer(tileOverlay: overlay)
-            default:
-                MKOverlayRenderer(overlay: overlay)
-            }
-        }
-    }
-
-    var world: MinecraftWorld
-
-    func makeNSView(context: Context) -> MKMapView {
-        let view = MKMapView(frame: .zero)
-        view.showsCompass = true
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.delegate = context.coordinator
-        view.isPitchEnabled = false
-        view.showsScale = true
-        view.showsZoomControls = true
-        view.isRotateEnabled = true
-        view.cameraZoomRange = .init(maxCenterCoordinateDistance: 1000)
-        view.canDrawConcurrently = true
-
-        let overlay = MinecraftRenderedTileOverlay(world: world)
-        view.addOverlay(overlay, level: .aboveLabels)
-
-        return view
-    }
-
-    func updateNSView(_ nsView: MKMapView, context: Context) {
-
-    }
-
-    func makeCoordinator() -> Coordinator {
-        return Coordinator()
     }
 }

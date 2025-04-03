@@ -12,6 +12,7 @@ import SwiftUI
 /// This is typically used as an ornament on the ``CartographyOrnamentMap`` to let players move between "map chunks"
 /// in any given one direction so that they can move about the world. The control is automatically resized based on the
 /// target platform.
+@available(*, deprecated, message: "Use the provided controls in CartographyMinecraftMap.")
 struct DirectionNavigator: View {
     private enum Constants {
         #if os(macOS)

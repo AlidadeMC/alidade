@@ -20,6 +20,9 @@ public class MinecraftWorldRenderer {
         /// - SeeAlso: https://github.com/Cubitect/biome-colors
         public static let naturalColors = Options(rawValue: 1 << 0)
 
+        /// Render the map with the position at the center of the image.
+        public static let centerPositions = Options(rawValue: 1 << 1)
+
         /// Create an option set from a raw value.
         public init(rawValue: Int) {
             self.rawValue = rawValue
@@ -44,7 +47,7 @@ public class MinecraftWorldRenderer {
     }
 
     /// The options configuring this renderer.
-    public var options: Options = []
+    public var options: Options = [.centerPositions]
 
     var world: MinecraftWorld
 
@@ -64,10 +67,18 @@ public class MinecraftWorldRenderer {
         dimension: MinecraftWorld.Dimension = .overworld
     ) -> Data {
         var generator = world.generator(in: dimension)
+        var rangeX = range.position.x
+        var rangeZ = range.position.z
+
+        if options.contains(.centerPositions) {
+            rangeX = (rangeX - (pixelsPerCell * range.scale.x / 2)) / range.size
+            rangeZ = (rangeZ - (pixelsPerCell * range.scale.x / 2)) / range.size
+        }
+        
         let _range = Range(
             scale: range.size,
-            x: (range.position.x - (pixelsPerCell * range.scale.x / 2)) / range.size,
-            z: (range.position.z - (pixelsPerCell * range.scale.z / 2)) / range.size,
+            x: rangeX,
+            z: rangeZ,
             sx: range.scale.x,
             sz: range.scale.z,
             y: range.position.y,

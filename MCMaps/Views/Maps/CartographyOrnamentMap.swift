@@ -5,6 +5,7 @@
 //  Created by Marquis Kurt on 23-02-2025.
 //
 
+import CubiomesKit
 import SwiftUI
 import TipKit
 
@@ -37,19 +38,14 @@ struct CartographyOrnamentMap: View {
 
     var body: some View {
         OrnamentedView {
-            CartographyMapView(state: viewModel.mapState)
+            CartographyMapView(world: try? MinecraftWorld(version: file.map.mcVersion, seed: file.map.seed))
                 .animation(.interpolatingSpring, value: viewModel.mapState)
                 .edgesIgnoringSafeArea(.all)
                 .background(Color.gray)
         } ornaments: {
-//            Ornament(alignment: Constants.navigatorWheelPlacement) {
-//                DirectionNavigator(viewModel: viewModel, file: file)
-//            }
-//            .padding(.trailing, 8)
-//            .padding(.bottom, horizontalSizeClass == .compact ? 116 : 8)
             Ornament(alignment: Constants.locationBadgePlacement) {
                 VStack(alignment: .trailing) {
-                    LocationBadge(location: viewModel.worldRange.position)
+//                    LocationBadge(location: viewModel.worldRange.position)
                     #if os(iOS)
                         Menu {
                             Toggle(isOn: $viewModel.renderNaturalColors) {
