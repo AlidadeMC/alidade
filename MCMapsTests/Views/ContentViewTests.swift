@@ -18,6 +18,5 @@ struct ContentViewTests {
         let view = ContentView(file: file)
 
         #expect(view.testHooks.displaySidebarSheet == false)
-        #expect(view.testHooks.viewModel.mapState == .loading)
     }
 }

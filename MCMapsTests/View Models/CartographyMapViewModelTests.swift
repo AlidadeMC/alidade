@@ -22,7 +22,6 @@ struct CartographyMapViewModelTests {
         #expect(await viewModel.currentRoute == nil)
         #expect(await viewModel.displayCurrentRouteModally.wrappedValue == false)
         #expect(await viewModel.searchQuery.isEmpty)
-        #expect(await viewModel.mapState == .loading)
         #expect(await viewModel.worldDimension == .overworld)
         #expect(await viewModel.worldRange.position == Coordinate(x: 0, y: 15, z: 0))
         #expect(await viewModel.worldRange.scale == Coordinate(x: 256, y: 1, z: 256))
@@ -40,59 +39,14 @@ struct CartographyMapViewModelTests {
         #expect(await viewModel.positionLabel == "X: 1847, Z: 1847")
     }
 
-    @Test(
-        .timeLimit(.minutes(1)),
-        .tags(.viewModel),
-        .disabled("Deprecated"),
-        arguments: [("1.2", 123, true), ("fail", 123, false)])
-    func viewModelRefreshMap(version: String, seed: Int64, shouldSucceed: Bool) async throws {
-        let viewModel = await CartographyMapViewModel()
-        let file = CartographyMapFile(map: .init(seed: seed, mcVersion: version, name: "Foo", pins: []))
-        #expect(await viewModel.mapState == .loading)
-
-        await viewModel.refreshMap(for: file)
-
-        if shouldSucceed {
-            guard case .success = await viewModel.mapState else {
-                Issue.record("An error occurred.")
-                return
-            }
-        } else {
-            #expect(await viewModel.mapState == .unavailable)
-        }
-    }
-
-    @Test(.timeLimit(.minutes(1)), .tags(.viewModel), .disabled("Deprecated"))
+    @Test(.timeLimit(.minutes(1)), .tags(.viewModel))
     func viewModelGoesToPosition() async throws {
         let viewModel = await CartographyMapViewModel()
         let file = CartographyMapFile(map: .sampleFile)
-        #expect(await viewModel.mapState == .loading)
         #expect(await viewModel.worldRange.position == .init(x: 0, y: 15, z: 0))
 
         await viewModel.go(to: .init(x: 1847, y: 1847), relativeTo: file)
         #expect(await viewModel.worldRange.position == .init(x: 1847, y: 15, z: 1847))
-        guard case .success = await viewModel.mapState else {
-            Issue.record("An error occurred.")
-            return
-        }
-    }
-
-    @Test(.timeLimit(.minutes(1)), .tags(.viewModel), .disabled("Deprecated"), arguments: [
-        (CartographyMapViewModel.CardinalDirection.north, Point3D<Int32>(x: 0, y: 15, z: -256)),
-        (CartographyMapViewModel.CardinalDirection.west, Point3D<Int32>(x: -256, y: 15, z: 0)),
-        (CartographyMapViewModel.CardinalDirection.east, Point3D<Int32>(x: 256, y: 15, z: 0)),
-        (CartographyMapViewModel.CardinalDirection.south, Point3D<Int32>(x: 0, y: 15, z: 256))
-    ])
-    func viewModelGoesInDirection(
-        direction: CartographyMapViewModel.CardinalDirection,
-        coordinate: Point3D<Int32>
-    ) async throws {
-        let viewModel = await CartographyMapViewModel()
-        let file = CartographyMapFile(map: .sampleFile)
-        #expect(await viewModel.worldRange.position == .init(x: 0, y: 15, z: 0))
-
-        await viewModel.go(inDirection: direction, relativeToFile: file)
-        #expect(await viewModel.worldRange.position == coordinate)
     }
 
     @Test(.timeLimit(.minutes(1)), .tags(.viewModel))
@@ -106,10 +60,6 @@ struct CartographyMapViewModelTests {
 
         await viewModel.submitWorldChanges(to: file)
         #expect(await viewModel.currentRoute == nil)
-        guard case .success = await viewModel.mapState else {
-            Issue.record("An error occurred.")
-            return
-        }
     }
 
     @Test(.timeLimit(.minutes(1)), .tags(.viewModel), .enabled(if: platform(is: .iOS)))
