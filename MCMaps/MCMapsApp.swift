@@ -11,16 +11,16 @@ import TipKit
 #if os(iOS)
     @MainActor
     func hideNavigationBar() {
-        let activeScene = UIApplication.shared.connectedScenes
-            .filter({ $0.activationState == .foregroundActive })
-            .first
-
-        if let windowScene = activeScene as? UIWindowScene {
-            guard let currentWindow = windowScene.keyWindow else { return }
-            if let navController = currentWindow.rootViewController as? UINavigationController {
-                navController.isNavigationBarHidden = true
-            }
-        }
+//        let activeScene = UIApplication.shared.connectedScenes
+//            .filter({ $0.activationState == .foregroundActive })
+//            .first
+//
+//        if let windowScene = activeScene as? UIWindowScene {
+//            guard let currentWindow = windowScene.keyWindow else { return }
+//            if let navController = currentWindow.rootViewController as? UINavigationController {
+//                navController.isNavigationBarHidden = true
+//            }
+//        }
     }
 #endif
 

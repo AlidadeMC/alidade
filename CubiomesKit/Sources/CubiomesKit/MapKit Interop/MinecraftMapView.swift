@@ -74,16 +74,24 @@ public final class MinecraftMapView: MKMapView {
     }
 
     func configureMapView() {
+        #if os(macOS)
         self.canDrawConcurrently = true
+        self.isRotateEnabled = true
+        #endif
         self.cameraZoomRange = CameraZoomRange(minCenterCoordinateDistance: 64, maxCenterCoordinateDistance: 512)
         self.isPitchEnabled = false
         self.isZoomEnabled = true
-        self.isRotateEnabled = true
+        
+        #if os(iOS)
+        self.isRotateEnabled = false
+        #endif
     }
 
     func reconfigureOrnaments() {
         self.showsCompass = ornaments.contains(.compass)
+        #if os(macOS)
         self.showsZoomControls = ornaments.contains(.zoom)
+        #endif
         self.showsScale = ornaments.contains(.scale)
     }
 

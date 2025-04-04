@@ -17,6 +17,9 @@ struct ContentView: View {
         static let dimensionPicker = WorldDimensionPickerTip()
     }
 
+    #if os(iOS)
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    #endif
     @Environment(\.dismiss) private var dismissWindow
 
     /// The current file the content view is viewing and/or editing.
@@ -92,13 +95,18 @@ struct ContentView: View {
                     }
                 }
                 ToolbarItem(placement: .navigation) {
-                    Button {
-                        displaySidebarSheet = false
-                        dismissWindow()
-                    } label: {
-                        Label("Back", systemImage: "chevron.left")
+                    // NOTE: For some reason, iOS 18.4 magically broke this by forcing another back button on the iPad
+                    // version. So now there's an additional check in place to ensure this only appears in the sheet,
+                    // and not the sidebar. WTF???
+                    if horizontalSizeClass == .compact {
+                        Button {
+                            displaySidebarSheet = false
+                            dismissWindow()
+                        } label: {
+                            Label("Back", systemImage: "chevron.left")
+                        }
+                        .fontWeight(.bold)
                     }
-                    .fontWeight(.bold)
                 }
             #else
                 ToolbarItem {
