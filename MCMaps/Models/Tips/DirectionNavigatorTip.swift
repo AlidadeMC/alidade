@@ -15,6 +15,7 @@ import TipKit
 /// itself afterwards.
 ///
 /// Ideally, this tip should be displayed as a popover to the direction navigator wheel.
+@available(*, deprecated, message: "Use the native controls in MinecraftMap.")
 struct DirectionNavigatorTip: Tip {
     static let viewDisplayed = Event(id: "navigator.displayed")
 

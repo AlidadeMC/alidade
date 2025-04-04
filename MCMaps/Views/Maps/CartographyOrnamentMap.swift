@@ -62,7 +62,6 @@ struct CartographyOrnamentMap: View {
             .edgesIgnoringSafeArea(.all)
             .background(Color.gray)
             .onChange(of: viewModel.worldRange.position) { _, newValue in
-                print("Fire!")
                 centerCoordinate = CGPoint(x: Double(newValue.x), y: Double(newValue.z))
             }
         } ornaments: {

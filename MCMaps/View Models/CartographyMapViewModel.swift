@@ -73,7 +73,7 @@ class CartographyMapViewModel {
     }
 
     var displaySidebarSheet = false
-    
+
     private var displayRouteInspector = false
 
     init() {

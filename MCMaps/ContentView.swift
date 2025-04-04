@@ -26,6 +26,7 @@ struct ContentView: View {
     @Binding var file: CartographyMapFile
 
     @State private var viewModel = CartographyMapViewModel()
+    @State private var columnVisibility = NavigationSplitViewColumn.detail
 
     var body: some View {
         Group {
@@ -49,11 +50,6 @@ struct ContentView: View {
         .task {
             await WorldDimensionPickerTip.viewDisplayed.donate()
         }
-        #if os(iOS)
-            .onAppear {
-                hideNavigationBar()
-            }
-        #endif
         .sheet(isPresented: viewModel.displayCurrentRouteModally) {
             Group {
                 switch viewModel.currentRoute {
@@ -83,20 +79,6 @@ struct ContentView: View {
                 ToolbarTitleMenu {
                     NavigationLink(value: CartographyRoute.editWorld) {
                         Label("Update World", image: "globe.desk.badge.gearshape.fill")
-                    }
-                }
-                ToolbarItem(placement: .navigation) {
-                    // NOTE: For some reason, iOS 18.4 magically broke this by forcing another back button on the iPad
-                    // version. So now there's an additional check in place to ensure this only appears in the sheet,
-                    // and not the sidebar. WTF???
-                    if horizontalSizeClass == .compact {
-                        Button {
-                            viewModel.displaySidebarSheet = false
-                            dismissWindow()
-                        } label: {
-                            Label("Back", systemImage: "chevron.left")
-                        }
-                        .fontWeight(.bold)
                     }
                 }
             #else
