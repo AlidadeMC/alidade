@@ -12,30 +12,20 @@ Navigate and teleport around maps.
 
 ## Move around the map
 
-@Row(numberOfColumns: 4) {
-    @Column(size: 3) {
-        A small navigator circle should appear in the bottom right hand corner of
-        the app. If you do not see this circle on iPhone or iPads with the app in
-        Slide Over, you may need to pull down the sheet first.
-
-        Press any of the arrows in the designated circle to move up, down, left,
-        or right by 256 blocks in each direction, respectively.
-
-        > Tip: On macOS or iPads with Magic Keyboard attached, you can press the
-        > Command key followed by any of the arrow keys to perform these actions.
+@TabNavigator {
+    @Tab("Mac") {
+        Click and drag in any direction to move the map. To zoom in or out,
+        do any of the following:
+        
+        - Press the +/- keys on the keyboard.
+        - Scroll with the scroll wheel.
+        - Pinch with two fingers on the trackpad.
     }
-    @Column(size: 1) {
-        ![The navigator wheel](Navigation-Wheel.png)
-        _Fig. 1: The navigation wheel in Alidade._
+    @Tab("iPhone/iPad") {
+        Swipe in any direction to move the map. To zoom in our out, pinch
+        with two fingers.
     }
 }
-
-> Important: At the time of writing this, Alidade does not support navigation
-> gestures with infinite scrolling or zooming. This is a known quirk and
-> is planned for future iterations of the app.
->
-> For more details, refer to GitHub issue
-> [#21: Infinity grid](https://github.com/alicerunsonfedora/mcmaps/issues/21).
 
 
 ## Jump to a location
