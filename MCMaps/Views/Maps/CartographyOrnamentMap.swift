@@ -36,16 +36,40 @@ struct CartographyOrnamentMap: View {
     /// The file that the map will read from/write to.
     @Binding var file: CartographyMapFile
 
+    @State private var centerCoordinate = CGPoint.zero
+
+    var markers: [MinecraftMapMarker] {
+        file.map.pins.map { pin in
+            MinecraftMapMarker(
+                location: pin.position,
+                title: pin.name,
+                color: pin.color?.swiftUIColor ?? Color.accentColor
+            )
+        }
+    }
+
     var body: some View {
         OrnamentedView {
-            CartographyMapView(world: try? MinecraftWorld(version: file.map.mcVersion, seed: file.map.seed))
+            Group {
+                if let world = try? MinecraftWorld(version: file.map.mcVersion, seed: file.map.seed) {
+                    MinecraftMap(world: world, centerCoordinate: $centerCoordinate, dimension: viewModel.worldDimension)
+                        .ornaments(.all)
+                        .annotations {
+                            markers
+                        }
+                }
+            }
                 .animation(.interpolatingSpring, value: viewModel.mapState)
                 .edgesIgnoringSafeArea(.all)
                 .background(Color.gray)
+                .onChange(of: viewModel.worldRange.position) { _, newValue in
+                    print("Fire!")
+                    centerCoordinate = CGPoint(x: Double(newValue.x), y: Double(newValue.z))
+                }
         } ornaments: {
             Ornament(alignment: Constants.locationBadgePlacement) {
                 VStack(alignment: .trailing) {
-//                    LocationBadge(location: viewModel.worldRange.position)
+                    LocationBadge(location: viewModel.worldRange.position)
                     #if os(iOS)
                         Menu {
                             Toggle(isOn: $viewModel.renderNaturalColors) {

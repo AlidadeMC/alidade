@@ -6,10 +6,10 @@
 //
 
 import CubiomesKit
-import MapKit
 import SwiftUI
 
 /// An enumeration for the different map view states.
+@available(*, deprecated, message: "This will be removed in a future version of Alidade.")
 enum CartographyMapViewState: Equatable {
     /// The map is currently loading.
     case loading
@@ -22,22 +22,31 @@ enum CartographyMapViewState: Equatable {
     case unavailable
 }
 
-// NOTE(alicerunsonfedora): Eventually we should be able to display pins here.
-
 /// A view that displays a Minecraft world map.
 ///
 /// This view is designed to handle dynamic loading of the image, displaying an unavailable message when the map could
 /// not be loaded. When the map is available and displayed, players can zoom and pan around the map to inspect it more
 /// closely through pinching to zoom and dragging to pan. On macOS, the pointer will change to display zooming in and
 /// out, along with dragging.
+@available(*, deprecated, message: "Use the MinecraftMap view from CubiomesKit.")
 struct CartographyMapView: View {
-    /// The view's loading state.
     var world: MinecraftWorld?
+    var dimension: MinecraftWorld.Dimension = .overworld
 
     var body: some View {
         Group {
             if let world {
-                CartographyMinecraftMap(world: world)
+                MinecraftMap(world: world, dimension: dimension)
+                    .ornaments(.all)
+                    .annotations {
+                        MinecraftMapMarker(location: .zero, title: "Spawn")
+                        MinecraftMapMarker(
+                            location: CGPoint(x: 64, y: 64),
+                            title: "Foobar",
+                            color: .blue
+                        )
+                        MinecraftMapMarker(location: CGPoint(x: 14, y: 14), title: "Baz")
+                    }
             }
         }
     }
