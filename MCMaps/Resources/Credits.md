@@ -4,7 +4,6 @@ Alidade is free and open-source software licensed under the Mozilla Public Licen
 Alidade was made possible thanks to the following open-source projects:
 
 - [**Cubiomes**](https://github.com/Cubitect/cubiomes) - MIT License
-- [**Zoomable**](https://github.com/ryohey/Zoomable) - MIT License
 - [**Adaptable Sidebar Sheet**](https://github.com/alicerunsonfedora/adaptablesidebarsheetview) - Mozilla Public License, v2
 
 

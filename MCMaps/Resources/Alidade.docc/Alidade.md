@@ -141,10 +141,6 @@ contributors to read through.
 - ``WorldDimensionPickerTip``
 - ``AboutWindowView``
 
-### View Modifiers
-
-- ``ZoomableModifier``
-
 ### Contributing
 
 - <doc:Building>
