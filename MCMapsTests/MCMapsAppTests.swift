@@ -16,23 +16,6 @@ import Testing
 
 @MainActor
 struct MCMapsAppTests {
-    #if os(iOS)
-        @Test func hideNavigationBarHides() throws {
-            hideNavigationBar()
-
-            let activeScene = UIApplication.shared.connectedScenes
-                .filter({ $0.activationState == .foregroundActive })
-                .first
-
-            if let windowScene = activeScene as? UIWindowScene {
-                guard let currentWindow = windowScene.keyWindow else { return }
-                if let navController = currentWindow.rootViewController as? UINavigationController {
-                    #expect(navController.isNavigationBarHidden == true)
-                }
-            }
-        }
-    #endif
-
     @Test func appInit() throws {
         let app = MCMapsApp()
         let sut = app.testHooks

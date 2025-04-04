@@ -155,22 +155,10 @@
     "Get Info" : {
 
     },
-    "Go East" : {
-
-    },
     "Go Here" : {
 
     },
-    "Go North" : {
-
-    },
-    "Go South" : {
-
-    },
     "Go To..." : {
-
-    },
-    "Go West" : {
 
     },
     "Hide All Tips" : {
@@ -213,9 +201,6 @@
 
     },
     "Monument" : {
-
-    },
-    "Move around the map." : {
 
     },
     "Name" : {
@@ -315,12 +300,6 @@
 
     },
     "Switch between dimensions." : {
-
-    },
-    "Tap any of the arrows or press Command with any arrow key to move around the map." : {
-
-    },
-    "Tap any of the arrows to move around the map." : {
 
     },
     "this pin" : {

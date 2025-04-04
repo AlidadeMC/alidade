@@ -108,7 +108,6 @@ contributors to read through.
 ### Map Ornaments
 
 - ``LocationBadge``
-- ``DirectionNavigator``
 
 ### Editor Forms
 
@@ -136,7 +135,6 @@ contributors to read through.
 
 ### Tips and Onboarding
 
-- ``DirectionNavigatorTip``
 - ``LibraryOnboardingTip``
 - ``PinActionOnboardingTip``
 - ``PinPhotoOnboardingTip``
