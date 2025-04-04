@@ -102,8 +102,6 @@ contributors to read through.
 ### Maps
 
 - ``CartographyOrnamentMap``
-- ``CartographyMapView``
-- ``CartographyMapViewState``
 
 ### Map Ornaments
 
