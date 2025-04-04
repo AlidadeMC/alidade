@@ -19,10 +19,15 @@ across Mac, iPhone, and iPad.
 > build. To get these features, you will need to build from source.
 > Refer to <doc:Building> for more information.
 
+- Maps have been completely revamped in this release. Rather than
+  displaying a static snapshot, map can be moved around more easily thanks
+  to the migration to MapKit with custom tile overlays. Maps also now
+  support proper zooming with the scroll wheel, plus/minus keys, and
+  gestures.
+- Pins are now visible on the map. Tapping on them will also display their
+  corresponding coordinate value.
 - Files in iOS and iPadOS now have a corresponding icon that uses the
   Alidade pin (thanks @joeisanerd)!
-- The map view now has a gray background to make the transitions less
-  jarring on light modes.
 - The location badge includes a new transition for the numbers when the
   location changes.
 - A tip for pinning recent locations has been added to guide players to
@@ -32,6 +37,8 @@ across Mac, iPhone, and iPad.
   unfamiliar with using the app, and the tips being displayed aren't
   helpful to them. Navigating to **Help › Alidade Help** on the Mac will
   open this user guide collection in their default browser.
+- The sidebar sheet on iPhone and iPad has been slightly redesigned to
+  address presentation changes in the iOS 18.4 SDK.
 
 ## 1.0 (Build 29) [Beta]
 
