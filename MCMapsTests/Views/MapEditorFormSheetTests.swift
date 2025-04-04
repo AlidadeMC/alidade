@@ -16,7 +16,7 @@ struct MapEditorFormSheetTests {
     @Test func viewLayout() throws {
         let file: Binding<CartographyMapFile> = .init(wrappedValue: CartographyMapFile(map: .sampleFile))
         let view = MapEditorFormSheet(file: file)
-        let sut = try view.inspect().implicitAnyView()
+        let sut = try view.inspect()
 
         let form = try sut.navigationStack().view(MapCreatorForm.self)
         #if os(iOS)
@@ -44,7 +44,7 @@ struct MapEditorFormSheetTests {
         } onCancelChanges: {
             Issue.record("This callback shouldn't have been executed.")
         }
-        let sut = try view.inspect().implicitAnyView()
+        let sut = try view.inspect()
         try sut.find(button: "Done").tap()
     }
 
@@ -55,7 +55,7 @@ struct MapEditorFormSheetTests {
         } onCancelChanges: {
             #expect(file.wrappedValue.map == .sampleFile)
         }
-        let sut = try view.inspect().implicitAnyView()
+        let sut = try view.inspect()
         try sut.find(button: "Cancel").tap()
     }
 }

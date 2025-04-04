@@ -17,7 +17,7 @@ struct WorldDimensionPickerViewTests {
     @Test func viewLayout() throws {
         let dimension: Binding<MinecraftWorld.Dimension> = .init(wrappedValue: .overworld)
         let view = WorldDimensionPickerView(selection: dimension)
-        let sut = try view.inspect().implicitAnyView()
+        let sut = try view.inspect()
 
         let picker = try sut.picker()
         #expect(try picker.labelView().text().string() == "Dimension")

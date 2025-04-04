@@ -18,7 +18,7 @@ struct ContentView: View {
     }
 
     #if os(iOS)
-    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+        @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     #endif
     @Environment(\.dismiss) private var dismissWindow
 
@@ -26,7 +26,6 @@ struct ContentView: View {
     @Binding var file: CartographyMapFile
 
     @State private var viewModel = CartographyMapViewModel()
-    @State private var displaySidebarSheet = false
 
     var body: some View {
         Group {
@@ -36,7 +35,7 @@ struct ContentView: View {
                         toolbarContent
                     }
             #else
-                AdaptableSidebarSheet(isPresented: $displaySidebarSheet) {
+                AdaptableSidebarSheet(isPresented: $viewModel.displaySidebarSheet) {
                     CartographyOrnamentMap(viewModel: $viewModel, file: $file)
                 } sheet: {
                     CartographyMapSidebarSheet(viewModel: $viewModel, file: $file) {
@@ -47,16 +46,8 @@ struct ContentView: View {
         }
         .navigationTitle(file.map.name)
         .animation(.default, value: file.map.recentLocations)
-        .animation(.default, value: viewModel.mapState)
         .task {
             await WorldDimensionPickerTip.viewDisplayed.donate()
-            await viewModel.refreshMap(for: file)
-        }
-        .onChange(of: viewModel.worldDimension) { _, _ in
-            Task { await viewModel.refreshMap(for: file) }
-        }
-        .onChange(of: viewModel.renderNaturalColors) { _, _ in
-            Task { await viewModel.refreshMap(for: file) }
         }
         #if os(iOS)
             .onAppear {
@@ -100,7 +91,7 @@ struct ContentView: View {
                     // and not the sidebar. WTF???
                     if horizontalSizeClass == .compact {
                         Button {
-                            displaySidebarSheet = false
+                            viewModel.displaySidebarSheet = false
                             dismissWindow()
                         } label: {
                             Label("Back", systemImage: "chevron.left")
@@ -122,18 +113,6 @@ struct ContentView: View {
                     .popoverTip(LocalTips.dimensionPicker)
                     .onChange(of: viewModel.worldDimension) { _, _ in
                         LocalTips.dimensionPicker.invalidate(reason: .actionPerformed)
-                    }
-                }
-            #endif
-
-            #if DEBUG
-                ToolbarItem {
-                    Button {
-                        Task {
-                            await viewModel.refreshMap(for: file)
-                        }
-                    } label: {
-                        Label("Refresh", systemImage: "arrow.clockwise")
                     }
                 }
             #endif
@@ -176,7 +155,8 @@ struct ContentView: View {
             }
 
             var displaySidebarSheet: Bool {
-                target.displaySidebarSheet
+                false
+//                target.displaySidebarSheet
             }
 
             var viewModel: CartographyMapViewModel {

@@ -29,7 +29,7 @@ struct LocationBadgeTests {
 
     @Test func locationBadgeLayout() throws {
         let badge = LocationBadge(location: .init(x: 1847, y: 1847))
-        let sut = try badge.inspect().implicitAnyView()
+        let sut = try badge.inspect()
 
         let hStack = try sut.hStack()
         #expect(hStack.hasPadding())

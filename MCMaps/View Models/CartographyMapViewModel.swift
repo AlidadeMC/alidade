@@ -43,6 +43,7 @@ class CartographyMapViewModel {
     /// This binding is a mirror of ``CartographyRoute/requiresInspectorDisplay``.
     var displayCurrentRouteAsInspector: Binding<Bool> = .constant(false)
 
+    @available(*, deprecated)
     /// The current state of the map being loaded.
     var mapState = CartographyMapViewState.loading
 
@@ -71,6 +72,8 @@ class CartographyMapViewModel {
         return "X: \(xPos), Z: \(zPos)"
     }
 
+    var displaySidebarSheet = false
+    
     private var displayRouteInspector = false
 
     init() {
@@ -100,6 +103,7 @@ class CartographyMapViewModel {
 
     /// Refresh the current map based on the selected file.
     /// - Parameter file: The file to load the map data from.
+    @available(*, deprecated)
     func refreshMap(for file: CartographyMapFile) async {
         mapState = .loading
         do {
@@ -126,6 +130,7 @@ class CartographyMapViewModel {
     /// Jump in a specified cardinal direction, reloading the map in the current process.
     /// - Parameter direction: The direction to jump towards.
     /// - Parameter file: The file to load the map data from.
+    @available(*, deprecated)
     func go(inDirection direction: CardinalDirection, relativeToFile file: CartographyMapFile) {
         var newPosition = worldRange.position
         switch direction {

@@ -14,7 +14,9 @@ import ViewInspector
 
 @MainActor
 struct DirectionNavigatorTests {
-    @Test(arguments: [
+    @Test(
+        .disabled("Deprecated"),
+        arguments: [
         ("North", Point3D<Int32>(x: 0, y: 15, z: -256)),
         ("West", Point3D<Int32>(x: -256, y: 15, z: 0)),
         ("East", Point3D<Int32>(x: 256, y: 15, z: 0)),
@@ -24,7 +26,7 @@ struct DirectionNavigatorTests {
         let file = CartographyMapFile(map: .sampleFile)
         let viewModel = CartographyMapViewModel()
         let navigator = DirectionNavigator(viewModel: viewModel, file: file)
-        let sut = try navigator.inspect().implicitAnyView()
+        let sut = try navigator.inspect()
 
         #expect(!sut.isAbsent)
         let directionalButton = try sut.find(button: "Go \(direction)")

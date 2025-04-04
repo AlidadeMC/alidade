@@ -38,7 +38,7 @@ struct CartographyNamedLocationViewTests {
 
     @Test func viewLayout() throws {
         let view = CartographyNamedLocationView(pin: .init(position: .zero, name: "Pin"))
-        let sut = try view.inspect().implicitAnyView()
+        let sut = try view.inspect()
 
         let image = try sut.hStack().image(0)
         #expect(try image.actualImage() == Image(systemName: "mappin"))

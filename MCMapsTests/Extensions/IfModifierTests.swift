@@ -20,7 +20,7 @@ struct IfModifierTests {
                 view.font(.headline)
             }
         
-        let sut = try myText.inspect().implicitAnyView()
+        let sut = try myText.inspect()
         #expect(throws: (any Error).self) {
             try sut.text().attributes().font()
         }
@@ -31,7 +31,7 @@ struct IfModifierTests {
             .if(shouldSwitch) { view in
                 view.font(.headline)
             }
-        let sut2 = try myAltText.inspect().implicitAnyView()
+        let sut2 = try myAltText.inspect()
         #expect(try sut2.text().attributes().font() == .headline)
     }
 }

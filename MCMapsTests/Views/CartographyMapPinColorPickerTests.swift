@@ -16,7 +16,7 @@ struct CartographyMapPinColorPickerTests {
     @Test func viewInitializes() throws {
         let color = Binding<CartographyMapPin.Color?>(wrappedValue: .blue)
         let picker = CartographyMapPinColorPicker(color: color)
-        let sut = try picker.inspect().implicitAnyView()
+        let sut = try picker.inspect()
         
         #expect(!sut.isAbsent)
         for color in CartographyMapPin.Color.allCases {
@@ -30,7 +30,7 @@ struct CartographyMapPinColorPickerTests {
     func viewUpdatesSelection(expectedColor: CartographyMapPin.Color) throws {
         let color = Binding<CartographyMapPin.Color?>(wrappedValue: nil)
         let picker = CartographyMapPinColorPicker(color: color)
-        let sut = try picker.inspect().implicitAnyView()
+        let sut = try picker.inspect()
 
         let button = try sut.find(viewWithTag: expectedColor)
         try button.button().tap()

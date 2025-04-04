@@ -26,7 +26,7 @@ struct PinCreatorFormTests {
             PinCreatorForm(location: .zero) { newPin in
                 #expect(newPin == .init(position: .zero, name: "Pin", color: .blue))
             }
-        let sut = try form.inspect().implicitAnyView()
+        let sut = try form.inspect()
         let doneButton = try sut.find(button: "Create")
         try doneButton.tap()
     }
@@ -37,7 +37,7 @@ struct PinCreatorFormTests {
                 PinCreatorForm(location: .zero) { newPin in
                     Issue.record("Completion handler should not be executing here.")
                 }
-            let sut = try form.inspect().implicitAnyView()
+            let sut = try form.inspect()
             let doneButton = try sut.find(button: "Cancel")
             try doneButton.tap()
         }

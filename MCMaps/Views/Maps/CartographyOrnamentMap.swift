@@ -59,35 +59,32 @@ struct CartographyOrnamentMap: View {
                         }
                 }
             }
-                .animation(.interpolatingSpring, value: viewModel.mapState)
-                .edgesIgnoringSafeArea(.all)
-                .background(Color.gray)
-                .onChange(of: viewModel.worldRange.position) { _, newValue in
-                    print("Fire!")
-                    centerCoordinate = CGPoint(x: Double(newValue.x), y: Double(newValue.z))
-                }
+            .edgesIgnoringSafeArea(.all)
+            .background(Color.gray)
+            .onChange(of: viewModel.worldRange.position) { _, newValue in
+                print("Fire!")
+                centerCoordinate = CGPoint(x: Double(newValue.x), y: Double(newValue.z))
+            }
         } ornaments: {
             Ornament(alignment: Constants.locationBadgePlacement) {
                 VStack(alignment: .trailing) {
                     LocationBadge(location: viewModel.worldRange.position)
                     #if os(iOS)
-                        Menu {
-                            Toggle(isOn: $viewModel.renderNaturalColors) {
-                                Label("Natural Colors", systemImage: "paintpalette")
+                        HStack {
+                            Menu {
+                                Toggle(isOn: $viewModel.renderNaturalColors) {
+                                    Label("Natural Colors", systemImage: "paintpalette")
+                                }
+                                WorldDimensionPickerView(selection: $viewModel.worldDimension)
+                                    .pickerStyle(.inline)
+                            } label: {
+                                Label("Dimension", systemImage: "map")
                             }
-                            WorldDimensionPickerView(selection: $viewModel.worldDimension)
-                                .pickerStyle(.inline)
-                        } label: {
-                            Label("Dimension", systemImage: "map")
+                            .popoverTip(LocalTips.dimensionPicker)
+                            .ornamentButton()
                         }
                         .labelStyle(.iconOnly)
-                        .padding()
-                        .foregroundStyle(.primary)
-                        .background(.thinMaterial)
-                        .clipped()
-                        .clipShape(.rect(cornerRadius: 8))
                         .padding(.trailing, 6)
-                        .popoverTip(LocalTips.dimensionPicker)
                         .onChange(of: viewModel.worldDimension) { _, _ in
                             LocalTips.dimensionPicker.invalidate(reason: .actionPerformed)
                         }
@@ -96,5 +93,22 @@ struct CartographyOrnamentMap: View {
             }
             .padding(.trailing, 8)
         }
+    }
+}
+
+private struct OrnamentButtonModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .padding()
+            .foregroundStyle(.primary)
+            .background(.thinMaterial)
+            .clipped()
+            .clipShape(.rect(cornerRadius: 8))
+    }
+}
+
+extension View {
+    fileprivate func ornamentButton() -> some View {
+        self.modifier(OrnamentButtonModifier())
     }
 }

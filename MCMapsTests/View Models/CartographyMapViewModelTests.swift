@@ -40,7 +40,11 @@ struct CartographyMapViewModelTests {
         #expect(await viewModel.positionLabel == "X: 1847, Z: 1847")
     }
 
-    @Test(.timeLimit(.minutes(1)), .tags(.viewModel), arguments: [("1.2", 123, true), ("fail", 123, false)])
+    @Test(
+        .timeLimit(.minutes(1)),
+        .tags(.viewModel),
+        .disabled("Deprecated"),
+        arguments: [("1.2", 123, true), ("fail", 123, false)])
     func viewModelRefreshMap(version: String, seed: Int64, shouldSucceed: Bool) async throws {
         let viewModel = await CartographyMapViewModel()
         let file = CartographyMapFile(map: .init(seed: seed, mcVersion: version, name: "Foo", pins: []))
@@ -58,7 +62,7 @@ struct CartographyMapViewModelTests {
         }
     }
 
-    @Test(.timeLimit(.minutes(1)), .tags(.viewModel))
+    @Test(.timeLimit(.minutes(1)), .tags(.viewModel), .disabled("Deprecated"))
     func viewModelGoesToPosition() async throws {
         let viewModel = await CartographyMapViewModel()
         let file = CartographyMapFile(map: .sampleFile)
@@ -73,7 +77,7 @@ struct CartographyMapViewModelTests {
         }
     }
 
-    @Test(.timeLimit(.minutes(1)), .tags(.viewModel), arguments: [
+    @Test(.timeLimit(.minutes(1)), .tags(.viewModel), .disabled("Deprecated"), arguments: [
         (CartographyMapViewModel.CardinalDirection.north, Point3D<Int32>(x: 0, y: 15, z: -256)),
         (CartographyMapViewModel.CardinalDirection.west, Point3D<Int32>(x: -256, y: 15, z: 0)),
         (CartographyMapViewModel.CardinalDirection.east, Point3D<Int32>(x: 256, y: 15, z: 0)),

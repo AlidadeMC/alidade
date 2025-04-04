@@ -17,7 +17,7 @@ import ViewInspector
 struct AboutWindowViewTests {
     @Test func viewLayout() throws {
         let about = AboutWindowView()
-        let sut = try about.inspect().implicitAnyView()
+        let sut = try about.inspect()
         #expect(!about.testHooks.versionString.isEmpty)
         #expect(about.testHooks.creditsFile == nil)
         #expect(!sut.isAbsent)

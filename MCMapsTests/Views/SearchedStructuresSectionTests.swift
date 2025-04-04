@@ -22,7 +22,7 @@ struct SearchedStructuresSectionTests {
             file: file) { location in
                 #expect(location == .init(position: .zero, name: "Mineshaft"))
             }
-        let sut = try section.inspect().implicitAnyView()
+        let sut = try section.inspect()
 
         let button = try sut.section().group(0).forEach(0).view(CartographyNamedLocationView.self, 0)
         try button.callOnTapGesture()

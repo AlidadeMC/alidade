@@ -43,7 +43,7 @@ struct CartographyPinViewModelTests {
         let vm = CartographyPinViewModel(file: fileBinding, index: 0)
 
         let view = PinModifierView(pin: vm.pin)
-        let sut = try view.inspect().implicitAnyView().text()
+        let sut = try view.inspect().text()
         try sut.callOnAppear()
 
         #expect(fileBinding.wrappedValue.map.pins[0].name == "Geschlossene Erinnerungen")

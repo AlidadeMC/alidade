@@ -17,7 +17,7 @@ struct OrnamentViewTests {
         let ornament = Ornament(alignment: .bottom) {
             Text("Hi")
         }
-        let sut = try ornament.inspect().implicitAnyView().group()
+        let sut = try ornament.inspect().group()
         #expect(try sut.flexFrame().maxHeight == .infinity)
         #expect(try sut.flexFrame().maxWidth == .infinity)
         #expect(try sut.flexFrame().alignment == .bottom)
@@ -31,7 +31,7 @@ struct OrnamentViewTests {
         } tappedGesture: { newView in
             #expect(newView.testHooks.displayOrnaments == false)
         }
-        let sut = try ornamentView.inspect().implicitAnyView()
+        let sut = try ornamentView.inspect()
         try sut.zStack().background().callOnTapGesture()
     }
 }
