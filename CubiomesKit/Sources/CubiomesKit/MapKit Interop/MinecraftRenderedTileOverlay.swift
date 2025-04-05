@@ -50,8 +50,7 @@ final class MinecraftRenderedTileOverlay: MKTileOverlay {
             )
         #endif
 
-        let data = renderer.render(
-            inRegion: chunk, scale: Int32(path.contentScaleFactor) * 1, dimension: dimension)
+        let data = renderer.render(inRegion: chunk, scale: 1, dimension: dimension)
         result(data, nil)
     }
 }

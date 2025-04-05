@@ -11,6 +11,10 @@ import SwiftUI
 /// A map view of a Minecraft world that can be navigated and interacted with.
 public struct MinecraftMap {
     public typealias Ornaments = MinecraftMapView.Ornaments
+    public enum ColorScheme {
+        case `default`
+        case natural
+    }
 
     var world: MinecraftWorld
 
@@ -18,6 +22,7 @@ public struct MinecraftMap {
     var dimension: MinecraftWorld.Dimension = .overworld
     var ornaments: Ornaments = []
     var annotations: [any MKAnnotation] = []
+    var preferNaturalColors: Bool = false
 
     public init(
         world: MinecraftWorld,
@@ -34,13 +39,15 @@ public struct MinecraftMap {
         centerCoordinate: Binding<CGPoint>? = nil,
         ornaments: Ornaments = [],
         annotations: [any MKAnnotation] = [],
-        dimension: MinecraftWorld.Dimension = .overworld
+        dimension: MinecraftWorld.Dimension = .overworld,
+        preferNaturalColors: Bool = false
     ) {
         self.world = world
         self.ornaments = ornaments
         self.centerCoordinate = centerCoordinate
         self.dimension = dimension
         self.annotations = annotations
+        self.preferNaturalColors = preferNaturalColors
     }
 
     @MainActor
@@ -52,6 +59,11 @@ public struct MinecraftMap {
             mapView.centerBlockCoordinate = centerBlockCoordinate
         }
         mapView.addAnnotations(annotations)
+        if preferNaturalColors {
+            mapView.renderOptions.insert(.naturalColors)
+        } else {
+            mapView.renderOptions.remove(.naturalColors)
+        }
         return mapView
     }
 
@@ -74,6 +86,12 @@ public struct MinecraftMap {
                 mapView.removeAnnotation(annotation)
             }
         }
+
+        if preferNaturalColors {
+            mapView.renderOptions.insert(.naturalColors)
+        } else {
+            mapView.renderOptions.remove(.naturalColors)
+        }
     }
 
     /// Determines the map control ornaments that should be displayed on the map.
@@ -83,15 +101,32 @@ public struct MinecraftMap {
             centerCoordinate: self.centerCoordinate,
             ornaments: ornaments,
             annotations: self.annotations,
-            dimension: self.dimension
+            dimension: self.dimension,
+            preferNaturalColors: self.preferNaturalColors
         )
     }
 
     /// Displays annotations on top of the map.
     public func annotations(@MinecraftMapContentBuilder _ builder: () -> [any MKAnnotation]) -> MinecraftMap {
         MinecraftMap(
-            world: self.world, centerCoordinate: self.centerCoordinate, ornaments: self.ornaments,
-            annotations: builder(), dimension: self.dimension)
+            world: self.world,
+            centerCoordinate: self.centerCoordinate,
+            ornaments: self.ornaments,
+            annotations: builder(),
+            dimension: self.dimension,
+            preferNaturalColors: self.preferNaturalColors
+        )
+    }
+
+    public func mapColorScheme(_ colorScheme: MinecraftMap.ColorScheme) -> MinecraftMap {
+        MinecraftMap(
+            world: self.world,
+            centerCoordinate: self.centerCoordinate,
+            ornaments: self.ornaments,
+            annotations: self.annotations,
+            dimension: self.dimension,
+            preferNaturalColors: colorScheme == .natural
+        )
     }
 }
 

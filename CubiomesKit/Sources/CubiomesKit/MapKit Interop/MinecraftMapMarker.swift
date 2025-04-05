@@ -28,15 +28,16 @@ public struct MinecraftMapMarker {
     }
 }
 
-class MinecraftMapMarkerAnnotation: NSObject, MKAnnotation {
-    var coordinate: CLLocationCoordinate2D
+public class MinecraftMapMarkerAnnotation: NSObject, MKAnnotation {
+    public var coordinate: CLLocationCoordinate2D
     #if canImport(UIKit)
         var color: UIColor
     #else
         var color: NSColor
     #endif
-    var title: String?
-    var subtitle: String?
+    public var title: String?
+
+    public private(set) var subtitle: String?
 
     init(marker: MinecraftMapMarker) {
         self.coordinate = Self.project(marker.location)

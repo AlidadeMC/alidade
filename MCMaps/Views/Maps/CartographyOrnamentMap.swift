@@ -30,6 +30,8 @@ struct CartographyOrnamentMap: View {
     }
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
 
+    @AppStorage(UserDefaults.Keys.mapNaturalColors.rawValue) private var naturalColors = true
+
     /// The view model the map will read from/write to.
     @Binding var viewModel: CartographyMapViewModel
 
@@ -53,6 +55,7 @@ struct CartographyOrnamentMap: View {
             Group {
                 if let world = try? MinecraftWorld(version: file.map.mcVersion, seed: file.map.seed) {
                     MinecraftMap(world: world, centerCoordinate: $centerCoordinate, dimension: viewModel.worldDimension)
+                        .mapColorScheme(naturalColors == true ? .natural : .default)
                         .ornaments([.zoom, .compass])
                         .annotations {
                             markers
