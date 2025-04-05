@@ -26,6 +26,7 @@ public final class MinecraftMapView: MKMapView {
     public var centerBlockCoordinate: CGPoint {
         get { return MinecraftMapMarkerAnnotation.unproject(centerCoordinate) }
         set {
+            print(newValue, MinecraftMapMarkerAnnotation.project(newValue))
             DispatchQueue.main.async { [weak self] in
                 self?.setCenter(MinecraftMapMarkerAnnotation.project(newValue), animated: true)
             }
@@ -78,15 +79,11 @@ public final class MinecraftMapView: MKMapView {
     func configureMapView() {
         #if os(macOS)
         self.canDrawConcurrently = true
-        self.isRotateEnabled = true
         #endif
-        self.cameraZoomRange = CameraZoomRange(minCenterCoordinateDistance: 64, maxCenterCoordinateDistance: 512)
+        self.cameraZoomRange = CameraZoomRange(minCenterCoordinateDistance: 64, maxCenterCoordinateDistance: 256)
         self.isPitchEnabled = false
         self.isZoomEnabled = true
-        
-        #if os(iOS)
         self.isRotateEnabled = false
-        #endif
     }
 
     func reconfigureOrnaments() {

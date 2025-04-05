@@ -21,11 +21,11 @@ final class MinecraftRenderedTileOverlay: MKTileOverlay {
         self.canReplaceMapContent = true
     }
 
-    private enum Constants {
+    enum Constants {
         // NOTE(alicerunsonfedora): This needs to be a power of 2!
 
-        static let minBoundary = -16_777_216  // -29_999_984
-        static let maxBoundary = 16_777_216  // 29_999_984
+        static let minBoundary = -33_554_432  // -29_999_984 is world border
+        static let maxBoundary = 33_554_432  // 29_999_984 is world border
     }
 
     override func loadTile(at path: MKTileOverlayPath, result: @escaping (Data?, (any Error)?) -> Void) {
@@ -51,7 +51,7 @@ final class MinecraftRenderedTileOverlay: MKTileOverlay {
         #endif
 
         let data = renderer.render(
-            inRegion: chunk, scale: Int32(path.contentScaleFactor * 4), dimension: dimension)
+            inRegion: chunk, scale: Int32(path.contentScaleFactor) * 1, dimension: dimension)
         result(data, nil)
     }
 }
