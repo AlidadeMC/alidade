@@ -26,8 +26,10 @@ struct MinecraftWorldTests {
         }
         let originalData = try Data(contentsOf: originalDataURL)
         let mcWorld = try MinecraftWorld(version: "1.21", seed: 3_257_840_388_504_953_787)
-        let data = mcWorld.snapshot(
-            in: .init(
+        let renderer = MinecraftWorldRenderer(world: mcWorld)
+        renderer.options = [.centerPositions]
+        let data = renderer.render(
+            inRegion: .init(
                 origin: .init(x: 116, y: 15, z: -31),
                 scale: .init(x: 256, y: 1, z: 256)),
             dimension: .overworld)
