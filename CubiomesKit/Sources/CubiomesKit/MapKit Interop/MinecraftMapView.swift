@@ -26,7 +26,9 @@ public final class MinecraftMapView: MKMapView {
     public var centerBlockCoordinate: CGPoint {
         get { return MinecraftMapMarkerAnnotation.unproject(centerCoordinate) }
         set {
-            setCenter(MinecraftMapMarkerAnnotation.project(newValue), animated: true)
+            DispatchQueue.main.async { [weak self] in
+                self?.setCenter(MinecraftMapMarkerAnnotation.project(newValue), animated: true)
+            }
         }
     }
 

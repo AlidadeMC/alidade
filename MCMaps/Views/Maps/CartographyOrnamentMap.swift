@@ -53,7 +53,7 @@ struct CartographyOrnamentMap: View {
             Group {
                 if let world = try? MinecraftWorld(version: file.map.mcVersion, seed: file.map.seed) {
                     MinecraftMap(world: world, centerCoordinate: $centerCoordinate, dimension: viewModel.worldDimension)
-                        .ornaments(.all)
+                        .ornaments([.zoom, .compass])
                         .annotations {
                             markers
                         }
