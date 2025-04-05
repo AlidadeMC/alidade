@@ -19,6 +19,8 @@ across Mac, iPhone, and iPad.
 > build. To get these features, you will need to build from source.
 > Refer to <doc:Building> for more information.
 
+## 1.0 (Build 33) [Beta]
+
 - Maps have been completely revamped in this release. Rather than
   displaying a static snapshot, map can be moved around more easily thanks
   to the migration to MapKit with custom tile overlays. Maps also now
