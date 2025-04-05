@@ -20,8 +20,9 @@ struct MinecraftMapViewTests {
         #expect(mcMapView.translatesAutoresizingMaskIntoConstraints == false)
         #expect(mcMapView.ornaments == [.compass])
         #expect(mcMapView.showsScale == false)
+        #if os(macOS)
         #expect(mcMapView.showsPitchControl == false)
-        #expect(mcMapView.showsPitchControl == false)
+        #endif
         #expect(mcMapView.isPitchEnabled == false)
         #expect(mcMapView.isRotateEnabled == false)
     }
