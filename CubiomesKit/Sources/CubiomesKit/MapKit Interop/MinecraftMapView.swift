@@ -51,7 +51,7 @@ public final class MinecraftMapView: MKMapView {
 
     public var world: MinecraftWorld
 
-    var minecraftOverlay: MinecraftRenderedTileOverlay?
+    var minecraftOverlay: MinecraftRenderedTileOverlay!
 
     public init(world: MinecraftWorld, frame: CGRect, dimension: MinecraftWorld.Dimension = .overworld) {
         self.world = world
