@@ -20,7 +20,6 @@ public struct MinecraftMapMarker {
     /// The name of the marker.
     public var title: String
 
-
     public init(location: CGPoint, title: String, color: Color = .accentColor) {
         self.location = location
         self.title = title
@@ -29,7 +28,7 @@ public struct MinecraftMapMarker {
 }
 
 public class MinecraftMapMarkerAnnotation: NSObject, MKAnnotation {
-    public var coordinate: CLLocationCoordinate2D
+    public private(set) var coordinate: CLLocationCoordinate2D
     #if canImport(UIKit)
         var color: UIColor
     #else
@@ -39,7 +38,7 @@ public class MinecraftMapMarkerAnnotation: NSObject, MKAnnotation {
 
     public private(set) var subtitle: String?
 
-    init(marker: MinecraftMapMarker) {
+    public init(marker: MinecraftMapMarker) {
         self.coordinate = Self.project(marker.location)
         self.title = marker.title
 
@@ -53,6 +52,20 @@ public class MinecraftMapMarkerAnnotation: NSObject, MKAnnotation {
         #endif
     }
 
+    public init(location: CGPoint, title: String, color: Color = .accentColor) {
+        self.coordinate = Self.project(location)
+        self.title = title
+
+        let xCoord = Int(location.x)
+        let zCoord = Int(location.y)
+        self.subtitle = "(\(xCoord), \(zCoord))"
+        #if canImport(UIKit)
+            self.color = UIColor(color)
+        #else
+            self.color = NSColor(color)
+        #endif
+    }
+
     static func project(_ minecraftLocation: CGPoint) -> CLLocationCoordinate2D {
         let mineZ = minecraftLocation.y
         let mineX = minecraftLocation.x
@@ -61,14 +74,14 @@ public class MinecraftMapMarkerAnnotation: NSObject, MKAnnotation {
         // projections... (but dear reader, let me project my woes onto you)
         let scaleZ = 45 / Double(MinecraftRenderedTileOverlay.Constants.maxBoundary)
         let scaleX = 45 / Double(MinecraftRenderedTileOverlay.Constants.maxBoundary)
-        
+
         return CLLocationCoordinate2D(latitude: -mineZ * scaleZ, longitude: mineX * scaleX)
     }
 
     static func unproject(_ location: CLLocationCoordinate2D) -> CGPoint {
         let scaleZ = Double(MinecraftRenderedTileOverlay.Constants.maxBoundary) / 45
         let scaleX = Double(MinecraftRenderedTileOverlay.Constants.maxBoundary) / 45
-        
-        return CGPoint(x: -location.latitude * scaleZ, y: location.longitude * scaleX)
+
+        return CGPoint(x: location.longitude * scaleZ, y: -location.latitude * scaleX)
     }
 }

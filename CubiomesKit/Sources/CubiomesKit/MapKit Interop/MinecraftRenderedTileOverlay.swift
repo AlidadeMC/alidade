@@ -29,6 +29,12 @@ final class MinecraftRenderedTileOverlay: MKTileOverlay {
     }
 
     override func loadTile(at path: MKTileOverlayPath, result: @escaping (Data?, (any Error)?) -> Void) {
+        let chunk = chunk(forOverlayPath: path)
+        let data = renderer.render(inRegion: chunk, scale: 1, dimension: dimension)
+        result(data, nil)
+    }
+
+    func chunk(forOverlayPath path: MKTileOverlayPath) -> MinecraftWorldRange {
         var posX = Int32(Constants.minBoundary)
         var posZ = Int32(Constants.minBoundary)
 
@@ -49,8 +55,6 @@ final class MinecraftRenderedTileOverlay: MKTileOverlay {
                 "🗺️ [\(path.x), \(path.y) @ \(path.z)] -> 🍱 [\(chunk.position.x), \(chunk.position.z) @ \(blockPerTile)]"
             )
         #endif
-
-        let data = renderer.render(inRegion: chunk, scale: 1, dimension: dimension)
-        result(data, nil)
+        return chunk
     }
 }
