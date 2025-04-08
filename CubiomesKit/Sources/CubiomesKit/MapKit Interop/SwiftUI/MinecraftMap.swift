@@ -9,10 +9,27 @@ import MapKit
 import SwiftUI
 
 /// A map view of a Minecraft world that can be navigated and interacted with.
+///
+/// This map view supports typical map interactions such as panning and zooming while displaying content from a
+/// Minecraft world. Tiles are dynamically loaded in with a ``MinecraftWorldRenderer``.
+///
+/// - SeeAlso: For use in AppKit/UIKit views, use the ``MinecraftMapView``.
 public struct MinecraftMap {
+    /// A type alias representing the map's ornaments displayed in the view above the map's content.
     public typealias Ornaments = MinecraftMapView.Ornaments
+
+    /// An enumeration representing the various color schemes available to the map.
     public enum ColorScheme {
+        /// The default color scheme.
+        ///
+        /// This color scheme is automatically provided by Cubiomes and uses the same color scheme for biomes as other
+        /// tools, such as Chunkbase, Amidst, and MineAtlas.
         case `default`
+
+        /// The natural color scheme.
+        ///
+        /// This color scheme is bundled in CubiomesKit. It aims to represent real Minecraft blocks, providing a more
+        /// natural and consistent look with the Minecraft world.
         case natural
     }
 
@@ -24,6 +41,10 @@ public struct MinecraftMap {
     var annotations: [any MKAnnotation] = []
     var preferNaturalColors: Bool = false
 
+    /// Create a Minecraft map view.
+    /// - Parameter world: The world to display in the map view.
+    /// - Parameter centerCoordinate: The coordinate that should be in the center of the map view.
+    /// - Parameter dimension: The dimension to view the world in.
     public init(
         world: MinecraftWorld,
         centerCoordinate: Binding<CGPoint>? = nil,
@@ -32,6 +53,23 @@ public struct MinecraftMap {
         self.world = world
         self.dimension = dimension
         self.centerCoordinate = centerCoordinate
+    }
+
+    /// Create a Minecraft map view with additional annotations.
+    /// - Parameter world: The world to display in the map view.
+    /// - Parameter centerCoordinate: The coordinate that should be in the center of the map view.
+    /// - Parameter dimension: The dimension to view the world in.
+    /// - Parameter annotations: The annotations that should be displayed in the world.
+    public init(
+        world: MinecraftWorld,
+        centerCoordinate: Binding<CGPoint>? = nil,
+        dimension: MinecraftWorld.Dimension = .overworld,
+        @MinecraftMapContentBuilder annotations: () -> [any MKAnnotation]
+    ) {
+        self.world = world
+        self.dimension = dimension
+        self.centerCoordinate = centerCoordinate
+        self.annotations = annotations()
     }
 
     init(
@@ -106,18 +144,8 @@ public struct MinecraftMap {
         )
     }
 
-    /// Displays annotations on top of the map.
-    public func annotations(@MinecraftMapContentBuilder _ builder: () -> [any MKAnnotation]) -> MinecraftMap {
-        MinecraftMap(
-            world: self.world,
-            centerCoordinate: self.centerCoordinate,
-            ornaments: self.ornaments,
-            annotations: builder(),
-            dimension: self.dimension,
-            preferNaturalColors: self.preferNaturalColors
-        )
-    }
-
+    /// Specify the color scheme to be used in the map view.
+    /// - Parameter colorScheme: The color scheme to use in the map view.
     public func mapColorScheme(_ colorScheme: MinecraftMap.ColorScheme) -> MinecraftMap {
         MinecraftMap(
             world: self.world,

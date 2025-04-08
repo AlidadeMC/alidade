@@ -17,7 +17,11 @@ public class MinecraftWorldRenderer {
 
         /// Use natural colors for the overworld when rendering the map, instead of the default behavior.
         ///
-        /// - SeeAlso: https://github.com/Cubitect/biome-colors
+        /// This color scheme is bundled in CubiomesKit. It aims to represent real Minecraft blocks, providing a more
+        /// natural and consistent look with the Minecraft world.
+        ///
+        /// > SeeAlso: To view the source for the color set, visit
+        /// > [https://github.com/Cubitect/biome-colors](https://github.com/Cubitect/biome-colors).
         public static let naturalColors = Options(rawValue: 1 << 0)
 
         /// Render the map with the position at the center of the image.

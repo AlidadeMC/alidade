@@ -10,6 +10,6 @@
 
 void seedGenerator(Generator *g, int mc, uint32_t flags, int64_t seed, int dim)
 {
-    setupGenerator(g, mc, dim);
+    setupGenerator(g, mc, flags);
     applySeed(g, dim, (uint64_t)seed);
 }

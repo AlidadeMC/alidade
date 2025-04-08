@@ -15,17 +15,32 @@ private enum BiomeConstants {
     static let coordinateCount: Int = 10
 }
 
+/// A protocol that defines behavior for being able to search Minecraft biomes.
 public protocol MinecraftBiomeSearching {
-    typealias Coordinate = Point3D<Int32>
+    /// Search for biomes within a specific radius.
+    /// - Parameter biome: The biome to search for within the given radius.
+    /// - Parameter position: The center position to begin searching from.
+    /// - Parameter blockRadius: The block radius from the center position to search in.
+    /// - Parameter dimension: The world dimension to search in.
+    /// - Returns: A set of Minecraft points representing the center block of the biomes, if any were found.
     func findBiomes(
-        ofType biome: MinecraftBiome, at position: Coordinate, inRadius blockRadius: Int32,
+        ofType biome: MinecraftBiome, at position: MinecraftPoint, inRadius blockRadius: Int32,
         dimension: MinecraftWorld.Dimension
-    ) -> Set<Coordinate>
+    ) -> Set<MinecraftPoint>
 }
 
 extension MinecraftWorld: MinecraftBiomeSearching {
+    /// Search for biomes within a specific radius in the current Minecraft world.
+    ///
+    /// - Parameter biome: The biome to search for within the given radius.
+    /// - Parameter position: The center position to begin searching from.
+    /// - Parameter blockRadius: The block radius from the center position to search in.
+    /// - Parameter dimension: The world dimension to search in.
+    /// - Returns: A set of Minecraft points representing the center block of the biomes, if any were found.
     public func findBiomes(
-        ofType biome: MinecraftBiome, at position: Coordinate, inRadius blockRadius: Int32 = 4000,
+        ofType biome: MinecraftBiome,
+        at position: MinecraftPoint,
+        inRadius blockRadius: Int32 = 4000,
         dimension: Dimension = .overworld
     ) -> Set<Coordinate> {
         var relevantBiomes = Set<Point3D<Int32>>()

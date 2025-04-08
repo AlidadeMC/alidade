@@ -10,20 +10,30 @@ import SwiftUI
 
 /// A marker on a Minecraft map.
 ///
-/// Markers are generally used to indicate points of interest on a Minecraft world map.
-public struct MinecraftMapMarker {
+/// Markers are generally used to indicate points of interest on a Minecraft world map. Tapping on a marker will
+/// display its coordinate below as a subtitle.
+public struct MinecraftMapMarker: MinecraftMapAnnotation {
     /// The location of the marker in blocks.
     public var location: CGPoint
 
+    /// The marker's tint color as it appears on the map.
     public var color: Color
 
     /// The name of the marker.
     public var title: String
 
+    /// Create a marker at a given position.
+    /// - Parameter location: The Minecraft coordinate where the marker will be placed.
+    /// - Parameter title: The name of the marker.
+    /// - Parameter color: The marker's tint color.
     public init(location: CGPoint, title: String, color: Color = .accentColor) {
         self.location = location
         self.title = title
         self.color = color
+    }
+
+    public var mapKitAnnotation: any MKAnnotation {
+        MinecraftMapMarkerAnnotation(marker: self)
     }
 }
 
@@ -39,7 +49,7 @@ public class MinecraftMapMarkerAnnotation: NSObject, MKAnnotation {
     public private(set) var subtitle: String?
 
     public init(marker: MinecraftMapMarker) {
-        self.coordinate = Self.project(marker.location)
+        self.coordinate = CoordinateProjections.project(marker.location)
         self.title = marker.title
 
         let xCoord = Int(marker.location.x)
@@ -53,7 +63,7 @@ public class MinecraftMapMarkerAnnotation: NSObject, MKAnnotation {
     }
 
     public init(location: CGPoint, title: String, color: Color = .accentColor) {
-        self.coordinate = Self.project(location)
+        self.coordinate = CoordinateProjections.project(location)
         self.title = title
 
         let xCoord = Int(location.x)
@@ -66,6 +76,7 @@ public class MinecraftMapMarkerAnnotation: NSObject, MKAnnotation {
         #endif
     }
 
+    @available(*, deprecated, renamed: "CoordinateProjections.project")
     static func project(_ minecraftLocation: CGPoint) -> CLLocationCoordinate2D {
         let mineZ = minecraftLocation.y
         let mineX = minecraftLocation.x
@@ -78,6 +89,7 @@ public class MinecraftMapMarkerAnnotation: NSObject, MKAnnotation {
         return CLLocationCoordinate2D(latitude: -mineZ * scaleZ, longitude: mineX * scaleX)
     }
 
+    @available(*, deprecated, renamed: "CoordinateProjections.unproject")
     static func unproject(_ location: CLLocationCoordinate2D) -> CGPoint {
         let scaleZ = Double(MinecraftRenderedTileOverlay.Constants.maxBoundary) / 45
         let scaleX = Double(MinecraftRenderedTileOverlay.Constants.maxBoundary) / 45

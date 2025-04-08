@@ -54,18 +54,21 @@ struct CartographyOrnamentMap: View {
         OrnamentedView {
             Group {
                 if let world = try? MinecraftWorld(version: file.map.mcVersion, seed: file.map.seed) {
-                    MinecraftMap(world: world, centerCoordinate: $centerCoordinate, dimension: viewModel.worldDimension)
+                    MinecraftMap(
+                        world: world,
+                        centerCoordinate: $centerCoordinate,
+                        dimension: viewModel.worldDimension
+                    ) {
+                        markers
+                    }
                         .mapColorScheme(naturalColors == true ? .natural : .default)
                         .ornaments([.zoom, .compass])
-                        .annotations {
-                            markers
-                        }
                 }
             }
             .edgesIgnoringSafeArea(.all)
             .background(Color.gray)
             .onChange(of: viewModel.worldRange.position) { _, newValue in
-                centerCoordinate = CGPoint(x: Double(newValue.x), y: Double(newValue.z))
+                centerCoordinate = CGPoint(minecraftPoint: newValue)
             }
         } ornaments: {
             Ornament(alignment: Constants.locationBadgePlacement) {

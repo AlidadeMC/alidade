@@ -8,6 +8,8 @@
 import Foundation
 
 /// A representation of a point in three-dimensional space.
+///
+/// - Note: To use a three-dimensional point that refers to a Minecraft coordinate, use the ``MinecraftPoint``.
 public struct Point3D<T: Numeric & Sendable & Hashable>: Equatable, Hashable, Sendable {
     /// The position coordinate along the X axis.
     public var x: T

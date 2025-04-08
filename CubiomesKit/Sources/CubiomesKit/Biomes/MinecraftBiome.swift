@@ -30,6 +30,10 @@ public extension MinecraftBiome {
         return nil
     }
 
+    /// Initializes a biome from a localized string and Minecraft version.
+    ///
+    /// - Parameter localizedString: The string value to parse and create an enumeration from.
+    /// - Parameter mcVersion: The Minecraft version relevant to the biome.
     init?(localizedString: String, mcVersion: String) {
         var nameComponents = localizedString.components(separatedBy: " ")
         nameComponents = nameComponents.map(\.localizedLowercase)
@@ -40,6 +44,8 @@ public extension MinecraftBiome {
         self = biome
     }
 
+    /// Provides a localized string of a biome.
+    /// - Parameter version: The Minecraft version relevant to the biome.
     func localizedString(for version: MinecraftVersion) -> String {
         guard let originalID = biome2str(version.versionValue, rawValue) else {
             return String(localized: "unknown_biome")

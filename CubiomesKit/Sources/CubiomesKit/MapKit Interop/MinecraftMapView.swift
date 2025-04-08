@@ -8,56 +8,93 @@
 import Foundation
 import MapKit
 
+/// A map view of a Minecraft world that can be navigated and interacted with.
+///
+/// This map view supports typical map interactions such as panning and zooming while displaying content from a
+/// Minecraft world. Tiles are dynamically loaded in with a ``MinecraftWorldRenderer`` as a tile overlay. The map view
+/// also supports standard MapKit annotations, along with the new Minecraft map annotations.
+///
+/// - SeeAlso: For use in AppKit/UIKit views, use the ``MinecraftMapView``.
 public final class MinecraftMapView: MKMapView {
+    /// A set of views and controls that sit above the map.
     public struct Ornaments: OptionSet, Sendable {
+        /// The raw value of the option set.
         public let rawValue: Int
 
+        /// Display the map compass.
         public static let compass = Ornaments(rawValue: 1 << 0)
+
+        /// Display controls for zooming in and out of the map.
         public static let zoom = Ornaments(rawValue: 1 << 1)
+
+        /// Display a map scale ornament.
+        ///
+        /// This ornament is generally used to display a scale control that represents the scale of a map in meters.
+        ///
+        /// - Note: This view might be inaccurate regarding scaling.
         public static let scale = Ornaments(rawValue: 1 << 2)
 
+        /// Display all available ornaments.
         public static let all: Ornaments = [.compass, .zoom, .scale]
 
+        /// Initializes an ornament option.
         public init(rawValue: Int) {
             self.rawValue = rawValue
         }
     }
 
+    /// The center coordinate of the map view, represented as a Minecraft block coordinate.
+    ///
+    /// This closely resembles the `centerCoordinate` property. Setting this value will automatically update this value
+    /// by projecting it into a Core Location coordinate.
     public var centerBlockCoordinate: CGPoint {
-        get { return MinecraftMapMarkerAnnotation.unproject(centerCoordinate) }
+        get { return CoordinateProjections.unproject(centerCoordinate) }
         set {
-            print(newValue, MinecraftMapMarkerAnnotation.project(newValue))
             DispatchQueue.main.async { [weak self] in
-                self?.setCenter(MinecraftMapMarkerAnnotation.project(newValue), animated: true)
+                self?.setCenter(CoordinateProjections.project(newValue), animated: true)
             }
         }
     }
 
+    /// The dimension the map will render.
     public var dimension: MinecraftWorld.Dimension = .overworld {
         didSet {
             redrawDimension()
         }
     }
 
-    public var renderOptions: MinecraftWorldRenderer.Options = [.naturalColors] {
+    /// The rendering options to the map's renderer.
+    public var renderOptions: MinecraftWorldRenderer.Options = [] {
         didSet {
             minecraftOverlay?.renderer.options = renderOptions
         }
     }
 
+    /// The ornaments that should be displayed on top of the map view.
     public var ornaments: Ornaments = [.compass] {
         didSet { reconfigureOrnaments() }
     }
 
+    /// The world the map view will render.
     public var world: MinecraftWorld
+
+    /// The delegate for handling interaction events.
+    ///
+    /// This is intended to be used as a replacement for an `MKMapViewDelegate`, as ``MinecraftMapView``s already define a
+    /// delegate to display Minecraft tiles.
+    public weak var mcMapViewDelegate: (any MinecraftMapViewDelegate)?
 
     var minecraftOverlay: MinecraftRenderedTileOverlay!
 
+    /// Initialize a map view for a specified Minecraft world in a given frame.
+    ///
+    /// - Parameter world: The Minecraft world to be rendered on the map.
+    /// - Parameter frame: The frame to initialize the view in.
+    /// - Parameter dimension: The dimension that the map will render the world in.
     public init(world: MinecraftWorld, frame: CGRect, dimension: MinecraftWorld.Dimension = .overworld) {
         self.world = world
         self.dimension = dimension
         super.init(frame: frame)
-        self.translatesAutoresizingMaskIntoConstraints = false
         self.delegate = self
 
         self.register(MKMarkerAnnotationView.self,
@@ -118,7 +155,40 @@ extension CLLocationCoordinate2D: @retroactive Equatable {
     }
 }
 
+// MARK: - Delegates
+
+/// A delegate used to handle interactions and events from a ``MinecraftMapView``.
+///
+/// This is intended to be used as a replacement for an `MKMapViewDelegate`, as ``MinecraftMapView``s already define a
+/// delegate to display Minecraft tiles.
+public protocol MinecraftMapViewDelegate: AnyObject {
+    /// An event that occurs when the view region has been changed.
+    ///
+    /// - Parameter mapView: The Minecraft map view that changed the region.
+    /// - Parameter animated: Whether the change was animated.
+    func mapView(_ mapView: MinecraftMapView, regionDidChangeAnimated animated: Bool)
+
+    /// An event that occurs when an annotation view has been selected.
+    ///
+    /// - Parameter mapView: The Minecraft map view that changed the region.
+    /// - Parameter view: The annotation view that was selected.
+    func mapView(_ mapView: MinecraftMapView, didSelect view: MKAnnotationView)
+}
+
+public extension MinecraftMapViewDelegate {
+    func mapView(_ mapView: MinecraftMapView, regionDidChangeAnimated animated: Bool) {}
+    func mapView(_ mapView: MinecraftMapView, didSelect view: MKAnnotationView) {}
+}
+
 extension MinecraftMapView: MKMapViewDelegate {
+    public func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+        mcMapViewDelegate?.mapView(self, regionDidChangeAnimated: animated)
+    }
+
+    public func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        mcMapViewDelegate?.mapView(self, didSelect: view)
+    }
+
     public func mapView(_ mapView: MKMapView, rendererFor overlay: any MKOverlay) -> MKOverlayRenderer {
         return switch overlay {
         case let overlay as MKTileOverlay:

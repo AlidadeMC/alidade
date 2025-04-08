@@ -46,8 +46,8 @@ final class MinecraftRenderedTileOverlay: MKTileOverlay {
         posZ += Int32(blockPerTile * path.y)
 
         let chunk = MinecraftWorldRange(
-            origin: Point3D(x: posX, y: 15, z: posZ),
-            scale: Point3D<Int32>(x: Int32(blockPerTile), y: 1, z: Int32(blockPerTile)))
+            origin: MinecraftPoint(x: posX, y: 15, z: posZ),
+            scalingTo: Int32(blockPerTile))
 
         #if DEBUG
             print("🔳 \(totalTilesOnAxis), 🧱 \(blockPerTile)")
