@@ -28,7 +28,7 @@ struct MinecraftWorldRendererTests {
         let data = renderer.render(
             inRegion: .init(
                 origin: .init(x: 116, y: 15, z: -31),
-                scale: .init(x: 256, y: 1, z: 256)),
+                scale: .init(length: 256, width: 256, height: 1)),
             dimension: .overworld)
         #expect(data.hashValue == originalData.hashValue)
     }

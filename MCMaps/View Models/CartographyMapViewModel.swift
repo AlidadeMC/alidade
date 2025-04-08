@@ -57,14 +57,14 @@ class CartographyMapViewModel {
     var worldDimension = MinecraftWorld.Dimension.overworld
 
     /// The world range that describes the current mapping area.
-    var worldRange = MinecraftWorldRange(
+    var worldRange = MinecraftWorldRect(
         origin: Point3D(x: 0, y: 15, z: 0),
-        scale: Point3D(x: 256, y: 1, z: 256))
+        scale: MinecraftWorldRect.Size(length: 256, width: 256, height: 1))
 
     /// A string that returns the location of the current world position.
     var positionLabel: String {
-        let xPos = String(worldRange.position.x)
-        let zPos = String(worldRange.position.z)
+        let xPos = String(worldRange.origin.x)
+        let zPos = String(worldRange.origin.z)
         return "X: \(xPos), Z: \(zPos)"
     }
 
@@ -101,7 +101,7 @@ class CartographyMapViewModel {
     /// - Parameter position: The world position to jump to. The Y coordinate corresponds to the world's Z coordinate.
     /// - Parameter file: The file to load the map data from.
     func go(to position: CGPoint, relativeTo file: CartographyMapFile) {
-        worldRange.position = .init(x: Int32(position.x), y: worldRange.position.y, z: Int32(position.y))
+        worldRange.origin = .init(x: Int32(position.x), y: worldRange.origin.y, z: Int32(position.y))
     }
 
     /// Submits the player-made changes to the current file and reloads the map.

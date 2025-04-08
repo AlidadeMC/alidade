@@ -224,7 +224,7 @@ struct CartographyMapSidebar: View {
                 viewModel.searchQuery,
                 world: world,
                 file: file,
-                currentPosition: viewModel.worldRange.position,
+                currentPosition: viewModel.worldRange.origin,
                 dimension: viewModel.worldDimension
             )
         searchingState = .found(results)

@@ -34,7 +34,7 @@ final class MinecraftRenderedTileOverlay: MKTileOverlay {
         result(data, nil)
     }
 
-    func chunk(forOverlayPath path: MKTileOverlayPath) -> MinecraftWorldRange {
+    func chunk(forOverlayPath path: MKTileOverlayPath) -> MinecraftWorldRect {
         var posX = Int32(Constants.minBoundary)
         var posZ = Int32(Constants.minBoundary)
 
@@ -45,14 +45,14 @@ final class MinecraftRenderedTileOverlay: MKTileOverlay {
         posX += Int32(blockPerTile * path.x)
         posZ += Int32(blockPerTile * path.y)
 
-        let chunk = MinecraftWorldRange(
+        let chunk = MinecraftWorldRect(
             origin: MinecraftPoint(x: posX, y: 15, z: posZ),
-            scalingTo: Int32(blockPerTile))
+            scale: MinecraftWorldRect.Size(squaring: Int32(blockPerTile)))
 
         #if DEBUG
             print("🔳 \(totalTilesOnAxis), 🧱 \(blockPerTile)")
             print(
-                "🗺️ [\(path.x), \(path.y) @ \(path.z)] -> 🍱 [\(chunk.position.x), \(chunk.position.z) @ \(blockPerTile)]"
+                "🗺️ [\(path.x), \(path.y) @ \(path.z)] -> 🍱 [\(chunk.origin.x), \(chunk.origin.z) @ \(blockPerTile)]"
             )
         #endif
         return chunk

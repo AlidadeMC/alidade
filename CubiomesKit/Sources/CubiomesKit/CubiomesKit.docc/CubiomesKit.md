@@ -1,23 +1,30 @@
 # ``CubiomesKit``
 
+@Metadata {
+    @PageColor(green)
+}
+
 Generate and inspect Minecraft Java worlds.
 
 ## Overview
 
-CubiomesKit allows developers to create and inspect Minecraft worlds
-programmatically. It leverages the
-[Cubiomes](https://github.com/Cubitect/cubiomes) library and provides
-accessible functions and mechanisms to better integrate in your macOS,
-iOS, and iPadOS apps.
+With CubiomesKit, you can create and inspect Minecraft Java worlds
+programmatically in your macOS, iOS, and iPadOS apps. It leverages the
+[Cubiomes](https://github.com/Cubitect/cubiomes) library to facilitate
+generation, searches, and rendering map images.
 
-> Note: Worlds corresponding to the Minecraft Bedrock version are not
-> supported in CubiomesKit.
+CubiomesKit also supports integration with MapKit to display interactive
+maps, with support for AppKit/UIKit and SwiftUI.
+
+> Important: At this time, only words generated in Minecraft Java Edition
+> are supported.
 
 ## Topics
 
 ### Generating Minecraft Worlds
 
 - ``MinecraftWorld``
+- ``MinecraftVersion``
 
 ### Querying World Information
 
@@ -25,8 +32,8 @@ Query information about a Minecraft world, such as nearby biomes and
 structures.
 
 - ``MinecraftBiome``
-- ``MinecraftStructure``
 - ``MinecraftBiomeSearching``
+- ``MinecraftStructure``
 - ``MinecraftStructureSearching``
 
 ### Rendering Map Tiles
@@ -39,3 +46,9 @@ Render map images of Minecraft worlds.
 ### MapKit Integration
 
 - <doc:MapKit> 
+
+### Point and Space Representations
+
+- ``Point3D``
+- ``MinecraftPoint``
+- ``MinecraftWorldRect``

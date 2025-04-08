@@ -62,31 +62,32 @@ public class MinecraftWorldRenderer {
     }
 
     /// Renders a world region as raw image data.
-    /// - Parameter range: The region to render in the world.
+    /// - Parameter rect: The region to render in the world.
     /// - Parameter pixelsPerCell: The number of pixels that occupy a single cell in the rendered image.
     /// - Parameter dimension: The dimension to render the region in.
     public func render(
-        inRegion range: MinecraftWorldRange,
+        inRegion rect: MinecraftWorldRect,
         scale pixelsPerCell: Int32 = 4,
         dimension: MinecraftWorld.Dimension = .overworld
     ) -> Data {
         var generator = world.generator(in: dimension)
-        var rangeX = range.position.x
-        var rangeZ = range.position.z
+        var rangeX = rect.origin.x
+        var rangeZ = rect.origin.z
+        let size = rect.mapScale.rawValue
 
         if options.contains(.centerPositions) {
-            rangeX = (rangeX - (pixelsPerCell * range.scale.x / 2)) / range.size
-            rangeZ = (rangeZ - (pixelsPerCell * range.scale.x / 2)) / range.size
+            rangeX = (rangeX - (pixelsPerCell * rect.size.length / 2)) / size
+            rangeZ = (rangeZ - (pixelsPerCell * rect.size.width / 2)) / size
         }
         
         let _range = Range(
-            scale: range.size,
+            scale: size,
             x: rangeX,
             z: rangeZ,
-            sx: range.scale.x,
-            sz: range.scale.z,
-            y: range.position.y,
-            sy: range.scale.y
+            sx: rect.size.length,
+            sz: rect.size.width,
+            y: rect.origin.y,
+            sy: rect.size.height
         )
 
         let biomeIds = allocCache(&generator, _range)

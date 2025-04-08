@@ -23,8 +23,8 @@ struct CartographyMapViewModelTests {
         #expect(await viewModel.displayCurrentRouteModally.wrappedValue == false)
         #expect(await viewModel.searchQuery.isEmpty)
         #expect(await viewModel.worldDimension == .overworld)
-        #expect(await viewModel.worldRange.position == Coordinate(x: 0, y: 15, z: 0))
-        #expect(await viewModel.worldRange.scale == Coordinate(x: 256, y: 1, z: 256))
+        #expect(await viewModel.worldRange.origin == Coordinate(x: 0, y: 15, z: 0))
+        #expect(await viewModel.worldRange.size == MinecraftWorldRect.Size(length: 256, width: 256, height: 1))
     }
 
     @Test(.timeLimit(.minutes(1)), .tags(.viewModel))
@@ -33,7 +33,7 @@ struct CartographyMapViewModelTests {
         #expect(await viewModel.positionLabel == "X: 0, Z: 0")
 
         await MainActor.run {
-            viewModel.worldRange.position = .init(cgPoint: CGPoint(x: 1847, y: 1847))
+            viewModel.worldRange.origin = .init(cgPoint: CGPoint(x: 1847, y: 1847))
         }
 
         #expect(await viewModel.positionLabel == "X: 1847, Z: 1847")
@@ -43,10 +43,10 @@ struct CartographyMapViewModelTests {
     func viewModelGoesToPosition() async throws {
         let viewModel = await CartographyMapViewModel()
         let file = CartographyMapFile(map: .sampleFile)
-        #expect(await viewModel.worldRange.position == .init(x: 0, y: 15, z: 0))
+        #expect(await viewModel.worldRange.origin == .init(x: 0, y: 15, z: 0))
 
         await viewModel.go(to: .init(x: 1847, y: 1847), relativeTo: file)
-        #expect(await viewModel.worldRange.position == .init(x: 1847, y: 15, z: 1847))
+        #expect(await viewModel.worldRange.origin == .init(x: 1847, y: 15, z: 1847))
     }
 
     @Test(.timeLimit(.minutes(1)), .tags(.viewModel))
@@ -79,7 +79,7 @@ struct CartographyMapViewModelTests {
         await MainActor.run {
             viewModel.currentRoute = .editWorld
         }
-        
+
         #expect(await viewModel.displayCurrentRouteAsInspector.wrappedValue == false)
         #expect(await viewModel.displayCurrentRouteModally.wrappedValue == true)
 

@@ -39,10 +39,7 @@ struct GroupedPinsSection: View {
                     ForEach(pins, id: \.self) { pin in
                         CartographyNamedLocationView(pin: pin)
                             .coordinateDisplayMode(
-                                .relative(
-                                    CGPoint(
-                                        x: Double(viewModel.worldRange.position.x),
-                                        y: Double(viewModel.worldRange.position.z)))
+                                .relative(CGPoint(minecraftPoint: viewModel.worldRange.origin))
                             )
                             .onTapGesture {
                                 viewModel.go(to: pin.position, relativeTo: file)

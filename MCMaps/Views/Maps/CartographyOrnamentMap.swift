@@ -67,13 +67,13 @@ struct CartographyOrnamentMap: View {
             }
             .edgesIgnoringSafeArea(.all)
             .background(Color.gray)
-            .onChange(of: viewModel.worldRange.position) { _, newValue in
+            .onChange(of: viewModel.worldRange.origin) { _, newValue in
                 centerCoordinate = CGPoint(minecraftPoint: newValue)
             }
         } ornaments: {
             Ornament(alignment: Constants.locationBadgePlacement) {
                 VStack(alignment: .trailing) {
-                    LocationBadge(location: viewModel.worldRange.position)
+                    LocationBadge(location: viewModel.worldRange.origin)
                     #if os(iOS)
                         HStack {
                             Menu {

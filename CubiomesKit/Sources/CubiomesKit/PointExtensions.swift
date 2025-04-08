@@ -14,14 +14,14 @@ import MapKit
 /// along the vertical axis.
 public typealias MinecraftPoint = CubiomesKit.Point3D<Int32>
 
-public extension CGPoint {
+extension CGPoint {
     /// Initialize a CGPoint with an existing Minecraft coordinate.
     ///
     /// The X value of the Minecraft coordinate maps to the X value of the CGPoint, while the Z value of the Minecraft
     /// coordinate maps to the Y value of the CGPoint.
     ///
     /// - Parameter minecraftPoint: The Minecraft world coordinate to convert from.
-    init(minecraftPoint: MinecraftPoint) {
+    public init(minecraftPoint: MinecraftPoint) {
         self.init(x: Double(minecraftPoint.x), y: Double(minecraftPoint.z))
     }
 
@@ -31,21 +31,21 @@ public extension CGPoint {
     /// the latitude and longitude will map to X and Z values, respectively.
     ///
     /// - Parameter coordinate: The Core Location coordinate to un-project.
-    init(projectedFrom coordinate: CLLocationCoordinate2D) {
+    public init(projectedFrom coordinate: CLLocationCoordinate2D) {
         self = CoordinateProjections.unproject(coordinate)
     }
 }
 
-public extension CLLocationCoordinate2D {
+extension CLLocationCoordinate2D {
     /// Initializes a Core Location coordinate by projecting a CGPoint representing a Minecraft coordinate.
     ///
     /// - Parameter minecraftCoordinate: The Minecraft coordinate to project into a Core Location coordinate.
-    init(projecting minecraftCoordinate: CGPoint) {
+    public init(projecting minecraftCoordinate: CGPoint) {
         self = CoordinateProjections.project(minecraftCoordinate)
     }
 }
 
-public extension MinecraftPoint {
+extension MinecraftPoint {
     /// Initialize a Point3D, performing a reverse projection of a Core Location coordinate.
     ///
     /// It is assumed this Core Location coordinate will cleanly be un-projected to a Minecraft world coordinate, where
@@ -55,7 +55,7 @@ public extension MinecraftPoint {
     /// > overworld, so a default Y value of `15` is provided.
     ///
     /// - Parameter coordinate: The Core Location coordinate to un-project.
-    init(projectedFrom coordinate: CLLocationCoordinate2D) {
+    public init(projectedFrom coordinate: CLLocationCoordinate2D) {
         let cgPoint = CoordinateProjections.unproject(coordinate)
         self.x = Int32(cgPoint.x)
         self.y = 15

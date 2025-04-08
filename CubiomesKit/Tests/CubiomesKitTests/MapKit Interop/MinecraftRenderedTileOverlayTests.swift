@@ -18,8 +18,8 @@ struct MinecraftRenderedTileOverlayTests {
         let overlay = MinecraftRenderedTileOverlay(world: mcWorld)
         let chunk = overlay.chunk(forOverlayPath: overlayPath)
 
-        #expect(chunk.position == Point3D<Int32>(x: -33_554_432, y: 15, z: -33_554_432))
-        #expect(chunk.scale == Point3D<Int32>(x: 256, y: 1, z: 256))
+        #expect(chunk.origin == MinecraftPoint(x: -33_554_432, y: 15, z: -33_554_432))
+        #expect(chunk.size == MinecraftWorldRect.Size(length: 256, width: 256, height: 1))
     }
 
     @Test func overlayReturnsValidData() async throws {

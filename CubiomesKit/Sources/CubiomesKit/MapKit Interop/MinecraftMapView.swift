@@ -14,7 +14,7 @@ import MapKit
 /// Minecraft world. Tiles are dynamically loaded in with a ``MinecraftWorldRenderer`` as a tile overlay. The map view
 /// also supports standard MapKit annotations, along with the new Minecraft map annotations.
 ///
-/// - SeeAlso: For use in AppKit/UIKit views, use the ``MinecraftMapView``.
+/// - SeeAlso: For use in SwiftUI views, use the ``MinecraftMap`` view.
 public final class MinecraftMapView: MKMapView {
     /// A set of views and controls that sit above the map.
     public struct Ornaments: OptionSet, Sendable {
@@ -97,8 +97,9 @@ public final class MinecraftMapView: MKMapView {
         super.init(frame: frame)
         self.delegate = self
 
-        self.register(MKMarkerAnnotationView.self,
-                      forAnnotationViewWithReuseIdentifier: "\(MKMarkerAnnotationView.self)")
+        self.register(
+            MKMarkerAnnotationView.self,
+            forAnnotationViewWithReuseIdentifier: "\(MKMarkerAnnotationView.self)")
 
         self.configureMapView()
         self.centerCoordinate = CLLocationCoordinate2D(latitude: 0, longitude: 0)
@@ -115,7 +116,7 @@ public final class MinecraftMapView: MKMapView {
 
     func configureMapView() {
         #if os(macOS)
-        self.canDrawConcurrently = true
+            self.canDrawConcurrently = true
         #endif
         self.cameraZoomRange = CameraZoomRange(minCenterCoordinateDistance: 64, maxCenterCoordinateDistance: 256)
         self.isPitchEnabled = false
@@ -126,7 +127,7 @@ public final class MinecraftMapView: MKMapView {
     func reconfigureOrnaments() {
         self.showsCompass = ornaments.contains(.compass)
         #if os(macOS)
-        self.showsZoomControls = ornaments.contains(.zoom)
+            self.showsZoomControls = ornaments.contains(.zoom)
         #endif
         self.showsScale = ornaments.contains(.scale)
     }
@@ -175,9 +176,9 @@ public protocol MinecraftMapViewDelegate: AnyObject {
     func mapView(_ mapView: MinecraftMapView, didSelect view: MKAnnotationView)
 }
 
-public extension MinecraftMapViewDelegate {
-    func mapView(_ mapView: MinecraftMapView, regionDidChangeAnimated animated: Bool) {}
-    func mapView(_ mapView: MinecraftMapView, didSelect view: MKAnnotationView) {}
+extension MinecraftMapViewDelegate {
+    public func mapView(_ mapView: MinecraftMapView, regionDidChangeAnimated animated: Bool) {}
+    public func mapView(_ mapView: MinecraftMapView, didSelect view: MKAnnotationView) {}
 }
 
 extension MinecraftMapView: MKMapViewDelegate {
@@ -200,13 +201,15 @@ extension MinecraftMapView: MKMapViewDelegate {
 
     public func mapView(_ mapView: MKMapView, viewFor annotation: any MKAnnotation) -> MKAnnotationView? {
         guard let annotation = annotation as? MinecraftMapMarkerAnnotation else { return MKAnnotationView() }
-        guard let view = mapView.dequeueReusableAnnotationView(
-            withIdentifier: "\(MKMarkerAnnotationView.self)",
-            for: annotation
-        ) as? MKMarkerAnnotationView else {
+        guard
+            let view = mapView.dequeueReusableAnnotationView(
+                withIdentifier: "\(MKMarkerAnnotationView.self)",
+                for: annotation
+            ) as? MKMarkerAnnotationView
+        else {
             return MKMarkerAnnotationView()
         }
-        
+
         view.markerTintColor = annotation.color
         return view
     }

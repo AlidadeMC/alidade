@@ -10,9 +10,13 @@ import Foundation
 
 /// A structure representing a Minecraft world.
 public struct MinecraftWorld: Sendable {
+    /// Errors that can occur when attempting to create a Minecraft world.
     public enum WorldError: Error {
+        /// The version of Minecraft provided was invalid.
         case invalidVersionNumber
     }
+
+    /// An enumeration for the dimensions in a Minecraft world.
     public enum Dimension: Sendable {
         case overworld, nether, end
 
@@ -24,19 +28,31 @@ public struct MinecraftWorld: Sendable {
             }
         }
     }
+
+    /// The version of Minecraft used to generate the world.
     public var version: MCVersion
+
+    /// The seed used to generate the world.
     public var seed: Int64
+
+    /// Whether to enable the large biomes feature.
     public var largeBiomes = false
 
-    public init(version: MinecraftVersion, seed: Int64) {
-        self.version = version
+    /// Initialized a Minecraft world for a specified version and seed.
+    ///
+    /// > Note: If an invalid version is provided, or the version string failed to map to a valid Minecraft version.
+    ///
+    /// - Parameter version: The version of Minecraft used to generate the world.
+    /// - Parameter seed: The seed used to generate the world.
+    public init(version: String, seed: Int64) throws(WorldError) {
+        let mcVersion = MinecraftVersion(version)
+        guard !mcVersion.isUndefined else { throw .invalidVersionNumber }
+        self.version = mcVersion
         self.seed = seed
     }
 
-    public init(version: String, seed: Int64) throws(WorldError) {
-        let mcVersion = MinecraftVersion(version)
-        guard mcVersion != MC_UNDEF else { throw .invalidVersionNumber }
-        self.version = mcVersion
+    init(version: MinecraftVersion, seed: Int64) {
+        self.version = version
         self.seed = seed
     }
 
@@ -44,7 +60,7 @@ public struct MinecraftWorld: Sendable {
         var generator = Generator()
         let flags: UInt32 = UInt32(largeBiomes ? LARGE_BIOMES : 0)
         seedGenerator(&generator, version.versionValue, flags, seed, dimension.cbDimension.rawValue)
-    
+
         return generator
     }
 }

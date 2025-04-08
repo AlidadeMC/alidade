@@ -9,9 +9,6 @@ import CubiomesInternal
 import Foundation
 
 /// An enumeration for all available Minecraft versions.
-///
-/// Due to limitations with the way this enum is imported in Cubiomes, all of their cases are separate. They are
-/// prefixed with `MC_`.
 public typealias MinecraftVersion = MCVersion
 
 extension MinecraftVersion {
@@ -20,13 +17,18 @@ extension MinecraftVersion {
     }
 }
 
-public extension MinecraftVersion {
-    init(_ string: String) {
+extension MinecraftVersion {
+    /// Initialize a Minecraft version from a string, parsing the results.
+    /// - Parameter string: The string content representing the Minecraft version.
+    public init(_ string: String) {
         let value = str2mc(string)
         self.init(UInt32(value))
     }
 
-    var isUndefined: Bool {
+    /// Whether the version is undefined.
+    ///
+    /// This can occur when the version is a version Cubiomes doesn't support, or if parsing failed.
+    public var isUndefined: Bool {
         self == MC_UNDEF
     }
 }
@@ -41,8 +43,10 @@ extension MinecraftVersion: @retroactive CaseIterable {
 
 extension MinecraftVersion: @retroactive Hashable, @retroactive @unchecked Sendable {}
 
-public extension String {
-    init?(_ mcVersion: MinecraftVersion) {
+extension String {
+    /// Initialize a string from a Minecraft version.
+    /// - Parameter mcVersion: The Minecraft version to get a string representation of.
+    public init?(_ mcVersion: MinecraftVersion) {
         guard let value = mc2str(mcVersion.versionValue) else {
             return nil
         }
