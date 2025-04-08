@@ -8,6 +8,7 @@
 import CubiomesInternal
 import Foundation
 
+/// An enumeration of all the Minecraft structures.
 public enum MinecraftStructure: Equatable, Sendable, CaseIterable {
     case feature
     case desertPyramid
@@ -34,6 +35,9 @@ public enum MinecraftStructure: Equatable, Sendable, CaseIterable {
     case trailRuins
     case trialChambers
 
+    /// The Cubiomes variant of the structure.
+    ///
+    /// This is used to handle internal Cubiomes functions and isn't generally useful on its own.
     public var cbStructure: StructureType {
         return switch self {
         case .feature:

@@ -42,7 +42,7 @@ struct MinecraftMarkerTests {
     // here to make sure it's in place...
     @Test func markerProjection() async throws {
         let blockCoordinate = CGPoint(x: -1670, y: 1493)
-        let clCoordinate = MinecraftMapMarkerAnnotation.project(blockCoordinate)
+        let clCoordinate = CoordinateProjections.project(blockCoordinate)
 
         #expect(clCoordinate.latitude == -0.0020022690296173096)
         #expect(clCoordinate.longitude == -0.0022396445274353027)
@@ -50,7 +50,7 @@ struct MinecraftMarkerTests {
 
     @Test func markerUnprojection() async throws {
         let coord = CLLocationCoordinate2D(latitude: -0.0020022690296173096, longitude: -0.0022396445274353027)
-        let blockCoordinate = MinecraftMapMarkerAnnotation.unproject(coord)
+        let blockCoordinate = CoordinateProjections.unproject(coord)
 
         #expect(blockCoordinate == CGPoint(x: -1670.0, y: 1493.0))
     }

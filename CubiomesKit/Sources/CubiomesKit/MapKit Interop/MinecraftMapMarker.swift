@@ -37,17 +37,26 @@ public struct MinecraftMapMarker: MinecraftMapAnnotation {
     }
 }
 
+/// An annotation that displays a marker on a Minecraft map.
+///
+/// Markers are generally used to indicate points of interest on a Minecraft world map. Tapping on a marker will
+/// display its coordinate below as a subtitle.
 public class MinecraftMapMarkerAnnotation: NSObject, MKAnnotation {
+    /// The location of the coordinate as a Core Location coordinate.
     public private(set) var coordinate: CLLocationCoordinate2D
     #if canImport(UIKit)
         var color: UIColor
     #else
         var color: NSColor
     #endif
+
+    /// The name of the marker.
     public var title: String?
 
+    /// The subtitle of the marker, which displays the marker in Minecraft coordinates.
     public private(set) var subtitle: String?
 
+    /// Initializes an annotation from a Minecraft marker.
     public init(marker: MinecraftMapMarker) {
         self.coordinate = CoordinateProjections.project(marker.location)
         self.title = marker.title
@@ -62,6 +71,10 @@ public class MinecraftMapMarkerAnnotation: NSObject, MKAnnotation {
         #endif
     }
 
+    /// Initializes a marker annotation.
+    /// - Parameter location: The location of the marker in Minecraft block coordinates.
+    /// - Parameter title: The name of the marker.
+    /// - Parameter color: The tint color of the marker pin.
     public init(location: CGPoint, title: String, color: Color = .accentColor) {
         self.coordinate = CoordinateProjections.project(location)
         self.title = title
@@ -74,26 +87,5 @@ public class MinecraftMapMarkerAnnotation: NSObject, MKAnnotation {
         #else
             self.color = NSColor(color)
         #endif
-    }
-
-    @available(*, deprecated, renamed: "CoordinateProjections.project")
-    static func project(_ minecraftLocation: CGPoint) -> CLLocationCoordinate2D {
-        let mineZ = minecraftLocation.y
-        let mineX = minecraftLocation.x
-
-        // NOTE(alicerunsonfedora): WTF is this magic voodoo shit? Shouldn't scaleX be 90 instead? I don't understand
-        // projections... (but dear reader, let me project my woes onto you)
-        let scaleZ = 45 / Double(MinecraftRenderedTileOverlay.Constants.maxBoundary)
-        let scaleX = 45 / Double(MinecraftRenderedTileOverlay.Constants.maxBoundary)
-
-        return CLLocationCoordinate2D(latitude: -mineZ * scaleZ, longitude: mineX * scaleX)
-    }
-
-    @available(*, deprecated, renamed: "CoordinateProjections.unproject")
-    static func unproject(_ location: CLLocationCoordinate2D) -> CGPoint {
-        let scaleZ = Double(MinecraftRenderedTileOverlay.Constants.maxBoundary) / 45
-        let scaleX = Double(MinecraftRenderedTileOverlay.Constants.maxBoundary) / 45
-
-        return CGPoint(x: location.longitude * scaleZ, y: -location.latitude * scaleX)
     }
 }

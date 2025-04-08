@@ -8,6 +8,7 @@
 import CubiomesInternal
 import Foundation
 
+/// A structure representing a Minecraft world.
 public struct MinecraftWorld: Sendable {
     public enum WorldError: Error {
         case invalidVersionNumber
@@ -27,7 +28,7 @@ public struct MinecraftWorld: Sendable {
     public var seed: Int64
     public var largeBiomes = false
 
-    init(version: MinecraftVersion, seed: Int64) {
+    public init(version: MinecraftVersion, seed: Int64) {
         self.version = version
         self.seed = seed
     }

@@ -42,7 +42,7 @@ extension MinecraftWorld: MinecraftBiomeSearching {
         at position: MinecraftPoint,
         inRadius blockRadius: Int32 = 4000,
         dimension: Dimension = .overworld
-    ) -> Set<Coordinate> {
+    ) -> Set<MinecraftPoint> {
         var relevantBiomes = Set<Point3D<Int32>>()
         let searchRadius = blockRadius / BiomeConstants.biomeScale
         let start = position.offset(by: -searchRadius)
