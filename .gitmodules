@@ -1,0 +1,3 @@
+[submodule "CubiomesKit"]
+	path = CubiomesKit
+	url = https://github.com/alicerunsonfedora/cubiomeskit
