@@ -4,7 +4,7 @@
     @PageColor(green)
 }
 
-Generate and inspect Minecraft Java worlds.
+Generate, inspect, and view Minecraft Java worlds.
 
 ## Overview
 

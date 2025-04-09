@@ -21,8 +21,7 @@ coordinates.
 ### Displaying a Map in SwiftUI
 
 - ``MinecraftMap``
-- ``MinecraftMapAnnotation``
-- ``MinecraftMapMarker``
+- ``Marker``
 - ``MinecraftMapContentBuilder``
 
 ### Point Projections and Conversions

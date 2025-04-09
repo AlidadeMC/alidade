@@ -13,7 +13,7 @@ import Testing
 
 struct MinecraftMarkerTests {
     @Test func markerInit() async throws {
-        let marker = MinecraftMapMarker(location: .zero, title: "Spawn", color: .blue)
+        let marker = Marker(location: .zero, title: "Spawn", color: .blue)
         let annotation = MinecraftMapMarkerAnnotation(marker: marker)
 
         #expect(annotation.title == "Spawn")

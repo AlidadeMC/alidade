@@ -8,51 +8,35 @@
 import MapKit
 import SwiftUI
 
-/// A Minecraft map annotation that can be displayed in map views.
+/// A protocol that defines content used in a ``MinecraftMapContentBuilder``.
 ///
-/// This protocol provides the basic building blocks for Minecraft map annotations built with the
-/// ``MinecraftMapContentBuilder``.
-public protocol MinecraftMapAnnotation {
-    /// The underlying MapKit annotation representation.
-    var mapKitAnnotation: any MKAnnotation { get }
+/// This underlying type allows conversion to ``MinecraftMapContent`` which can be handled by map views that support
+/// it.
+public protocol MinecraftMapBuilderContent {
+    /// The built contents of this type.
+    var content: MinecraftMapContent { get }
 }
 
-/// A content builder used to generate Minecraft-based map annotations for map views.
-///
-/// This is typically used to generate corresponding `MKAnnotation` annotations for ``MinecraftMapView`` or other
-/// MapKit views. The ``MinecraftMap`` view, for example, uses this allow creating annotations inline with its
-/// initializer:
-///
-/// ```swift
-/// var myMap: some View {
-///     MinecraftMap(world: ...) {
-///         MinecraftMarker(location: CGPoint(...), title: "My Base")
-///
-///         if isNether {
-///             MinecraftMarker(location: ..., title: "Nether Farm")
-///         }
-///     }
-/// }
-/// ```
+/// A content builder used to generate Minecraft-based map annotations for map views from closures you provide.
 @resultBuilder
 public struct MinecraftMapContentBuilder {
-    public static func buildArray(_ components: [[MinecraftMapAnnotation]]) -> [any MKAnnotation] {
-        components.flatMap { $0.map(\.mapKitAnnotation) }
+    public static func buildArray(_ components: [[MinecraftMapBuilderContent]]) -> [any MinecraftMapContent] {
+        components.flatMap { $0.map(\.content) }
     }
 
-    public static func buildBlock(_ components: MinecraftMapAnnotation...) -> [any MKAnnotation] {
-        components.map(\.mapKitAnnotation)
+    public static func buildBlock(_ components: MinecraftMapBuilderContent...) -> [any MinecraftMapContent] {
+        components.map(\.content)
     }
 
-    public static func buildBlock(_ components: [MinecraftMapAnnotation]...) -> [any MKAnnotation] {
-        components.flatMap { $0.map(\.mapKitAnnotation) }
+    public static func buildBlock(_ components: [MinecraftMapBuilderContent]...) -> [any MinecraftMapContent] {
+        components.flatMap { $0.map(\.content) }
     }
 
-    public static func buildEither(first component: MinecraftMapAnnotation) -> [any MKAnnotation] {
-        [component.mapKitAnnotation]
+    public static func buildEither(first component: MinecraftMapBuilderContent) -> [any MinecraftMapContent] {
+        [component.content]
     }
 
-    public static func buildEither(second component: MinecraftMapAnnotation) -> [any MKAnnotation] {
-        [component.mapKitAnnotation]
+    public static func buildEither(second component: MinecraftMapBuilderContent) -> [any MinecraftMapContent] {
+        [component.content]
     }
 }

@@ -38,7 +38,7 @@ public struct MinecraftMap {
     var centerCoordinate: Binding<CGPoint>?
     var dimension: MinecraftWorld.Dimension = .overworld
     var ornaments: Ornaments = []
-    var annotations: [any MKAnnotation] = []
+    var annotations: [any MinecraftMapContent] = []
     var preferNaturalColors: Bool = false
 
     /// Create a Minecraft map view.
@@ -64,7 +64,7 @@ public struct MinecraftMap {
         world: MinecraftWorld,
         centerCoordinate: Binding<CGPoint>? = nil,
         dimension: MinecraftWorld.Dimension = .overworld,
-        @MinecraftMapContentBuilder annotations: () -> [any MKAnnotation]
+        @MinecraftMapContentBuilder annotations: () -> [any MinecraftMapContent]
     ) {
         self.world = world
         self.dimension = dimension
@@ -76,7 +76,7 @@ public struct MinecraftMap {
         world: MinecraftWorld,
         centerCoordinate: Binding<CGPoint>? = nil,
         ornaments: Ornaments = [],
-        annotations: [any MKAnnotation] = [],
+        annotations: [any MinecraftMapContent] = [],
         dimension: MinecraftWorld.Dimension = .overworld,
         preferNaturalColors: Bool = false
     ) {
@@ -96,7 +96,7 @@ public struct MinecraftMap {
         if let centerBlockCoordinate = centerCoordinate?.wrappedValue {
             mapView.centerBlockCoordinate = centerBlockCoordinate
         }
-        mapView.addAnnotations(annotations)
+        mapView.addMapContents(annotations)
         if preferNaturalColors {
             mapView.renderOptions.insert(.naturalColors)
         } else {
@@ -112,18 +112,7 @@ public struct MinecraftMap {
         if let centerBlockCoordinate = centerCoordinate?.wrappedValue {
             mapView.centerBlockCoordinate = centerBlockCoordinate
         }
-        for marker in annotations {
-            if !mapView.annotations.contains(where: { MinecraftMapView.compareAnnotations($0, marker) }) {
-                mapView.addAnnotation(marker)
-            }
-        }
-
-        for annotation in mapView.annotations where annotation is MinecraftMapMarkerAnnotation {
-            guard let annotation = annotation as? MinecraftMapMarkerAnnotation else { continue }
-            if !annotations.contains(where: { MinecraftMapView.compareAnnotations($0, annotation) }) {
-                mapView.removeAnnotation(annotation)
-            }
-        }
+        mapView.resyncMapContent(annotations)
 
         if preferNaturalColors {
             mapView.renderOptions.insert(.naturalColors)

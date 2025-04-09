@@ -40,9 +40,9 @@ struct CartographyOrnamentMap: View {
 
     @State private var centerCoordinate = CGPoint.zero
 
-    var markers: [MinecraftMapMarker] {
+    var markers: [Marker] {
         file.map.pins.map { pin in
-            MinecraftMapMarker(
+            Marker(
                 location: pin.position,
                 title: pin.name,
                 color: pin.color?.swiftUIColor ?? Color.accentColor

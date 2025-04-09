@@ -12,7 +12,7 @@ import SwiftUI
 ///
 /// Markers are generally used to indicate points of interest on a Minecraft world map. Tapping on a marker will
 /// display its coordinate below as a subtitle.
-public struct MinecraftMapMarker: MinecraftMapAnnotation {
+public struct Marker: MinecraftMapBuilderContent {
     /// The location of the marker in blocks.
     public var location: CGPoint
 
@@ -32,7 +32,7 @@ public struct MinecraftMapMarker: MinecraftMapAnnotation {
         self.color = color
     }
 
-    public var mapKitAnnotation: any MKAnnotation {
+    public var content: any MinecraftMapContent {
         MinecraftMapMarkerAnnotation(marker: self)
     }
 }
@@ -57,7 +57,7 @@ public class MinecraftMapMarkerAnnotation: NSObject, MKAnnotation {
     public private(set) var subtitle: String?
 
     /// Initializes an annotation from a Minecraft marker.
-    public init(marker: MinecraftMapMarker) {
+    public init(marker: Marker) {
         self.coordinate = CoordinateProjections.project(marker.location)
         self.title = marker.title
 
@@ -88,4 +88,8 @@ public class MinecraftMapMarkerAnnotation: NSObject, MKAnnotation {
             self.color = NSColor(color)
         #endif
     }
+}
+
+extension MinecraftMapMarkerAnnotation: MinecraftMapContent {
+    public var contentType: MinecraftMapContentType { .annotation }
 }
