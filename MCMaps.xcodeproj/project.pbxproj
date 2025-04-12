@@ -11,6 +11,7 @@
 		951FE2BC2D5937630091BE11 /* ViewInspector in Frameworks */ = {isa = PBXBuildFile; productRef = 951FE2BB2D5937630091BE11 /* ViewInspector */; };
 		955A44382D8F47C600262A6D /* AdaptableSidebarSheetView in Frameworks */ = {isa = PBXBuildFile; productRef = 955A44372D8F47C600262A6D /* AdaptableSidebarSheetView */; };
 		955A4D682D932A6500262A6D /* DesignLibrary in Frameworks */ = {isa = PBXBuildFile; productRef = 955A4D672D932A6500262A6D /* DesignLibrary */; };
+		955CD1652DAAE1BE007F6FA1 /* CubiomesKit in Frameworks */ = {isa = PBXBuildFile; productRef = 955CD1642DAAE1BE007F6FA1 /* CubiomesKit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +62,7 @@
 			files = (
 				9504030F2D4D7E0A00F51903 /* CubiomesKit in Frameworks */,
 				955A44382D8F47C600262A6D /* AdaptableSidebarSheetView in Frameworks */,
+				955CD1652DAAE1BE007F6FA1 /* CubiomesKit in Frameworks */,
 				955A4D682D932A6500262A6D /* DesignLibrary in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -118,6 +120,7 @@
 				9504030E2D4D7E0A00F51903 /* CubiomesKit */,
 				955A44372D8F47C600262A6D /* AdaptableSidebarSheetView */,
 				955A4D672D932A6500262A6D /* DesignLibrary */,
+				955CD1642DAAE1BE007F6FA1 /* CubiomesKit */,
 			);
 			productName = MCMaps;
 			productReference = 950402CF2D4D522100F51903 /* Alidade.app */;
@@ -176,11 +179,11 @@
 			mainGroup = 950402C62D4D522100F51903;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				9504030D2D4D7E0A00F51903 /* XCLocalSwiftPackageReference "CubiomesKit" */,
 				95DDE9652D57D0E1002B29D9 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */,
 				951FE2BA2D5937630091BE11 /* XCRemoteSwiftPackageReference "ViewInspector" */,
 				955A44362D8F47C600262A6D /* XCRemoteSwiftPackageReference "AdaptableSidebarSheetView" */,
 				955A4D662D932A6500262A6D /* XCLocalSwiftPackageReference "DesignLibrary" */,
+				955CD1632DAAE1BE007F6FA1 /* XCRemoteSwiftPackageReference "CubiomesKit" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 950402D02D4D522100F51903 /* Products */;
@@ -529,10 +532,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		9504030D2D4D7E0A00F51903 /* XCLocalSwiftPackageReference "CubiomesKit" */ = {
-			isa = XCLocalSwiftPackageReference;
-			relativePath = CubiomesKit;
-		};
 		955A4D662D932A6500262A6D /* XCLocalSwiftPackageReference "DesignLibrary" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = DesignLibrary;
@@ -553,6 +552,14 @@
 			repositoryURL = "https://github.com/alicerunsonfedora/AdaptableSidebarSheetView";
 			requirement = {
 				branch = main;
+				kind = branch;
+			};
+		};
+		955CD1632DAAE1BE007F6FA1 /* XCRemoteSwiftPackageReference "CubiomesKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/alicerunsonfedora/CubiomesKit";
+			requirement = {
+				branch = root;
 				kind = branch;
 			};
 		};
@@ -584,6 +591,11 @@
 		955A4D672D932A6500262A6D /* DesignLibrary */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = DesignLibrary;
+		};
+		955CD1642DAAE1BE007F6FA1 /* CubiomesKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 955CD1632DAAE1BE007F6FA1 /* XCRemoteSwiftPackageReference "CubiomesKit" */;
+			productName = CubiomesKit;
 		};
 		95DDE9662D57D0E9002B29D9 /* SwiftLintBuildToolPlugin */ = {
 			isa = XCSwiftPackageProductDependency;

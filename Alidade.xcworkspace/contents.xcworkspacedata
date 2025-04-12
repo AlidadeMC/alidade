@@ -14,9 +14,6 @@
       location = "group:MCMaps.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:CubiomesKit">
-   </FileRef>
-   <FileRef
       location = "group:DesignLibrary">
    </FileRef>
 </Workspace>

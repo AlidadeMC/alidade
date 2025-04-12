@@ -1,5 +1,5 @@
 {
-  "originHash" : "6b96cd73bffa907664e7b076d568c4209e955efb65a97456148bc0fa9d3614e5",
+  "originHash" : "a4ebae882c4cd59baa607be26f6cb6ed75de7a706d1fb31c951962cdfed817f4",
   "pins" : [
     {
       "identity" : "adaptablesidebarsheetview",
@@ -8,6 +8,15 @@
       "state" : {
         "branch" : "main",
         "revision" : "df043b808833d559b04c7f95ab1fc48ff194653a"
+      }
+    },
+    {
+      "identity" : "cubiomeskit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/alicerunsonfedora/CubiomesKit",
+      "state" : {
+        "branch" : "root",
+        "revision" : "ff74880c0e629ea7fcd93561c020dbd631f77327"
       }
     },
     {

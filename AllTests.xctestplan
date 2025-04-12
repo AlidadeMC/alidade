@@ -38,13 +38,6 @@
   "testTargets" : [
     {
       "target" : {
-        "containerPath" : "container:CubiomesKit",
-        "identifier" : "CubiomesKitTests",
-        "name" : "CubiomesKitTests"
-      }
-    },
-    {
-      "target" : {
         "containerPath" : "container:MCMaps.xcodeproj",
         "identifier" : "950402DF2D4D522200F51903",
         "name" : "MCMapsTests"
