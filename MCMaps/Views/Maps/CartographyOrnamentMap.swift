@@ -5,6 +5,7 @@
 //  Created by Marquis Kurt on 23-02-2025.
 //
 
+import AsyncAlgorithms
 import CubiomesKit
 import SwiftUI
 import TipKit
@@ -39,16 +40,7 @@ struct CartographyOrnamentMap: View {
     @Binding var file: CartographyMapFile
 
     @State private var centerCoordinate = CGPoint.zero
-
-    var markers: [Marker] {
-        file.map.pins.map { pin in
-            Marker(
-                location: pin.position,
-                title: pin.name,
-                color: pin.color?.swiftUIColor ?? Color.accentColor
-            )
-        }
-    }
+    private let centerCoordinateStream = AsyncChannel<CGPoint>()
 
     var body: some View {
         OrnamentedView {
@@ -59,21 +51,43 @@ struct CartographyOrnamentMap: View {
                         centerCoordinate: $centerCoordinate,
                         dimension: viewModel.worldDimension
                     ) {
-                        markers
+                        file.map.pins.map { pin in
+                            Marker(
+                                location: pin.position,
+                                title: pin.name,
+                                color: pin.color?.swiftUIColor ?? Color.accentColor
+                            )
+                        }
                     }
-                        .mapColorScheme(naturalColors == true ? .natural : .default)
-                        .ornaments([.zoom, .compass])
+                    .mapColorScheme(naturalColors == true ? .natural : .default)
+                    .ornaments([.zoom, .compass])
                 }
             }
             .edgesIgnoringSafeArea(.all)
             .background(Color.gray)
             .onChange(of: viewModel.worldRange.origin) { _, newValue in
-                centerCoordinate = CGPoint(minecraftPoint: newValue)
+                if centerCoordinate != CGPoint(minecraftPoint: newValue) {
+                    centerCoordinate = CGPoint(minecraftPoint: newValue)
+                }
+            }
+            .task(id: centerCoordinate, priority: .low) {
+                await centerCoordinateStream.send(centerCoordinate)
+            }
+            .task {
+                for await coordinate in centerCoordinateStream.debounce(for: .seconds(0.5)) {
+                    let point = MinecraftPoint(cgPoint: coordinate)
+                    if viewModel.worldRange.origin != point {
+                        await MainActor.run {
+                            viewModel.worldRange.origin = point
+                        }
+                    }
+                }
             }
         } ornaments: {
             Ornament(alignment: Constants.locationBadgePlacement) {
                 VStack(alignment: .trailing) {
-                    LocationBadge(location: viewModel.worldRange.origin)
+                    LocationBadge(location: centerCoordinate)
+                        .environment(\.contentTransitionAddsDrawingGroup, true)
                     #if os(iOS)
                         HStack {
                             Menu {

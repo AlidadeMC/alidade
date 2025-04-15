@@ -571,6 +571,14 @@
 				minimumVersion = 0.58.2;
 			};
 		};
+		95F6B0AB2DADE504006A1B8C /* XCRemoteSwiftPackageReference "swift-async-algorithms" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-async-algorithms.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.3;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -601,6 +609,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 95DDE9652D57D0E1002B29D9 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */;
 			productName = "plugin:SwiftLintBuildToolPlugin";
+		};
+		95F6B0AC2DADE504006A1B8C /* AsyncAlgorithms */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 95F6B0AB2DADE504006A1B8C /* XCRemoteSwiftPackageReference "swift-async-algorithms" */;
+			productName = AsyncAlgorithms;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

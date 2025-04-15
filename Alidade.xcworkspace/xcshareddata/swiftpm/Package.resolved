@@ -1,5 +1,5 @@
 {
-  "originHash" : "a4ebae882c4cd59baa607be26f6cb6ed75de7a706d1fb31c951962cdfed817f4",
+  "originHash" : "98666238c4654f87150c063851373a56b12b4551c03d82821d75c2a41b760ac5",
   "pins" : [
     {
       "identity" : "adaptablesidebarsheetview",
@@ -16,7 +16,34 @@
       "location" : "https://github.com/alicerunsonfedora/CubiomesKit",
       "state" : {
         "branch" : "root",
-        "revision" : "ff74880c0e629ea7fcd93561c020dbd631f77327"
+        "revision" : "f8ba03b26eff9554d33a46713950be0408a42440"
+      }
+    },
+    {
+      "identity" : "mapkit-caching-tile-overlay",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/stadiamaps/mapkit-caching-tile-overlay",
+      "state" : {
+        "revision" : "f4b992dbefc670d5fcad67623368e120003f8b71",
+        "version" : "1.0.4"
+      }
+    },
+    {
+      "identity" : "swift-async-algorithms",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-async-algorithms.git",
+      "state" : {
+        "revision" : "4c3ea81f81f0a25d0470188459c6d4bf20cf2f97",
+        "version" : "1.0.3"
+      }
+    },
+    {
+      "identity" : "swift-collections",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-collections.git",
+      "state" : {
+        "revision" : "671108c96644956dddcd89dd59c203dcdb36cec7",
+        "version" : "1.1.4"
       }
     },
     {
@@ -24,8 +51,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SimplyDanny/SwiftLintPlugins",
       "state" : {
-        "revision" : "7a3d77f3dd9f91d5cea138e52c20cfceabf352de",
-        "version" : "0.58.2"
+        "revision" : "a60b5704f335fc18aa3aea3564c74774a338425f",
+        "version" : "0.59.0"
       }
     },
     {
