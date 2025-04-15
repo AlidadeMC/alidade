@@ -21,8 +21,8 @@ struct CartographyMapSidebar: View {
     }
 
     private enum LocalTips {
-        static var onboarding = LibraryOnboardingTip()
-        static var emptyLibrary = PinActionOnboardingTip()
+        static let onboarding = LibraryOnboardingTip()
+        static let emptyLibrary = PinActionOnboardingTip()
     }
 
     @Environment(\.isSearching) private var isSearching
@@ -235,6 +235,7 @@ struct CartographyMapSidebar: View {
     extension CartographyMapSidebar {
         var testHooks: TestHooks { TestHooks(target: self) }
 
+        @MainActor
         struct TestHooks {
             private let target: CartographyMapSidebar
 

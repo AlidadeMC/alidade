@@ -12,6 +12,7 @@
 		955A44382D8F47C600262A6D /* AdaptableSidebarSheetView in Frameworks */ = {isa = PBXBuildFile; productRef = 955A44372D8F47C600262A6D /* AdaptableSidebarSheetView */; };
 		955A4D682D932A6500262A6D /* DesignLibrary in Frameworks */ = {isa = PBXBuildFile; productRef = 955A4D672D932A6500262A6D /* DesignLibrary */; };
 		955CD1652DAAE1BE007F6FA1 /* CubiomesKit in Frameworks */ = {isa = PBXBuildFile; productRef = 955CD1642DAAE1BE007F6FA1 /* CubiomesKit */; };
+		95F6B0AD2DADE504006A1B8C /* AsyncAlgorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 95F6B0AC2DADE504006A1B8C /* AsyncAlgorithms */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +65,7 @@
 				955A44382D8F47C600262A6D /* AdaptableSidebarSheetView in Frameworks */,
 				955CD1652DAAE1BE007F6FA1 /* CubiomesKit in Frameworks */,
 				955A4D682D932A6500262A6D /* DesignLibrary in Frameworks */,
+				95F6B0AD2DADE504006A1B8C /* AsyncAlgorithms in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -121,6 +123,7 @@
 				955A44372D8F47C600262A6D /* AdaptableSidebarSheetView */,
 				955A4D672D932A6500262A6D /* DesignLibrary */,
 				955CD1642DAAE1BE007F6FA1 /* CubiomesKit */,
+				95F6B0AC2DADE504006A1B8C /* AsyncAlgorithms */,
 			);
 			productName = MCMaps;
 			productReference = 950402CF2D4D522100F51903 /* Alidade.app */;
@@ -184,6 +187,7 @@
 				955A44362D8F47C600262A6D /* XCRemoteSwiftPackageReference "AdaptableSidebarSheetView" */,
 				955A4D662D932A6500262A6D /* XCLocalSwiftPackageReference "DesignLibrary" */,
 				955CD1632DAAE1BE007F6FA1 /* XCRemoteSwiftPackageReference "CubiomesKit" */,
+				95F6B0AB2DADE504006A1B8C /* XCRemoteSwiftPackageReference "swift-async-algorithms" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 950402D02D4D522100F51903 /* Products */;
@@ -304,6 +308,7 @@
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_STRICT_CONCURRENCY = complete;
 			};
 			name = Debug;
 		};
@@ -360,6 +365,7 @@
 				MTL_FAST_MATH = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_STRICT_CONCURRENCY = complete;
 			};
 			name = Release;
 		};

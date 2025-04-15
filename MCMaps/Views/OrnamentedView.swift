@@ -109,6 +109,7 @@ struct OrnamentedView<Ornaments: View, BackgroundContent: View>: View {
     extension OrnamentedView {
         var testHooks: TestHooks { TestHooks(target: self) }
 
+        @MainActor
         struct TestHooks {
             private let target: OrnamentedView
 

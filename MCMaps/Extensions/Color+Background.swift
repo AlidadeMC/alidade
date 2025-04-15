@@ -10,8 +10,8 @@ import SwiftUI
 extension Color {
     #if os(iOS)
         /// A color that corresponds to the system background (`UIColor.systemBackground`).
-        static var systemBackground: Color = Color(uiColor: .systemBackground)
+        static let systemBackground: Color = Color(uiColor: .systemBackground)
     #else
-        static var windowBackground: Color = Color(nsColor: .windowBackgroundColor)
+        static let windowBackground: Color = Color(nsColor: .windowBackgroundColor)
     #endif
 }

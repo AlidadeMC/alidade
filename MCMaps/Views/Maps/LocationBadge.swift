@@ -66,6 +66,7 @@ struct LocationBadge: View {
     extension LocationBadge {
         var testHooks: TestHooks { TestHooks(target: self) }
 
+        @MainActor
         struct TestHooks {
             private let target: LocationBadge
 

@@ -120,6 +120,7 @@ struct MCMapsApp: App {
     extension MCMapsApp {
         var testHooks: TestHooks { TestHooks(target: self) }
 
+        @MainActor
         struct TestHooks {
             private let target: MCMapsApp
 

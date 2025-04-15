@@ -224,6 +224,7 @@ struct CartographyMapPinDetailView: View {
     extension CartographyMapPinDetailView {
         var testHooks: TestHooks { TestHooks(target: self) }
 
+        @MainActor
         struct TestHooks {
             private let target: CartographyMapPinDetailView
 

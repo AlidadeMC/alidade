@@ -9,7 +9,7 @@ import SwiftUI
 
 extension PresentationDetent {
     /// A presentation detent that matches a navigation bar with its search bar visible.
-    static var smallSearch = Self.height(108)
+    static let smallSearch = Self.height(108)
 }
 
 /// The sidebar content for the main app on iOS and iPadOS.

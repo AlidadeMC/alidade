@@ -44,7 +44,7 @@ class CartographySearchService {
     }
 
     private enum Constants {
-        static let coordinateRegex = /(-?\d+), (-?\d+)/
+        nonisolated(unsafe) static let coordinateRegex = /(-?\d+), (-?\d+)/
         static let defaultSearchRadius: Int32 = 20
     }
 

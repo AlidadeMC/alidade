@@ -7,11 +7,14 @@
 
 import SwiftUI
 
+// NOTE(alicerunsonfedora): This should likely be converted into an actor of some kind, to get around the @unchecked
+// portion. Either that or this is the valid approach?
+
 /// A view model used to handle creating documents in a document launch view.
 ///
 /// This is generally used by the document launch view to handle creating a new file, and displaying the form for
 /// setting the Minecraft version and seed.
-class DocumentLaunchViewModel {
+class DocumentLaunchViewModel: @unchecked Sendable {
     /// The currently selected file.
     var selectedFileURL: Binding<URL?>
 

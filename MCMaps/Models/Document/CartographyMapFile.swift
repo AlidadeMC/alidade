@@ -10,7 +10,7 @@ import UniformTypeIdentifiers
 
 extension UTType {
     /// The uniform type identifier associated with `.mcmap` package files.
-    static var cartography = UTType(exportedAs: "net.marquiskurt.mcmap")
+    static let cartography = UTType(exportedAs: "net.marquiskurt.mcmap")
 }
 
 extension CartographyMap {

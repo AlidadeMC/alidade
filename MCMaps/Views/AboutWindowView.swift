@@ -99,6 +99,7 @@ struct AboutWindowView: View {
     extension AboutWindowView {
         var testHooks: TestHooks { TestHooks(target: self) }
 
+        @MainActor
         struct TestHooks {
             private let target: AboutWindowView
 

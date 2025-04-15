@@ -99,6 +99,7 @@ struct MapCreatorForm: View {
     extension MapCreatorForm {
         var testHooks: TestHooks { TestHooks(target: self) }
 
+        @MainActor
         struct TestHooks {
             private let target: MapCreatorForm
 

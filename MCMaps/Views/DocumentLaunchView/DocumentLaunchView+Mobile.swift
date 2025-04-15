@@ -67,6 +67,7 @@ import SwiftUI
         extension DocumentLaunchView {
             var testHooks: TestHooks { TestHooks(target: self) }
 
+            @MainActor
             struct TestHooks {
                 private let target: DocumentLaunchView
 

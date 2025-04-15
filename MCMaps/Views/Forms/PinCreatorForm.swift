@@ -81,6 +81,7 @@ struct PinCreatorForm: View {
     extension PinCreatorForm {
         var testHooks: TestHooks { TestHooks(target: self) }
 
+        @MainActor
         struct TestHooks {
             private let target: PinCreatorForm
 
