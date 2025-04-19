@@ -19,6 +19,8 @@ across Mac, iPhone, and iPad.
 > build. To get these features, you will need to build from source.
 > Refer to <doc:Building> for more information.
 
+## 1.0 (Build 38) [Beta]
+
 - CubiomesKit, the internal library used to generate Minecraft map content
   and search for content, has been moved to its own separate repository at
   https://github.com/alicerunsonfedora/cubiomeskit! This allows the
