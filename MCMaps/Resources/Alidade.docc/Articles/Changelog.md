@@ -19,6 +19,19 @@ across Mac, iPhone, and iPad.
 > build. To get these features, you will need to build from source.
 > Refer to <doc:Building> for more information.
 
+- CubiomesKit, the internal library used to generate Minecraft map content
+  and search for content, has been moved to its own separate repository at
+  https://github.com/alicerunsonfedora/cubiomeskit! This allows the
+  library to be updated independently of Alidade, and lets developers
+  leverage the technologies in their own apps and services.
+- Rendered map tiles are now cached, so loading should be faster on iOS
+  and iPadOS.
+- The location badge on the map view should now properly reflect the
+  centermost coordinate of the map view.
+- The codebase has been update to ensure full compatibility with Swift 6,
+  ensuring better handling of concurrency and protection against data
+  races.
+
 ## 1.0 (Build 33) [Beta]
 
 - Maps have been completely revamped in this release. Rather than

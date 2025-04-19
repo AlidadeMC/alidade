@@ -1,5 +1,5 @@
 {
-  "originHash" : "98666238c4654f87150c063851373a56b12b4551c03d82821d75c2a41b760ac5",
+  "originHash" : "70fbf890d64c1e85af9a51786a3e62834e0f8b363ad5e3506b2c6fdddc48032b",
   "pins" : [
     {
       "identity" : "adaptablesidebarsheetview",
@@ -16,7 +16,7 @@
       "location" : "https://github.com/alicerunsonfedora/CubiomesKit",
       "state" : {
         "branch" : "root",
-        "revision" : "f8ba03b26eff9554d33a46713950be0408a42440"
+        "revision" : "15b530bc9db1eeed63b96f91cdc0a4ebfbeece2b"
       }
     },
     {
@@ -51,8 +51,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SimplyDanny/SwiftLintPlugins",
       "state" : {
-        "revision" : "a60b5704f335fc18aa3aea3564c74774a338425f",
-        "version" : "0.59.0"
+        "revision" : "8545ddf4de043e6f2051c5cf204f39ef778ebf6b",
+        "version" : "0.59.1"
       }
     },
     {
