@@ -36,7 +36,10 @@ struct ContentView: View {
                         toolbarContent
                     }
             #else
-                AdaptableSidebarSheet(isPresented: $viewModel.displaySidebarSheet) {
+                AdaptableSidebarSheet(
+                    isPresented: $viewModel.displaySidebarSheet,
+                    currentPresentationDetent: $viewModel.presentationDetent
+                ) {
                     CartographyOrnamentMap(viewModel: $viewModel, file: $file)
                 } sheet: {
                     CartographyMapSidebarSheet(viewModel: $viewModel, file: $file) {
@@ -139,7 +142,7 @@ struct ContentView: View {
 
             var displaySidebarSheet: Bool {
                 false
-//                target.displaySidebarSheet
+                //                target.displaySidebarSheet
             }
 
             var viewModel: CartographyMapViewModel {

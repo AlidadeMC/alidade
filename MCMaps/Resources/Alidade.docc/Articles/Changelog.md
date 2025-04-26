@@ -19,6 +19,10 @@ across Mac, iPhone, and iPad.
 > build. To get these features, you will need to build from source.
 > Refer to <doc:Building> for more information.
 
+- On iOS and iPadOS, the sidebar sheet should now retain the behavior of
+  expanding the view when beginning a search, if t wasn't expanded
+  already.
+
 ## 1.0 (Build 38) [Beta]
 
 - CubiomesKit, the internal library used to generate Minecraft map content

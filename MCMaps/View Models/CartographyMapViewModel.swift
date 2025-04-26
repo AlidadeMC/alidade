@@ -5,6 +5,7 @@
 //  Created by Marquis Kurt on 01-02-2025.
 //
 
+import AdaptableSidebarSheetView
 import CubiomesKit
 import Foundation
 import Observation
@@ -69,6 +70,7 @@ class CartographyMapViewModel {
     }
 
     var displaySidebarSheet = false
+    var presentationDetent = AdaptableSidebarSheetBreakpoint.small
 
     private var displayRouteInspector = false
 

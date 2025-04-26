@@ -37,6 +37,7 @@ struct CartographyMapSidebar: View {
     @Binding var file: CartographyMapFile
 
     @State private var searchingState = SearchingState.initial
+    @FocusState private var searchFocused: Bool
 
     private var searchBarPlacement: SearchFieldPlacement {
         #if os(macOS)
@@ -61,6 +62,7 @@ struct CartographyMapSidebar: View {
 
         .frame(minWidth: 175, idealWidth: 200)
         .searchable(text: $viewModel.searchQuery, placement: searchBarPlacement, prompt: "Go To...")
+        .searchFocused($searchFocused)
         .animation(.default, value: searchingState)
         .onAppear {
             if file.map.pins.isEmpty {
@@ -82,6 +84,13 @@ struct CartographyMapSidebar: View {
         .onSubmit(of: .search) {
             Task {
                 await search()
+            }
+        }
+        .onChange(of: searchFocused) { _, newValue in
+            if newValue && viewModel.presentationDetent == .small {
+                withAnimation {
+                    viewModel.presentationDetent = .medium
+                }
             }
         }
         .onChange(of: viewModel.searchQuery) { _, newValue in
