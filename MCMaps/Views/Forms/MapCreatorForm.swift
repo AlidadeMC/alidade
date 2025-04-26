@@ -6,6 +6,7 @@
 //
 
 import CubiomesKit
+import DesignLibrary
 import SwiftUI
 
 /// A view used to create and edit Minecraft world maps using the `.mcmap` format.
@@ -74,6 +75,12 @@ struct MapCreatorForm: View {
                     autoconvert = !isEmptyField
                 }
             }
+
+            #if os(iOS)
+                javaOnlyAlert
+                    .foregroundStyle(SemanticColors.Alert.infoForeground)
+                    .listRowBackground(SemanticColors.Alert.infoBackground)
+            #endif
         }
         .onAppear {
             version = MinecraftVersion(mcVersion)
@@ -83,6 +90,35 @@ struct MapCreatorForm: View {
             #endif
         }
     }
+
+    private var javaOnlyAlert: some View {
+        Label {
+            Text("Before You Begin")
+                .font(.headline)
+            Text("Alidade supports maps with Minecraft versions and seeds for _Minecraft: Java Edition_.")
+
+        } icon: {
+            Image(systemName: "info.circle")
+                .bold()
+                .font(.headline)
+        }
+        .labelStyle(.multilineAlert)
+    }
+}
+
+private struct MultilineAlertLabelStyle: LabelStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        HStack(alignment: .firstTextBaseline) {
+            configuration.icon
+            VStack(alignment: .leading) {
+                configuration.title
+            }
+        }
+    }
+}
+
+extension LabelStyle where Self == MultilineAlertLabelStyle {
+    static var multilineAlert: MultilineAlertLabelStyle { MultilineAlertLabelStyle() }
 }
 
 #Preview {

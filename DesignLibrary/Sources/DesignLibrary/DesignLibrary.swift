@@ -19,4 +19,9 @@ public enum SemanticColors {
     public enum DocumentLaunch {
         public static let mobileDocument = Color(.Primitive.Blue._300)
     }
+
+    public enum Alert {
+        public static let infoBackground = Color(.Primitive.Blue._100)
+        public static let infoForeground = Color(.Primitive.Blue._600)
+    }
 }

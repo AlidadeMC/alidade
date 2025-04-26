@@ -22,6 +22,9 @@ across Mac, iPhone, and iPad.
 - On iOS and iPadOS, the sidebar sheet should now retain the behavior of
   expanding the view when beginning a search, if t wasn't expanded
   already.
+- On iOS and iPadOS, when creating a new map, a message will appear below
+  to inform players the app only supports Minecraft: Java Editions worlds
+  in order to reduce confusion.
 
 ## 1.0 (Build 38) [Beta]
 
