@@ -19,6 +19,8 @@ across Mac, iPhone, and iPad.
 > build. To get these features, you will need to build from source.
 > Refer to <doc:Building> for more information.
 
+## 1.0 (Build 41) [RC]
+
 - On iOS and iPadOS, the sidebar sheet should now retain the behavior of
   expanding the view when beginning a search, if t wasn't expanded
   already.
