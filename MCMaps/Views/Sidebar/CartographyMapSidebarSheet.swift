@@ -45,6 +45,11 @@ struct CartographyMapSidebarSheet<T: ToolbarContent>: View {
                 .toolbar { sheetToolbar() }
                 .navigationDestination(for: CartographyRoute.self) { route in
                     routingDestination(for: route)
+                        .onAppear {
+                            if viewModel.presentationDetent == .small {
+                                viewModel.presentationDetent = .medium
+                            }
+                        }
                 }
         }
         .presentationDetents([.smallSearch, .medium, .large])

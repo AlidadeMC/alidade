@@ -21,6 +21,10 @@ struct PinCreatorForm: View {
 
     @State private var name: String = "Pin"
     @State private var color: CartographyMapPin.Color = .blue
+    @State private var updatedLocation = CGPoint.zero
+
+    @State private var locationX = 0.0
+    @State private var locationY = 0.0
 
     /// A completion handler that executes when the player has confirmed the pin they want to create.
     /// - Parameter pin: The pin the player has created.
@@ -36,25 +40,60 @@ struct PinCreatorForm: View {
                 }
             }
             Section {
+                Group {
+                    #if os(iOS)
+                    LabeledContent("X Coordinate: ") {
+                        TextField("X Coordinate", value: $locationX, format: .number)
+                    }
+                    #else
+                    TextField("X Coordinate", value: $locationX, format: .number)
+                    #endif
+                }
+                Group {
+                    #if os(iOS)
+                    LabeledContent("Z Coordinate: ") {
+                        TextField("Z Coordinate", value: $locationY, format: .number)
+                    }
+                    #else
+                    TextField("Z Coordinate", value: $locationY, format: .number)
+                    #endif
+                }
+            } header: {
+                Text("World Location")
+            }
+            .onChange(of: locationX) { _, newValue in
+                updatedLocation.x = newValue
+            }
+            .onChange(of: locationY) { _, newValue in
+                updatedLocation.y = newValue
+            }
+            Section {
                 HStack {
                     Spacer()
                     CartographyNamedLocationView(
                         name: name,
-                        location: location,
+                        location: updatedLocation,
                         systemImage: "mappin",
                         color: color.swiftUIColor
                     )
                     Spacer()
                 }
+            } header: {
+                Text("Preview")
             }
         }
         .navigationTitle("Create Pin")
         .animation(.bouncy, value: color)
+        .onAppear {
+            updatedLocation = location
+            locationX = location.x
+            locationY = location.y
+        }
         .toolbar {
             ToolbarItem(placement: .confirmationAction) {
                 Button("Create") {
                     dismiss()
-                    completion(CartographyMapPin(position: location, name: name, color: color))
+                    completion(CartographyMapPin(position: updatedLocation, name: name, color: color))
                 }
             }
             #if os(macOS)

@@ -18,7 +18,28 @@ providing screenshots of their world at those locations to personalize
 pins.
 
 
-### Create a pin
+### Create a pin arbitrarily
+
+@TabNavigator {
+    @Tab("Mac") {
+        1. Click the pin with the plus badge in the toolbar or press
+           Command + P on your keyboard.
+        2. In the **Create Pin** form, provide the name, color, and
+           coordinates for the pin.
+        3. Click **Create** to create the pin. It will be displayed in the
+           sidebar under the Library section.
+    }
+    
+    @Tab("iPhone and iPad") {
+        1. Tap the pin with the plus badge in the toolbar.
+        2. In the **Create Pin** form, provide the name, color, and
+           coordinates for the pin.
+        3. Click **Create** to create the pin. It will be displayed in the
+           sidebar under the Library section.
+    }
+}
+
+### Create a pin from a recent location
 
 @TabNavigator {
     @Tab("Mac") {

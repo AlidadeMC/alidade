@@ -19,6 +19,11 @@ across Mac, iPhone, and iPad.
 > build. To get these features, you will need to build from source.
 > Refer to <doc:Building> for more information.
 
+## 1.0 (Build 42) [RC]
+
+- Players can now create pins without visiting a location by tapping the
+  new pin button in the toolbar.
+
 ## 1.0 (Build 41) [RC]
 
 - On iOS and iPadOS, the sidebar sheet should now retain the behavior of

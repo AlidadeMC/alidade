@@ -84,6 +84,11 @@ struct ContentView: View {
                         Label("Update World", image: "globe.desk.badge.gearshape.fill")
                     }
                 }
+                ToolbarItem {
+                    NavigationLink(value: CartographyRoute.createPin(.zero)) {
+                        Label("Create Pin", image: "mappin.circle.badge.plus")
+                    }
+                }
             #else
                 ToolbarItem {
                     Menu {
@@ -99,6 +104,14 @@ struct ContentView: View {
                     .onChange(of: viewModel.worldDimension) { _, _ in
                         LocalTips.dimensionPicker.invalidate(reason: .actionPerformed)
                     }
+                }
+                ToolbarItem {
+                    Button {
+                        viewModel.currentRoute = .createPin(.zero)
+                    } label: {
+                        Label("Create Pin", image: "mappin.circle.badge.plus")
+                    }
+                    .keyboardShortcut("p", modifiers: [.command])
                 }
             #endif
 

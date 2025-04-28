@@ -254,6 +254,9 @@
     "Pin..." : {
 
     },
+    "Preview" : {
+
+    },
     "Recents" : {
 
     },
@@ -363,7 +366,22 @@
     "World Generation" : {
 
     },
+    "World Location" : {
+
+    },
     "Write a description..." : {
+
+    },
+    "X Coordinate" : {
+
+    },
+    "X Coordinate: " : {
+
+    },
+    "Z Coordinate" : {
+
+    },
+    "Z Coordinate: " : {
 
     }
   },
