@@ -19,12 +19,20 @@ across Mac, iPhone, and iPad.
 > build. To get these features, you will need to build from source.
 > Refer to <doc:Building> for more information.
 
-## 1.0 (Build 42) [RC]
+## 1.0 (Build 43)
+
+Initial public release 🎉
+
+> Important: At this time, the app is not available on the App Store. The
+> development team is working to resolve this with Apple to ensure it is
+> available for all devices through the App Store.
+
+### 1.0 (Build 42) [RC]
 
 - Players can now create pins without visiting a location by tapping the
   new pin button in the toolbar.
 
-## 1.0 (Build 41) [RC]
+### 1.0 (Build 41) [RC]
 
 - On iOS and iPadOS, the sidebar sheet should now retain the behavior of
   expanding the view when beginning a search, if t wasn't expanded
@@ -33,7 +41,7 @@ across Mac, iPhone, and iPad.
   to inform players the app only supports Minecraft: Java Editions worlds
   in order to reduce confusion.
 
-## 1.0 (Build 38) [Beta]
+### 1.0 (Build 38) [Beta]
 
 - CubiomesKit, the internal library used to generate Minecraft map content
   and search for content, has been moved to its own separate repository at
@@ -48,7 +56,7 @@ across Mac, iPhone, and iPad.
   ensuring better handling of concurrency and protection against data
   races.
 
-## 1.0 (Build 33) [Beta]
+### 1.0 (Build 33) [Beta]
 
 - Maps have been completely revamped in this release. Rather than
   displaying a static snapshot, map can be moved around more easily thanks
@@ -71,7 +79,7 @@ across Mac, iPhone, and iPad.
 - The sidebar sheet on iPhone and iPad has been slightly redesigned to
   address presentation changes in the iOS 18.4 SDK.
 
-## 1.0 (Build 29) [Beta]
+### 1.0 (Build 29) [Beta]
 
 - In the pin detail view, the coordinates for both the Overworld and the
   Nether are displayed. This allows players to identify ways of travel
@@ -93,7 +101,7 @@ across Mac, iPhone, and iPad.
   Alidade design system.
 - Fixes visual alignment issues with the "About Alidade" window on macOS.
 
-## 1.0 (Build 27) [Beta]
+### 1.0 (Build 27) [Beta]
 
 - Updates the new document experience on macOS to match iOS and iPadOS
   with a new form that lets players enter the Minecraft version and seed
@@ -103,7 +111,7 @@ across Mac, iPhone, and iPad.
 - Replaces the Minecraft version text field with a dropdown menu to
   ensure that valid versions are identifiable and selectable.
 
-## 1.0 (Build 25) [Beta]
+### 1.0 (Build 25) [Beta]
 
 - Adds new menu bar entries for "Send Alidade Feedback" and "View Alidade
   Documentation" under the Help menu on macOS.
@@ -118,6 +126,6 @@ across Mac, iPhone, and iPad.
   and the arrow keys: i.e., Cmd + Up to go up, Cmd + Left to go left,
   etc. (#23).
 
-## 1.0 (Build 23) [Beta]
+### 1.0 (Build 23) [Beta]
 
 - Initial release.

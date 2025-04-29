@@ -19,9 +19,8 @@ using the `.mcmap` file package format.
 The following article will outline the file format, key structures
 involved, and best practices for working with the file format.
 
-> Important: The `.mcmap` format is still a work in progress and should be
-> considered as an unstable format until a finalized format specification
-> is authored and implemented.
+**Last Updated**: 29 April 2025  
+**Current Format Version**: 1.0
 
 ### Key Tenets
 
