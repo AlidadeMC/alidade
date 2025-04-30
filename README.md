@@ -8,12 +8,8 @@ Navigate and explore your Minecraft Java worlds
 browse your various Minecraft Java worlds. Jump to a coordinate and view
 the surrounding world, and pin your favorite locations.
 
-> **Note**  
-> Alidade is available for macOS through Itch, but it remains unavailable
-> on the App Store for macOS, iOS, and iPadOS. The development team is
-> working with Apple to resolve the issues and make it available.
-
 [Download on Itch (Mac)](https://marquiskurt.itch.io/alidade)
+[Download on the App Store](https://apps.apple.com/us/app/alidade/id6741483898)
 
 ## Why make Alidade?
 
