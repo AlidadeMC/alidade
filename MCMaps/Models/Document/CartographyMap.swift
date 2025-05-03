@@ -9,6 +9,9 @@ import Foundation
 
 /// A representation of the basic Minecraft world map.
 struct CartographyMap: Codable, Hashable, Sendable {
+    /// The Minecraft world map package version.
+    var manifestVersion: Int? = 1
+
     /// The seed used to generate the world in-game.
     var seed: Int64
 

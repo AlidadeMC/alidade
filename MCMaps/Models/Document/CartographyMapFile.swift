@@ -18,6 +18,7 @@ extension CartographyMap {
     ///
     /// This might also be used to create a map quickly via a template.
     static let sampleFile = CartographyMap(
+        manifestVersion: 1,
         seed: 123,
         mcVersion: "1.21.3",
         name: "My World",
@@ -50,6 +51,14 @@ struct CartographyMapFile: Sendable, Equatable {
         init() {}
     }
 
+    enum Constants {
+        /// The minimum manifest version to assign to a file if the ``CartographyMap/manifestVersion`` is undefined.
+        ///
+        /// This should be used when exporting or saving data to automatically "repair" or correct files that lack a
+        /// manifest version key.
+        static let minimumManifestVersion = 1
+    }
+
     /// The underlying Minecraft world map driven from the metadata.
     ///
     /// > Note: When removing pins from the map, call ``removePin(at:)`` instead of directly removing the pin, as the
@@ -79,9 +88,13 @@ struct CartographyMapFile: Sendable, Equatable {
 
     /// Prepares the map metadata for an export or save operation.
     func prepareMetadataForExport() throws -> Data {
+        var transformedMap = map
+        if transformedMap.manifestVersion == nil {
+            transformedMap.manifestVersion = Constants.minimumManifestVersion
+        }
         let encoder = JSONEncoder()
         encoder.outputFormatting = [.prettyPrinted, .sortedKeys]
-        return try encoder.encode(map)
+        return try encoder.encode(transformedMap)
     }
 
     /// Removes a player-created pin at a given index, deleting associated images with it.

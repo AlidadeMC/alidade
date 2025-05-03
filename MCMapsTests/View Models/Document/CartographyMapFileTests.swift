@@ -115,6 +115,7 @@ extension CartographyMapFileTests {
     static let packMcmetaFile =
         """
         {
+          "manifestVersion" : 1,
           "mcVersion" : "1.2",
           "name" : "Pack.mcmeta",
           "pins" : [

@@ -19,8 +19,8 @@ using the `.mcmap` file package format.
 The following article will outline the file format, key structures
 involved, and best practices for working with the file format.
 
-**Last Updated**: 29 April 2025  
-**Current Format Version**: 1.0
+**Last Updated**: 3 May 2025  
+**Current Format Version**: 1
 
 ### Key Tenets
 
@@ -69,6 +69,7 @@ contains a few key pieces:
 
 | Key                                | Type   | Description                                                                                          |
 | ---------------------------------- | ------ | --------------------------------------------------------------------------------------------------   |
+| ``CartographyMap/manifestVersion`` | Number | The manifest version of the file format. The default should be v1 (`1`).                             |
 | ``CartographyMap/name``            | String | A player-supplied name for the world. This can be used in place of the file name in some views.      |
 | ``CartographyMap/mcVersion``       | String | The version of Minecraft used to generate the world.                                                 |
 | ``CartographyMap/seed``            | Number | The seed used to generate the Minecraft world.                                                       |
