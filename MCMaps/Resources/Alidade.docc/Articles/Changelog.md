@@ -26,10 +26,6 @@ across Mac, iPhone, and iPad.
 
 Initial public release 🎉
 
-> Important: At this time, the app is not available on the App Store. The
-> development team is working to resolve this with Apple to ensure it is
-> available for all devices through the App Store.
-
 ### 1.0 (Build 42) [RC]
 
 - Players can now create pins without visiting a location by tapping the
