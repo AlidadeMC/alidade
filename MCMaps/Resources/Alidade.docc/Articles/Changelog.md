@@ -19,6 +19,8 @@ across Mac, iPhone, and iPad.
 > build. To get these features, you will need to build from source.
 > Refer to <doc:Building> for more information.
 
+### 1.0.1 (Build 45) [Beta]
+
 - **Fixed**: Changing the "Natural Colors" setting on a map wouldn't
   refresh the entire map.
 - To further ensure compatibility with future `.mcmap` package formats,
