@@ -19,6 +19,9 @@ across Mac, iPhone, and iPad.
 > build. To get these features, you will need to build from source.
 > Refer to <doc:Building> for more information.
 
+- **Fixed**: Changing the "Natural Colors" setting on a map wouldn't
+  refresh the entire map.
+
 ## 1.0 (Build 43)
 
 Initial public release 🎉
