@@ -80,6 +80,7 @@ contributors to read through.
 - <doc:Architecture>
 - ``MCMapsApp``
 - ``ContentView``
+- ``ContentViewToolbar``
 - ``DocumentLaunchView-6qz0r``
 - ``CartographyMapSplitView``
 
