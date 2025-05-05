@@ -1,3 +1,4 @@
+opt_in_rules: explicit_init
 disabled_rules:
   - trailing_comma
 allow_zero_lintable_files: false
