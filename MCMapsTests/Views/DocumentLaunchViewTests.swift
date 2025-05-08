@@ -15,7 +15,7 @@ import ViewInspector
 struct DocumentLaunchViewTests {
     @Test(.enabled(if: platform(is: .iOS)))
     func sceneInitializationMobile() throws {
-        let proxyMap = Binding(wrappedValue: CartographyMap.sampleFile)
+        let proxyMap = Binding(wrappedValue: MCMapManifest.sampleFile)
         let displayCreationWindow = Binding(wrappedValue: false)
         let launchViewModel = DocumentLaunchViewModel(displayCreationWindow: displayCreationWindow, proxyMap: proxyMap)
         let launchView = DocumentLaunchView(viewModel: launchViewModel)

@@ -12,7 +12,7 @@ import Testing
 
 struct DocumentLaunchViewModelTests {
     @Test(.tags(.viewModel)) func sanitizedURL() throws {
-        let proxyMap = Binding(wrappedValue: CartographyMap.sampleFile)
+        let proxyMap = Binding(wrappedValue: MCMapManifest.sampleFile)
         let displayCreationWindow = Binding(wrappedValue: false)
         let launchViewModel = DocumentLaunchViewModel(displayCreationWindow: displayCreationWindow, proxyMap: proxyMap)
 
@@ -22,7 +22,7 @@ struct DocumentLaunchViewModelTests {
     }
 
     @Test(.tags(.viewModel)) func friendlyURL() throws {
-        let proxyMap = Binding(wrappedValue: CartographyMap.sampleFile)
+        let proxyMap = Binding(wrappedValue: MCMapManifest.sampleFile)
         let displayCreationWindow = Binding(wrappedValue: false)
         let launchViewModel = DocumentLaunchViewModel(displayCreationWindow: displayCreationWindow, proxyMap: proxyMap)
 
@@ -32,7 +32,7 @@ struct DocumentLaunchViewModelTests {
     }
 
     @Test(.tags(.viewModel)) func urlIsInMobileDocuments() throws {
-        let proxyMap = Binding(wrappedValue: CartographyMap.sampleFile)
+        let proxyMap = Binding(wrappedValue: MCMapManifest.sampleFile)
         let displayCreationWindow = Binding(wrappedValue: false)
         let launchViewModel = DocumentLaunchViewModel(displayCreationWindow: displayCreationWindow, proxyMap: proxyMap)
 

@@ -18,20 +18,6 @@ extension UTType {
     static let mcmap = UTType(exportedAs: "net.marquiskurt.mcmap")
 }
 
-extension MCMapManifest {
-    /// A sample file used for debugging, testing, and preview purposes.
-    ///
-    /// This might also be used to create a map quickly via a template.
-    static let sampleFile = CartographyMap(
-        manifestVersion: 1,
-        seed: 123,
-        mcVersion: "1.21.3",
-        name: "My World",
-        pins: [
-            CartographyMapPin(position: .init(x: 0, y: 0), name: "Spawn")
-        ])
-}
-
 /// A structure representing the Minecraft map file format (`.mcmap`).
 ///
 /// This structure is used to open, edit, write, and save files through SwiftUI.
@@ -176,7 +162,7 @@ extension CartographyMapFile: FileDocument {
             throw CocoaError(CocoaError.fileReadCorruptFile)
         }
         let decoder = JSONDecoder()
-        self.manifest = try decoder.decode(CartographyMap.self, from: metadataContents)
+        self.manifest = try decoder.decode(versioned: MCMapManifest.self, from: metadataContents)
         if let imagesDir = fileWrappers?[Keys.images], imagesDir.isDirectory, let wrappers = imagesDir.fileWrappers {
             self.images = wrappers.reduce(into: [:]) { (imageMap, kvPair) in
                 let (key, wrapper) = kvPair

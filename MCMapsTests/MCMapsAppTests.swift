@@ -21,6 +21,9 @@ struct MCMapsAppTests {
         let sut = app.testHooks
 
         #expect(sut.displayCreationWindow == false)
-        #expect(sut.proxyMap == .init(seed: 0, mcVersion: "1.21", name: "My World", pins: []))
+        #expect(
+            sut.proxyMap
+                == MCMapManifest(
+                    name: "My World", worldSettings: MCMapManifestWorldSettings(version: "1.21", seed: 0), pins: []))
     }
 }

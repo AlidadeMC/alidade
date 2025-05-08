@@ -63,18 +63,14 @@ stored in the HEIC file format.
 
 ## File Metadata
 
-Metadata about the world is stored in the `Info.json` file
-(``CartographyMapFile/Keys/metadata``). It is a basic JSON object that
-contains a few key pieces:
+> Important: v2 of the manifest is a work in progress. Documentation here
+> might change over time to provide better organization.
 
-| Key                                | Type   | Description                                                                                          |
-| ---------------------------------- | ------ | --------------------------------------------------------------------------------------------------   |
-| ``CartographyMap/manifestVersion`` | Number | The manifest version of the file format. The default should be v1 (`1`).                             |
-| ``CartographyMap/name``            | String | A player-supplied name for the world. This can be used in place of the file name in some views.      |
-| ``CartographyMap/mcVersion``       | String | The version of Minecraft used to generate the world.                                                 |
-| ``CartographyMap/seed``            | Number | The seed used to generate the Minecraft world.                                                       |
-| ``CartographyMap/pins``            | Array  | A list of player-generated pins for the Minecraft world.                                             |
-| ``CartographyMap/recentLocations`` | Array  | A list of recently-visited locations in the world. Commonly used to store previous search results.   |
+Metadata about the world is stored in the `Info.json` file
+(``CartographyMapFile/Keys/metadata``). This metadata can change and
+evolve over time, so it is always recommended to follow the keys
+provided in the ``MCMapManifest`` type, which always points to the latest
+manifest version.
 
 The ``MCMapManifest`` structure is used to handle the encoding and
 decoding of these values automatically. This data can be accessed through

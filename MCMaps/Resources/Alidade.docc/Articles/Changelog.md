@@ -19,6 +19,13 @@ across Mac, iPhone, and iPad.
 > build. To get these features, you will need to build from source.
 > Refer to <doc:Building> for more information.
 
+- The second version of the Minecraft map package format is under
+  development. Currently, v2 makes a few changes:
+  - The `mcVersion` and `seed` properties are being moved into a new
+    `world` object.
+  - The `world` object now includes a property for large biomes (defaults)
+    to `false`.
+
 ## 1.0.1 (Build 45)
 
 **Also released as**: 1.0 (Build 45) [Beta]

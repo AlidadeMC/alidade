@@ -8,13 +8,6 @@
 import Foundation
 import VersionedCodable
 
-/// A typealias that points to the latest manifest version.
-///
-/// This should be used in conjunction with ``CartographyMapFile`` to ensure that the latest version of the manifest is
-/// being used. Whenever encoding to and decoding from this type, use the `encode(versioned:)` and
-/// `decode(versioned:data:)` methods from `VersionedCodable`, respectively.
-typealias MCMapManifest = CartographyMap
-
 /// A representation of the basic Minecraft world map.
 ///
 /// This is the default manifest structure if no specific version was provided.
@@ -54,17 +47,28 @@ extension CartographyMap: VersionedCodable {
     static let version: Int? = 1
 }
 
-/// A structure used to denote the version path in Codable structures.
-///
-/// This should be used with any manifest files that conform to `VersionedCodable` via the `VersionSpec` typealias.
-struct CartographyMapVersionSpec: VersionPathSpec, Sendable {
-    nonisolated(unsafe) static let keyPathToVersion: KeyPath<CartographyMapVersionSpec, Int?> =
-        \Self.manifestVersion
-
-    /// The Minecraft world map package version.
-    var manifestVersion: Int?
-
-    init(withVersion version: Int?) {
-        self.manifestVersion = version
+extension CartographyMap: MCMapManifestProviding {
+    /// The world settings associated with this Minecraft world map.
+    ///
+    /// This property is a "punch-up" migratory property used to handle forwards compatibility with newer manifest
+    /// versions, such as ``MCMapManifest_v2``.
+    var worldSettings: MCMapManifestWorldSettings {
+        get { return MCMapManifestWorldSettings(version: self.mcVersion, seed: self.seed) }
+        set {
+            self.mcVersion = newValue.version
+            self.seed = newValue.seed
+        }
     }
+
+    /// A sample file used for debugging, testing, and preview purposes.
+    ///
+    /// This might also be used to create a map quickly via a template.
+    static let sampleFile = CartographyMap(
+        manifestVersion: 1,
+        seed: 123,
+        mcVersion: "1.21.3",
+        name: "My World",
+        pins: [
+            CartographyMapPin(position: .init(x: 0, y: 0), name: "Spawn")
+        ])
 }

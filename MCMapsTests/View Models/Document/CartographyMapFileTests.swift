@@ -20,22 +20,22 @@ struct CartographyMapFileTests {
 
     @Test(.tags(.document))
     func initFromData() async throws {
-        guard let map = Self.packMcmetaFile.data(using: .utf8) else {
+        guard let map = Self.packMcmetaFile_V2.data(using: .utf8) else {
             Issue.record("Failed to convert to a Data object.")
             return
         }
         let file = try CartographyMapFile(decoding: map)
 
         #expect(file.manifest.name == "Pack.mcmeta")
-        #expect(file.manifest.mcVersion == "1.2")
-        #expect(file.manifest.seed == 3_257_840_388_504_953_787)
+        #expect(file.manifest.worldSettings.version == "1.2")
+        #expect(file.manifest.worldSettings.seed == 3_257_840_388_504_953_787)
         #expect(file.manifest.pins.count == 2)
         #expect(file.manifest.recentLocations?.count == 1)
     }
 
     @Test(.tags(.document))
     func initFromFileWrappers() async throws {
-        guard let map = Self.packMcmetaFile.data(using: .utf8) else {
+        guard let map = Self.packMcmetaFile_V2.data(using: .utf8) else {
             Issue.record("Failed to convert to a Data object.")
             return
         }
@@ -50,7 +50,7 @@ struct CartographyMapFileTests {
 
     @Test(.tags(.document))
     func preparesForExport() async throws {
-        guard let map = Self.packMcmetaFile.data(using: .utf8) else {
+        guard let map = Self.packMcmetaFile_V2.data(using: .utf8) else {
             Issue.record("Failed to convert to a Data object.")
             return
         }
@@ -61,8 +61,21 @@ struct CartographyMapFileTests {
     }
 
     @Test(.tags(.document))
+    func handlesMigrationToV2() async throws {
+        guard let map = Self.packMcmetaFile_V1.data(using: .utf8),
+              let mapV2 = Self.packMcmetaFile_V2.data(using: .utf8) else {
+            Issue.record("Failed to convert to a Data object.")
+            return
+        }
+        let file = try CartographyMapFile(decoding: map)
+        let exported = try file.prepareMetadataForExport()
+        
+        #expect(exported == mapV2)
+    }
+
+    @Test(.tags(.document))
     func fileWrapper() async throws {
-        guard let map = Self.packMcmetaFile.data(using: .utf8) else {
+        guard let map = Self.packMcmetaFile_V2.data(using: .utf8) else {
             Issue.record("Failed to convert to a Data object.")
             return
         }
@@ -112,7 +125,7 @@ struct CartographyMapFileTests {
 }
 
 extension CartographyMapFileTests {
-    static let packMcmetaFile =
+    static let packMcmetaFile_V1 =
         """
         {
           "manifestVersion" : 1,
@@ -142,6 +155,42 @@ extension CartographyMapFileTests {
             ]
           ],
           "seed" : 3257840388504953787
+        }
+        """
+
+    static let packMcmetaFile_V2 =
+        """
+        {
+          "manifestVersion" : 2,
+          "name" : "Pack.mcmeta",
+          "pins" : [
+            {
+              "name" : "Spawn",
+              "position" : [
+                0,
+                0
+              ]
+            },
+            {
+              "color" : "brown",
+              "name" : "Screenshot",
+              "position" : [
+                116,
+                -31
+              ]
+            }
+          ],
+          "recentLocations" : [
+            [
+              116,
+              -31
+            ]
+          ],
+          "world" : {
+            "largeBiomes" : false,
+            "seed" : 3257840388504953787,
+            "version" : "1.2"
+          }
         }
         """
 }
