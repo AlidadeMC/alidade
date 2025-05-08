@@ -22,11 +22,11 @@ class DocumentLaunchViewModel: @unchecked Sendable {
     var displayCreationWindow: Binding<Bool>
 
     /// A proxy map used to create the file with a specified Minecraft version and seed.
-    var proxyMap: Binding<CartographyMap>
+    var proxyMap: Binding<MCMapManifest>
 
     private var selectedFile: URL?
 
-    init(displayCreationWindow: Binding<Bool>, proxyMap: Binding<CartographyMap>) {
+    init(displayCreationWindow: Binding<Bool>, proxyMap: Binding<MCMapManifest>) {
         self.selectedFileURL = .constant(.documentsDirectory)
         self.displayCreationWindow = displayCreationWindow
         self.proxyMap = proxyMap

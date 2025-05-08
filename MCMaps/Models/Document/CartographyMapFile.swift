@@ -7,6 +7,7 @@
 
 import SwiftUI
 import UniformTypeIdentifiers
+import VersionedCodable
 
 extension UTType {
     /// The uniform type identifier associated with `.mcmap` package files.
@@ -17,7 +18,7 @@ extension UTType {
     static let mcmap = UTType(exportedAs: "net.marquiskurt.mcmap")
 }
 
-extension CartographyMap {
+extension MCMapManifest {
     /// A sample file used for debugging, testing, and preview purposes.
     ///
     /// This might also be used to create a map quickly via a template.
@@ -27,7 +28,7 @@ extension CartographyMap {
         mcVersion: "1.21.3",
         name: "My World",
         pins: [
-            .init(position: .init(x: 0, y: 0), name: "Spawn")
+            CartographyMapPin(position: .init(x: 0, y: 0), name: "Spawn")
         ])
 }
 
@@ -71,13 +72,13 @@ struct CartographyMapFile: Sendable, Equatable {
     ///
     /// > Note: When removing pins from the map, call ``removePin(at:)`` instead of directly removing the pin, as the
     /// > former ensures that any associated photos are removed.
-    var manifest: CartographyMap
+    var manifest: MCMapManifest
 
     /// The underlying Minecraft world map driven from the metadata.
     ///
     /// > Warning: This property has been renamed to ``manifest``. Please use this property instead.
     @available(*, deprecated, renamed: "manifest")
-    var map: CartographyMap {
+    var map: MCMapManifest {
         get { return manifest }
         set { manifest = newValue }
     }
@@ -89,7 +90,7 @@ struct CartographyMapFile: Sendable, Equatable {
     /// - Parameter map: The map structure to represent as the metadata.
     /// - Parameter images: The map containing the images available in this file.
     @available(*, deprecated, renamed: "init(withManifest:images:)")
-    init(map: CartographyMap, images: ImageMap = [:]) {
+    init(map: MCMapManifest, images: ImageMap = [:]) {
         self.manifest = map
         self.images = images
     }
@@ -97,7 +98,7 @@ struct CartographyMapFile: Sendable, Equatable {
     /// Creates a map file from a world map and an image map.
     /// - Parameter manifest: The map structure to represent as the metadata.
     /// - Parameter images: The map containing the images available in this file.
-    init(withManifest manifest: CartographyMap, images: ImageMap = [:]) {
+    init(withManifest manifest: MCMapManifest, images: ImageMap = [:]) {
         self.manifest = manifest
         self.images = images
     }
@@ -108,7 +109,7 @@ struct CartographyMapFile: Sendable, Equatable {
     /// - Parameter data: The data object to decode the map metadata from.
     init(decoding data: Data) throws {
         let decoder = JSONDecoder()
-        self.manifest = try decoder.decode(CartographyMap.self, from: data)
+        self.manifest = try decoder.decode(versioned: MCMapManifest.self, from: data)
         self.images = [:]
     }
 
@@ -120,7 +121,7 @@ struct CartographyMapFile: Sendable, Equatable {
         }
         let encoder = JSONEncoder()
         encoder.outputFormatting = [.prettyPrinted, .sortedKeys]
-        return try encoder.encode(transformedMap)
+        return try encoder.encode(versioned: transformedMap)
     }
 
     /// Removes a player-created pin at a given index, deleting associated images with it.

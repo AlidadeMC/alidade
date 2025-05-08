@@ -72,7 +72,7 @@ contributors to read through.
 
 - <doc:FileFormat>
 - ``CartographyMapFile``
-- ``CartographyMap``
+- ``MCMapManifest``
 - ``CartographyMapPin``
 
 ### Architecture and View Hierarchy

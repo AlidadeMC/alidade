@@ -34,7 +34,7 @@ struct MCMapsApp: App {
     @Environment(\.openURL) private var openURL
 
     @State private var displayCreationWindow = false
-    @State private var proxyMap = CartographyMap(seed: 0, mcVersion: "1.21", name: "My World", pins: [])
+    @State private var proxyMap = MCMapManifest(seed: 0, mcVersion: "1.21", name: "My World", pins: [])
 
     init() {
         do {
@@ -132,7 +132,7 @@ struct MCMapsApp: App {
                 target.displayCreationWindow
             }
 
-            var proxyMap: CartographyMap {
+            var proxyMap: MCMapManifest {
                 target.proxyMap
             }
         }

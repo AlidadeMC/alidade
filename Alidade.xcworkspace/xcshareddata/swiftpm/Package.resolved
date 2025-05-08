@@ -1,5 +1,5 @@
 {
-  "originHash" : "70fbf890d64c1e85af9a51786a3e62834e0f8b363ad5e3506b2c6fdddc48032b",
+  "originHash" : "560bcbf3d64729a6949e15824dae433ac91b0e38b7b5f82b5b2a8ec950a2faa5",
   "pins" : [
     {
       "identity" : "adaptablesidebarsheetview",
@@ -53,6 +53,15 @@
       "state" : {
         "revision" : "8545ddf4de043e6f2051c5cf204f39ef778ebf6b",
         "version" : "0.59.1"
+      }
+    },
+    {
+      "identity" : "versionedcodable",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/jrothwell/VersionedCodable.git",
+      "state" : {
+        "revision" : "fd6866a0d39e72a18ba71e47b5ab42c4a2a62600",
+        "version" : "1.1.1"
       }
     },
     {

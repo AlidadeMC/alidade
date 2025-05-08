@@ -76,9 +76,9 @@ contains a few key pieces:
 | ``CartographyMap/pins``            | Array  | A list of player-generated pins for the Minecraft world.                                             |
 | ``CartographyMap/recentLocations`` | Array  | A list of recently-visited locations in the world. Commonly used to store previous search results.   |
 
-The ``CartographyMap`` structure is used to handle the encoding and
+The ``MCMapManifest`` structure is used to handle the encoding and
 decoding of these values automatically. This data can be accessed through
-the ``CartographyMapFile/map`` property in the ``CartographyMapFile``.
+the ``CartographyMapFile/manifest`` property in the ``CartographyMapFile``.
 
 ### Recent Locations
 
