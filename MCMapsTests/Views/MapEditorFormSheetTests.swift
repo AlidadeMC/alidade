@@ -14,7 +14,7 @@ import ViewInspector
 @MainActor
 struct MapEditorFormSheetTests {
     @Test func viewLayout() throws {
-        let file: Binding<CartographyMapFile> = .init(wrappedValue: CartographyMapFile(map: .sampleFile))
+        let file: Binding<CartographyMapFile> = .init(wrappedValue: CartographyMapFile(withManifest: .sampleFile))
         let view = MapEditorFormSheet(file: file)
         let sut = try view.inspect()
 
@@ -38,9 +38,9 @@ struct MapEditorFormSheetTests {
     }
 
     @Test func formSubmitCallback() throws {
-        let file: Binding<CartographyMapFile> = .init(wrappedValue: CartographyMapFile(map: .sampleFile))
+        let file: Binding<CartographyMapFile> = .init(wrappedValue: CartographyMapFile(withManifest: .sampleFile))
         let view = MapEditorFormSheet(file: file) {
-            #expect(file.wrappedValue.map == .sampleFile)
+            #expect(file.wrappedValue.manifest == .sampleFile)
         } onCancelChanges: {
             Issue.record("This callback shouldn't have been executed.")
         }
@@ -49,11 +49,11 @@ struct MapEditorFormSheetTests {
     }
 
     @Test func formCancelCallback() throws {
-        let file: Binding<CartographyMapFile> = .init(wrappedValue: CartographyMapFile(map: .sampleFile))
+        let file: Binding<CartographyMapFile> = .init(wrappedValue: CartographyMapFile(withManifest: .sampleFile))
         let view = MapEditorFormSheet(file: file) {
             Issue.record("This callback shouldn't have been executed.")
         } onCancelChanges: {
-            #expect(file.wrappedValue.map == .sampleFile)
+            #expect(file.wrappedValue.manifest == .sampleFile)
         }
         let sut = try view.inspect()
         try sut.find(button: "Cancel").tap()

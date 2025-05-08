@@ -14,7 +14,7 @@ import ViewInspector
 @MainActor
 struct CartographyMapPinDetailViewTests {
     @Test func viewInitializes() throws {
-        let file = Binding(wrappedValue: CartographyMapFile(map: .sampleFile))
+        let file = Binding(wrappedValue: CartographyMapFile(withManifest: .sampleFile))
         let viewModel = CartographyPinViewModel(file: file, index: 0)
         let view = CartographyMapPinDetailView(viewModel: viewModel)
         let sut = try view.inspect()
@@ -26,7 +26,7 @@ struct CartographyMapPinDetailViewTests {
 
     @Test(.enabled(if: platform(is: .macOS)))
     func savePanelOpens() throws {
-        let file = Binding(wrappedValue: CartographyMapFile(map: .sampleFile))
+        let file = Binding(wrappedValue: CartographyMapFile(withManifest: .sampleFile))
         let viewModel = CartographyPinViewModel(file: file, index: 0)
         let view = CartographyMapPinDetailView(viewModel: viewModel)
 

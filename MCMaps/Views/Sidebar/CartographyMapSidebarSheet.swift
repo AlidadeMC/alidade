@@ -40,8 +40,8 @@ struct CartographyMapSidebarSheet<T: ToolbarContent>: View {
                     .background(.clear)
                     .navigationBarTitleDisplayMode(.inline)
                 #endif
-                .navigationTitle(file.map.name)
-                .navigationDocument(file, preview: SharePreview(file.map.name))
+                .navigationTitle(file.manifest.name)
+                .navigationDocument(file, preview: SharePreview(file.manifest.name))
                 .toolbar { sheetToolbar() }
                 .navigationDestination(for: CartographyRoute.self) { route in
                     routingDestination(for: route)
@@ -70,20 +70,22 @@ struct CartographyMapSidebarSheet<T: ToolbarContent>: View {
                     }
             case let .createPin(location):
                 PinCreatorForm(location: location) { newPin in
-                    file.map.pins.append(newPin)
+                    file.manifest.pins.append(newPin)
                 }
             case .editWorld:
-                MapCreatorForm(worldName: $file.map.name, mcVersion: $file.map.mcVersion, seed: $file.map.seed)
-                    .navigationTitle("Edit World")
-                    .onDisappear {
-                        viewModel.submitWorldChanges(to: file)
-                    }
-                    .onChange(of: file.map.mcVersion) { _, _ in
-                        viewModel.submitWorldChanges(to: file)
-                    }
-                    .onChange(of: file.map.seed) { _, _ in
-                        viewModel.submitWorldChanges(to: file)
-                    }
+                MapCreatorForm(
+                    worldName: $file.manifest.name, mcVersion: $file.manifest.mcVersion, seed: $file.manifest.seed
+                )
+                .navigationTitle("Edit World")
+                .onDisappear {
+                    viewModel.submitWorldChanges(to: file)
+                }
+                .onChange(of: file.manifest.mcVersion) { _, _ in
+                    viewModel.submitWorldChanges(to: file)
+                }
+                .onChange(of: file.manifest.seed) { _, _ in
+                    viewModel.submitWorldChanges(to: file)
+                }
             default:
                 Group {
                     ContentUnavailableView(

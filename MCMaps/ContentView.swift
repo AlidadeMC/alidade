@@ -45,8 +45,8 @@ struct ContentView: View {
                 }
             #endif
         }
-        .navigationTitle(file.map.name)
-        .animation(.default, value: file.map.recentLocations)
+        .navigationTitle(file.manifest.name)
+        .animation(.default, value: file.manifest.recentLocations)
         .task {
             await WorldDimensionPickerTip.viewDisplayed.donate()
         }
@@ -56,7 +56,7 @@ struct ContentView: View {
                 case .createPin(let cgPoint):
                     NavigationStack {
                         PinCreatorForm(location: cgPoint) { pin in
-                            file.map.pins.append(pin)
+                            file.manifest.pins.append(pin)
                         }
                         .formStyle(.grouped)
                     }
@@ -79,7 +79,7 @@ struct ContentView: View {
 }
 
 #Preview {
-    @Previewable @State var file = CartographyMapFile(map: .sampleFile)
+    @Previewable @State var file = CartographyMapFile(withManifest: .sampleFile)
     ContentView(file: $file)
 }
 

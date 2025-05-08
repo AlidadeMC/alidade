@@ -67,15 +67,15 @@ class CartographyPinViewModel {
         self.file = file
         self.index = index
         self.pin = .init {
-            return file.wrappedValue.map.pins[index]
+            return file.wrappedValue.manifest.pins[index]
         } set: { newPin in
-            file.wrappedValue.map.pins[index] = newPin
+            file.wrappedValue.manifest.pins[index] = newPin
         }
 
         self.pinAboutDescription = .init {
-            return file.wrappedValue.map.pins[index].aboutDescription ?? ""
+            return file.wrappedValue.manifest.pins[index].aboutDescription ?? ""
         } set: { newValue in
-            file.wrappedValue.map.pins[index].aboutDescription = newValue
+            file.wrappedValue.manifest.pins[index].aboutDescription = newValue
         }
     }
 
@@ -83,7 +83,7 @@ class CartographyPinViewModel {
     ///
     /// Images consist of player-uploaded screenshots that can be displayed alongside pins.
     func images() -> [Data] {
-        let pin = file.wrappedValue.map.pins[index]
+        let pin = file.wrappedValue.manifest.pins[index]
         guard let images = pin.images else { return [] }
         return images.compactMap { name in
             file.wrappedValue.images[name]
@@ -100,10 +100,10 @@ class CartographyPinViewModel {
     func uploadImage(_ data: Data, completion: (() -> Void)? = nil) {
         let imageName = UUID().uuidString + ".heic"
         file.wrappedValue.images[imageName] = data
-        if file.wrappedValue.map.pins[index].images == nil {
-            file.wrappedValue.map.pins[index].images = [imageName]
+        if file.wrappedValue.manifest.pins[index].images == nil {
+            file.wrappedValue.manifest.pins[index].images = [imageName]
         } else {
-            file.wrappedValue.map.pins[index].images?.append(imageName)
+            file.wrappedValue.manifest.pins[index].images?.append(imageName)
         }
         completion?()
     }

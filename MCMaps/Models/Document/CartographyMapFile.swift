@@ -10,7 +10,11 @@ import UniformTypeIdentifiers
 
 extension UTType {
     /// The uniform type identifier associated with `.mcmap` package files.
-    static let cartography = UTType(exportedAs: "net.marquiskurt.mcmap")
+    @available(*, deprecated, renamed: "mcmap")
+    static let cartography = UTType.mcmap
+
+    /// The uniform type identifier associated with `.mcmap` package files.
+    static let mcmap = UTType(exportedAs: "net.marquiskurt.mcmap")
 }
 
 extension CartographyMap {
@@ -59,11 +63,24 @@ struct CartographyMapFile: Sendable, Equatable {
         static let minimumManifestVersion = 1
     }
 
-    /// The underlying Minecraft world map driven from the metadata.
+    /// The manifest file that describes the structure and behavior of the map file, such as player created pins,
+    /// version, and seed.
+    ///
+    /// In previous versions of the codebase, this was called the `map`. This property should be versioned and
+    /// documented in <doc:FileFormat>.
     ///
     /// > Note: When removing pins from the map, call ``removePin(at:)`` instead of directly removing the pin, as the
     /// > former ensures that any associated photos are removed.
-    var map: CartographyMap
+    var manifest: CartographyMap
+
+    /// The underlying Minecraft world map driven from the metadata.
+    ///
+    /// > Warning: This property has been renamed to ``manifest``. Please use this property instead.
+    @available(*, deprecated, renamed: "manifest")
+    var map: CartographyMap {
+        get { return manifest }
+        set { manifest = newValue }
+    }
 
     /// A map of all the images available in this file, and the raw data bytes for the images.
     var images: ImageMap = [:]
@@ -71,8 +88,17 @@ struct CartographyMapFile: Sendable, Equatable {
     /// Creates a map file from a world map and an image map.
     /// - Parameter map: The map structure to represent as the metadata.
     /// - Parameter images: The map containing the images available in this file.
+    @available(*, deprecated, renamed: "init(withManifest:images:)")
     init(map: CartographyMap, images: ImageMap = [:]) {
-        self.map = map
+        self.manifest = map
+        self.images = images
+    }
+
+    /// Creates a map file from a world map and an image map.
+    /// - Parameter manifest: The map structure to represent as the metadata.
+    /// - Parameter images: The map containing the images available in this file.
+    init(withManifest manifest: CartographyMap, images: ImageMap = [:]) {
+        self.manifest = manifest
         self.images = images
     }
 
@@ -82,13 +108,13 @@ struct CartographyMapFile: Sendable, Equatable {
     /// - Parameter data: The data object to decode the map metadata from.
     init(decoding data: Data) throws {
         let decoder = JSONDecoder()
-        self.map = try decoder.decode(CartographyMap.self, from: data)
+        self.manifest = try decoder.decode(CartographyMap.self, from: data)
         self.images = [:]
     }
 
     /// Prepares the map metadata for an export or save operation.
     func prepareMetadataForExport() throws -> Data {
-        var transformedMap = map
+        var transformedMap = manifest
         if transformedMap.manifestVersion == nil {
             transformedMap.manifestVersion = Constants.minimumManifestVersion
         }
@@ -100,14 +126,14 @@ struct CartographyMapFile: Sendable, Equatable {
     /// Removes a player-created pin at a given index, deleting associated images with it.
     /// - Parameter index: The index of the pin to remove from the library.
     mutating func removePin(at index: [CartographyMapPin].Index) {
-        guard map.pins.indices.contains(index) else { return }
-        let pin = map.pins[index]
+        guard manifest.pins.indices.contains(index) else { return }
+        let pin = manifest.pins[index]
         if let images = pin.images {
             for image in images {
                 self.images[image] = nil
             }
         }
-        map.pins.remove(at: index)
+        manifest.pins.remove(at: index)
     }
 
     /// Removes a series of player-created pins at a given index, deleting associated images with it.
@@ -117,21 +143,21 @@ struct CartographyMapFile: Sendable, Equatable {
     mutating func removePins(at offsets: IndexSet) {
         var imagesToDelete = [String]()
         for offset in offsets {
-            let pin = map.pins[offset]
+            let pin = manifest.pins[offset]
             guard let images = pin.images else { continue }
             imagesToDelete.append(contentsOf: images)
         }
         for image in imagesToDelete {
             self.images[image] = nil
         }
-        map.pins.remove(atOffsets: offsets)
+        manifest.pins.remove(atOffsets: offsets)
     }
 }
 
 // MARK: - FileDocument Conformances
 
 extension CartographyMapFile: FileDocument {
-    static var readableContentTypes: [UTType] { [.cartography] }
+    static var readableContentTypes: [UTType] { [.mcmap] }
 
     /// Creates a file from a read configuration.
     ///
@@ -149,7 +175,7 @@ extension CartographyMapFile: FileDocument {
             throw CocoaError(CocoaError.fileReadCorruptFile)
         }
         let decoder = JSONDecoder()
-        self.map = try decoder.decode(CartographyMap.self, from: metadataContents)
+        self.manifest = try decoder.decode(CartographyMap.self, from: metadataContents)
         if let imagesDir = fileWrappers?[Keys.images], imagesDir.isDirectory, let wrappers = imagesDir.fileWrappers {
             self.images = wrappers.reduce(into: [:]) { (imageMap, kvPair) in
                 let (key, wrapper) = kvPair
@@ -198,7 +224,7 @@ extension CartographyMapFile: Transferable {
     ///
     /// - Note: Images and the image map are _not_ considered in this representation.
     static var transferRepresentation: some TransferRepresentation {
-        DataRepresentation(contentType: .cartography) { file in
+        DataRepresentation(contentType: .mcmap) { file in
             try file.prepareMetadataForExport()
         } importing: { data in
             try CartographyMapFile(decoding: data)

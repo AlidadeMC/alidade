@@ -14,7 +14,7 @@ import ViewInspector
 @MainActor
 struct CartographyMapSidebarTests {
     @Test func sidebarInit() throws {
-        let file = Binding(wrappedValue: CartographyMapFile(map: .sampleFile))
+        let file = Binding(wrappedValue: CartographyMapFile(withManifest: .sampleFile))
         let viewModel = Binding(wrappedValue: CartographyMapViewModel())
         let sidebar = CartographyMapSidebar(viewModel: viewModel, file: file)
 
@@ -29,7 +29,7 @@ struct CartographyMapSidebarTests {
 
     @Test
     func sidebarSearchResults() async throws {
-        let file = Binding(wrappedValue: CartographyMapFile(map: .sampleFile))
+        let file = Binding(wrappedValue: CartographyMapFile(withManifest: .sampleFile))
         let viewModel = Binding(wrappedValue: CartographyMapViewModel())
         let sidebar = CartographyMapSidebar(viewModel: viewModel, file: file)
 
@@ -52,25 +52,25 @@ struct CartographyMapSidebarTests {
     }
 
     @Test func pushToRecentLocations() throws {
-        let file = Binding(wrappedValue: CartographyMapFile(map: .sampleFile))
+        let file = Binding(wrappedValue: CartographyMapFile(withManifest: .sampleFile))
         let viewModel = Binding(wrappedValue: CartographyMapViewModel())
         let sidebar = CartographyMapSidebar(viewModel: viewModel, file: file)
 
         sidebar.pushToRecentLocations(.zero)
-        #expect(file.wrappedValue.map.recentLocations?.count == 1)
+        #expect(file.wrappedValue.manifest.recentLocations?.count == 1)
         #expect(viewModel.wrappedValue.currentRoute == .recent(.zero))
     }
 
     @Test func pushToRecentLocationsPurgesRecent() throws {
-        var filledFile = CartographyMapFile(map: .sampleFile)
-        filledFile.map.recentLocations = Array(repeating: .zero, count: 15)
+        var filledFile = CartographyMapFile(withManifest: .sampleFile)
+        filledFile.manifest.recentLocations = Array(repeating: .zero, count: 15)
         let file = Binding(wrappedValue: filledFile)
         let viewModel = Binding(wrappedValue: CartographyMapViewModel())
         let sidebar = CartographyMapSidebar(viewModel: viewModel, file: file)
 
         sidebar.pushToRecentLocations(.init(x: 11, y: 11))
-        #expect(file.wrappedValue.map.recentLocations?.count == 15)
-        #expect(file.wrappedValue.map.recentLocations?.last == .init(x: 11, y: 11))
+        #expect(file.wrappedValue.manifest.recentLocations?.count == 15)
+        #expect(file.wrappedValue.manifest.recentLocations?.last == .init(x: 11, y: 11))
     }
 }
 

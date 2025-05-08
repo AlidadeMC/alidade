@@ -107,7 +107,7 @@ struct PinnedLibrarySection: View {
 
     private var deletionPinName: String {
         if let deletionIndex {
-            return file.map.pins[deletionIndex].name
+            return file.manifest.pins[deletionIndex].name
         }
         return String(localized: "this pin")
     }
@@ -116,8 +116,8 @@ struct PinnedLibrarySection: View {
         to color: CartographyMapPin.Color,
         where predicate: @escaping (CartographyMapPin) -> Bool
     ) {
-        for (index, pin) in file.map.pins.enumerated() where predicate(pin) {
-            file.map.pins[index].color = color
+        for (index, pin) in file.manifest.pins.enumerated() where predicate(pin) {
+            file.manifest.pins[index].color = color
         }
     }
 }

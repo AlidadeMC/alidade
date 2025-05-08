@@ -25,24 +25,26 @@ struct MapEditorFormSheet: View {
 
     var body: some View {
         NavigationStack {
-            MapCreatorForm(worldName: $file.map.name, mcVersion: $file.map.mcVersion, seed: $file.map.seed)
-                .formStyle(.grouped)
-                .navigationTitle("Update World")
-                #if os(iOS)
-                    .navigationBarBackButtonHidden()
-                #endif
-                .toolbar {
-                    ToolbarItem(placement: .confirmationAction) {
-                        Button("Done") {
-                            onSubmitChanges?()
-                        }
-                    }
-                    ToolbarItem(placement: .cancellationAction) {
-                        Button("Cancel") {
-                            onCancelChanges?()
-                        }
+            MapCreatorForm(
+                worldName: $file.manifest.name, mcVersion: $file.manifest.mcVersion, seed: $file.manifest.seed
+            )
+            .formStyle(.grouped)
+            .navigationTitle("Update World")
+            #if os(iOS)
+                .navigationBarBackButtonHidden()
+            #endif
+            .toolbar {
+                ToolbarItem(placement: .confirmationAction) {
+                    Button("Done") {
+                        onSubmitChanges?()
                     }
                 }
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("Cancel") {
+                        onCancelChanges?()
+                    }
+                }
+            }
         }
     }
 }

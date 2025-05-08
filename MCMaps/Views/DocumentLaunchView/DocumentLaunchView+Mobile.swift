@@ -37,7 +37,7 @@ import SwiftUI
                             .toolbar {
                                 ToolbarItem(placement: .confirmationAction) {
                                     Button("Create") {
-                                        let file: CartographyMapFile = .init(map: viewModel.proxyMap.wrappedValue)
+                                        let file = CartographyMapFile(withManifest: viewModel.proxyMap.wrappedValue)
                                         creationContinuation?
                                             .resume(returning: file)
                                         creationContinuation = nil

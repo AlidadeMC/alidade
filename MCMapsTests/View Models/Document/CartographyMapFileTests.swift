@@ -13,9 +13,9 @@ import Testing
 struct CartographyMapFileTests {
     @Test(.tags(.document))
     func initEmpty() async throws {
-        let file = CartographyMapFile(map: .sampleFile)
+        let file = CartographyMapFile(withManifest: .sampleFile)
 
-        #expect(file.map == .sampleFile)
+        #expect(file.manifest == .sampleFile)
     }
 
     @Test(.tags(.document))
@@ -26,11 +26,11 @@ struct CartographyMapFileTests {
         }
         let file = try CartographyMapFile(decoding: map)
 
-        #expect(file.map.name == "Pack.mcmeta")
-        #expect(file.map.mcVersion == "1.2")
-        #expect(file.map.seed == 3_257_840_388_504_953_787)
-        #expect(file.map.pins.count == 2)
-        #expect(file.map.recentLocations?.count == 1)
+        #expect(file.manifest.name == "Pack.mcmeta")
+        #expect(file.manifest.mcVersion == "1.2")
+        #expect(file.manifest.seed == 3_257_840_388_504_953_787)
+        #expect(file.manifest.pins.count == 2)
+        #expect(file.manifest.recentLocations?.count == 1)
     }
 
     @Test(.tags(.document))
@@ -44,7 +44,7 @@ struct CartographyMapFileTests {
         let wrapper = try file.wrapper()
 
         let newFile = try CartographyMapFile(fileWrappers: wrapper.fileWrappers)
-        #expect(newFile.map == file.map)
+        #expect(newFile.manifest == file.manifest)
         #expect(newFile.images == ["foo.png": Data()])
     }
 
@@ -85,29 +85,29 @@ struct CartographyMapFileTests {
 
     @Test(.tags(.document))
     func pinDeletesAtIndex() async throws {
-        var file = CartographyMapFile(map: .sampleFile, images: [
+        var file = CartographyMapFile(withManifest: .sampleFile, images: [
             "foo.png": Data()
         ])
-        file.map.pins[0].images = ["foo.png"]
-        file.removePin(at: file.map.pins.startIndex)
+        file.manifest.pins[0].images = ["foo.png"]
+        file.removePin(at: file.manifest.pins.startIndex)
         #expect(file.images["foo.png"] == nil)
         #expect(file.images.isEmpty)
-        #expect(file.map.pins.isEmpty)
+        #expect(file.manifest.pins.isEmpty)
     }
 
     @Test(.tags(.document))
     func pinDeletesAtOffsets() async throws {
-        var file = CartographyMapFile(map: .sampleFile, images: [
+        var file = CartographyMapFile(withManifest: .sampleFile, images: [
             "foo.png": Data(),
             "bar.png": Data()
         ])
-        file.map.pins[0].images = ["foo.png"]
-        file.map.pins.append(.init(position: .init(x: 2, y: 2), name: "Don't delete me"))
-        file.map.pins.append(.init(position: .zero, name: "Alt Point", images: ["bar.png"]))
+        file.manifest.pins[0].images = ["foo.png"]
+        file.manifest.pins.append(CartographyMapPin(position: .init(x: 2, y: 2), name: "Don't delete me"))
+        file.manifest.pins.append(CartographyMapPin(position: .zero, name: "Alt Point", images: ["bar.png"]))
         file.removePins(at: [0, 2])
         #expect(file.images.isEmpty)
-        #expect(file.map.pins.count == 1)
-        #expect(file.map.pins[0].name == "Don't delete me")
+        #expect(file.manifest.pins.count == 1)
+        #expect(file.manifest.pins[0].name == "Don't delete me")
     }
 }
 

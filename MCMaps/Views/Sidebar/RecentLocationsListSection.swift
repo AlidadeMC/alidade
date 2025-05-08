@@ -18,7 +18,7 @@ struct RecentLocationsListSection: View {
     @Binding var file: CartographyMapFile
 
     private var recentLocations: [CGPoint] {
-        file.map.recentLocations ?? []
+        file.manifest.recentLocations ?? []
     }
 
     /// A handler that executes when the player has requested to go to a specific location.
@@ -41,7 +41,7 @@ struct RecentLocationsListSection: View {
                 }
                 .swipeActions(edge: .trailing) {
                     Button {
-                        file.map.recentLocations?.remove(at: idx)
+                        file.manifest.recentLocations?.remove(at: idx)
                     } label: {
                         Label("Remove from Recents", systemImage: "trash")
                     }
@@ -60,7 +60,7 @@ struct RecentLocationsListSection: View {
                         Label("Go Here", systemImage: "location")
                     }
                     Button("Remove from Recents", role: .destructive) {
-                        file.map.recentLocations?.remove(at: idx)
+                        file.manifest.recentLocations?.remove(at: idx)
                     }
                 }
                 #if os(iOS)
@@ -69,7 +69,7 @@ struct RecentLocationsListSection: View {
                 #endif
             }
             .onDelete { indexSet in
-                file.map.recentLocations?.remove(atOffsets: indexSet)
+                file.manifest.recentLocations?.remove(atOffsets: indexSet)
             }
         }
     }

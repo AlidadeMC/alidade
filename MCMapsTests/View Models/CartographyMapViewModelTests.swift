@@ -42,7 +42,7 @@ struct CartographyMapViewModelTests {
     @Test(.timeLimit(.minutes(1)), .tags(.viewModel))
     func viewModelGoesToPosition() async throws {
         let viewModel = await CartographyMapViewModel()
-        let file = CartographyMapFile(map: .sampleFile)
+        let file = CartographyMapFile(withManifest: .sampleFile)
         #expect(await viewModel.worldRange.origin == .init(x: 0, y: 15, z: 0))
 
         await viewModel.go(to: .init(x: 1847, y: 1847), relativeTo: file)
@@ -52,7 +52,7 @@ struct CartographyMapViewModelTests {
     @Test(.timeLimit(.minutes(1)), .tags(.viewModel))
     func viewModelSubmitsWorldChanges() async throws {
         let viewModel = await CartographyMapViewModel()
-        let file = CartographyMapFile(map: .sampleFile)
+        let file = CartographyMapFile(withManifest: .sampleFile)
 
         await MainActor.run {
             viewModel.currentRoute = .editWorld

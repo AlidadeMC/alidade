@@ -78,7 +78,7 @@ class CartographySearchService {
             }
         }
 
-        for pin in file.map.pins {
+        for pin in file.manifest.pins {
             guard pin.name.lowercased().contains(query.lowercased()) else {
                 continue
             }
@@ -111,7 +111,7 @@ class CartographySearchService {
 
         results.biomes = searchBiomes(
             query: query,
-            mcVersion: file.map.mcVersion,
+            mcVersion: file.manifest.mcVersion,
             world: world,
             pos: currentPosition,
             dimension: dimension

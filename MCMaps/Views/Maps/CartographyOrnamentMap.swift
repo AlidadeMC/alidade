@@ -45,13 +45,13 @@ struct CartographyOrnamentMap: View {
     var body: some View {
         OrnamentedView {
             Group {
-                if let world = try? MinecraftWorld(version: file.map.mcVersion, seed: file.map.seed) {
+                if let world = try? MinecraftWorld(version: file.manifest.mcVersion, seed: file.manifest.seed) {
                     MinecraftMap(
                         world: world,
                         centerCoordinate: $centerCoordinate,
                         dimension: viewModel.worldDimension
                     ) {
-                        file.map.pins.map { pin in
+                        file.manifest.pins.map { pin in
                             Marker(
                                 location: pin.position,
                                 title: pin.name,

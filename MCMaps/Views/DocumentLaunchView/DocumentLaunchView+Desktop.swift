@@ -146,7 +146,7 @@ import SwiftUI
                         let openPanel = NSOpenPanel()
                         openPanel.canDownloadUbiquitousContents = true
                         openPanel.allowsMultipleSelection = false
-                        openPanel.allowedContentTypes = [.cartography]
+                        openPanel.allowedContentTypes = [.mcmap]
                         openPanel.begin { resp in
                             if resp == .OK, let url = openPanel.url {
                                 openDocument(at: url)
@@ -203,7 +203,7 @@ import SwiftUI
         private func createDocument() {
 //            viewModel.proxyMap.wrappedValue.pins.append(CartographyMapPin(position: .zero, name: "Spawn Point"))
             viewModel.proxyMap.wrappedValue.recentLocations?.append(.zero)
-            let newFile = CartographyMapFile(map: viewModel.proxyMap.wrappedValue)
+            let newFile = CartographyMapFile(withManifest: viewModel.proxyMap.wrappedValue)
             newDocument(newFile)
             viewModel.displayCreationWindow.wrappedValue = false
             Task {

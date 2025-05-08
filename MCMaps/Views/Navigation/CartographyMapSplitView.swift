@@ -23,8 +23,8 @@ struct CartographyMapSplitView: View {
     @Binding var file: CartographyMapFile
 
     private var subtitle: String {
-        let seed = String(file.map.seed)
-        return "\(file.map.name) - Minecraft \(file.map.mcVersion) | Seed: " + seed
+        let seed = String(file.manifest.seed)
+        return "\(file.manifest.name) - Minecraft \(file.manifest.mcVersion) | Seed: " + seed
     }
 
     var body: some View {
@@ -37,7 +37,7 @@ struct CartographyMapSplitView: View {
                     switch viewModel.currentRoute {
                     case let .pin(index, _):
                         Group {
-                            if (file.map.pins.indices).contains(index) {
+                            if (file.manifest.pins.indices).contains(index) {
                                 CartographyMapPinDetailView(
                                     viewModel: CartographyPinViewModel(
                                         file: $file, index: index))

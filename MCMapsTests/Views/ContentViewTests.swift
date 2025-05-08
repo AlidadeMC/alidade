@@ -14,7 +14,7 @@ import ViewInspector
 @MainActor
 struct ContentViewTests {
     @Test func contentViewInit() async throws {
-        let file = Binding(wrappedValue: CartographyMapFile(map: .sampleFile))
+        let file = Binding(wrappedValue: CartographyMapFile(withManifest: .sampleFile))
         let view = ContentView(file: file)
 
         #expect(view.testHooks.displaySidebarSheet == false)

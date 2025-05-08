@@ -45,7 +45,7 @@ struct MCMapsApp: App {
     }
 
     var body: some Scene {
-        DocumentGroup(newDocument: CartographyMapFile(map: .sampleFile)) { configuration in
+        DocumentGroup(newDocument: CartographyMapFile(withManifest: .sampleFile)) { configuration in
             ContentView(file: configuration.$document)
                 .toolbarRole(.editor)
                 #if os(iOS)

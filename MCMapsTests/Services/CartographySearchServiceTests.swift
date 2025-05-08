@@ -15,7 +15,7 @@ struct CartographySearchServiceTests {
     @Test("Empty query")
     func searchReturnsNoResultsOnEmptyQuery() async throws {
         let world = try MinecraftWorld(version: "1.21.3", seed: 123)
-        let file = CartographyMapFile(map: .sampleFile)
+        let file = CartographyMapFile(withManifest: .sampleFile)
         let service = CartographySearchService()
 
         let results = await service.search("", world: world, file: file)
@@ -25,7 +25,7 @@ struct CartographySearchServiceTests {
     @Test(arguments: ["Spawn", "spawn", "Spa", "awn"])
     func searchReturnsPinsByName(query: String) async throws {
         let world = try MinecraftWorld(version: "1.21.3", seed: 123)
-        let file = CartographyMapFile(map: .sampleFile)
+        let file = CartographyMapFile(withManifest: .sampleFile)
         let service = CartographySearchService()
 
         let results = await service.search(query, world: world, file: file)
@@ -42,7 +42,7 @@ struct CartographySearchServiceTests {
     )
     func searchReturnsJumpingLink(query: String, position: CGPoint) async throws {
         let world = try MinecraftWorld(version: "1.21.3", seed: 123)
-        let file = CartographyMapFile(map: .sampleFile)
+        let file = CartographyMapFile(withManifest: .sampleFile)
         let service = CartographySearchService()
 
         let results = await service.search(query, world: world, file: file)
@@ -52,7 +52,7 @@ struct CartographySearchServiceTests {
 
     @Test func searchReturnsNearbyStructures() async throws {
         let world = try MinecraftWorld(version: "1.21.3", seed: 123)
-        let file = CartographyMapFile(map: .sampleFile)
+        let file = CartographyMapFile(withManifest: .sampleFile)
         let service = CartographySearchService()
 
         let results = await service.search(
@@ -63,7 +63,7 @@ struct CartographySearchServiceTests {
 
     @Test func searchReturnsNearbyBiomes() async throws {
         let world = try MinecraftWorld(version: "1.21.3", seed: 123)
-        let file = CartographyMapFile(map: .sampleFile)
+        let file = CartographyMapFile(withManifest: .sampleFile)
         let service = CartographySearchService()
         let results = await service.search("Frozen River", world: world, file: file, currentPosition: .zero)
         #expect(!results.biomes.isEmpty)

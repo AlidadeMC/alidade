@@ -214,7 +214,7 @@ struct CartographyMapPinDetailView: View {
 }
 
 #Preview {
-    @Previewable @State var file = CartographyMapFile(map: .sampleFile)
+    @Previewable @State var file = CartographyMapFile(withManifest: .sampleFile)
     NavigationStack {
         CartographyMapPinDetailView(viewModel: .init(file: $file, index: 0))
     }

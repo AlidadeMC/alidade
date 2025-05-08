@@ -65,7 +65,7 @@ struct CartographyMapSidebar: View {
         .searchFocused($searchFocused)
         .animation(.default, value: searchingState)
         .onAppear {
-            if file.map.pins.isEmpty {
+            if file.manifest.pins.isEmpty {
                 Task {
                     await PinActionOnboardingTip.libraryEmpty.donate()
                 }
@@ -98,7 +98,7 @@ struct CartographyMapSidebar: View {
                 searchingState = .initial
             }
         }
-        .onChange(of: file.map.pins) { _, newValue in
+        .onChange(of: file.manifest.pins) { _, newValue in
             if !newValue.isEmpty {
                 LocalTips.emptyLibrary.invalidate(reason: .actionPerformed)
             }
@@ -192,10 +192,10 @@ struct CartographyMapSidebar: View {
                 .tipViewStyle(.miniTip)
                 .listRowSeparator(.hidden)
                 .listRowBackground(Color.clear)
-            if !file.map.pins.isEmpty {
-                PinnedLibrarySection(pins: file.map.pins, viewModel: $viewModel, file: $file)
+            if !file.manifest.pins.isEmpty {
+                PinnedLibrarySection(pins: file.manifest.pins, viewModel: $viewModel, file: $file)
             }
-            if file.map.recentLocations?.isEmpty == false {
+            if file.manifest.recentLocations?.isEmpty == false {
                 RecentLocationsListSection(viewModel: $viewModel, file: $file) { (position: CGPoint) in
                     viewModel.go(to: position, relativeTo: file)
                 }
@@ -204,17 +204,17 @@ struct CartographyMapSidebar: View {
     }
 
     private var world: MinecraftWorld? {
-        try? MinecraftWorld(version: file.map.mcVersion, seed: file.map.seed)
+        try? MinecraftWorld(version: file.manifest.mcVersion, seed: file.manifest.seed)
     }
 
     func pushToRecentLocations(_ position: CGPoint) {
-        if file.map.recentLocations == nil {
-            file.map.recentLocations = [position]
+        if file.manifest.recentLocations == nil {
+            file.manifest.recentLocations = [position]
             return
         }
-        file.map.recentLocations?.append(position)
-        if (file.map.recentLocations?.count ?? 0) > 15 {
-            file.map.recentLocations?.remove(at: 0)
+        file.manifest.recentLocations?.append(position)
+        if (file.manifest.recentLocations?.count ?? 0) > 15 {
+            file.manifest.recentLocations?.remove(at: 0)
         }
         viewModel.currentRoute = .recent(position)
     }
