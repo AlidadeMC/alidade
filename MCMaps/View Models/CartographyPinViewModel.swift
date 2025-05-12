@@ -33,7 +33,7 @@ class CartographyPinViewModel {
     /// The pin that will be edited through this view model.
     ///
     /// Changes to this property will automatically propagate to the file.
-    var pin: Binding<CartographyMapPin>
+    var pin: Binding<MCMapManifestPin>
 
     /// A binding to the pin's about description.
     ///

@@ -22,10 +22,10 @@ struct CartographyMapPinColorPicker: View {
     }
 
     /// The color the picker will select.
-    @Binding var color: CartographyMapPin.Color?
+    @Binding var color: MCMapManifestPin.Color?
 
     var body: some View {
-        ForEach(CartographyMapPin.Color.allCases, id: \.self) { pinColor in
+        ForEach(MCMapManifestPin.Color.allCases, id: \.self) { pinColor in
             Button {
                 color = pinColor
             } label: {

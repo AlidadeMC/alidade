@@ -12,7 +12,7 @@ import SwiftUI
 /// This is normally invoked from ``CartographyMapSidebar`` and is almost never instantiated on its own.
 struct PinnedLibrarySection: View {
     /// The player-created pins to display.
-    var pins: [CartographyMapPin]
+    var pins: [MCMapManifestPin]
 
     /// The view model the sidebar will interact with.
     @Binding var viewModel: CartographyMapViewModel
@@ -21,11 +21,11 @@ struct PinnedLibrarySection: View {
     @Binding var file: CartographyMapFile
 
     @State private var displayDeletionPrompt = false
-    @State private var deletionIndex: [CartographyMapPin].Index?
+    @State private var deletionIndex: [MCMapManifestPin].Index?
 
     var body: some View {
         Section("Library") {
-            ForEach(Array(pins.enumerated()), id: \.element) { (idx: Int, pin: CartographyMapPin) in
+            ForEach(Array(pins.enumerated()), id: \.element) { (idx: Int, pin: MCMapManifestPin) in
                 NavigationLink(value: CartographyRoute.pin(idx, pin: pin)) {
                     CartographyNamedLocationView(pin: pin)
                         .tag(CartographyRoute.pin(idx, pin: pin))
@@ -113,8 +113,8 @@ struct PinnedLibrarySection: View {
     }
 
     private func recolorPins(
-        to color: CartographyMapPin.Color,
-        where predicate: @escaping (CartographyMapPin) -> Bool
+        to color: MCMapManifestPin.Color,
+        where predicate: @escaping (MCMapManifestPin) -> Bool
     ) {
         for (index, pin) in file.manifest.pins.enumerated() where predicate(pin) {
             file.manifest.pins[index].color = color

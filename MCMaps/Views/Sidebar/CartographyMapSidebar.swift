@@ -204,7 +204,7 @@ struct CartographyMapSidebar: View {
     }
 
     private var world: MinecraftWorld? {
-        try? MinecraftWorld(version: file.manifest.mcVersion, seed: file.manifest.seed)
+        try? MinecraftWorld(version: file.manifest.worldSettings.version, seed: file.manifest.worldSettings.seed)
     }
 
     func pushToRecentLocations(_ position: CGPoint) {

@@ -45,7 +45,10 @@ struct CartographyOrnamentMap: View {
     var body: some View {
         OrnamentedView {
             Group {
-                if let world = try? MinecraftWorld(version: file.manifest.mcVersion, seed: file.manifest.seed) {
+                if let world = try? MinecraftWorld(
+                    version: file.manifest.worldSettings.version,
+                    seed: file.manifest.worldSettings.seed
+                ) {
                     MinecraftMap(
                         world: world,
                         centerCoordinate: $centerCoordinate,

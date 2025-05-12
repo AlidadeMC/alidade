@@ -19,11 +19,8 @@ struct MapCreatorForm: View {
     /// A binding to the name of the world.
     @Binding var worldName: String
 
-    /// A binding to the Minecraft version used for world generation.
-    @Binding var mcVersion: String
-
-    /// A binding to the seed used for world generation.
-    @Binding var seed: Int64
+    /// A binding to the world settings for a Minecraft world.
+    @Binding var worldSettings: MCMapManifestWorldSettings
 
     @State private var seedString = ""
     @State private var invalidVersion = false
@@ -62,16 +59,16 @@ struct MapCreatorForm: View {
             }
             .onChange(of: version) { _, newValue in
                 if let verString = String(newValue) {
-                    self.mcVersion = verString
+                    worldSettings.version = verString
                 }
             }
             .onChange(of: seedString) { _, newValue in
                 if let realNumber = Int64(newValue) {
-                    seed = realNumber
+                    worldSettings.seed = realNumber
                     autoconvert = false
                 } else {
                     let isEmptyField = newValue == ""
-                    seed = isEmptyField ? 0 : Int64(newValue.hashValue)
+                    worldSettings.seed = isEmptyField ? 0 : Int64(newValue.hashValue)
                     autoconvert = !isEmptyField
                 }
             }
@@ -83,8 +80,8 @@ struct MapCreatorForm: View {
             #endif
         }
         .onAppear {
-            version = MinecraftVersion(mcVersion)
-            seedString = String(seed)
+            version = MinecraftVersion(worldSettings.version)
+            seedString = String(worldSettings.seed)
             #if DEBUG
                 self.didAppear?(self)
             #endif
@@ -123,10 +120,10 @@ extension LabelStyle where Self == MultilineAlertLabelStyle {
 
 #Preview {
     @Previewable @State var worldName = "Hello World"
-    @Previewable @State var mcVersion = "1.21.3"
+    @Previewable @State var worldSettings = MCMapManifestWorldSettings(version: "1.21", seed: 123)
     @Previewable @State var seed: Int64 = 123
     NavigationStack {
-        MapCreatorForm(worldName: $worldName, mcVersion: $mcVersion, seed: $seed)
+        MapCreatorForm(worldName: $worldName, worldSettings: $worldSettings)
             .navigationTitle("New World")
     }
 }

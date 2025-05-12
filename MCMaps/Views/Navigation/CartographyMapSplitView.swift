@@ -23,8 +23,8 @@ struct CartographyMapSplitView: View {
     @Binding var file: CartographyMapFile
 
     private var subtitle: String {
-        let seed = String(file.manifest.seed)
-        return "\(file.manifest.name) - Minecraft \(file.manifest.mcVersion) | Seed: " + seed
+        let seed = String(file.manifest.worldSettings.seed)
+        return "\(file.manifest.name) - Minecraft \(file.manifest.worldSettings.version) | Seed: " + seed
     }
 
     var body: some View {

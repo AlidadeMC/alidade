@@ -1,8 +1,8 @@
 //
-//  CartographyMap.swift
+//  MCMapManifest_PreVersioning.swift
 //  MCMaps
 //
-//  Created by Marquis Kurt on 31-01-2025.
+//  Created by Marquis Kurt on 12-05-2025.
 //
 
 import Foundation
@@ -10,13 +10,15 @@ import VersionedCodable
 
 /// A representation of the basic Minecraft world map.
 ///
-/// This is the default manifest structure if no specific version was provided.
+/// This is the default manifest structure if no version was provided at all.
 ///
 /// > Important: Unless specifying this version is strictly required, refer to the ``MCMapManifest`` type instead,
 /// > which points to the latest version.
-struct CartographyMap: Codable, Hashable, Sendable {
-    /// The Minecraft world map package version.
-    var manifestVersion: Int? = 1
+struct MCMapManifest_PreVersioning: Codable, Hashable, Sendable {
+    /// The version of the Minecraft map manifest file.
+    ///
+    /// This is set to nil, since this structure represents versions of the file that did _not_ include the version.
+    var manifestVersion: Int?
 
     /// The seed used to generate the world in-game.
     var seed: Int64
@@ -32,7 +34,7 @@ struct CartographyMap: Codable, Hashable, Sendable {
     var name: String
 
     /// A list of player-created pins for notable areas in the world.
-    var pins: [CartographyMapPin]
+    var pins: [MCMapManifestPin]
 
     /// A stack containing the most recent locations visited.
     ///
@@ -40,14 +42,14 @@ struct CartographyMap: Codable, Hashable, Sendable {
     var recentLocations: [CGPoint]? = []
 }
 
-extension CartographyMap: VersionedCodable {
+extension MCMapManifest_PreVersioning: VersionedCodable {
     typealias PreviousVersion = NothingEarlier
     typealias VersionSpec = CartographyMapVersionSpec
 
-    static let version: Int? = 1
+    static let version: Int? = nil
 }
 
-extension CartographyMap: MCMapManifestProviding {
+extension MCMapManifest_PreVersioning: MCMapManifestProviding {
     /// The world settings associated with this Minecraft world map.
     ///
     /// This property is a "punch-up" migratory property used to handle forwards compatibility with newer manifest
@@ -63,12 +65,11 @@ extension CartographyMap: MCMapManifestProviding {
     /// A sample file used for debugging, testing, and preview purposes.
     ///
     /// This might also be used to create a map quickly via a template.
-    static let sampleFile = CartographyMap(
-        manifestVersion: 1,
+    static let sampleFile = MCMapManifest_PreVersioning(
         seed: 123,
         mcVersion: "1.21.3",
         name: "My World",
         pins: [
-            CartographyMapPin(position: .init(x: 0, y: 0), name: "Spawn")
+            MCMapManifestPin(position: .init(x: 0, y: 0), name: "Spawn")
         ])
 }

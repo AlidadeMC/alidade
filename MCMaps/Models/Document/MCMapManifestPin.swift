@@ -8,7 +8,7 @@
 import SwiftUI
 
 /// A representation of a player-placed map pin.
-struct CartographyMapPin: Codable, Hashable {
+struct MCMapManifestPin: Codable, Hashable {
     /// An enumeration representing the various colors a player can assign a pin to.
     ///
     /// When being encoded to and decoded from, they are represented as strings. For example, ``blue`` corresponds to

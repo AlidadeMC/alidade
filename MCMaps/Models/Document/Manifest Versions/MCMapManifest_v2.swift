@@ -30,7 +30,7 @@ struct MCMapManifest_v2: Codable, Hashable, Sendable {
     var worldSettings: MCMapManifestWorldSettings
 
     /// A list of player-created pins for notable areas in the world.
-    var pins: [CartographyMapPin]
+    var pins: [MCMapManifestPin]
 
     /// A stack containing the most recent locations visited.
     ///
@@ -39,7 +39,7 @@ struct MCMapManifest_v2: Codable, Hashable, Sendable {
 }
 
 extension MCMapManifest_v2: VersionedCodable {
-    typealias PreviousVersion = CartographyMap
+    typealias PreviousVersion = MCMapManifest_v1
     typealias VersionSpec = CartographyMapVersionSpec
 
     static let version: Int?  = 2
@@ -81,7 +81,7 @@ extension MCMapManifest_v2: MCMapManifestProviding {
         name: "My World",
         worldSettings: MCMapManifestWorldSettings(version: "1.21.3", seed: 123),
         pins: [
-            CartographyMapPin(position: .zero, name: "Spawn")
+            MCMapManifestPin(position: .zero, name: "Spawn")
         ]
     )
 }

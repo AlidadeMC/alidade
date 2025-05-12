@@ -16,7 +16,7 @@ class CartographySearchService {
     /// A structure representing a set of results the search service has returned.
     struct SearchResult: Sendable, Equatable {
         /// The pins that matched a given query.
-        var pins: [CartographyMapPin]
+        var pins: [MCMapManifestPin]
 
         /// The coordinates that matched a given query.
         ///
@@ -25,10 +25,10 @@ class CartographySearchService {
         var coordinates: [CGPoint]
 
         /// Nearby biomes that matched within the specified radius.
-        var biomes: [CartographyMapPin]
+        var biomes: [MCMapManifestPin]
 
         /// Nearby structures that matched within the specified radius.
-        var structures: [CartographyMapPin]
+        var structures: [MCMapManifestPin]
 
         /// Whether the search results are completely empty.
         var isEmpty: Bool {
@@ -95,7 +95,7 @@ class CartographySearchService {
             for foundStruct in foundStructures {
                 results.structures
                     .append(
-                        CartographyMapPin(
+                        MCMapManifestPin(
                             position: CGPoint(x: Double(foundStruct.x), y: Double(foundStruct.z)),
                             name: structure.name,
                             color: structure.pinColor)
@@ -111,7 +111,7 @@ class CartographySearchService {
 
         results.biomes = searchBiomes(
             query: query,
-            mcVersion: file.manifest.mcVersion,
+            mcVersion: file.manifest.worldSettings.version,
             world: world,
             pos: currentPosition,
             dimension: dimension
@@ -123,7 +123,7 @@ class CartographySearchService {
     private func searchBiomes(
         query: String, mcVersion: String, world: MinecraftWorld, pos: Point3D<Int32>,
         dimension: MinecraftWorld.Dimension
-    ) -> [CartographyMapPin] {
+    ) -> [MCMapManifestPin] {
         guard let biome = MinecraftBiome(localizedString: query, mcVersion: mcVersion) else {
             return []
         }
@@ -135,7 +135,7 @@ class CartographySearchService {
         )
         let name = biome.localizedString(for: world.version)
         var biomes = foundBiomes.map { foundBiome in
-            CartographyMapPin(
+            MCMapManifestPin(
                 position: CGPoint(x: Double(foundBiome.x), y: Double(foundBiome.z)),
                 name: name)
         }

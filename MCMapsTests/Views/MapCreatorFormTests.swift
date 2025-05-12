@@ -19,10 +19,11 @@ struct MapCreatorFormTests {
     // field.
 
     @Test func formInitializes() throws {
-        let worldName: Binding<String> = .init(wrappedValue: "My World")
-        let minecraftVersion: Binding<String> = .init(wrappedValue: "1.21")
-        let minecraftSeed: Binding<Int64> = .init(wrappedValue: 123)
-        let view = MapCreatorForm(worldName: worldName, mcVersion: minecraftVersion, seed: minecraftSeed) { newView in
+        let worldName = Binding<String>(wrappedValue: "My World")
+        let worldSettings = Binding<MCMapManifestWorldSettings>(
+            wrappedValue: MCMapManifestWorldSettings(version: "1.21", seed: 123)
+        )
+        let view = MapCreatorForm(worldName: worldName, worldSettings: worldSettings) { newView in
             #expect(newView.testHooks.seedString == "123")
         }
         defer { ViewHosting.expel() }

@@ -112,7 +112,7 @@ struct CartographyMapFile: Sendable, Equatable {
 
     /// Removes a player-created pin at a given index, deleting associated images with it.
     /// - Parameter index: The index of the pin to remove from the library.
-    mutating func removePin(at index: [CartographyMapPin].Index) {
+    mutating func removePin(at index: [MCMapManifestPin].Index) {
         guard manifest.pins.indices.contains(index) else { return }
         let pin = manifest.pins[index]
         if let images = pin.images {

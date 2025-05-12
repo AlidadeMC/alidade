@@ -13,7 +13,7 @@ import ViewInspector
 
 struct CartographyPinViewModelTests {
     private struct PinModifierView: View {
-        @Binding var pin: CartographyMapPin
+        @Binding var pin: MCMapManifestPin
 
         var body: some View {
             Text(pin.name)

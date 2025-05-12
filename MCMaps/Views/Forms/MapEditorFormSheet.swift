@@ -25,9 +25,7 @@ struct MapEditorFormSheet: View {
 
     var body: some View {
         NavigationStack {
-            MapCreatorForm(
-                worldName: $file.manifest.name, mcVersion: $file.manifest.mcVersion, seed: $file.manifest.seed
-            )
+            MapCreatorForm(worldName: $file.manifest.name, worldSettings: $file.manifest.worldSettings)
             .formStyle(.grouped)
             .navigationTitle("Update World")
             #if os(iOS)

@@ -30,8 +30,7 @@ import SwiftUI
                     NavigationStack {
                         MapCreatorForm(
                             worldName: viewModel.proxyMap.name,
-                            mcVersion: viewModel.proxyMap.mcVersion,
-                            seed: viewModel.proxyMap.seed
+                            worldSettings: viewModel.proxyMap.worldSettings
                         )
                             .navigationTitle("Create Map")
                             .toolbar {

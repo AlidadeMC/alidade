@@ -115,8 +115,8 @@ struct CartographyMapFileTests {
             "bar.png": Data()
         ])
         file.manifest.pins[0].images = ["foo.png"]
-        file.manifest.pins.append(CartographyMapPin(position: .init(x: 2, y: 2), name: "Don't delete me"))
-        file.manifest.pins.append(CartographyMapPin(position: .zero, name: "Alt Point", images: ["bar.png"]))
+        file.manifest.pins.append(MCMapManifestPin(position: .init(x: 2, y: 2), name: "Don't delete me"))
+        file.manifest.pins.append(MCMapManifestPin(position: .zero, name: "Alt Point", images: ["bar.png"]))
         file.removePins(at: [0, 2])
         #expect(file.images.isEmpty)
         #expect(file.manifest.pins.count == 1)

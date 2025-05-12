@@ -12,17 +12,17 @@ import Testing
 
 struct CartographyMapPinTests {
     @Test(.tags(.document), arguments: [
-        (CartographyMapPin.Color.blue, Color.blue),
-        (CartographyMapPin.Color.brown, Color.brown),
-        (CartographyMapPin.Color.gray, Color.gray),
-        (CartographyMapPin.Color.green, Color.green),
-        (CartographyMapPin.Color.indigo, Color.indigo),
-        (CartographyMapPin.Color.orange, Color.orange),
-        (CartographyMapPin.Color.pink, Color.pink),
-        (CartographyMapPin.Color.red, Color.red),
-        (CartographyMapPin.Color.yellow, Color.yellow),
+        (MCMapManifestPin.Color.blue, Color.blue),
+        (MCMapManifestPin.Color.brown, Color.brown),
+        (MCMapManifestPin.Color.gray, Color.gray),
+        (MCMapManifestPin.Color.green, Color.green),
+        (MCMapManifestPin.Color.indigo, Color.indigo),
+        (MCMapManifestPin.Color.orange, Color.orange),
+        (MCMapManifestPin.Color.pink, Color.pink),
+        (MCMapManifestPin.Color.red, Color.red),
+        (MCMapManifestPin.Color.yellow, Color.yellow),
     ])
-    func pinColorMapsToSwiftUI(pinColor: CartographyMapPin.Color, swiftUIColor: Color) async throws {
+    func pinColorMapsToSwiftUI(pinColor: MCMapManifestPin.Color, swiftUIColor: Color) async throws {
         #expect(pinColor.swiftUIColor == swiftUIColor)
     }
 }

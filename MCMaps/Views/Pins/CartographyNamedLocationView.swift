@@ -55,7 +55,7 @@ struct CartographyNamedLocationView: View {
 
     /// Create a named location view using a player-created pin.
     /// - Parameter pin: The pin to create a named location view from.
-    init(pin: CartographyMapPin) {
+    init(pin: MCMapManifestPin) {
         self.name = pin.name
         self.location = pin.position
         self.color = pin.color?.swiftUIColor ?? .accent

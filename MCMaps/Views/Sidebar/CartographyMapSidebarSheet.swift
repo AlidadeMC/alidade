@@ -73,17 +73,12 @@ struct CartographyMapSidebarSheet<T: ToolbarContent>: View {
                     file.manifest.pins.append(newPin)
                 }
             case .editWorld:
-                MapCreatorForm(
-                    worldName: $file.manifest.name, mcVersion: $file.manifest.mcVersion, seed: $file.manifest.seed
-                )
+                MapCreatorForm(worldName: $file.manifest.name, worldSettings: $file.manifest.worldSettings)
                 .navigationTitle("Edit World")
                 .onDisappear {
                     viewModel.submitWorldChanges(to: file)
                 }
-                .onChange(of: file.manifest.mcVersion) { _, _ in
-                    viewModel.submitWorldChanges(to: file)
-                }
-                .onChange(of: file.manifest.seed) { _, _ in
+                .onChange(of: file.manifest.worldSettings) { _, _ in
                     viewModel.submitWorldChanges(to: file)
                 }
             default:
