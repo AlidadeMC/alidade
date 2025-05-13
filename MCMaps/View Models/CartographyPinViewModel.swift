@@ -25,7 +25,7 @@ import SwiftUI
 /// ```
 ///
 /// > Important: This view model should **not** be used to add or remove pins. Rather, this view model should be used
-/// > to update pins in-place, assuming its index in the ``CartographyMap/pins`` list is stable.
+/// > to update pins in-place, assuming its index in the ``MCMapManifest/pins`` list is stable.
 class CartographyPinViewModel {
     private var file: Binding<CartographyMapFile>
     private var index: Int
@@ -38,7 +38,7 @@ class CartographyPinViewModel {
     /// A binding to the pin's about description.
     ///
     /// This binding is intended to be used with text fields and editors to directly manipulate the about
-    /// description's text. It is a mirror of the ``CartographyMapPin/aboutDescription`` property, which will
+    /// description's text. It is a mirror of the ``MCMapManifestPin/aboutDescription`` property, which will
     /// automatically generate an empty string if the property wasn't defined before.
     var pinAboutDescription: Binding<String>
 

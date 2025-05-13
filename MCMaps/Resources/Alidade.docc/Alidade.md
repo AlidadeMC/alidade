@@ -67,13 +67,7 @@ contributors to read through.
 - <doc:UserGuide>
 - <doc:Changelog>
 - <doc:Building>
-
-### File Format
-
 - <doc:FileFormat>
-- ``CartographyMapFile``
-- ``MCMapManifest``
-- ``CartographyMapPin``
 
 ### Architecture and View Hierarchy
 

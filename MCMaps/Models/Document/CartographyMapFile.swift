@@ -22,6 +22,9 @@ extension UTType {
 ///
 /// This structure is used to open, edit, write, and save files through SwiftUI.
 struct CartographyMapFile: Sendable, Equatable {
+    /// A typealias representing the manifest for the current file.
+    typealias Manifest = MCMapManifest
+
     /// A typealias representing the mapping of image names to data blobs in the file.
     typealias ImageMap = [String: Data]
 
@@ -43,7 +46,7 @@ struct CartographyMapFile: Sendable, Equatable {
     }
 
     enum Constants {
-        /// The minimum manifest version to assign to a file if the ``CartographyMap/manifestVersion`` is undefined.
+        /// The minimum manifest version to assign to a file if the ``MCMapManifest/manifestVersion`` is undefined.
         ///
         /// This should be used when exporting or saving data to automatically "repair" or correct files that lack a
         /// manifest version key.
@@ -58,7 +61,7 @@ struct CartographyMapFile: Sendable, Equatable {
     ///
     /// > Note: When removing pins from the map, call ``removePin(at:)`` instead of directly removing the pin, as the
     /// > former ensures that any associated photos are removed.
-    var manifest: MCMapManifest
+    var manifest: Manifest
 
     /// The underlying Minecraft world map driven from the metadata.
     ///

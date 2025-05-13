@@ -33,7 +33,7 @@ across Mac, iPhone, and iPad.
 - **Fixed**: Changing the "Natural Colors" setting on a map wouldn't
   refresh the entire map.
 - To further ensure compatibility with future `.mcmap` package formats,
-  files saved in Alidade will now apply a ``CartographyMap/manifestVersion``
+  files saved in Alidade will now apply a ``MCMapManifest_v1/manifestVersion``
   key.
 
 ## 1.0 (Build 43)

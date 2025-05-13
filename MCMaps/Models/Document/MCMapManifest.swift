@@ -15,6 +15,14 @@ import VersionedCodable
 /// `decode(versioned:data:)` methods from `VersionedCodable`, respectively.
 typealias MCMapManifest = MCMapManifest_v2
 
+extension MCMapManifest {
+    /// A typealias that points to a player-created pin.
+    typealias Pin = MCMapManifestPin
+
+    /// A typealias that points to the manifest's world settings.
+    typealias WorldSettings = MCMapManifestWorldSettings
+}
+
 /// A protocol that defines a manifest file suitable for a Minecraft map package format.
 ///
 /// Manifests should be backwards-compatible using the `VersionedCodable` system and provide a sample file for use in
@@ -22,6 +30,9 @@ typealias MCMapManifest = MCMapManifest_v2
 protocol MCMapManifestProviding: VersionedCodable where VersionSpec == CartographyMapVersionSpec {
     /// The Minecraft map package world version.
     var manifestVersion: Int? { get set }
+
+    /// The name of the Minecraft world.
+    var name: String { get set }
 
     /// A sample file used for debugging, testing, and preview purposes.
     ///

@@ -11,7 +11,7 @@ import Foundation
 ///
 /// This structure was first introduced with ``MCMapManifest_v2`` as a means of better grouping world settings such as
 /// the Minecraft version and seed. The original version of the manifest has a migratory version of this with
-/// ``CartographyMap/worldSettings``.
+/// ``MCMapManifest_v1/worldSettings``.
 struct MCMapManifestWorldSettings: Codable, Hashable, Sendable {
     /// A string representing the Minecraft version used to generate the world.
     ///

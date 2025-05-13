@@ -1,7 +1,9 @@
 # Minecraft Map packages (.mcmap)
 
 @Metadata {
+    @TitleHeading("Specification")
     @PageImage(purpose: card, source: "Card-FileFormat")
+    @PageColor(purple)
 }
 
 Learn and understand the file format Alidade uses to read and write
@@ -61,39 +63,70 @@ My World.mcmap/
 ``CartographyMapFile/Keys/images``), containing various images, typically
 stored in the HEIC file format.
 
-## File Metadata
+<a name="File-metadata" />
 
-> Important: v2 of the manifest is a work in progress. Documentation here
-> might change over time to provide better organization.
+## The Manifest
 
-Metadata about the world is stored in the `Info.json` file
-(``CartographyMapFile/Keys/metadata``). This metadata can change and
-evolve over time, so it is always recommended to follow the keys
-provided in the ``MCMapManifest`` type, which always points to the latest
-manifest version.
+The `.mcmap` file contains a top-level file, `Info.json`, which provides
+critical metadata about the file. This file is known as the _manifest_,
+and it is heavily versioned.
 
-The ``MCMapManifest`` structure is used to handle the encoding and
-decoding of these values automatically. This data can be accessed through
-the ``CartographyMapFile/manifest`` property in the ``CartographyMapFile``.
-
-### Recent Locations
-
-The ``CartographyMap/recentLocations`` property is used to store recent
-locations the player has visited in the app. It contains a two-dimensional
-array of locations stored by their X and Z coordinates as numbers:
+The manifest will usually contain data such as the world's name, version,
+seed, and player-created pins. Depending on the manifest version, they can
+be stored in different locations or keys. At the time of writing, the
+latest stable version of the manifest is Version **1**; files without the
+``MCMapManifestProviding/manifestVersion`` key supplied are assumed to be
+this version.
 
 ```json
-"recentLocations" : [
-    [
-        -1099,
-        1099
-    ]
-]
+{
+    "manifestVersion": 2,
+    "name": "My World",
+    "world": {
+        "version": "1.21",
+        "seed": 123
+    },
+    "pins": [ ... ],
+    "recentLocations": [ ... ]
+}
 ```
 
-> Note: The recent locations list shouldn't contain more than a handful of
-> items. It should be treated as a queue, and older entries should be
-> removed from the list periodically.
+> SeeAlso: The latest version of the manifest can be accessed via
+> ``MCMapManifest``. Refer to its documentation to learn the differences
+> across versions.
+
+The manifest also contains a `name` property, which represents the name of
+the world, if it doesn't match the name of the file.
+
+### World settings
+
+Most manifest versions store world-specific information in the world
+settings object, denoted as `world`, which contains three required
+properties:
+
+- ``MCMapManifestWorldSettings/version``: (String) The version of
+  Minecraft: Java Edition used to create the world.
+- ``MCMapManifestWorldSettings/seed``: (Int) The seed used to generate the
+  Minecraft world.
+- ``MCMapManifestWorldSettings/largeBiomes``: (Bool) Whether to use the
+  "Large Biomes" setting to generate the world.
+
+> Note: In older manifest versions,
+> ``MCMapManifestWorldSettings/largeBiomes`` would always evaluate to
+> false, as those versions did not support this key.
+
+### Recent locations
+
+The `recentLocations` key is used to store a list of recently visited
+locations that the player can revisit or use to create a pin. It consists
+of a two-dimensional array, with each subarray representing coordinates on
+the X and Z axes:
+
+```json
+{
+    "recentLocations": [ [0, 0], [1847, 1847] ]
+}
+```
 
 ### Pins
 
@@ -110,11 +143,10 @@ array of locations stored by their X and Z coordinates as numbers:
         > options.
         
         A pin must contain the following keys:
-
-        | Key                            | Type   | Description                                                           |
-        | ------------------------------ | ------ | --------------------------------------------------------------------- |
-        | ``CartographyMapPin/name``     | String | The player-assigned name for the pin.                                 |
-        | ``CartographyMapPin/position`` | Array  | The location of the pin in the world. X and Z coordinates are stored. |
+        
+        - `name`: (String) The player-assigned name for the pin.
+        - `position`: (Array) The location of the pin in the world on the
+           X and Z axes.
     }
     @Column(size: 2) {
         @Image(source: "FileFormat-Pins", alt: "A screenshot showing a player-made pin")
@@ -125,16 +157,19 @@ array of locations stored by their X and Z coordinates as numbers:
 Pins can also contain any of the following properties, which can be
 customized by players:
 
-| Key                                        | Type   | Description                                  |
-| ------------------------------------------ | ------ | -------------------------------------------- |
-| ``CartographyMapPin/aboutDescription``     | String | A player-authored description about the pin. |
-| ``CartographyMapPin/color-swift.property`` | String | The pin's associated color.                  |
-| ``CartographyMapPin/images``               | Array  | A list of images associated with this pin.   |
+- `aboutDescription`: (String) A player-authored description about the
+  pin.
+- `color`: (String) The pin's associated color.
+- `images`: (Array) A list of images associated with this pin.
+
+Some manifest versions might also provide their own properties on top of
+these ones.
 
 > Tip: To conserve disk space and memory, when players decide to delete
 > pins, any associated images to that pin should also be removed. This is
 > already handled with ``CartographyMapFile/removePins(at:)`` and
-> ``CartographyMapFile/removePin(at:)``.
+> ``CartographyMapFile/removePin(at:)`` in ``CartographyMapFile``.
+
 
 ## Images
 
@@ -190,3 +225,17 @@ example.
 > at any given moment, having a unique name that isn't associated
 > with a data type's name ensures stability across rename
 > operations.
+
+## Topics
+
+### File Structures
+
+- ``CartographyMapFile``
+
+### Manifests
+
+- ``CartographyMapFile/Manifest-swift.typealias``
+- ``MCMapManifest``
+- ``MCMapManifest_PreVersioning``
+- ``MCMapManifest_v1``
+- ``MCMapManifest_v2``
