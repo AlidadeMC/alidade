@@ -65,4 +65,9 @@ struct MCMapManifestPin: Codable, Hashable {
     /// This is typically used to describe player-provided information such as the pin's significance, notable areas of
     /// interest, and what is nearby.
     var aboutDescription: String? = ""
+
+    /// A list of tags the player has assigned.
+    ///
+    /// > Note: This is only available in v2 of the manifest or later.
+    var tags: Set<String>? = []
 }

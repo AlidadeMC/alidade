@@ -60,6 +60,11 @@ class CartographyPinViewModel {
         return "(\(Int(nether.x)), \(Int(nether.y)))"
     }
 
+    /// Whether the current file manifest supports pin tagging.
+    var fileSupportsPinTags: Bool {
+        (file.wrappedValue.manifest.manifestVersion ?? 1) > 1
+    }
+
     /// Creates a view model from a file and given index.
     /// - Parameter file: The file that will be modified.
     /// - Parameter index: The location where the pin is found.

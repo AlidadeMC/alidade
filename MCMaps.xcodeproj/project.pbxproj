@@ -10,6 +10,7 @@
 		9504030F2D4D7E0A00F51903 /* CubiomesKit in Frameworks */ = {isa = PBXBuildFile; productRef = 9504030E2D4D7E0A00F51903 /* CubiomesKit */; };
 		951FE2BC2D5937630091BE11 /* ViewInspector in Frameworks */ = {isa = PBXBuildFile; productRef = 951FE2BB2D5937630091BE11 /* ViewInspector */; };
 		9522739A2DCD17B9007809BE /* VersionedCodable in Frameworks */ = {isa = PBXBuildFile; productRef = 952273992DCD17B9007809BE /* VersionedCodable */; };
+		954D31D42DE16A9000085D71 /* AlidadeUI in Frameworks */ = {isa = PBXBuildFile; productRef = 954D31D32DE16A9000085D71 /* AlidadeUI */; };
 		955A44382D8F47C600262A6D /* AdaptableSidebarSheetView in Frameworks */ = {isa = PBXBuildFile; productRef = 955A44372D8F47C600262A6D /* AdaptableSidebarSheetView */; };
 		955A4D682D932A6500262A6D /* DesignLibrary in Frameworks */ = {isa = PBXBuildFile; productRef = 955A4D672D932A6500262A6D /* DesignLibrary */; };
 		955CD1652DAAE1BE007F6FA1 /* CubiomesKit in Frameworks */ = {isa = PBXBuildFile; productRef = 955CD1642DAAE1BE007F6FA1 /* CubiomesKit */; };
@@ -63,6 +64,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9504030F2D4D7E0A00F51903 /* CubiomesKit in Frameworks */,
+				954D31D42DE16A9000085D71 /* AlidadeUI in Frameworks */,
 				955A44382D8F47C600262A6D /* AdaptableSidebarSheetView in Frameworks */,
 				955CD1652DAAE1BE007F6FA1 /* CubiomesKit in Frameworks */,
 				9522739A2DCD17B9007809BE /* VersionedCodable in Frameworks */,
@@ -127,6 +129,7 @@
 				955CD1642DAAE1BE007F6FA1 /* CubiomesKit */,
 				95F6B0AC2DADE504006A1B8C /* AsyncAlgorithms */,
 				952273992DCD17B9007809BE /* VersionedCodable */,
+				954D31D32DE16A9000085D71 /* AlidadeUI */,
 			);
 			productName = MCMaps;
 			productReference = 950402CF2D4D522100F51903 /* Alidade.app */;
@@ -615,6 +618,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 952273982DCD17B9007809BE /* XCRemoteSwiftPackageReference "VersionedCodable" */;
 			productName = VersionedCodable;
+		};
+		954D31D32DE16A9000085D71 /* AlidadeUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 952273982DCD17B9007809BE /* XCRemoteSwiftPackageReference "VersionedCodable" */;
+			productName = AlidadeUI;
 		};
 		955A44372D8F47C600262A6D /* AdaptableSidebarSheetView */ = {
 			isa = XCSwiftPackageProductDependency;
