@@ -116,7 +116,7 @@ public struct ChipTextField: View {
         }
         .onChange(of: text) { _, newValue in
             if !newValue.hasSuffix(" ") || !submitWithSpaces { return }
-            let chipValue = String(newValue[newValue.startIndex..<newValue.endIndex])
+            let chipValue = String(newValue[newValue.startIndex..<newValue.index(before: newValue.endIndex)])
             withAnimation {
                 chips.insert(chipValue)
                 text = ""
