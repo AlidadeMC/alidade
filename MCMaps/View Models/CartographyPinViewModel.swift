@@ -42,6 +42,12 @@ class CartographyPinViewModel {
     /// automatically generate an empty string if the property wasn't defined before.
     var pinAboutDescription: Binding<String>
 
+    /// A binding to the pin's tags.
+    ///
+    /// This binding is intended to be used with chip text fields to manipulate the tags available to this pin. It
+    /// mirrors the ``MCMapManifestPin/tags`` property, providing an empty set if it wasn't defined before.
+    var pinTags: Binding<Set<String>>
+
     /// A label that can be used to describe the pin's current position.
     var pinLocationLabel: String {
         let location = pin.wrappedValue.position
@@ -81,6 +87,18 @@ class CartographyPinViewModel {
             return file.wrappedValue.manifest.pins[index].aboutDescription ?? ""
         } set: { newValue in
             file.wrappedValue.manifest.pins[index].aboutDescription = newValue
+        }
+
+        self.pinTags = Binding {
+            guard (file.wrappedValue.manifest.manifestVersion ?? 1) > 1 else {
+                return []
+            }
+            return file.wrappedValue.manifest.pins[index].tags ?? []
+        } set: { newValue in
+            guard (file.wrappedValue.manifest.manifestVersion ?? 1) > 1 else {
+                return
+            }
+            file.wrappedValue.manifest.pins[index].tags = newValue
         }
     }
 

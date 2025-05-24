@@ -5,6 +5,7 @@
 //  Created by Marquis Kurt on 18-02-2025.
 //
 
+import AlidadeUI
 import PhotosUI
 import SwiftUI
 import TipKit
@@ -140,6 +141,16 @@ struct CartographyMapPinDetailView: View {
                     .scrollIndicators(.never)
             }
             .listRowSeparator(.hidden)
+
+            if viewModel.fileSupportsPinTags {
+                Section {
+                    ChipTextField("", chips: viewModel.pinTags)
+                        .chipTextFieldStyle(.roundedBorder)
+                } header: {
+                    Text("Tags")
+                }
+                .listRowSeparator(.hidden)
+            }
         }
         .listStyle(.inset)
         .scrollContentBackground(.visible)
