@@ -5,6 +5,7 @@
 //  Created by Marquis Kurt on 24-02-2025.
 //
 
+import AlidadeUI
 import SwiftUI
 
 /// An ornament view designed to sit in top of another view.
