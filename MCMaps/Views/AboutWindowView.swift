@@ -84,7 +84,11 @@ struct AboutWindowView: View {
                 let contents = try String(contentsOf: creditsPath, encoding: .utf8)
                 creditsPane = try AttributedString(
                     markdown: contents,
-                    options: .init(allowsExtendedAttributes: true, interpretedSyntax: .inlineOnlyPreservingWhitespace)
+                    options: AttributedString
+                        .MarkdownParsingOptions(
+                            allowsExtendedAttributes: true,
+                            interpretedSyntax: .inlineOnlyPreservingWhitespace
+                        )
                 )
             } catch {
                 print("Failed to get credits file: \(error.localizedDescription)")

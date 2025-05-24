@@ -115,7 +115,7 @@ struct CartographyMapPinDetailView: View {
                     CartographyMapPinColorPicker(color: viewModel.pin.color)
                     Spacer()
                 }
-                .listRowInsets(.init(top: 2, leading: 0, bottom: 2, trailing: 0))
+                .listRowInsets(EdgeInsets(top: 2, leading: 0, bottom: 2, trailing: 0))
                 .listRowSeparator(.hidden)
             }
 
@@ -216,7 +216,7 @@ struct CartographyMapPinDetailView: View {
 #Preview {
     @Previewable @State var file = CartographyMapFile(withManifest: .sampleFile)
     NavigationStack {
-        CartographyMapPinDetailView(viewModel: .init(file: $file, index: 0))
+        CartographyMapPinDetailView(viewModel: CartographyPinViewModel(file: $file, index: 0))
     }
 }
 

@@ -56,7 +56,7 @@ struct LocationBadge: View {
 
 #Preview {
     Group {
-        LocationBadge(location: .init(x: 99, y: 99))
+        LocationBadge(location: CGPoint(x: 99, y: 99))
     }
     .background(Color.blue)
 

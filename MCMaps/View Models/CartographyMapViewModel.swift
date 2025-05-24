@@ -79,14 +79,14 @@ class CartographyMapViewModel {
             UserDefaults.standard.set(true, forKey: .mapNaturalColors)
         }
         self.renderNaturalColors = UserDefaults.standard.bool(forKey: .mapNaturalColors)
-        self.displayCurrentRouteModally = .init { [weak self] in
+        self.displayCurrentRouteModally = Binding { [weak self] in
             self?.currentRoute?.requiresModalDisplay ?? false
         } set: { [weak self] newValue in
             if !newValue, self?.currentRoute?.requiresModalDisplay ?? false {
                 self?.currentRoute = nil
             }
         }
-        self.displayCurrentRouteAsInspector = .init { [weak self] in
+        self.displayCurrentRouteAsInspector = Binding { [weak self] in
             guard self?.currentRoute?.requiresInspectorDisplay == true else {
                 return false
             }
@@ -103,7 +103,7 @@ class CartographyMapViewModel {
     /// - Parameter position: The world position to jump to. The Y coordinate corresponds to the world's Z coordinate.
     /// - Parameter file: The file to load the map data from.
     func go(to position: CGPoint, relativeTo file: CartographyMapFile) {
-        worldRange.origin = .init(x: Int32(position.x), y: worldRange.origin.y, z: Int32(position.y))
+        worldRange.origin = Point3D(x: Int32(position.x), y: worldRange.origin.y, z: Int32(position.y))
     }
 
     /// Submits the player-made changes to the current file and reloads the map.

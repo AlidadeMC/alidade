@@ -78,6 +78,6 @@ extension MCMapManifest_v1: MCMapManifestProviding {
         mcVersion: "1.21.3",
         name: "My World",
         pins: [
-            MCMapManifestPin(position: .init(x: 0, y: 0), name: "Spawn")
+            MCMapManifestPin(position: CGPoint(x: 0, y: 0), name: "Spawn")
         ])
 }

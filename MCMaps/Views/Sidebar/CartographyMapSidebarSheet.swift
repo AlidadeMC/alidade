@@ -62,7 +62,7 @@ struct CartographyMapSidebarSheet<T: ToolbarContent>: View {
         Group {
             switch route {
             case let .pin(index, pin):
-                CartographyMapPinDetailView(viewModel: .init(file: $file, index: index))
+                CartographyMapPinDetailView(viewModel: CartographyPinViewModel(file: $file, index: index))
                     .background(Color.clear)
                     .presentationBackground(.regularMaterial)
                     .task {

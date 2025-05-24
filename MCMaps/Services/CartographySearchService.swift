@@ -74,7 +74,7 @@ class CartographySearchService {
 
         if let matches = query.matches(of: Constants.coordinateRegex).first?.output {
             if let x = Double(matches.1), let y = Double(matches.2) {
-                results.coordinates.append(.init(x: x, y: y))
+                results.coordinates.append(CGPoint(x: x, y: y))
             }
         }
 

@@ -109,7 +109,7 @@ struct PinCreatorForm: View {
 
 #Preview {
     NavigationStack {
-        PinCreatorForm(location: .init(x: 1847, y: 1963)) { _ in
+        PinCreatorForm(location: CGPoint(x: 1847, y: 1963)) { _ in
 
         }
         .formStyle(.grouped)

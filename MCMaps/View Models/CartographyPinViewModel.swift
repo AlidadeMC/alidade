@@ -66,13 +66,13 @@ class CartographyPinViewModel {
     init(file: Binding<CartographyMapFile>, index: Int) {
         self.file = file
         self.index = index
-        self.pin = .init {
+        self.pin = Binding {
             return file.wrappedValue.manifest.pins[index]
         } set: { newPin in
             file.wrappedValue.manifest.pins[index] = newPin
         }
 
-        self.pinAboutDescription = .init {
+        self.pinAboutDescription = Binding {
             return file.wrappedValue.manifest.pins[index].aboutDescription ?? ""
         } set: { newValue in
             file.wrappedValue.manifest.pins[index].aboutDescription = newValue

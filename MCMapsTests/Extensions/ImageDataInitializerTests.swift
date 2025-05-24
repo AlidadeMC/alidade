@@ -20,6 +20,6 @@ struct ImageDataInitializerTests {
         }
         let data = try Data(contentsOf: imagePath)
         let image = Image(data: data)
-        #expect(image != nil)
+        #expect(image != Image(systemName: "questionmark.circle"))
     }
 }
