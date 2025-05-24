@@ -7,13 +7,25 @@
 
 import SwiftUI
 
-struct BorderedChipTextFieldStyleModifier: ViewModifier {
+struct BorderedChipTextFieldStyle: ViewModifier {
     func body(content: Content) -> some View {
         content
+            .padding(.all, 4)
             .background(
                 RoundedRectangle(cornerRadius: 4)
                     .stroke(Color.secondary.opacity(0.75), lineWidth: 0.5)
                     .padding(1)
+            )
+    }
+}
+
+struct BorderlessChipTextFieldStyle: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .padding(.all, 4)
+            .background(
+                RoundedRectangle(cornerRadius: 4)
+                    .fill(Color.secondary.opacity(0.1))
             )
     }
 }
@@ -45,14 +57,32 @@ public struct ChipTextField: View {
 
         /// The rounded border chip text field style.
         case roundedBorder
+
+        /// The borderless chip text field style.
+        case borderless
     }
 
+    /// An enumeration representing the valid placements for chips in the text field.
+    public enum ChipPlacement {
+        /// The leading placement of the text field.
+        ///
+        /// Chips will appear before the text entry field.
+        case leading
+        
+        /// The trailing placement of the text field.
+        ///
+        /// Chips will appear after the text entry field.
+        case trailing
+    }
+    
     /// The chips being edited by this view.
     @Binding public var chips: ChipCollection
 
     var title: LocalizedStringKey
+    var prompt: LocalizedStringKey = ""
     var submitWithSpaces: Bool = true
     var style = Style.plain
+    var chipPlacement = ChipPlacement.leading
 
     @State private var text: String = ""
     @FocusState private var focused: Bool
@@ -61,17 +91,32 @@ public struct ChipTextField: View {
     /// - Parameter titleKey: The localized string key representing the title for this field.
     /// - Parameter chips: The chips that will be edited within this field.
     /// - Parameter submitWithSpaces: Whether a space character should be considered as a submit action.
-    public init(_ titleKey: LocalizedStringKey, chips: Binding<ChipCollection>, submitWithSpaces: Bool = true) {
+    public init(
+        _ titleKey: LocalizedStringKey,
+        chips: Binding<ChipCollection>,
+        prompt: LocalizedStringKey? = nil,
+        submitWithSpaces: Bool = true
+    ) {
         self._chips = chips
         self.title = titleKey
         self.submitWithSpaces = submitWithSpaces
+        self.prompt = prompt ?? ""
     }
 
-    init(_ titleKey: LocalizedStringKey, chips: Binding<ChipCollection>, submitWithSpaces: Bool, style: Style) {
+    init(
+        _ titleKey: LocalizedStringKey,
+        chips: Binding<ChipCollection>,
+        prompt: LocalizedStringKey,
+        submitWithSpaces: Bool,
+        style: Style,
+        chipPlacement: ChipPlacement
+    ) {
         self._chips = chips
         self.title = titleKey
+        self.prompt = prompt
         self.submitWithSpaces = submitWithSpaces
         self.style = style
+        self.chipPlacement = chipPlacement
     }
 
     /// Configures the chip text field style for the current view.
@@ -80,8 +125,22 @@ public struct ChipTextField: View {
         ChipTextField(
             self.title,
             chips: self.$chips,
+            prompt: self.prompt,
             submitWithSpaces: self.submitWithSpaces,
-            style: style)
+            style: style,
+            chipPlacement: self.chipPlacement)
+    }
+
+    /// Configures the placement of the chips in the text field.
+    /// - Parameter placement: The chip placement to apply to this view.
+    public func chipPlacement(_ placement: ChipPlacement) -> Self {
+        ChipTextField(
+            self.title,
+            chips: self.$chips,
+            prompt: self.prompt,
+            submitWithSpaces: self.submitWithSpaces,
+            style: self.style,
+            chipPlacement: placement)
     }
 
     public var body: some View {
@@ -89,23 +148,25 @@ public struct ChipTextField: View {
             HStack {
                 Text(title)
                     .layoutPriority(1)
-                ForEach(Array(chips), id: \.self) { chip in
-                    ChipView(text: chip) {
-                        chips.remove(chip)
-                    }
+                if chipPlacement == .leading {
+                    chipCollection
                 }
-                .layoutPriority(0.25)
-                TextField("", text: $text)
+                TextField("", text: $text, prompt: Text(prompt))
                     .padding(EdgeInsets(top: 4, leading: 8, bottom: 4, trailing: 8))
                     .textFieldStyle(.plain)
                     .focused($focused)
-            }
-            .if(style == .roundedBorder) { view in
-                view.padding(.all, 4)
+                    .layoutPriority(1)
+                if chipPlacement == .trailing {
+                    chipCollection
+                }
             }
         }
+        .scrollIndicators(.never, axes: .horizontal)
         .if(style == .roundedBorder) { view in
-            view.modifier(BorderedChipTextFieldStyleModifier())
+            view.modifier(BorderedChipTextFieldStyle())
+        }
+        .if(style == .borderless) { view in
+            view.modifier(BorderlessChipTextFieldStyle())
         }
         .animation(.bouncy, value: chips)
         .onTapGesture {
@@ -122,6 +183,15 @@ public struct ChipTextField: View {
                 text = ""
             }
         }
+    }
+
+    private var chipCollection: some View {
+        ForEach(Array(chips.sorted()), id: \.self) { chip in
+            ChipView(text: chip) {
+                chips.remove(chip)
+            }
+        }
+        .layoutPriority(0.25)
     }
 
     #if DEBUG
@@ -170,6 +240,20 @@ private struct ChipPreviewViewModel {
             } header: {
                 Text("Allow Spaces in Chips")
             }
+            Section {
+                ChipTextField(
+                    "Tags", chips: $viewModel.chips)
+                .chipPlacement(.trailing)
+            } header: {
+                Text("With Prefilled Content, Trailing Chips")
+            }
+
+            Section {
+                ChipTextField("", chips: $viewModel.chips, prompt: "Enter a tag...")
+                    .chipPlacement(.trailing)
+            } header: {
+                Text("With Prefilled Content, With Prompt")
+            }
 
             Section {
                 ChipTextField(
@@ -183,7 +267,14 @@ private struct ChipPreviewViewModel {
                     "Tags", chips: $viewModel.chips)
                 .chipTextFieldStyle(.roundedBorder)
             } header: {
-                Text("With Prefilled Content, Bordered")
+                Text("With Prefilled Content, Rounded Border")
+            }
+            Section {
+                ChipTextField(
+                    "Tags", chips: $viewModel.chips)
+                .chipTextFieldStyle(.borderless)
+            } header: {
+                Text("With Prefilled Content, Borderless")
             }
         }
         .navigationTitle("Chip Text Field")

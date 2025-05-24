@@ -144,8 +144,9 @@ struct CartographyMapPinDetailView: View {
 
             if viewModel.fileSupportsPinTags {
                 Section {
-                    ChipTextField("", chips: viewModel.pinTags)
-                        .chipTextFieldStyle(.roundedBorder)
+                    ChipTextField("", chips: viewModel.pinTags, prompt: "Write a tag...")
+                        .chipTextFieldStyle(.borderless)
+                        .chipPlacement(.trailing)
                 } header: {
                     Text("Tags")
                 }
