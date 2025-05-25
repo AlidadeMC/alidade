@@ -19,7 +19,7 @@ struct ChipTextFieldDemoView: View {
     @State private var titleText = "Tags"
 
     var body: some View {
-        Form {
+        DemoPage {
             Section {
                 ChipTextField(title, chips: $tags, prompt: prompt, submitWithSpaces: submitWithSpaces)
                     .chipPlacement(chipPlacement)
@@ -28,28 +28,30 @@ struct ChipTextFieldDemoView: View {
             } header: {
                 Text("Demo")
             }
-            
-            Section {
-                TextField("Title", text: $titleText)
-                Toggle("Submit with Spaces", isOn: $submitWithSpaces)
-                TextField("Prompt", text: $promptText)
+        } inspector: {
+            Group {
+                Section {
+                    TextField("Title", text: $titleText)
+                    Toggle("Submit with Spaces", isOn: $submitWithSpaces)
+                    TextField("Prompt", text: $promptText)
+                    
+                } header: {
+                    Text("Basic Configuration")
+                }
                 
-            } header: {
-                Text("Basic Configuration")
-            }
-            
-            Section {
-                Picker("Chip Placement", selection: $chipPlacement) {
-                    Text("Leading").tag(ChipTextField.ChipPlacement.leading)
-                    Text("Trailing").tag(ChipTextField.ChipPlacement.trailing)
+                Section {
+                    Picker("Chip Placement", selection: $chipPlacement) {
+                        Text("Leading").tag(ChipTextField.ChipPlacement.leading)
+                        Text("Trailing").tag(ChipTextField.ChipPlacement.trailing)
+                    }
+                    Picker("Style", selection: $chipTextFieldStyle) {
+                        Text("Plain").tag(ChipTextField.Style.plain)
+                        Text("Rounded Border").tag(ChipTextField.Style.roundedBorder)
+                        Text("Borderless").tag(ChipTextField.Style.borderless)
+                    }
+                } header: {
+                    Text("Styling Configuration")
                 }
-                Picker("Style", selection: $chipTextFieldStyle) {
-                    Text("Plain").tag(ChipTextField.Style.plain)
-                    Text("Rounded Border").tag(ChipTextField.Style.roundedBorder)
-                    Text("Borderless").tag(ChipTextField.Style.borderless)
-                }
-            } header: {
-                Text("Styling Configuration")
             }
         }
         .navigationTitle("Chip Text Field")

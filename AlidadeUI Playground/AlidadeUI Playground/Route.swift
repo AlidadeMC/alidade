@@ -19,9 +19,16 @@ extension Route {
         }
     }
 
+    var symbol: String {
+        switch self {
+        case .chipTextField:
+            "tag"
+        }
+    }
+
     var navigationLink: some View {
         NavigationLink(value: self) {
-            Text(self.name)
+            Label(self.name, systemImage: self.symbol)
         }
     }
 }

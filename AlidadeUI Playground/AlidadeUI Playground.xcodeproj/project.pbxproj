@@ -37,8 +37,8 @@
 		95FB75ED2DE39A470003CC61 = {
 			isa = PBXGroup;
 			children = (
-				95FB75F82DE39A470003CC61 /* AlidadeUI Playground */,
 				95FB75F72DE39A470003CC61 /* Products */,
+				95FB75F82DE39A470003CC61 /* AlidadeUI Playground */,
 			);
 			sourceTree = "<group>";
 		};

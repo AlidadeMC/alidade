@@ -19,19 +19,23 @@ struct ContentView: View {
     var body: some View {
         NavigationSplitView {
             List {
-                if components.isEmpty {
-                    ContentUnavailableView.search(text: filterQuery)
-                } else {
-                    ForEach(components, id: \.self) { route in
-                        route.navigationLink
+                Section {
+                    if components.isEmpty {
+                        ContentUnavailableView.search(text: filterQuery)
+                    } else {
+                        ForEach(components, id: \.self) { route in
+                            route.navigationLink
+                        }
                     }
+                } header: {
+                    Text("Components")
                 }
             }
             .navigationTitle("UI Components")
             .navigationDestination(for: Route.self) { route in
                 detail(for: route)
             }
-            .searchable(text: $filterQuery)
+            .searchable(text: $filterQuery, placement: .sidebar)
         } detail: {
             detail(for: currentRoute)
         }
@@ -48,6 +52,12 @@ struct ContentView: View {
                     systemImage: "info.circle")
             }
         }
+        #if os(iOS)
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbarRole(.browser)
+        #else
+            .navigationSubtitle("Alidade UI Library")
+        #endif
     }
 }
 
