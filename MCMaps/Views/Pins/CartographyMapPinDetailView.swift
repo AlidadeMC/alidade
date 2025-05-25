@@ -144,6 +144,7 @@ struct CartographyMapPinDetailView: View {
                     ChipTextField("Tags", chips: viewModel.pinTags, prompt: "Write a tag...")
                         .chipTextFieldStyle(.borderless)
                         .chipPlacement(.trailing)
+                        .titleStyle(.muted)
                 }
             }
             .listRowSeparator(.hidden)
