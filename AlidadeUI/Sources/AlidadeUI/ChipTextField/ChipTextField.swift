@@ -144,29 +144,32 @@ public struct ChipTextField: View {
     }
 
     public var body: some View {
-        ScrollView(.horizontal) {
-            HStack {
-                Text(title)
-                    .layoutPriority(1)
-                if chipPlacement == .leading {
-                    chipCollection
-                }
-                TextField("", text: $text, prompt: Text(prompt))
-                    .padding(EdgeInsets(top: 4, leading: 8, bottom: 4, trailing: 8))
-                    .textFieldStyle(.plain)
-                    .focused($focused)
-                    .layoutPriority(1)
-                if chipPlacement == .trailing {
-                    chipCollection
+        HStack {
+            Text(title)
+                .layoutPriority(1)
+            ScrollView(.horizontal) {
+                HStack {
+                    
+                    if chipPlacement == .leading {
+                        chipCollection
+                    }
+                    TextField("", text: $text, prompt: Text(prompt))
+                        .padding(EdgeInsets(top: 4, leading: 8, bottom: 4, trailing: 8))
+                        .textFieldStyle(.plain)
+                        .focused($focused)
+                        .layoutPriority(1)
+                    if chipPlacement == .trailing {
+                        chipCollection
+                    }
                 }
             }
-        }
-        .scrollIndicators(.never, axes: .horizontal)
-        .if(style == .roundedBorder) { view in
-            view.modifier(BorderedChipTextFieldStyle())
-        }
-        .if(style == .borderless) { view in
-            view.modifier(BorderlessChipTextFieldStyle())
+            .scrollIndicators(.never, axes: .horizontal)
+            .if(style == .roundedBorder) { view in
+                view.modifier(BorderedChipTextFieldStyle())
+            }
+            .if(style == .borderless) { view in
+                view.modifier(BorderlessChipTextFieldStyle())
+            }
         }
         .animation(.bouncy, value: chips)
         .onTapGesture {
