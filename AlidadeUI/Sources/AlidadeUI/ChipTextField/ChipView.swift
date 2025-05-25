@@ -27,11 +27,15 @@ struct ChipView: View {
                 }
                 .tint(.secondary)
                 .buttonStyle(.borderless)
-                .accessibilityLabel("Remove Chip")
-                .accessibilityValue(text)
             }
         }
-        .accessibilityLabel(text)
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel("Chip")
+        .accessibilityValue(text)
+        .accessibilityHint(Text("Remove Chip"))
+        .accessibilityAction(.default) {
+            onDelete?()
+        }
         .padding(.vertical, Constants.verticalPadding)
         .padding(.horizontal, Constants.horizontalPadding)
         .background(
