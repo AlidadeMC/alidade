@@ -7,3 +7,5 @@
 - The ``worldSettings`` object now has a
   ``MCMapManifestWorldSettings/largeBiomes`` property to control whether
   large biomes are enabled for that world.
+- Pins now have an optional ``MCMapManifestPin/tags`` property, which
+  contain a set of strings the player has associated with a pin.

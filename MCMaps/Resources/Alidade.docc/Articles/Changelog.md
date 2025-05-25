@@ -25,6 +25,9 @@ across Mac, iPhone, and iPad.
     `world` object.
   - The `world` object now includes a property for large biomes (defaults)
     to `false`.
+  - A new `tags` property is available on pins, which contains a set of
+    strings.
+- Players can create and edit tags for pins in the inspector (#15).
 
 ## 1.0.1 (Build 45)
 
