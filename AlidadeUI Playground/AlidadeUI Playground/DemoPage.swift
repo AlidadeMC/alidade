@@ -9,7 +9,11 @@ import SwiftUI
 
 struct DemoPage<Content: View, ConfigurationContent: View>: View {
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
-    @State private var displayInspector = false
+    #if os(macOS)
+        @State private var displayInspector = true
+    #else
+        @State private var displayInspector = false
+    #endif
 
     var content: () -> Content
     var inspector: () -> ConfigurationContent

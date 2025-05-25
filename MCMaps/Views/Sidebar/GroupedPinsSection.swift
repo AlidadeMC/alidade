@@ -5,6 +5,7 @@
 //  Created by Marquis Kurt on 16-02-2025.
 //
 
+import AlidadeUI
 import CubiomesKit
 import SwiftUI
 
@@ -37,7 +38,7 @@ struct GroupedPinsSection: View {
                         .foregroundStyle(.secondary)
                 } else {
                     ForEach(pins, id: \.self) { pin in
-                        CartographyNamedLocationView(pin: pin)
+                        NamedLocationView(pin: pin)
                             .coordinateDisplayMode(
                                 .relative(CGPoint(minecraftPoint: viewModel.worldRange.origin))
                             )

@@ -5,6 +5,7 @@
 //  Created by Marquis Kurt on 27-02-2025.
 //
 
+import AlidadeUI
 import SwiftUI
 import Testing
 import ViewInspector
@@ -24,7 +25,7 @@ struct SearchedStructuresSectionTests {
             }
         let sut = try section.inspect()
 
-        let button = try sut.section().group(0).forEach(0).view(CartographyNamedLocationView.self, 0)
+        let button = try sut.section().group(0).forEach(0).view(NamedLocationView.self, 0)
         try button.callOnTapGesture()
     }
 }

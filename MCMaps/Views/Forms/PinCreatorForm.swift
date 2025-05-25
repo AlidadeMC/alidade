@@ -5,6 +5,7 @@
 //  Created by Marquis Kurt on 01-02-2025.
 //
 
+import AlidadeUI
 import SwiftUI
 
 // NOTE(alicerunsonfedora): Perhaps this can get replaced with the new pin detail view?
@@ -70,7 +71,7 @@ struct PinCreatorForm: View {
             Section {
                 HStack {
                     Spacer()
-                    CartographyNamedLocationView(
+                    NamedLocationView(
                         name: name,
                         location: updatedLocation,
                         systemImage: "mappin",

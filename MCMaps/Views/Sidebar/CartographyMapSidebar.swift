@@ -5,6 +5,7 @@
 //  Created by Marquis Kurt on 01-02-2025.
 //
 
+import AlidadeUI
 import CubiomesKit
 import SwiftUI
 import TipKit
@@ -133,7 +134,7 @@ struct CartographyMapSidebar: View {
                     #endif
                 case .found(let results):
                     if let jumpToCoordinate = results.coordinates.first {
-                        CartographyNamedLocationView(
+                        NamedLocationView(
                             name: "Jump Here",
                             location: jumpToCoordinate,
                             systemImage: "figure.run",

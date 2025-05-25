@@ -5,6 +5,7 @@
 //  Created by Marquis Kurt on 01-02-2025.
 //
 
+import AlidadeUI
 import SwiftUI
 
 /// A section used to display player-created pins in a sidebar.
@@ -27,7 +28,7 @@ struct PinnedLibrarySection: View {
         Section("Library") {
             ForEach(Array(pins.enumerated()), id: \.element) { (idx: Int, pin: MCMapManifestPin) in
                 NavigationLink(value: CartographyRoute.pin(idx, pin: pin)) {
-                    CartographyNamedLocationView(pin: pin)
+                    NamedLocationView(pin: pin)
                         .tag(CartographyRoute.pin(idx, pin: pin))
                 }.buttonStyle(PlainButtonStyle())
                     .contextMenu {

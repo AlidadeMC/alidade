@@ -13,7 +13,7 @@ struct ContentView: View {
 
     private var components: [Route] {
         if filterQuery.isEmpty { return Route.allCases }
-        return Route.allCases.filter { $0.name.contains(filterQuery) }
+        return Route.allCases.filter { $0.name.localizedLowercase.contains(filterQuery) }
     }
 
     var body: some View {
@@ -46,6 +46,8 @@ struct ContentView: View {
             switch currentRoute {
             case .chipTextField:
                 ChipTextFieldDemoView()
+            case .namedLocation:
+                NamedLocationDemoView()
             case nil:
                 ContentUnavailableView(
                     "Select a component",

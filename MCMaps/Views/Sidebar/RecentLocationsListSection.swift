@@ -5,6 +5,7 @@
 //  Created by Marquis Kurt on 31-01-2025.
 //
 
+import AlidadeUI
 import SwiftUI
 
 /// A section used to display recently visited locations.
@@ -27,7 +28,7 @@ struct RecentLocationsListSection: View {
     var body: some View {
         Section("Recents") {
             ForEach(Array(recentLocations.enumerated().reversed()), id: \.offset) { (idx, pos) in
-                CartographyNamedLocationView(
+                NamedLocationView(
                     name: "Location",
                     location: pos,
                     systemImage: "location.fill",

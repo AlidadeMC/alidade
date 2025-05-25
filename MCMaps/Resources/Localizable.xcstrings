@@ -40,9 +40,6 @@
         }
       }
     },
-    "%lld blocks away" : {
-
-    },
     "%lld, %lld" : {
       "localizations" : {
         "en" : {

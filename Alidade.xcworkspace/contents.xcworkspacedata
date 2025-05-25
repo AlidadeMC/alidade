@@ -22,7 +22,4 @@
    <FileRef
       location = "group:DesignLibrary">
    </FileRef>
-   <FileRef
-      location = "group:AlidadeUI Playground/AlidadeUI Tests.xctestplan">
-   </FileRef>
 </Workspace>

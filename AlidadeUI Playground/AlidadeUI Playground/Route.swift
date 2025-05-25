@@ -9,6 +9,7 @@ import SwiftUI
 
 enum Route: Hashable, CaseIterable {
     case chipTextField
+    case namedLocation
 }
 
 extension Route {
@@ -16,6 +17,8 @@ extension Route {
         switch self {
         case .chipTextField:
             "Chip Text Field"
+        case .namedLocation:
+            "Named Location"
         }
     }
 
@@ -23,6 +26,8 @@ extension Route {
         switch self {
         case .chipTextField:
             "tag"
+        case .namedLocation:
+            "mappin"
         }
     }
 
