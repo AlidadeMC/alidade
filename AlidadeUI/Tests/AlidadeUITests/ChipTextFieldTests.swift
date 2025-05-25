@@ -65,6 +65,18 @@ struct ChipTextFieldTests {
         #expect(textField.chipPlacement == .trailing)
     }
 
+    @Test(.tags(.chips))
+    func viewLayoutTitleStyle() throws {
+        let chips = Binding(wrappedValue: Set<String>())
+        let textField = ChipTextField("Foo", chips: chips)
+            .titleStyle(.muted)
+        
+        #expect(textField.chips == [])
+        #expect(textField.title == "Foo")
+        #expect(textField.submitWithSpaces == true)
+        #expect(textField.prompt == "")
+        #expect(textField.titleStyle == .muted)
+    }
 
     @Test(.tags(.chips))
     func submitIntoTagViaSpaces() throws {
@@ -85,7 +97,7 @@ struct ChipTextFieldTests {
         textField.updateText(to: "Augenwaldburg")
         
         let view = try textField.inspect()
-        try view.scrollView().callOnSubmit()
+        try view.hStack().callOnSubmit()
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             #expect(textField.chips == ["Augenwaldburg"])

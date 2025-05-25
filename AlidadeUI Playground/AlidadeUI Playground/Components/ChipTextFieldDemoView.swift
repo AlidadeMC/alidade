@@ -17,6 +17,7 @@ struct ChipTextFieldDemoView: View {
     @State private var promptText = "Write a tag..."
     @State private var title: LocalizedStringKey = "Tags"
     @State private var titleText = "Tags"
+    @State private var titleStyle = ChipTextField.TitleStyle.plain
 
     var body: some View {
         DemoPage {
@@ -24,7 +25,7 @@ struct ChipTextFieldDemoView: View {
                 ChipTextField(title, chips: $tags, prompt: prompt, submitWithSpaces: submitWithSpaces)
                     .chipPlacement(chipPlacement)
                     .chipTextFieldStyle(chipTextFieldStyle)
-
+                    .titleStyle(titleStyle)
             } header: {
                 Text("Demo")
             }
@@ -48,6 +49,10 @@ struct ChipTextFieldDemoView: View {
                         Text("Plain").tag(ChipTextField.Style.plain)
                         Text("Rounded Border").tag(ChipTextField.Style.roundedBorder)
                         Text("Borderless").tag(ChipTextField.Style.borderless)
+                    }
+                    Picker("Title Style", selection: $titleStyle) {
+                        Text("Plain").tag(ChipTextField.TitleStyle.plain)
+                        Text("Muted").tag(ChipTextField.TitleStyle.muted)
                     }
                 } header: {
                     Text("Styling Configuration")

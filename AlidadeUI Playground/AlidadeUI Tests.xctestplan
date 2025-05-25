@@ -1,0 +1,28 @@
+{
+  "configurations" : [
+    {
+      "id" : "6923B34C-40ED-4201-A116-9621FDE2DC26",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:AlidadeUI Playground.xcodeproj",
+      "identifier" : "95FB75F52DE39A470003CC61",
+      "name" : "AlidadeUI Playground"
+    }
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:..\/AlidadeUI",
+        "identifier" : "AlidadeUITests",
+        "name" : "AlidadeUITests"
+      }
+    }
+  ],
+  "version" : 1
+}

@@ -139,19 +139,14 @@ struct CartographyMapPinDetailView: View {
                     .clipped()
                     .clipShape(.rect(cornerRadius: 10))
                     .scrollIndicators(.never)
-            }
-            .listRowSeparator(.hidden)
 
-            if viewModel.fileSupportsPinTags {
-                Section {
-                    ChipTextField("", chips: viewModel.pinTags, prompt: "Write a tag...")
+                if viewModel.fileSupportsPinTags {
+                    ChipTextField("Tags", chips: viewModel.pinTags, prompt: "Write a tag...")
                         .chipTextFieldStyle(.borderless)
                         .chipPlacement(.trailing)
-                } header: {
-                    Text("Tags")
                 }
-                .listRowSeparator(.hidden)
             }
+            .listRowSeparator(.hidden)
         }
         .listStyle(.inset)
         .scrollContentBackground(.visible)

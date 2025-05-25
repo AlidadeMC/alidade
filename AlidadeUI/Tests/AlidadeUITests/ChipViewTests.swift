@@ -24,15 +24,4 @@ struct ChipViewTests {
             try sut.find(viewWithAccessibilityLabel: "Remove Chip")
         }
     }
-
-    @Test(.tags(.chips))
-    func viewLayoutWithClosure() throws {
-        let chip = ChipView(text: "Foo") {
-            print("Foo")
-        }
-        let sut = try chip.inspect()
-        #expect(throws: Never.self) {
-            try sut.find(viewWithAccessibilityLabel: "Remove Chip")
-        }
-    }
 }

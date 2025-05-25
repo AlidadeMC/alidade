@@ -8,10 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		95FB76262DE39CBB0003CC61 /* AlidadeUI in Frameworks */ = {isa = PBXBuildFile; productRef = 95FB76252DE39CBB0003CC61 /* AlidadeUI */; };
+		95FB76322DE3B53C0003CC61 /* AlidadeUI Tests.xctestplan in Resources */ = {isa = PBXBuildFile; fileRef = 95FB76312DE3B53C0003CC61 /* AlidadeUI Tests.xctestplan */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		95FB75F62DE39A470003CC61 /* AlidadeUI Playground.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AlidadeUI Playground.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		95FB76312DE3B53C0003CC61 /* AlidadeUI Tests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = "AlidadeUI Tests.xctestplan"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -39,6 +41,7 @@
 			children = (
 				95FB75F72DE39A470003CC61 /* Products */,
 				95FB75F82DE39A470003CC61 /* AlidadeUI Playground */,
+				95FB76312DE3B53C0003CC61 /* AlidadeUI Tests.xctestplan */,
 			);
 			sourceTree = "<group>";
 		};
@@ -118,6 +121,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				95FB76322DE3B53C0003CC61 /* AlidadeUI Tests.xctestplan in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -50,6 +50,17 @@ public struct ChipTextField: View {
     /// A typealias representing a collection of chips.
     public typealias ChipCollection = Set<String>
 
+    /// An enumeration representing the styles of a chip text field's title.
+    public enum TitleStyle {
+        /// The plain title style.
+        case plain
+
+        /// The muted title style.
+        ///
+        /// Ideal for forms or sections where the field is not the primary target.
+        case muted
+    }
+
     /// An enumeration representing the styles of a chip text field.
     public enum Style {
         /// The plain chip text field style.
@@ -82,6 +93,7 @@ public struct ChipTextField: View {
     var prompt: LocalizedStringKey = ""
     var submitWithSpaces: Bool = true
     var style = Style.plain
+    var titleStyle = TitleStyle.plain
     var chipPlacement = ChipPlacement.leading
 
     @State private var text: String = ""
@@ -90,6 +102,7 @@ public struct ChipTextField: View {
     /// Initialize a chip text field.
     /// - Parameter titleKey: The localized string key representing the title for this field.
     /// - Parameter chips: The chips that will be edited within this field.
+    /// - Parameter prompt: The placeholder prompt for the text field.
     /// - Parameter submitWithSpaces: Whether a space character should be considered as a submit action.
     public init(
         _ titleKey: LocalizedStringKey,
@@ -109,6 +122,7 @@ public struct ChipTextField: View {
         prompt: LocalizedStringKey,
         submitWithSpaces: Bool,
         style: Style,
+        titleStyle: TitleStyle,
         chipPlacement: ChipPlacement
     ) {
         self._chips = chips
@@ -116,6 +130,7 @@ public struct ChipTextField: View {
         self.prompt = prompt
         self.submitWithSpaces = submitWithSpaces
         self.style = style
+        self.titleStyle = titleStyle
         self.chipPlacement = chipPlacement
     }
 
@@ -128,6 +143,7 @@ public struct ChipTextField: View {
             prompt: self.prompt,
             submitWithSpaces: self.submitWithSpaces,
             style: style,
+            titleStyle: self.titleStyle,
             chipPlacement: self.chipPlacement)
     }
 
@@ -140,16 +156,32 @@ public struct ChipTextField: View {
             prompt: self.prompt,
             submitWithSpaces: self.submitWithSpaces,
             style: self.style,
+            titleStyle: self.titleStyle,
             chipPlacement: placement)
+    }
+
+    /// Configures the title style for the text field.
+    /// - Parameter titleStyle: The title style to apply to this view.
+    public func titleStyle(_ titleStyle: TitleStyle) -> Self {
+        ChipTextField(
+            self.title,
+            chips: self.$chips,
+            prompt: self.prompt,
+            submitWithSpaces: self.submitWithSpaces,
+            style: self.style,
+            titleStyle: titleStyle,
+            chipPlacement: self.chipPlacement)
     }
 
     public var body: some View {
         HStack {
             Text(title)
                 .layoutPriority(1)
+                .font(titleStyle == .plain ? Font.body : Font.subheadline)
+                .bold(titleStyle == .muted)
+                .foregroundStyle(titleStyle == .plain ? Color.primary : Color.secondary)
             ScrollView(.horizontal) {
                 HStack {
-                    
                     if chipPlacement == .leading {
                         chipCollection
                     }
