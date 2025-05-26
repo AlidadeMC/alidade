@@ -13,13 +13,15 @@ let package = Package(
             targets: ["AlidadeUI"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/nalexn/ViewInspector", from: "0.10.0")
+        .package(url: "https://github.com/nalexn/ViewInspector", from: "0.10.0"),
+        .package(name: "DesignLibrary", path: "DesignLibrary"),
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
         // Targets can depend on other targets in this package and products from dependencies.
         .target(
             name: "AlidadeUI",
+            dependencies: ["DesignLibrary"],
             resources: [
                 .process("Resources")
             ]),

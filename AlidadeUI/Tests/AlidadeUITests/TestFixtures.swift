@@ -20,6 +20,9 @@ extension Tag {
     /// A tag that refers to any views containing finite color pickers.
     @Tag static var finiteColorPicker: Self
 
+    /// A tag that refers to any views containing inline banners.
+    @Tag static var inlineBanner: Self
+
     /// A tag that refers to any views containing named locations.
     @Tag static var namedLocation: Self
 }

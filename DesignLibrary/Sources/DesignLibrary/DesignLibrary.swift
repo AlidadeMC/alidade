@@ -3,6 +3,28 @@
 
 import SwiftUI
 
+public struct ColorSchemeSet: Sendable, Equatable {
+    public var light: Color
+    public var dark: Color
+
+    public func resolve(in environment: EnvironmentValues) -> Color {
+        switch environment.colorScheme {
+        case .light:
+            return self.light
+        case .dark:
+            return self.dark
+        @unknown default:
+            return self.light
+        }
+    }
+
+    public func resolve(with colorScheme: ColorScheme) -> Color {
+        var environment = EnvironmentValues()
+        environment.colorScheme = colorScheme
+        return self.resolve(in: environment)
+    }
+}
+
 public enum SemanticColors {
     public static let accent: Color = Color(.Brand.firewatchRed)
 
@@ -21,7 +43,22 @@ public enum SemanticColors {
     }
 
     public enum Alert {
-        public static let infoBackground = Color(.Primitive.Blue._100)
-        public static let infoForeground = Color(.Primitive.Blue._600)
+        public static let infoBackground = ColorSchemeSet(
+            light: Color(.Primitive.Blue._100), dark: Color(.Primitive.Blue._700))
+        public static let successBackground = ColorSchemeSet(
+            light: Color(.Primitive.Green._100), dark: Color(.Primitive.Green._700))
+        public static let warningBackground = ColorSchemeSet(
+            light: Color(.Primitive.Yellow._100), dark: Color(.Primitive.Yellow._700))
+        public static let errorBackground = ColorSchemeSet(
+            light: Color(.Primitive.Red._100), dark: Color(.Primitive.Red._700))
+
+        public static let infoForeground = ColorSchemeSet(
+            light: Color(.Primitive.Blue._600), dark: Color(.Primitive.Blue._200))
+        public static let successForeground = ColorSchemeSet(
+            light: Color(.Primitive.Green._600), dark: Color(.Primitive.Green._200))
+        public static let warningForeground = ColorSchemeSet(
+            light: Color(.Primitive.Yellow._600), dark: Color(.Primitive.Yellow._200))
+        public static let errorForeground = ColorSchemeSet(
+            light: Color(.Primitive.Red._600), dark: Color(.Primitive.Red._200))
     }
 }

@@ -5,8 +5,8 @@
 //  Created by Marquis Kurt on 01-02-2025.
 //
 
+import AlidadeUI
 import CubiomesKit
-import DesignLibrary
 import SwiftUI
 
 /// A view used to create and edit Minecraft world maps using the `.mcmap` format.
@@ -21,6 +21,8 @@ struct MapCreatorForm: View {
 
     /// A binding to the world settings for a Minecraft world.
     @Binding var worldSettings: MCMapManifestWorldSettings
+
+    @Environment(\.colorScheme) private var colorScheme
 
     @State private var seedString = ""
     @State private var invalidVersion = false
@@ -74,9 +76,10 @@ struct MapCreatorForm: View {
             }
 
             #if os(iOS)
-                javaOnlyAlert
-                    .foregroundStyle(SemanticColors.Alert.infoForeground)
-                    .listRowBackground(SemanticColors.Alert.infoBackground)
+                InlineBanner(
+                    "Before You Begin",
+                    message: "Alidade supports maps with Minecraft versions and seeds for _Minecraft: Java Edition_.")
+                .inlineBannerVariant(.information)
             #endif
         }
         .onAppear {
@@ -87,35 +90,6 @@ struct MapCreatorForm: View {
             #endif
         }
     }
-
-    private var javaOnlyAlert: some View {
-        Label {
-            Text("Before You Begin")
-                .font(.headline)
-            Text("Alidade supports maps with Minecraft versions and seeds for _Minecraft: Java Edition_.")
-
-        } icon: {
-            Image(systemName: "info.circle")
-                .bold()
-                .font(.headline)
-        }
-        .labelStyle(.multilineAlert)
-    }
-}
-
-private struct MultilineAlertLabelStyle: LabelStyle {
-    func makeBody(configuration: Configuration) -> some View {
-        HStack(alignment: .firstTextBaseline) {
-            configuration.icon
-            VStack(alignment: .leading) {
-                configuration.title
-            }
-        }
-    }
-}
-
-extension LabelStyle where Self == MultilineAlertLabelStyle {
-    static var multilineAlert: MultilineAlertLabelStyle { MultilineAlertLabelStyle() }
 }
 
 #Preview {
