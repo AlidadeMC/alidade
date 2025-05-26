@@ -17,6 +17,9 @@ extension Tag {
     /// A tag that refers to any views containing chips.
     @Tag static var chips: Self
 
+    /// A tag that refers to any views containing finite color pickers.
+    @Tag static var finiteColorPicker: Self
+
     /// A tag that refers to any views containing named locations.
     @Tag static var namedLocation: Self
 }

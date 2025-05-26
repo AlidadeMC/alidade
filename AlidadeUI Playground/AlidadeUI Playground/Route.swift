@@ -9,6 +9,7 @@ import SwiftUI
 
 enum Route: Hashable, CaseIterable {
     case chipTextField
+    case finiteColorPicker
     case namedLocation
 }
 
@@ -17,6 +18,8 @@ extension Route {
         switch self {
         case .chipTextField:
             "Chip Text Field"
+        case .finiteColorPicker:
+            "Finite Color Picker"
         case .namedLocation:
             "Named Location"
         }
@@ -26,6 +29,8 @@ extension Route {
         switch self {
         case .chipTextField:
             "tag"
+        case .finiteColorPicker:
+            "swatchpalette"
         case .namedLocation:
             "mappin"
         }

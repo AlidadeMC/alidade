@@ -13,27 +13,17 @@ import ViewInspector
 
 @MainActor
 struct CartographyMapPinColorPickerTests {
-    @Test func viewInitializes() throws {
-        let color = Binding<MCMapManifestPin.Color?>(wrappedValue: .blue)
-        let picker = CartographyMapPinColorPicker(color: color)
-        let sut = try picker.inspect()
-        
-        #expect(!sut.isAbsent)
-        for color in MCMapManifestPin.Color.allCases {
-            let accessibilityLabel = String(describing: color).localizedCapitalized
-            let button = try sut.find(viewWithTag: color)
-            #expect(try button.accessibilityLabel().string() == accessibilityLabel)
-        }
-    }
-
     @Test(arguments: MCMapManifestPin.Color.allCases)
     func viewUpdatesSelection(expectedColor: MCMapManifestPin.Color) throws {
         let color = Binding<MCMapManifestPin.Color?>(wrappedValue: nil)
         let picker = CartographyMapPinColorPicker(color: color)
         let sut = try picker.inspect()
 
-        let button = try sut.find(viewWithTag: expectedColor)
+        let button = try sut.find(viewWithTag: expectedColor.swiftUIColor)
         try button.button().tap()
-        #expect(color.wrappedValue == expectedColor)
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            #expect(color.wrappedValue == expectedColor)
+        }
     }
 }

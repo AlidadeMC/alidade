@@ -46,6 +46,8 @@ struct ContentView: View {
             switch currentRoute {
             case .chipTextField:
                 ChipTextFieldDemoView()
+            case .finiteColorPicker:
+                FiniteColorPickerDemoView()
             case .namedLocation:
                 NamedLocationDemoView()
             case nil:
