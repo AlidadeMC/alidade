@@ -12,13 +12,16 @@ import Testing
 @testable import Alidade
 
 struct CartographySearchServiceTests {
+    typealias SearchContext = CartographySearchService.SearchContext
+    typealias SearchFilterGroup = CartographySearchService.SearchFilterGroup
+
     @Test("Empty query")
     func searchReturnsNoResultsOnEmptyQuery() async throws {
         let world = try MinecraftWorld(version: "1.21.3", seed: 123)
         let file = CartographyMapFile(withManifest: .sampleFile)
         let service = CartographySearchService()
 
-        let results = await service.search("", world: world, file: file)
+        let results = await service.search(for: "", in: SearchContext(world: world, file: file))
         #expect(results.isEmpty)
     }
 
@@ -28,9 +31,29 @@ struct CartographySearchServiceTests {
         let file = CartographyMapFile(withManifest: .sampleFile)
         let service = CartographySearchService()
 
-        let results = await service.search(query, world: world, file: file)
+        let results = await service.search(for: query, in: SearchContext(world: world, file: file))
         #expect(results.pins.count == 1)
         #expect(results.pins.first == .init(position: .zero, name: "Spawn"))
+    }
+
+    @Test
+    func searchReturnsPinsWithTag() async throws {
+        let world = try MinecraftWorld(version: "1.21.3", seed: 123)
+        var file = CartographyMapFile(withManifest: .sampleFile)
+        let service = CartographySearchService()
+
+        file.manifest.pins.append(contentsOf: [
+            MCMapManifestPin(position: CGPoint(x: 12, y: 12), name: "Testing", tags: ["Tag", "Forest"]),
+            MCMapManifestPin(position: CGPoint(x: 10, y: 10), name: "Testing Grounds", tags: ["Base"]),
+            MCMapManifestPin(position: CGPoint(x: 11, y: 11), name: "Test Test", tags: ["Tag"])
+        ])
+
+        let results = await service.search(
+            for: "test",
+            in: SearchContext(world: world, file: file),
+            filters: SearchFilterGroup(filters: [.tag("Tag")]))
+        #expect(results.pins.count == 2)
+        #expect(results.pins.allSatisfy { $0.tags?.contains("Tag") != false })
     }
 
     @Test(
@@ -45,7 +68,7 @@ struct CartographySearchServiceTests {
         let file = CartographyMapFile(withManifest: .sampleFile)
         let service = CartographySearchService()
 
-        let results = await service.search(query, world: world, file: file)
+        let results = await service.search(for: query, in: SearchContext(world: world, file: file))
         #expect(results.coordinates.count == 1)
         #expect(results.coordinates.first == position)
     }
@@ -56,7 +79,11 @@ struct CartographySearchServiceTests {
         let service = CartographySearchService()
 
         let results = await service.search(
-            "mineshaft", world: world, file: file, currentPosition: .init(x: 113, y: 15, z: 430))
+            for: "mineshaft",
+            in: SearchContext(
+                world: world,
+                file: file,
+                position: MinecraftPoint(x: 113, y: 15, z: 430)))
         #expect(results.structures.count == 11)
         #expect(results.structures.allSatisfy { $0.name == "Mineshaft" })
     }
@@ -65,7 +92,9 @@ struct CartographySearchServiceTests {
         let world = try MinecraftWorld(version: "1.21.3", seed: 123)
         let file = CartographyMapFile(withManifest: .sampleFile)
         let service = CartographySearchService()
-        let results = await service.search("Frozen River", world: world, file: file, currentPosition: .zero)
+        let results = await service.search(
+            for: "Frozen River",
+            in: SearchContext(world: world, file: file, position: .zero))
         #expect(!results.biomes.isEmpty)
     }
 }

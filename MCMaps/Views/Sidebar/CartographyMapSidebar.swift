@@ -228,15 +228,12 @@ struct CartographyMapSidebar: View {
         LocalTips.onboarding.invalidate(reason: .actionPerformed)
         searchingState = .searching
         let service = CartographySearchService()
-        let results =
-            await service
-            .search(
-                viewModel.searchQuery,
-                world: world,
-                file: file,
-                currentPosition: viewModel.worldRange.origin,
-                dimension: viewModel.worldDimension
-            )
+        let context = CartographySearchService.SearchContext(
+            world: world,
+            file: file,
+            position: viewModel.worldRange.origin,
+            dimension: viewModel.worldDimension)
+        let results = await service.search(for: viewModel.searchQuery, in: context)
         searchingState = .found(results)
     }
 }

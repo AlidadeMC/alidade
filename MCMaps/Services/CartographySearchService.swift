@@ -13,6 +13,21 @@ class CartographySearchService {
     /// The type of query used to initiate searches.
     typealias Query = String
 
+    /// A structure that defines a search context.
+    struct SearchContext: Sendable {
+        /// The world to be searching.
+        var world: MinecraftWorld
+
+        /// The file to be searching.
+        var file: CartographyMapFile
+
+        /// The player's current position in the world.
+        var position: MinecraftPoint = .zero
+
+        /// The world's current dimension.
+        var dimension: MinecraftWorld.Dimension = .overworld
+    }
+
     /// A structure representing a set of results the search service has returned.
     struct SearchResult: Sendable, Equatable {
         /// The pins that matched a given query.
@@ -58,18 +73,11 @@ class CartographySearchService {
         self.searchRadius = Constants.defaultSearchRadius
     }
 
-    /// Searches the Minecraft world and file for information, given a query.
-    /// - Parameter query: The query to search the respective world and file for.
-    /// - Parameter world: THe world to search against.
-    /// - Parameter file: The file to search against.
-    /// - Parameter currentPosition: The current position to search from. Defaults to the origin.
-    /// - Parameter dimension: The Minecraft world dimension to search in. Defaults to the overworld.
-    func search(
-        _ query: Query, world: MinecraftWorld,
-        file: CartographyMapFile,
-        currentPosition: Point3D<Int32> = .zero,
-        dimension: MinecraftWorld.Dimension = .overworld
-    ) async -> SearchResult {
+    /// Performs a search operation with a specified query.
+    /// - Parameter query: The query to use for searching the world.
+    /// - Parameter context: The context in which to perform a search operation.
+    /// - Parameter filters: The filters to apply in this search.
+    func search(for query: Query, in context: SearchContext, filters: SearchFilterGroup? = nil) async -> SearchResult {
         var results = SearchResult()
 
         if let matches = query.matches(of: Constants.coordinateRegex).first?.output {
@@ -78,19 +86,22 @@ class CartographySearchService {
             }
         }
 
-        for pin in file.manifest.pins {
+        for pin in context.file.manifest.pins {
             guard pin.name.lowercased().contains(query.lowercased()) else {
+                continue
+            }
+            if let filters = filters, filters.matchTags(for: pin).isEmpty {
                 continue
             }
             results.pins.append(pin)
         }
 
         if let structure = MinecraftStructure(string: query) {
-            let foundStructures = world.findStructures(
+            let foundStructures = context.world.findStructures(
                 ofType: structure,
-                at: currentPosition,
+                at: context.position,
                 inRadius: searchRadius,
-                dimension: dimension
+                dimension: context.dimension
             )
             for foundStruct in foundStructures {
                 results.structures
@@ -102,7 +113,7 @@ class CartographySearchService {
                     )
             }
 
-            let cgPointOrigin = CGPoint(x: Double(currentPosition.x), y: Double(currentPosition.z))
+            let cgPointOrigin = CGPoint(minecraftPoint: context.position)
             results.structures.sort { first, second in
                 first.position
                     .manhattanDistance(to: cgPointOrigin) < second.position.manhattanDistance(to: cgPointOrigin)
@@ -111,10 +122,10 @@ class CartographySearchService {
 
         results.biomes = searchBiomes(
             query: query,
-            mcVersion: file.manifest.worldSettings.version,
-            world: world,
-            pos: currentPosition,
-            dimension: dimension
+            mcVersion: context.file.manifest.worldSettings.version,
+            world: context.world,
+            pos: context.position,
+            dimension: context.dimension
         )
 
         return results
