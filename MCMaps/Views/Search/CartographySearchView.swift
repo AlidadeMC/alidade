@@ -20,19 +20,11 @@ struct CartographySearchView<InitialView: View, ResultsView: View>: View {
         case found(CartographySearchService.SearchResult)
     }
 
-    private enum Constants {
-        static var searchBarPlacement: SearchFieldPlacement {
-            #if os(macOS)
-                return .sidebar
-            #else
-                return .navigationBarDrawer(displayMode: .always)
-            #endif
-        }
-    }
+    @FocusState private var searchFocused: Bool
 
-    @State var searchState = SearchState.initial
-    @State var query: SearchQuery = ""
-    @State var tokens = [SearchToken]()
+    @State private var searchState = SearchState.initial
+    @State private var rawQuery: SearchQuery = ""
+    @State private var tokens = [SearchToken]()
 
     var file: CartographyMapFile
     var position: MinecraftPoint
@@ -41,9 +33,48 @@ struct CartographySearchView<InitialView: View, ResultsView: View>: View {
     var initial: () -> InitialView
     var results: (SearchResult) -> ResultsView
 
-    #if DEBUG
-        var prefill: (() -> SearchQuery)?
-    #endif
+    private var searchGainedFocus: (() -> Void)?
+
+    init(
+        file: CartographyMapFile,
+        position: MinecraftPoint,
+        dimension: MinecraftWorld.Dimension,
+        initial: @escaping () -> InitialView,
+        results: @escaping (SearchResult) -> ResultsView,
+    ) {
+        self.file = file
+        self.position = position
+        self.dimension = dimension
+        self.initial = initial
+        self.results = results
+    }
+
+    fileprivate init(
+        file: CartographyMapFile,
+        position: MinecraftPoint,
+        dimension: MinecraftWorld.Dimension,
+        initial: @escaping () -> InitialView,
+        results: @escaping (SearchResult) -> ResultsView,
+        searchGainedFocus: (() -> Void)? = nil
+    ) {
+        self.file = file
+        self.position = position
+        self.dimension = dimension
+        self.initial = initial
+        self.results = results
+        self.searchGainedFocus = searchGainedFocus
+    }
+
+    func searchBecomesFocused(_ callback: @escaping () -> Void) -> Self {
+        CartographySearchView(
+            file: file,
+            position: position,
+            dimension: dimension,
+            initial: initial,
+            results: results,
+            searchGainedFocus: callback
+        )
+    }
 
     var body: some View {
         Group {
@@ -56,12 +87,17 @@ struct CartographySearchView<InitialView: View, ResultsView: View>: View {
                 results(searchResult)
             }
         }
-        .searchable(text: $query, tokens: $tokens, prompt: "Go To...") { token in
+        .searchable(
+            text: $rawQuery,
+            tokens: $tokens,
+            prompt: "Go To..."
+        ) { token in
             switch token {
             case let .tag(tagName):
                 Text(tagName)
             }
         }
+        .searchFocused($searchFocused)
         .searchSuggestions {
             ForEach(getSuggestions()) { searchToken in
                 switch searchToken {
@@ -72,22 +108,18 @@ struct CartographySearchView<InitialView: View, ResultsView: View>: View {
             }
         }
         .animation(.interactiveSpring, value: searchState)
-        .onAppear {
-            #if DEBUG
-                if let prefilledQuery = prefill?() {
-                    query = prefilledQuery
-                }
-            #endif
-        }
-        .onChange(of: query) { _, newValue in
+        .onChange(of: rawQuery) { _, newValue in
             if newValue.isEmpty, tokens.isEmpty {
                 searchState = .initial
             }
         }
         .onChange(of: tokens) { _, newValue in
-            if newValue.isEmpty, query.isEmpty {
+            if newValue.isEmpty, rawQuery.isEmpty {
                 searchState = .initial
             }
+        }
+        .onChange(of: searchFocused) { _, newValue in
+            if newValue { searchGainedFocus?() }
         }
         .onSubmit(of: .search) {
             Task { await performSearch() }
@@ -108,13 +140,13 @@ struct CartographySearchView<InitialView: View, ResultsView: View>: View {
             position: position,
             dimension: dimension)
         let filterGroup = CartographySearchService.SearchFilterGroup(filters: Set(tokens))
-        let results = await service.search(for: query, in: context, filters: filterGroup)
+        let results = await service.search(for: rawQuery, in: context, filters: filterGroup)
         searchState = .found(results)
     }
 
     private func getSuggestions() -> [SearchToken] {
         let fileTags = file.manifest.getAllAvailableTags()
-        let matchingTags = fileTags.filter { tag in query.lowercased().contains(tag.lowercased()) }
+        let matchingTags = fileTags.filter { tag in rawQuery.lowercased().contains(tag.lowercased()) }
         return matchingTags.map { SearchToken.tag($0) }
     }
 }
@@ -136,7 +168,7 @@ struct CartographySearchView<InitialView: View, ResultsView: View>: View {
             }
 
             var searchQuery: CartographySearchView.SearchQuery {
-                target.query
+                target.rawQuery
             }
 
             func triggerSearch() async {

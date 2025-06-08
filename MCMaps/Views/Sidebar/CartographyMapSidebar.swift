@@ -31,8 +31,6 @@ struct CartographyMapSidebar: View {
     /// Notably, the sidebar content will read from recent locations and the player-created pins.
     @Binding var file: CartographyMapFile
 
-    @FocusState private var searchFocused: Bool
-
     var body: some View {
         CartographySearchView(file: file, position: viewModel.worldRange.origin, dimension: viewModel.worldDimension) {
             #if os(macOS)
@@ -55,8 +53,14 @@ struct CartographyMapSidebar: View {
                 }
             #endif
         }
+        .searchBecomesFocused {
+            if viewModel.presentationDetent == .small {
+                withAnimation {
+                    viewModel.presentationDetent = .medium
+                }
+            }
+        }
         .frame(minWidth: 175, idealWidth: 200)
-        .searchFocused($searchFocused)
         .onAppear {
             if file.manifest.pins.isEmpty {
                 Task {
@@ -74,13 +78,7 @@ struct CartographyMapSidebar: View {
                 break
             }
         }
-        .onChange(of: searchFocused) { _, newValue in
-            if newValue && viewModel.presentationDetent == .small {
-                withAnimation {
-                    viewModel.presentationDetent = .medium
-                }
-            }
-        }
+
         .onChange(of: file.manifest.pins) { _, newValue in
             if !newValue.isEmpty {
                 LocalTips.emptyLibrary.invalidate(reason: .actionPerformed)
