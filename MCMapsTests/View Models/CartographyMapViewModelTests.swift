@@ -12,13 +12,14 @@ import Testing
 
 @testable import Alidade
 
+@MainActor
 struct CartographyMapViewModelTests {
     typealias SizeClass = UserInterfaceSizeClass
     typealias Coordinate = Point3D<Int32>
 
     @Test(.timeLimit(.minutes(1)), .tags(.viewModel))
     func viewModelInit() async throws {
-        let viewModel = await CartographyMapViewModel()
+        let viewModel = CartographyMapViewModel()
         #expect(await viewModel.currentRoute == nil)
         #expect(await viewModel.displayCurrentRouteModally.wrappedValue == false)
         #expect(await viewModel.searchQuery.isEmpty)
@@ -29,7 +30,7 @@ struct CartographyMapViewModelTests {
 
     @Test(.timeLimit(.minutes(1)), .tags(.viewModel))
     func viewModelPositionLabel() async throws {
-        let viewModel = await CartographyMapViewModel()
+        let viewModel = CartographyMapViewModel()
         #expect(await viewModel.positionLabel == "X: 0, Z: 0")
 
         await MainActor.run {
@@ -41,30 +42,30 @@ struct CartographyMapViewModelTests {
 
     @Test(.timeLimit(.minutes(1)), .tags(.viewModel))
     func viewModelGoesToPosition() async throws {
-        let viewModel = await CartographyMapViewModel()
+        let viewModel = CartographyMapViewModel()
         let file = CartographyMapFile(withManifest: .sampleFile)
         #expect(await viewModel.worldRange.origin == .init(x: 0, y: 15, z: 0))
 
-        await viewModel.go(to: .init(x: 1847, y: 1847), relativeTo: file)
+        viewModel.go(to: .init(x: 1847, y: 1847), relativeTo: file)
         #expect(await viewModel.worldRange.origin == .init(x: 1847, y: 15, z: 1847))
     }
 
     @Test(.timeLimit(.minutes(1)), .tags(.viewModel))
     func viewModelSubmitsWorldChanges() async throws {
-        let viewModel = await CartographyMapViewModel()
+        let viewModel = CartographyMapViewModel()
         let file = CartographyMapFile(withManifest: .sampleFile)
 
         await MainActor.run {
             viewModel.currentRoute = .editWorld
         }
 
-        await viewModel.submitWorldChanges(to: file)
+        viewModel.submitWorldChanges(to: file)
         #expect(await viewModel.currentRoute == nil)
     }
 
     @Test(.timeLimit(.minutes(1)), .tags(.viewModel), .enabled(if: platform(is: .iOS)))
     func viewModelRouteBindingsMobile() async throws {
-        let viewModel = await CartographyMapViewModel()
+        let viewModel = CartographyMapViewModel()
         await MainActor.run {
             viewModel.currentRoute = .editWorld
         }
@@ -75,7 +76,7 @@ struct CartographyMapViewModelTests {
 
     @Test(.timeLimit(.minutes(1)), .tags(.viewModel), .enabled(if: platform(is: .macOS)))
     func viewModelRouteBindingsDesktop() async throws {
-        let viewModel = await CartographyMapViewModel()
+        let viewModel = CartographyMapViewModel()
         await MainActor.run {
             viewModel.currentRoute = .editWorld
         }
@@ -83,7 +84,7 @@ struct CartographyMapViewModelTests {
         #expect(await viewModel.displayCurrentRouteAsInspector.wrappedValue == false)
         #expect(await viewModel.displayCurrentRouteModally.wrappedValue == true)
 
-        await viewModel.displayCurrentRouteModally.wrappedValue = false
+        viewModel.displayCurrentRouteModally.wrappedValue = false
         #expect(await viewModel.currentRoute == nil)
     }
 }

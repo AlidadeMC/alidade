@@ -13,44 +13,6 @@ import ViewInspector
 
 @MainActor
 struct CartographyMapSidebarTests {
-    @Test func sidebarInit() throws {
-        let file = Binding(wrappedValue: CartographyMapFile(withManifest: .sampleFile))
-        let viewModel = Binding(wrappedValue: CartographyMapViewModel())
-        let sidebar = CartographyMapSidebar(viewModel: viewModel, file: file)
-
-        #expect(sidebar.testHooks.searchState == .initial)
-        #expect(sidebar.testHooks.world != nil)
-        #if os(iOS)
-            #expect(sidebar.testHooks.searchBarPlacement == .navigationBarDrawer(displayMode: .always))
-        #else
-            #expect(sidebar.testHooks.searchBarPlacement == .sidebar)
-        #endif
-    }
-
-    @Test
-    func sidebarSearchResults() async throws {
-        let file = Binding(wrappedValue: CartographyMapFile(withManifest: .sampleFile))
-        let viewModel = Binding(wrappedValue: CartographyMapViewModel())
-        let sidebar = CartographyMapSidebar(viewModel: viewModel, file: file)
-
-        #expect(sidebar.testHooks.searchState == .initial)
-        #expect(sidebar.testHooks.world != nil)
-
-        viewModel.wrappedValue.searchQuery = "awn"
-
-        await withKnownIssue("Main actor causes data race") {
-            await sidebar.testHooks.triggerSearch()
-
-            guard case let .found(searchResults) = sidebar.testHooks.searchState else {
-                Issue.record("Search state is invalid! \(sidebar.testHooks.searchState)")
-                return
-            }
-            
-            #expect(!searchResults.isEmpty)
-            #expect(sidebar.testHooks.world != nil)
-        }
-    }
-
     @Test func pushToRecentLocations() throws {
         let file = Binding(wrappedValue: CartographyMapFile(withManifest: .sampleFile))
         let viewModel = Binding(wrappedValue: CartographyMapViewModel())

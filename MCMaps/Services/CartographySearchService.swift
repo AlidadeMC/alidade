@@ -29,7 +29,7 @@ class CartographySearchService {
     }
 
     /// A structure representing a set of results the search service has returned.
-    struct SearchResult: Sendable, Equatable {
+    struct SearchResult: Sendable, Equatable, Hashable {
         /// The pins that matched a given query.
         var pins: [MCMapManifestPin]
 

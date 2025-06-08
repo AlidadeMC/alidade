@@ -15,12 +15,6 @@ import TipKit
 /// This will appear as the sheet content in the app's adaptable sidebar sheet, and as the sidebar in the
 /// ``CartographyMapSplitView``.
 struct CartographyMapSidebar: View {
-    enum SearchingState: Equatable {
-        case initial
-        case searching
-        case found(CartographySearchService.SearchResult)
-    }
-
     private enum LocalTips {
         static let onboarding = LibraryOnboardingTip()
         static let emptyLibrary = PinActionOnboardingTip()
@@ -37,34 +31,32 @@ struct CartographyMapSidebar: View {
     /// Notably, the sidebar content will read from recent locations and the player-created pins.
     @Binding var file: CartographyMapFile
 
-    @State private var searchingState = SearchingState.initial
     @FocusState private var searchFocused: Bool
 
-    private var searchBarPlacement: SearchFieldPlacement {
-        #if os(macOS)
-            return .sidebar
-        #else
-            return .navigationBarDrawer(displayMode: .always)
-        #endif
-    }
-
     var body: some View {
-        Group {
+        CartographySearchView(file: file, position: viewModel.worldRange.origin, dimension: viewModel.worldDimension) {
             #if os(macOS)
                 List(selection: $viewModel.currentRoute) {
-                    listContents
+                    defaultView
                 }
             #else
                 List {
-                    listContents
+                    defaultView
+                }
+            #endif
+        } results: { searchResults in
+            #if os(macOS)
+                List(selection: $viewModel.currentRoute) {
+                    view(forSearchResults: searchResults)
+                }
+            #else
+                List {
+                    view(forSearchResults: searchResults)
                 }
             #endif
         }
-
         .frame(minWidth: 175, idealWidth: 200)
-        .searchable(text: $viewModel.searchQuery, placement: searchBarPlacement, prompt: "Go To...")
         .searchFocused($searchFocused)
-        .animation(.default, value: searchingState)
         .onAppear {
             if file.manifest.pins.isEmpty {
                 Task {
@@ -82,11 +74,6 @@ struct CartographyMapSidebar: View {
                 break
             }
         }
-        .onSubmit(of: .search) {
-            Task {
-                await search()
-            }
-        }
         .onChange(of: searchFocused) { _, newValue in
             if newValue && viewModel.presentationDetent == .small {
                 withAnimation {
@@ -94,29 +81,9 @@ struct CartographyMapSidebar: View {
                 }
             }
         }
-        .onChange(of: viewModel.searchQuery) { _, newValue in
-            if newValue.isEmpty {
-                searchingState = .initial
-            }
-        }
         .onChange(of: file.manifest.pins) { _, newValue in
             if !newValue.isEmpty {
                 LocalTips.emptyLibrary.invalidate(reason: .actionPerformed)
-            }
-        }
-    }
-
-    private var listContents: some View {
-        Group {
-            Group {
-                switch searchingState {
-                case .initial:
-                    defaultView
-                case .searching:
-                    CartographySearchLabel()
-                case .found(let results):
-                    view(forSearchResults: results)
-                }
             }
         }
     }
@@ -134,7 +101,6 @@ struct CartographyMapSidebar: View {
                     withAnimation {
                         viewModel.go(to: jumpToCoordinate, relativeTo: file)
                         pushToRecentLocations(jumpToCoordinate)
-                        viewModel.searchQuery = ""
                         if viewModel.currentRoute != nil {
                             viewModel.currentRoute = nil
                         }
@@ -153,8 +119,6 @@ struct CartographyMapSidebar: View {
             ) { jumpedToPin in
                 withAnimation {
                     pushToRecentLocations(jumpedToPin.position)
-                    viewModel.searchQuery = ""
-                    searchingState = .initial
                 }
             }
 
@@ -163,8 +127,6 @@ struct CartographyMapSidebar: View {
             ) { jumpedToPin in
                 withAnimation {
                     pushToRecentLocations(jumpedToPin.position)
-                    viewModel.searchQuery = ""
-                    searchingState = .initial
                 }
             }
         }
@@ -191,10 +153,6 @@ struct CartographyMapSidebar: View {
         }
     }
 
-    private var world: MinecraftWorld? {
-        try? MinecraftWorld(version: file.manifest.worldSettings.version, seed: file.manifest.worldSettings.seed)
-    }
-
     func pushToRecentLocations(_ position: CGPoint) {
         if file.manifest.recentLocations == nil {
             file.manifest.recentLocations = [position]
@@ -205,23 +163,6 @@ struct CartographyMapSidebar: View {
             file.manifest.recentLocations?.remove(at: 0)
         }
         viewModel.currentRoute = .recent(position)
-    }
-
-    private func search() async {
-        guard let world else {
-            searchingState = .initial
-            return
-        }
-        LocalTips.onboarding.invalidate(reason: .actionPerformed)
-        searchingState = .searching
-        let service = CartographySearchService()
-        let context = CartographySearchService.SearchContext(
-            world: world,
-            file: file,
-            position: viewModel.worldRange.origin,
-            dimension: viewModel.worldDimension)
-        let results = await service.search(for: viewModel.searchQuery, in: context)
-        searchingState = .found(results)
     }
 }
 
@@ -235,22 +176,6 @@ struct CartographyMapSidebar: View {
 
             fileprivate init(target: CartographyMapSidebar) {
                 self.target = target
-            }
-
-            var world: MinecraftWorld? {
-                target.world
-            }
-
-            var searchState: SearchingState {
-                target.searchingState
-            }
-
-            var searchBarPlacement: SearchFieldPlacement {
-                target.searchBarPlacement
-            }
-
-            func triggerSearch() async {
-                await target.search()
             }
         }
     }

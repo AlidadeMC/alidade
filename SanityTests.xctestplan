@@ -1,0 +1,24 @@
+{
+  "configurations" : [
+    {
+      "id" : "284FEB20-F5CC-4767-89CE-C950EED93B22",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "testTimeoutsEnabled" : true
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:MCMaps.xcodeproj",
+        "identifier" : "950402DF2D4D522200F51903",
+        "name" : "MCMapsTests"
+      }
+    }
+  ],
+  "version" : 1
+}

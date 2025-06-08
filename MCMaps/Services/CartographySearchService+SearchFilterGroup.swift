@@ -7,7 +7,9 @@
 
 extension CartographySearchService {
     /// An enumeration representing the various filter types for a search.
-    enum SearchFilter: Sendable, Hashable, Equatable {
+    enum SearchFilter: Sendable, Hashable, Equatable, Identifiable {
+        var id: Self { self }
+
         /// Filter by a specific tag.
         case tag(String)
     }
