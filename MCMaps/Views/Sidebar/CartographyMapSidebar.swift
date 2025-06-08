@@ -113,72 +113,59 @@ struct CartographyMapSidebar: View {
                 case .initial:
                     defaultView
                 case .searching:
-                    HStack {
-                        Spacer()
-                        Label {
-                            Text("Searching...")
-                                .font(.subheadline)
-                                .bold()
-                        } icon: {
-                            Image(systemName: "magnifyingglass.circle")
-                                .symbolEffect(.breathe)
-                                .imageScale(.large)
-                        }
-                        Spacer()
-                    }
-                    .padding(.vertical)
-                    #if os(iOS)
-                        .listRowBackground(Color.clear)
-                        .listRowInsets(.zero)
-                        .listRowSeparator(.hidden)
-                    #endif
+                    CartographySearchLabel()
                 case .found(let results):
-                    if let jumpToCoordinate = results.coordinates.first {
-                        NamedLocationView(
-                            name: "Jump Here",
-                            location: jumpToCoordinate,
-                            systemImage: "figure.run",
-                            color: .accent
-                        )
-                        .onTapGesture {
-                            withAnimation {
-                                viewModel.go(to: jumpToCoordinate, relativeTo: file)
-                                pushToRecentLocations(jumpToCoordinate)
-                                viewModel.searchQuery = ""
-                                if viewModel.currentRoute != nil {
-                                    viewModel.currentRoute = nil
-                                }
-                            }
-                        }
-                    }
+                    view(forSearchResults: results)
+                }
+            }
+        }
+    }
 
-                    if !results.pins.isEmpty {
-                        PinnedLibrarySection(pins: results.pins, viewModel: $viewModel, file: $file)
-                    }
-
-                    GroupedPinsSection(
-                        pins: results.structures,
-                        viewModel: $viewModel,
-                        file: $file
-                    ) { jumpedToPin in
-                        withAnimation {
-                            pushToRecentLocations(jumpedToPin.position)
-                            viewModel.searchQuery = ""
-                            searchingState = .initial
-                        }
-                    }
-
-                    GroupedPinsSection(
-                        name: "Biomes", pins: results.biomes, viewModel: $viewModel, file: $file
-                    ) { jumpedToPin in
-                        withAnimation {
-                            pushToRecentLocations(jumpedToPin.position)
-                            viewModel.searchQuery = ""
-                            searchingState = .initial
+    private func view(forSearchResults results: CartographySearchService.SearchResult) -> some View {
+        Group {
+            if let jumpToCoordinate = results.coordinates.first {
+                NamedLocationView(
+                    name: "Jump Here",
+                    location: jumpToCoordinate,
+                    systemImage: "figure.run",
+                    color: .accent
+                )
+                .onTapGesture {
+                    withAnimation {
+                        viewModel.go(to: jumpToCoordinate, relativeTo: file)
+                        pushToRecentLocations(jumpToCoordinate)
+                        viewModel.searchQuery = ""
+                        if viewModel.currentRoute != nil {
+                            viewModel.currentRoute = nil
                         }
                     }
                 }
+            }
 
+            if !results.pins.isEmpty {
+                PinnedLibrarySection(pins: results.pins, viewModel: $viewModel, file: $file)
+            }
+
+            GroupedPinsSection(
+                pins: results.structures,
+                viewModel: $viewModel,
+                file: $file
+            ) { jumpedToPin in
+                withAnimation {
+                    pushToRecentLocations(jumpedToPin.position)
+                    viewModel.searchQuery = ""
+                    searchingState = .initial
+                }
+            }
+
+            GroupedPinsSection(
+                name: "Biomes", pins: results.biomes, viewModel: $viewModel, file: $file
+            ) { jumpedToPin in
+                withAnimation {
+                    pushToRecentLocations(jumpedToPin.position)
+                    viewModel.searchQuery = ""
+                    searchingState = .initial
+                }
             }
         }
     }
