@@ -36,8 +36,8 @@ struct CartographySearchServiceTests {
         #expect(results.pins.first == .init(position: .zero, name: "Spawn"))
     }
 
-    @Test
-    func searchReturnsPinsWithTag() async throws {
+    @Test(arguments: ["test", ""])
+    func searchReturnsPinsWithTag(query: CartographySearchService.Query) async throws {
         let world = try MinecraftWorld(version: "1.21.3", seed: 123)
         var file = CartographyMapFile(withManifest: .sampleFile)
         let service = CartographySearchService()
@@ -49,7 +49,7 @@ struct CartographySearchServiceTests {
         ])
 
         let results = await service.search(
-            for: "test",
+            for: query,
             in: SearchContext(world: world, file: file),
             filters: SearchFilterGroup(filters: [.tag("Tag")]))
         #expect(results.pins.count == 2)

@@ -87,12 +87,15 @@ class CartographySearchService {
         }
 
         for pin in context.file.manifest.pins {
-            guard pin.name.lowercased().contains(query.lowercased()) else {
+            let nameMatches = pin.name.lowercased().contains(query.lowercased())
+            if let filters = filters {
+                if filters.matchTags(for: pin).isEmpty { continue }
+                if !nameMatches, !query.isEmpty { continue }
+                results.pins.append(pin)
                 continue
             }
-            if let filters = filters, filters.matchTags(for: pin).isEmpty {
-                continue
-            }
+
+            if !nameMatches { continue }
             results.pins.append(pin)
         }
 
