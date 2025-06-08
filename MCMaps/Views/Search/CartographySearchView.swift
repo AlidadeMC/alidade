@@ -40,7 +40,7 @@ struct CartographySearchView<InitialView: View, ResultsView: View>: View {
         position: MinecraftPoint,
         dimension: MinecraftWorld.Dimension,
         initial: @escaping () -> InitialView,
-        results: @escaping (SearchResult) -> ResultsView,
+        results: @escaping (SearchResult) -> ResultsView
     ) {
         self.file = file
         self.position = position
