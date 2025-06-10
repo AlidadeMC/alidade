@@ -146,9 +146,10 @@ import SwiftUI
                         openPanel.canDownloadUbiquitousContents = true
                         openPanel.allowsMultipleSelection = false
                         openPanel.allowedContentTypes = [.mcmap]
-                        openPanel.begin { resp in
-                            if resp == .OK, let url = openPanel.url {
-                                openDocument(at: url)
+                        Task {
+                            let response = await openPanel.begin()
+                            if response == .OK, let url = openPanel.url {
+                                try? await openDocument(at: url)
                             }
                         }
                     } label: {

@@ -199,21 +199,20 @@ struct CartographyMapPinDetailView: View {
             panel.canChooseDirectories = false
             panel.allowedContentTypes = [.image]
             if let keyWindow = NSApplication.shared.keyWindow {
-                panel.beginSheetModal(for: keyWindow) { response in
-                    switch response {
-                    case .OK:
-                        guard let path = panel.url else { return }
-                        do {
-                            let data = try Data(contentsOf: path)
-                            viewModel.uploadImage(data) {
-                                LocalTips.photosOnboarding.invalidate(reason: .actionPerformed)
-                            }
-                        } catch {
-                            print("Failed to get image...")
+                let response = await panel.beginSheetModal(for: keyWindow)
+                switch response {
+                case .OK:
+                    guard let path = panel.url else { return panel }
+                    do {
+                        let data = try Data(contentsOf: path)
+                        viewModel.uploadImage(data) {
+                            LocalTips.photosOnboarding.invalidate(reason: .actionPerformed)
                         }
-                    default:
-                        break
+                    } catch {
+                        print("Failed to get image...")
                     }
+                default:
+                    break
                 }
             }
             return panel
