@@ -11,27 +11,10 @@ import TipKit
 /// The main entry point for the Alidade app.
 @main
 struct MCMapsApp: App {
-    /// The app's display name as it appears in the Info.plist file.
-    static var appName: String {
-        Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String ?? ""
-    }
-
-    /// The app's main version as it appears in the Info.plist file.
-    static var version: String {
-        Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "0.0"
-    }
-
-    /// The app's build number as it appears in the Info.plist file.
-    static var buildNumber: String {
-        Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "0"
-    }
-
-    static var copyrightString: String {
-        Bundle.main.infoDictionary?["NSHumanReadableCopyright"] as? String ?? ""
-    }
-
     @Environment(\.openWindow) private var openWindow
     @Environment(\.openURL) private var openURL
+
+    @AppStorage(UserDefaults.Keys.mapNaturalColors.rawValue) private var naturalColors = true
 
     @State private var displayCreationWindow = false
     @State private var proxyMap = MCMapManifest(
@@ -52,6 +35,13 @@ struct MCMapsApp: App {
                 #if os(iOS)
                     .toolbarVisibility(.hidden, for: .navigationBar)
                 #endif
+        }
+        .commands {
+            CommandMenu("Map") {
+                Toggle(isOn: $naturalColors) {
+                    Label("Natural Colors", systemImage: "paintpalette")
+                }
+            }
         }
         #if os(macOS)
             .commands {
