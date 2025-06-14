@@ -52,11 +52,13 @@ struct LocationBadge: View {
         }
         .if(useRedWindowDesign) { view in
             Group {
+                #if RED_WINDOW
                 if #available(macOS 16, iOS 19, *) {
                     view.glassEffect()
                 } else {
                     view.background(Capsule().fill(.thinMaterial))
                 }
+                #endif
             }
         } `else`: { view in
            view.background(Capsule().fill(.thinMaterial))

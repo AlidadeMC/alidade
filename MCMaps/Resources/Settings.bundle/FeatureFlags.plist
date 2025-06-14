@@ -16,7 +16,7 @@
 			<key>Key</key>
 			<string>flags.red_window</string>
 			<key>DefaultValue</key>
-			<true/>
+			<false/>
 		</dict>
 	</array>
 </dict>

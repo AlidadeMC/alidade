@@ -14,6 +14,12 @@
         }
       }
     },
+    "(10, 10)" : {
+
+    },
+    "(1847, 1847)" : {
+
+    },
     "%@" : {
 
     },
@@ -81,6 +87,9 @@
 
     },
     "Browse and search your library." : {
+
+    },
+    "Café Trommeln" : {
 
     },
     "Cancel" : {
@@ -176,7 +185,16 @@
     "Igloo" : {
 
     },
+    "Inspector" : {
+
+    },
     "Jungle Temple" : {
+
+    },
+    "KLB Electronics" : {
+
+    },
+    "Letztes Jahr" : {
 
     },
     "Library" : {
@@ -278,6 +296,9 @@
     "Reset Tip Datastore" : {
 
     },
+    "Return to Map" : {
+
+    },
     "Ruined Portal" : {
 
     },
@@ -285,6 +306,9 @@
 
     },
     "Seed" : {
+
+    },
+    "Select a Pin" : {
 
     },
     "Send %@ Feedback" : {

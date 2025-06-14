@@ -134,7 +134,14 @@ contributors to read through.
 - ``WorldDimensionPickerTip``
 - ``AboutWindowView``
 
+### Settings and Feature Flags
+
+- ``FeatureFlag``
+- ``FeatureFlagged``
+- ``AlidadeSettingsView``
+
 ### Contributing
 
 - <doc:Building>
 - <doc:Styleguide>
+- <doc:TechNotes>

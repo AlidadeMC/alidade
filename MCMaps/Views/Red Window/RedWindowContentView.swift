@@ -8,6 +8,10 @@
 import CubiomesKit
 import SwiftUI
 
+/// The new main content view designed for Red Window.
+///
+/// - Important: This new view is still a working in progress. Not all functionalities are available yet.
+/// - SeeAlso: Refer to <doc:RedWindow> for more information on the new Red Window design.
 struct RedWindowContentView: View {
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
 
@@ -64,7 +68,9 @@ struct RedWindowContentView: View {
                         }
                         .padding()
                         .labelStyle(.iconOnly)
-                        .glassEffect()
+                        #if RED_WINDOW
+                            .glassEffect()
+                        #endif
                         .scenePadding()
                     }
                 }
@@ -86,9 +92,11 @@ struct RedWindowContentView: View {
                                 Label("Map", systemImage: "map")
                             }
                         }
-                        if #available(macOS 16, iOS 19, *) {
-                            ToolbarSpacer(.flexible)
-                        }
+                        #if RED_WINDOW
+                            if #available(macOS 16, iOS 19, *) {
+                                ToolbarSpacer(.flexible)
+                            }
+                        #endif
                         ToolbarItem {
                             Button {
                             } label: {

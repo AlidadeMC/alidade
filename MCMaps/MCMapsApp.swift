@@ -16,6 +16,8 @@ struct MCMapsApp: App {
 
     @AppStorage(UserDefaults.Keys.mapNaturalColors.rawValue) private var naturalColors = true
 
+    @FeatureFlagged(.redWindow) private var useRedWindowDesign
+
     @State private var displayCreationWindow = false
     @State private var proxyMap = MCMapManifest(
         name: "My World", worldSettings: MCMapManifestWorldSettings(version: "1.21", seed: 0), pins: [])
@@ -30,16 +32,30 @@ struct MCMapsApp: App {
 
     var body: some Scene {
         DocumentGroup(newDocument: CartographyMapFile(withManifest: .sampleFile)) { configuration in
-            ContentView(file: configuration.$document)
-                .toolbarRole(.editor)
-                #if os(iOS)
-                    .toolbarVisibility(.hidden, for: .navigationBar)
-                #endif
+            if useRedWindowDesign {
+                RedWindowContentView(file: configuration.$document)
+            } else {
+                ContentView(file: configuration.$document)
+                    .toolbarRole(.editor)
+                    #if os(iOS)
+                        .toolbarVisibility(.hidden, for: .navigationBar)
+                    #endif
+            }
         }
         .commands {
             CommandMenu("Map") {
                 Toggle(isOn: $naturalColors) {
                     Label("Natural Colors", systemImage: "paintpalette")
+                }
+            }
+            CommandGroup(replacing: .help) {
+                Link("\(Self.appName) Help", destination: URL(appLink: .help)!)
+                Divider()
+                if let docs = URL(appLink: .docs) {
+                    Link("View \(Self.appName) Documentation", destination: docs)
+                }
+                if let feedback = URL(appLink: .issues) {
+                    Link("Send \(Self.appName) Feedback", destination: feedback)
                 }
             }
         }
@@ -55,16 +71,6 @@ struct MCMapsApp: App {
                         openWindow(id: "launch")
                     }
                     .keyboardShortcut("0", modifiers: [.shift, .command])
-                }
-                CommandGroup(replacing: .help) {
-                    Link("\(Self.appName) Help", destination: URL(appLink: .help)!)
-                    Divider()
-                    if let docs = URL(appLink: .docs) {
-                        Link("View \(Self.appName) Documentation", destination: docs)
-                    }
-                    if let feedback = URL(appLink: .issues) {
-                        Link("Send \(Self.appName) Feedback", destination: feedback)
-                    }
                 }
             }
         #endif
@@ -104,10 +110,10 @@ struct MCMapsApp: App {
             .windowToolbarStyle(.unified)
             .windowBackgroundDragBehavior(.enabled)
 
-        Settings {
-            AlidadeSettingsView()
-                .presentedWindowToolbarStyle(.unifiedCompact)
-        }
+            Settings {
+                AlidadeSettingsView()
+                    .presentedWindowToolbarStyle(.unifiedCompact)
+            }
         #endif
     }
 }
