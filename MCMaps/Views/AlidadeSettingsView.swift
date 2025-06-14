@@ -12,7 +12,7 @@ struct AlidadeSettingsView: View {
     @AppStorage(FeatureFlag.redWindow.keyName) private var flagRedWindow = true
 
     private var isRedWindowActionable: Bool {
-        return if #available(macOS 26, iOS 26, *) { true } else { false }
+        return if #available(macOS 16, iOS 19, *) { true } else { false }
     }
 
     var body: some View {
