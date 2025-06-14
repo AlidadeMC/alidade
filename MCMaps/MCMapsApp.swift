@@ -103,6 +103,11 @@ struct MCMapsApp: App {
             .windowResizability(.contentSize)
             .windowToolbarStyle(.unified)
             .windowBackgroundDragBehavior(.enabled)
+
+        Settings {
+            AlidadeSettingsView()
+                .presentedWindowToolbarStyle(.unifiedCompact)
+        }
         #endif
     }
 }

@@ -143,6 +143,9 @@
     "Feature" : {
 
     },
+    "Feature Flags" : {
+
+    },
     "Fortress" : {
 
     },
@@ -164,6 +167,9 @@
     "Go To..." : {
 
     },
+    "Here be dragons" : {
+
+    },
     "Hide All Tips" : {
 
     },
@@ -174,6 +180,9 @@
 
     },
     "Library" : {
+
+    },
+    "Liquid Glass Design (Red Window)" : {
 
     },
     "Location" : {
@@ -309,6 +318,9 @@
 
     },
     "Tags" : {
+
+    },
+    "The following flags control experimental features. Proceed with caution." : {
 
     },
     "this pin" : {
