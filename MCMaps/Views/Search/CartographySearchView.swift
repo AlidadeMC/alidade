@@ -20,6 +20,16 @@ struct CartographySearchView<InitialView: View, ResultsView: View>: View {
         case found(CartographySearchService.SearchResult)
     }
 
+    private enum Constants {
+        static var searchFieldPlacement: SearchFieldPlacement {
+            #if os(macOS)
+                return .automatic
+            #else
+                return .navigationBarDrawer(displayMode: .always)
+            #endif
+        }
+    }
+
     @FocusState private var searchFocused: Bool
 
     @State private var searchState = SearchState.initial
@@ -90,6 +100,7 @@ struct CartographySearchView<InitialView: View, ResultsView: View>: View {
         .searchable(
             text: $rawQuery,
             tokens: $tokens,
+            placement: Constants.searchFieldPlacement,
             prompt: "Go To..."
         ) { token in
             switch token {
