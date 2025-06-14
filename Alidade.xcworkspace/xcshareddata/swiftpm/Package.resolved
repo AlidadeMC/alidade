@@ -1,5 +1,5 @@
 {
-  "originHash" : "560bcbf3d64729a6949e15824dae433ac91b0e38b7b5f82b5b2a8ec950a2faa5",
+  "originHash" : "adeb5b053087ebd6aeabacf482414f072af0545e7e64e8a9bdccc056de9996f1",
   "pins" : [
     {
       "identity" : "adaptablesidebarsheetview",
@@ -16,7 +16,7 @@
       "location" : "https://github.com/alicerunsonfedora/CubiomesKit",
       "state" : {
         "branch" : "root",
-        "revision" : "e6b269295c68a24c7d24a7126bc771327f616385"
+        "revision" : "0c59c5b811879e19613f41e6df2ecdcc7f17cf3c"
       }
     },
     {
@@ -42,8 +42,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-collections.git",
       "state" : {
-        "revision" : "671108c96644956dddcd89dd59c203dcdb36cec7",
-        "version" : "1.1.4"
+        "revision" : "c1805596154bb3a265fd91b8ac0c4433b4348fb0",
+        "version" : "1.2.0"
       }
     },
     {
@@ -69,8 +69,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/nalexn/ViewInspector",
       "state" : {
-        "revision" : "788e7879d38a839c4e348ab0762dcc0364e646a2",
-        "version" : "0.10.1"
+        "revision" : "a6fcac8485bc8f57b2d2b55bb6d97138e8659e4b",
+        "version" : "0.10.2"
       }
     }
   ],
