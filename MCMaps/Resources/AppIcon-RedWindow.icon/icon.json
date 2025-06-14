@@ -1,0 +1,67 @@
+{
+  "color-space-for-untagged-svg-colors" : "display-p3",
+  "fill" : {
+    "linear-gradient" : [
+      "srgb:0.41233,0.61333,0.72654,1.00000",
+      "srgb:0.16708,0.40676,0.52647,1.00000"
+    ]
+  },
+  "groups" : [
+    {
+      "layers" : [
+        {
+          "image-name" : "Icon-2.png",
+          "name" : "Icon-2",
+          "position" : {
+            "scale" : 1.25,
+            "translation-in-points" : [
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "glass" : true,
+          "hidden" : false,
+          "image-name" : "Icon.png",
+          "name" : "Icon",
+          "position-specializations" : [
+            {
+              "value" : {
+                "scale" : 1.25,
+                "translation-in-points" : [
+                  -49.953125,
+                  -27.59375
+                ]
+              }
+            },
+            {
+              "idiom" : "square",
+              "value" : {
+                "scale" : 1.35,
+                "translation-in-points" : [
+                  -49.953125,
+                  -27.59375
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "shadow" : {
+        "kind" : "neutral",
+        "opacity" : 0.5
+      },
+      "translucency" : {
+        "enabled" : true,
+        "value" : 0.5
+      }
+    }
+  ],
+  "supported-platforms" : {
+    "circles" : [
+      "watchOS"
+    ],
+    "squares" : "shared"
+  }
+}
