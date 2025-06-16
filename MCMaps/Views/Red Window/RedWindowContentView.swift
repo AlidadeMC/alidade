@@ -13,115 +13,146 @@ import SwiftUI
 /// - Important: This new view is still a working in progress. Not all functionalities are available yet.
 /// - SeeAlso: Refer to <doc:RedWindow> for more information on the new Red Window design.
 struct RedWindowContentView: View {
+    enum RedWindowRoute: Hashable {
+        case map
+        case gallery
+        case allPins
+        case pin(MCMapManifestPin)
+        case search
+    }
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
 
     @Binding var file: CartographyMapFile
 
+    @FeatureFlagged(.redWindow) private var useRedWindowDesign
+
     @State private var currentPosition = CGPoint.zero
     @State private var query = ""
-    @State private var enableInspector = false
-    @State private var preferredCompactColumn = NavigationSplitViewColumn.detail
     @State private var renderNaturalColors = true
     @State private var mapDimension = MinecraftWorld.Dimension.overworld
+    @State private var tabCustomization = TabViewCustomization()
+    @State private var currentTab = RedWindowRoute.map
+
+    var columns: [GridItem] {
+        Array(repeating: GridItem(.flexible()), count: horizontalSizeClass == .compact ? 2 : 4)
+    }
 
     var body: some View {
-        NavigationSplitView(preferredCompactColumn: $preferredCompactColumn) {
-            List {
-                Section {
-                    Label("(10, 10)", systemImage: "location.fill")
-                    Label("(1847, 1847)", systemImage: "location.fill")
-                } header: {
-                    Label("Recents", systemImage: "clock")
+        TabView(selection: $currentTab) {
+            Tab("Map", systemImage: "map", value: .map) {
+                NavigationStack {
+                    worldView
                 }
-
-                Section {
-                    Label {
-                        Text("Letztes Jahr")
-                    } icon: {
-                        Image(systemName: "house.fill")
-                            .foregroundStyle(.blue)
-                    }
-                    Label {
-                        Text("KLB Electronics")
-                    } icon: {
-                        Image(systemName: "building.2.fill")
-                            .foregroundStyle(.pink)
-                    }
-                    Label {
-                        Text("Café Trommeln")
-                    } icon: {
-                        Image(systemName: "cup.and.saucer.fill")
-                            .foregroundStyle(.brown)
-                    }
-                } header: {
-                    Label("Library", systemImage: "mappin")
-                }
-            }
-            .listStyle(.sidebar)
-            .overlay(alignment: .bottomLeading) {
-                if horizontalSizeClass == .compact {
-                    if #available(macOS 16, iOS 19, *) {
-                        Button {
-                            preferredCompactColumn = .detail
+                .toolbar {
+                    ToolbarItem {
+                        Menu {
+                            Toggle(isOn: $renderNaturalColors) {
+                                Label("Natural Colors", systemImage: "paintpalette")
+                            }
+                            WorldDimensionPickerView(selection: $mapDimension)
+                                .pickerStyle(.inline)
                         } label: {
-                            Label("Return to Map", systemImage: "chevron.forward")
+                            Label("Map", systemImage: "map")
                         }
-                        .padding()
-                        .labelStyle(.iconOnly)
-                        #if RED_WINDOW
-                            .glassEffect()
-                        #endif
-                        .scenePadding()
+                    }
+                }
+                .overlay(alignment: .bottomTrailing) {
+                    LocationBadge(location: currentPosition)
+                        .environment(\.contentTransitionAddsDrawingGroup, true)
+                        .labelStyle(.titleAndIcon)
+                }
+            }
+            Tab("Gallery", systemImage: "photo.stack", value: .gallery) {
+                ContentUnavailableView("No Photos in Gallery", systemImage: "photo.stack")
+            }
+            Tab(value: .search, role: .search) {
+                ContentUnavailableView.search(text: "wtflol")
+            }
+
+            TabSection("Library") {
+                Tab("All Pins", systemImage: "mappin", value: RedWindowRoute.allPins) {
+                    allPinsView
+                }
+                ForEach(MCMapManifest.preview.pins, id: \.self) { mapPin in
+                    Tab(mapPin.name, systemImage: "mappin", value: RedWindowRoute.pin(mapPin)) {
+                        NavigationStack {
+                            RedWindowPinDetailView(pin: mapPin)
+                        }
                     }
                 }
             }
-        } detail: {
-            if let world = try? MinecraftWorld(worldSettings: file.manifest.worldSettings) {
-                MinecraftMap(world: world, centerCoordinate: $currentPosition, dimension: mapDimension)
-                    .mapColorScheme(.natural)
-                    .edgesIgnoringSafeArea(.all)
-                    .toolbar {
-                        ToolbarItem {
-                            Menu {
-                                Toggle(isOn: $renderNaturalColors) {
-                                    Label("Natural Colors", systemImage: "paintpalette")
-                                }
-                                WorldDimensionPickerView(selection: $mapDimension)
-                                    .pickerStyle(.inline)
-                            } label: {
-                                Label("Map", systemImage: "map")
-                            }
-                        }
-                        #if RED_WINDOW
-                            if #available(macOS 16, iOS 19, *) {
-                                ToolbarSpacer(.flexible)
-                            }
-                        #endif
-                        ToolbarItem {
-                            Button {
-                            } label: {
-                                Label("Create Pin", systemImage: "mappin")
-                            }
-                        }
-                        ToolbarItem {
-                            Button {
-                                enableInspector.toggle()
-                            } label: {
-                                Label("Inspector", systemImage: "info.circle")
-                            }
-                        }
+            .hidden(horizontalSizeClass == .compact)
+        }
+        .tabViewStyle(.sidebarAdaptable)
+        .tabViewCustomization($tabCustomization)
+        .animation(.interactiveSpring, value: currentTab)
+    }
+
+    private var worldView: some View {
+        Group {
+            if let world = try? MinecraftWorld(worldSettings: MCMapManifest.preview.worldSettings) {
+                MinecraftMap(world: world, centerCoordinate: $currentPosition, dimension: mapDimension) {
+                    MCMapManifest.preview.pins.map { mapPin in
+                        Marker(
+                            location: mapPin.position,
+                            title: mapPin.name,
+                            color: mapPin.color?.swiftUIColor ?? .accent
+                        )
                     }
+                }
+                .mapColorScheme(.natural)
             }
         }
-        .edgesIgnoringSafeArea(.all)
-        .searchable(text: $query)
-        .overlay(alignment: .bottomTrailing) {
-            LocationBadge(location: currentPosition)
-                .environment(\.contentTransitionAddsDrawingGroup, true)
-                .labelStyle(.titleAndIcon)
+        .ignoresSafeArea(.all)
+    }
+
+    private var allPinsView: some View {
+        NavigationStack {
+            ScrollView(.vertical) {
+                LazyVGrid(columns: columns) {
+                    ForEach(MCMapManifest.preview.pins, id: \.self) { mapPin in
+                        NavigationLink {
+                            RedWindowPinDetailView(pin: mapPin)
+                        } label: {
+                            VStack(alignment: .leading) {
+                                RoundedRectangle(cornerRadius: 10)
+                                    .fill(Color(mapPin.color?.swiftUIColor ?? .accent).gradient)
+                                    .frame(height: 100)
+                                    .overlay {
+                                        Image(systemName: "mappin")
+                                            .foregroundStyle(.white)
+                                    }
+                                Text(mapPin.name)
+                                    .font(.headline)
+                                    .foregroundStyle(.primary)
+                            }
+                        }
+                        .tint(.primary)
+                    }
+                    .padding(.horizontal)
+                }
+            }
+            .toolbar {
+                ToolbarItem {
+                    Button {
+                    } label: {
+                        Label("Create Pin", systemImage: "mappin.circle")
+                    }
+                }
+            }
         }
-        .inspector(isPresented: $enableInspector) {
-            ContentUnavailableView("Select a Pin", systemImage: "mappin")
+        .navigationTitle("All Pins")
+    }
+}
+
+extension View {
+    func backgroundExtensionEffectIfAvailable() -> some View {
+        Group {
+            if #available(macOS 16, iOS 19, *) {
+                self.backgroundExtensionEffect()
+            } else {
+                self
+            }
         }
     }
 }

@@ -4,6 +4,16 @@
     "" : {
 
     },
+    "(%lf, %lf)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "(%1$lf, %2$lf)"
+          }
+        }
+      }
+    },
     "(%lld, %lld)" : {
       "localizations" : {
         "en" : {
@@ -13,12 +23,6 @@
           }
         }
       }
-    },
-    "(10, 10)" : {
-
-    },
-    "(1847, 1847)" : {
-
     },
     "%@" : {
 
@@ -71,6 +75,9 @@
     "Alidade supports maps with Minecraft versions and seeds for _Minecraft: Java Edition_." : {
 
     },
+    "All Pins" : {
+
+    },
     "Ancient City" : {
 
     },
@@ -87,9 +94,6 @@
 
     },
     "Browse and search your library." : {
-
-    },
-    "Café Trommeln" : {
 
     },
     "Cancel" : {
@@ -158,10 +162,16 @@
     "Fortress" : {
 
     },
+    "From Files" : {
+
+    },
     "From Finder" : {
 
     },
     "From Photos" : {
+
+    },
+    "Gallery" : {
 
     },
     "Geode" : {
@@ -185,16 +195,7 @@
     "Igloo" : {
 
     },
-    "Inspector" : {
-
-    },
     "Jungle Temple" : {
-
-    },
-    "KLB Electronics" : {
-
-    },
-    "Letztes Jahr" : {
 
     },
     "Library" : {
@@ -245,6 +246,12 @@
     "Nether" : {
 
     },
+    "No Photos in Gallery" : {
+
+    },
+    "No Photos Uploaded" : {
+
+    },
     "No Pin Selected" : {
 
     },
@@ -275,6 +282,9 @@
     "Pin a location." : {
 
     },
+    "Pin Color" : {
+
+    },
     "Pin Inspector" : {
 
     },
@@ -293,10 +303,10 @@
     "Remove from Recents" : {
 
     },
-    "Reset Tip Datastore" : {
+    "Rename" : {
 
     },
-    "Return to Map" : {
+    "Reset Tip Datastore" : {
 
     },
     "Ruined Portal" : {
@@ -306,9 +316,6 @@
 
     },
     "Seed" : {
-
-    },
-    "Select a Pin" : {
 
     },
     "Send %@ Feedback" : {
@@ -403,6 +410,9 @@
 
     },
     "World Location" : {
+
+    },
+    "Write a description about this pin." : {
 
     },
     "Write a description..." : {
