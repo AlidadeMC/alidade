@@ -92,7 +92,7 @@ struct PinCreatorForm: View {
         }
         .toolbar {
             ToolbarItem(placement: .confirmationAction) {
-                Button("Create") {
+                Button("Create", systemImage: "checkmark") {
                     dismiss()
                     completion(MCMapManifestPin(position: updatedLocation, name: name, color: color))
                 }

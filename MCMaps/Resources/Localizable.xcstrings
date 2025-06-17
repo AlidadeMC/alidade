@@ -4,6 +4,9 @@
     "" : {
 
     },
+    "(%@)" : {
+
+    },
     "(%lf, %lf)" : {
       "localizations" : {
         "en" : {
@@ -60,10 +63,16 @@
         }
       }
     },
+    "^[%lld Tag](inflect: true)" : {
+
+    },
     "About" : {
 
     },
     "About %@" : {
+
+    },
+    "About this Place" : {
 
     },
     "Add Photos" : {
@@ -79,6 +88,9 @@
 
     },
     "Ancient City" : {
+
+    },
+    "Are you sure you want to delete %@?" : {
 
     },
     "Are you sure you want to remove %@?" : {
@@ -117,10 +129,19 @@
     "Debug" : {
 
     },
+    "Delete Pin" : {
+
+    },
     "Delete Pin..." : {
 
     },
+    "Deleting this pin will also remove any images associated with this pin." : {
+
+    },
     "Deleting this pin will also remove its photos from the map." : {
+
+    },
+    "Desert" : {
 
     },
     "Desert Pyramid" : {
@@ -174,6 +195,9 @@
     "Gallery" : {
 
     },
+    "Gallery is Empty" : {
+
+    },
     "Geode" : {
 
     },
@@ -184,6 +208,9 @@
 
     },
     "Go To..." : {
+
+    },
+    "Grid" : {
 
     },
     "Here be dragons" : {
@@ -198,10 +225,19 @@
     "Jungle Temple" : {
 
     },
+    "Large Biomes" : {
+
+    },
+    "Letztes" : {
+
+    },
     "Library" : {
 
     },
     "Liquid Glass Design (Red Window)" : {
+
+    },
+    "List" : {
 
     },
     "Location" : {
@@ -220,6 +256,9 @@
 
     },
     "Make it memorable." : {
+
+    },
+    "Manage Tags" : {
 
     },
     "Mansion" : {
@@ -246,9 +285,6 @@
     "Nether" : {
 
     },
-    "No Photos in Gallery" : {
-
-    },
     "No Photos Uploaded" : {
 
     },
@@ -259,6 +295,12 @@
 
     },
     "No Route Available" : {
+
+    },
+    "No Tags" : {
+
+    },
+    "No tags for this place." : {
 
     },
     "No view was defined for route %@" : {
@@ -279,6 +321,9 @@
     "Photos" : {
 
     },
+    "Photos you add to your pinned places will appear here." : {
+
+    },
     "Pin a location." : {
 
     },
@@ -292,6 +337,12 @@
 
     },
     "Preview" : {
+
+    },
+    "Recent Locations" : {
+
+    },
+    "Recent Queries" : {
 
     },
     "Recents" : {
@@ -397,6 +448,9 @@
     "View maps of the Overworld, the Nether, and the End easily." : {
 
     },
+    "View Mode" : {
+
+    },
     "View Source Code" : {
 
     },
@@ -406,13 +460,16 @@
     "Welcome to %@" : {
 
     },
+    "World" : {
+
+    },
     "World Generation" : {
 
     },
     "World Location" : {
 
     },
-    "Write a description about this pin." : {
+    "Write a description about this place." : {
 
     },
     "Write a description..." : {

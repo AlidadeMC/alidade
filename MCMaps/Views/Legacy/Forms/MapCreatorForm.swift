@@ -51,6 +51,9 @@ struct MapCreatorForm: View {
                             .textFieldStyle(.plain)
                     }
                 #endif
+                Toggle(isOn: $worldSettings.largeBiomes) {
+                    Text("Large Biomes")
+                }
             } header: {
                 Text("World Generation")
             } footer: {
