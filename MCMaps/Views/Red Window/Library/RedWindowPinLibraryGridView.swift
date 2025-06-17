@@ -32,6 +32,7 @@ struct RedWindowPinLibraryGridView: View {
                         cell(for: mapPin)
                     }
                     .tint(.primary)
+                    .buttonStyle(.plain)
                 }
                 .padding(.horizontal)
             }

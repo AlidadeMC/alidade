@@ -105,3 +105,14 @@ Red Window is being mapped out in the following manner:
 ### New Views with Red Window
 
 - ``RedWindowContentView``
+- ``RedWindowMapView``
+- ``RedWindowSearchView``
+- ``RedWindowPinDetailView``
+- ``RedWindowPinLibraryView``
+- ``RedWindowPinLibraryListView``
+- ``RedWindowPinLibraryGridView``
+
+### New Types with Red Window
+
+- ``RedWindowRoute``
+- ``LibraryNavigationPath``

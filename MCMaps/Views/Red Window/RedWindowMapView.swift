@@ -8,8 +8,10 @@
 import CubiomesKit
 import SwiftUI
 
+/// The view that is displayed in the Map tab on Red Window.
 struct RedWindowMapView: View {
-    @Binding var file: CartographyMapFile
+    /// The file to read from and write to.
+    var file: CartographyMapFile
 
     @State private var centerCoordinate = CGPoint.zero
     @State private var mapDimension = MinecraftWorld.Dimension.overworld

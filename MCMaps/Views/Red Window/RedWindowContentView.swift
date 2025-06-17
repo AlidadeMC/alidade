@@ -10,11 +10,18 @@ import SwiftUI
 
 /// The new main content view designed for Red Window.
 ///
+/// The new design sports a universal tab bar that adapts to a sidebar on iPadOS and macOS. On iPadOS, players can
+/// rearrange and customize the tab bar to their liking.
+///
+/// The map, world settings, and gallery views are put into their own respective tabs. Search is broken out into its
+/// own tab, and the player-created pins are put into new areas via the Library tab.
+///
 /// - Important: This new view is still a working in progress. Not all functionalities are available yet.
 /// - SeeAlso: Refer to <doc:RedWindow> for more information on the new Red Window design.
 struct RedWindowContentView: View {
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
 
+    /// The file to read from and write to.
     @Binding var file: CartographyMapFile
 
     @FeatureFlagged(.redWindow) private var useRedWindowDesign
@@ -24,15 +31,23 @@ struct RedWindowContentView: View {
     @State private var currentTab = RedWindowRoute.map
     @State private var libraryNavigationPath = NavigationPath()
 
+    private var subtitle: String {
+        let seed = String(file.manifest.worldSettings.seed)
+        return "Minecraft \(file.manifest.worldSettings.version) | Seed: " + seed
+    }
+
     var body: some View {
         TabView(selection: $currentTab) {
             Tab("Map", systemImage: "map", value: .map) {
-                RedWindowMapView(file: $file)
+                RedWindowMapView(file: file)
             }
 
             Tab("World", systemImage: "globe", value: .worldEdit) {
                 NavigationStack {
                     MapCreatorForm(worldName: $file.manifest.name, worldSettings: $file.manifest.worldSettings)
+                    #if os(macOS)
+                        .formStyle(.grouped)
+                    #endif
                 }
             }
             .defaultVisibility(.hidden, for: .tabBar)
@@ -87,6 +102,9 @@ struct RedWindowContentView: View {
                 .customizationBehavior(.disabled, for: .sidebar)
             #endif
         }
+        #if os(macOS)
+        .navigationSubtitle(subtitle)
+        #endif
         .tabViewStyle(.sidebarAdaptable)
         .tabViewCustomization($tabCustomization)
         .animation(.interactiveSpring, value: currentTab)
@@ -105,6 +123,7 @@ struct RedWindowContentView: View {
 
 extension View {
     func backgroundExtensionEffectIfAvailable() -> some View {
+        #if RED_WINDOW
         Group {
             if #available(macOS 16, iOS 19, *) {
                 self.backgroundExtensionEffect()
@@ -112,6 +131,9 @@ extension View {
                 self
             }
         }
+        #else
+        self
+        #endif
     }
 }
 

@@ -69,6 +69,12 @@ contributors to read through.
 - <doc:Building>
 - <doc:FileFormat>
 
+### Contribute to Alidade
+
+- <doc:Building>
+- <doc:Styleguide>
+- <doc:TechNotes>
+
 ### Architecture and View Hierarchy
 
 - <doc:Architecture>
@@ -139,9 +145,3 @@ contributors to read through.
 - ``FeatureFlag``
 - ``FeatureFlagged``
 - ``AlidadeSettingsView``
-
-### Contributing
-
-- <doc:Building>
-- <doc:Styleguide>
-- <doc:TechNotes>
