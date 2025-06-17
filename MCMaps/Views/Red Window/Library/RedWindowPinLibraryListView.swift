@@ -9,6 +9,7 @@ import CubiomesKit
 import SwiftUI
 
 struct RedWindowPinLibraryListView: View {
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     @Binding var navigationPath: NavigationPath
 
     var pins: [MCMapManifestPin]
@@ -19,7 +20,14 @@ struct RedWindowPinLibraryListView: View {
         Table(pins, selection: $selection) {
             TableColumn("Name") { val in
                 Label {
-                    Text(val.name)
+                    VStack(alignment: .leading) {
+                        Text(val.name)
+                            .bold(horizontalSizeClass == .compact)
+                        if horizontalSizeClass == .compact {
+                            Text(val.position.accessibilityReadout)
+                                .foregroundStyle(.secondary)
+                        }
+                    }
                 } icon: {
                     Image(systemName: "mappin")
                         .foregroundStyle(val.color?.swiftUIColor ?? .accent)

@@ -37,15 +37,19 @@ struct RedWindowContentView: View {
             }
             .defaultVisibility(.hidden, for: .tabBar)
             .customizationID("app.tab.world_edit")
-            .customizationBehavior(.automatic, for: .tabBar)
-            .customizationBehavior(.disabled, for: .sidebar)
+            #if os(iOS)
+                .customizationBehavior(.automatic, for: .tabBar)
+                .customizationBehavior(.disabled, for: .sidebar)
+            #endif
 
             Tab("Library", systemImage: "books.vertical", value: .allPinsCompact) {
                 RedWindowPinLibraryView(file: $file, path: $libraryNavigationPath)
             }
             .hidden(horizontalSizeClass != .compact)
             .customizationID("app.tab.library")
-            .customizationBehavior(.disabled, for: .automatic)
+            #if os(iOS)
+                .customizationBehavior(.disabled, for: .automatic)
+            #endif
 
             Tab("Gallery", systemImage: "photo.stack", value: .gallery) {
                 ContentUnavailableView(
@@ -65,7 +69,9 @@ struct RedWindowContentView: View {
                 }
                 .customizationID("app.tab.library.all_pins")
                 .tabPlacement(.sidebarOnly)
-                .customizationBehavior(.disabled, for: .sidebar)
+                #if os(iOS)
+                    .customizationBehavior(.disabled, for: .sidebar)
+                #endif
                 ForEach(file.manifest.pins, id: \.self) { mapPin in
                     Tab(mapPin.name, systemImage: "mappin", value: RedWindowRoute.pin(mapPin)) {
                         NavigationStack {
@@ -77,7 +83,9 @@ struct RedWindowContentView: View {
                 }
             }
             .hidden(horizontalSizeClass == .compact)
-            .customizationBehavior(.disabled, for: .sidebar)
+            #if os(iOS)
+                .customizationBehavior(.disabled, for: .sidebar)
+            #endif
         }
         .tabViewStyle(.sidebarAdaptable)
         .tabViewCustomization($tabCustomization)
