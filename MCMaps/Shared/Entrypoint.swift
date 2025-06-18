@@ -1,5 +1,5 @@
 //
-//  MCMapsApp.swift
+//  Entrypoint.swift
 //  MCMaps
 //
 //  Created by Marquis Kurt on 31-01-2025.
@@ -22,6 +22,8 @@ struct MCMapsApp: App {
     @State private var proxyMap = MCMapManifest(
         name: "My World", worldSettings: MCMapManifestWorldSettings(version: "1.21", seed: 0), pins: [])
 
+    @State private var redWindowEnvironment = RedWindowEnvironment()
+
     init() {
         do {
             try Tips.configure()
@@ -34,6 +36,7 @@ struct MCMapsApp: App {
         DocumentGroup(newDocument: CartographyMapFile(withManifest: .sampleFile)) { configuration in
             if useRedWindowDesign {
                 RedWindowContentView(file: configuration.$document)
+                    .environment(redWindowEnvironment)
             } else {
                 ContentView(file: configuration.$document)
                     .toolbarRole(.editor)
@@ -47,6 +50,7 @@ struct MCMapsApp: App {
                 Toggle(isOn: $naturalColors) {
                     Label("Natural Colors", systemImage: "paintpalette")
                 }
+                WorldDimensionPickerView(selection: $redWindowEnvironment.currentDimension)
             }
             CommandGroup(replacing: .help) {
                 Link("\(Self.appName) Help", destination: URL(appLink: .help)!)
@@ -56,6 +60,16 @@ struct MCMapsApp: App {
                 }
                 if let feedback = URL(appLink: .issues) {
                     Link("Send \(Self.appName) Feedback", destination: feedback)
+                }
+            }
+            CommandGroup(before: .toolbar) {
+                ForEach(Array(RedWindowRoute.allCases.enumerated().reversed()), id: \.element.id) { (index, route) in
+                    let character = Character("\(index + 1)")
+
+                    Button(route.name, systemImage: route.symbol) {
+                        redWindowEnvironment.currentRoute = route
+                    }
+                    .keyboardShortcut(KeyEquivalent(character), modifiers: .command)
                 }
             }
         }

@@ -20,6 +20,7 @@ import SwiftUI
 /// - SeeAlso: Refer to <doc:RedWindow> for more information on the new Red Window design.
 struct RedWindowContentView: View {
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    @Environment(RedWindowEnvironment.self) private var redWindowEnvironment
 
     /// The file to read from and write to.
     @Binding var file: CartographyMapFile
@@ -37,12 +38,14 @@ struct RedWindowContentView: View {
     }
 
     var body: some View {
-        TabView(selection: $currentTab) {
-            Tab("Map", systemImage: "map", value: .map) {
+        @Bindable var env = redWindowEnvironment
+
+        TabView(selection: $env.currentRoute) {
+            Tab(route: .map) {
                 RedWindowMapView(file: file)
             }
 
-            Tab("World", systemImage: "globe", value: .worldEdit) {
+            Tab(route: .worldEdit) {
                 NavigationStack {
                     MapCreatorForm(worldName: $file.manifest.name, worldSettings: $file.manifest.worldSettings)
                     #if os(macOS)
@@ -57,7 +60,7 @@ struct RedWindowContentView: View {
                 .customizationBehavior(.disabled, for: .sidebar)
             #endif
 
-            Tab("Library", systemImage: "books.vertical", value: .allPinsCompact) {
+            Tab(route: .allPinsCompact) {
                 RedWindowPinLibraryView(file: $file, path: $libraryNavigationPath)
             }
             .hidden(horizontalSizeClass != .compact)
@@ -66,7 +69,7 @@ struct RedWindowContentView: View {
                 .customizationBehavior(.disabled, for: .automatic)
             #endif
 
-            Tab("Gallery", systemImage: "photo.stack", value: .gallery) {
+            Tab(route: .gallery) {
                 ContentUnavailableView(
                     "Gallery is Empty",
                     systemImage: "photo.stack",
@@ -79,7 +82,7 @@ struct RedWindowContentView: View {
             }
 
             TabSection("Library") {
-                Tab("All Pins", systemImage: "square.grid.2x2", value: RedWindowRoute.allPins) {
+                Tab(route: .allPins) {
                     RedWindowPinLibraryView(file: $file, path: $libraryNavigationPath)
                 }
                 .customizationID("app.tab.library.all_pins")
@@ -134,12 +137,5 @@ extension View {
         #else
         self
         #endif
-    }
-}
-
-extension String {
-    var snakeCase: String {
-        let components = self.components(separatedBy: " ").map(\.localizedLowercase)
-        return components.joined(separator: "_")
     }
 }

@@ -10,20 +10,23 @@ import SwiftUI
 
 /// The view that is displayed in the Map tab on Red Window.
 struct RedWindowMapView: View {
+    @Environment(RedWindowEnvironment.self) private var redWindowEnvironment
+
     /// The file to read from and write to.
     var file: CartographyMapFile
 
     @State private var centerCoordinate = CGPoint.zero
-    @State private var mapDimension = MinecraftWorld.Dimension.overworld
 
     @AppStorage(UserDefaults.Keys.mapNaturalColors.rawValue)
     private var useNaturalColors = true
 
     var body: some View {
+        @Bindable var env = redWindowEnvironment
+
         NavigationStack {
             Group {
                 if let world = try? MinecraftWorld(worldSettings: file.manifest.worldSettings) {
-                    MinecraftMap(world: world, centerCoordinate: $centerCoordinate, dimension: mapDimension) {
+                    MinecraftMap(world: world, centerCoordinate: $centerCoordinate, dimension: env.currentDimension) {
                         file.manifest.pins.map { mapPin in
                             Marker(
                                 location: mapPin.position,
@@ -43,7 +46,7 @@ struct RedWindowMapView: View {
                         Toggle(isOn: $useNaturalColors) {
                             Label("Natural Colors", systemImage: "paintpalette")
                         }
-                        WorldDimensionPickerView(selection: $mapDimension)
+                        WorldDimensionPickerView(selection: $env.currentDimension)
                             .pickerStyle(.inline)
                     } label: {
                         Label("Map", systemImage: "map")
