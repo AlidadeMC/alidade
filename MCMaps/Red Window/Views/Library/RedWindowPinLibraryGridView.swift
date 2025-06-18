@@ -12,7 +12,7 @@ struct RedWindowPinLibraryGridView: View {
     @Environment(\.tabBarPlacement) private var tabBarPlacement
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
 
-    var pins: [MCMapManifestPin]
+    var pins: IndexedPinCollection
 
     private var columns: [GridItem] {
         Array(repeating: GridItem(.flexible()), count: preferredColumnCount)
@@ -27,9 +27,9 @@ struct RedWindowPinLibraryGridView: View {
     var body: some View {
         ScrollView(.vertical) {
             LazyVGrid(columns: columns) {
-                ForEach(pins, id: \.self) { mapPin in
-                    NavigationLink(value: LibraryNavigationPath.pin(mapPin)) {
-                        cell(for: mapPin)
+                ForEach(pins, id: \.content.self) { mapPin in
+                    NavigationLink(value: LibraryNavigationPath.pin(mapPin.content, index: mapPin.index)) {
+                        cell(for: mapPin.content)
                     }
                     .tint(.primary)
                     .buttonStyle(.plain)

@@ -90,7 +90,7 @@
     "Ancient City" : {
 
     },
-    "Are you sure you want to delete %@?" : {
+    "Are you sure you want to remove '%@'?" : {
 
     },
     "Are you sure you want to remove %@?" : {
@@ -129,13 +129,7 @@
     "Debug" : {
 
     },
-    "Delete Pin" : {
-
-    },
     "Delete Pin..." : {
-
-    },
-    "Deleting this pin will also remove any images associated with this pin." : {
 
     },
     "Deleting this pin will also remove its photos from the map." : {
@@ -352,6 +346,15 @@
 
     },
     "Remove from Recents" : {
+
+    },
+    "Remove Pin" : {
+
+    },
+    "Remove..." : {
+
+    },
+    "Removing this pin will also remove any images associated with this pin." : {
 
     },
     "Rename" : {

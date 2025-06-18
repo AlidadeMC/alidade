@@ -10,12 +10,13 @@ import SwiftUI
 
 struct RedWindowPinDetailView: View {
     @Environment(\.tabBarPlacement) var tabBarPlacement
-    var pin: MCMapManifestPin
+    @Binding var pin: MCMapManifestPin
 
     @State private var description = ""
     @State private var tags = Set<String>()
     @State private var displayAlert = false
     @State private var center = CGPoint.zero
+    @State private var color = MCMapManifestPin.Color.blue
 
     var body: some View {
         HStack(spacing: 0) {
@@ -23,53 +24,9 @@ struct RedWindowPinDetailView: View {
                 VStack(alignment: .leading) {
                     header
                     Group {
-                        Group {
-                            Text("About this Place")
-                                .font(.title2)
-                                .bold()
-                                .padding(.top)
-                            TextEditor(text: $description)
-                                .frame(minHeight: 200)
-                                .overlay(alignment: .topLeading) {
-                                    if description.isEmpty {
-                                        Text("Write a description about this place.")
-                                            .foregroundStyle(.secondary)
-                                            .padding(.leading, 4)
-                                            .padding(.top, 8)
-                                    }
-                                }
-                        }
-
-                        Group {
-                            Text("Tags")
-                                .font(.title3)
-                                .bold()
-                                .padding(.top)
-                            if let tags = pin.tags, !tags.isEmpty {
-                                ScrollView(.horizontal) {
-                                    HStack {
-                                        ForEach(Array(tags), id: \.self) { tag in
-                                            Text(tag)
-                                                .padding(.horizontal)
-                                                .padding(.vertical, 3)
-                                                .background(Capsule().fill(.secondary.opacity(0.25)))
-                                        }
-                                    }
-                                }
-                            } else {
-                                Text("No tags for this place.")
-                                    .foregroundStyle(.secondary)
-                            }
-                        }
-
-                        Group {
-                            Text("Gallery")
-                                .font(.title2)
-                                .bold()
-                                .padding(.top)
-                            ContentUnavailableView("No Photos Uploaded", systemImage: "photo.stack")
-                        }
-
+                        aboutSection
+                        tagsSection
+                        gallerySection
                     }
                     .padding(.horizontal)
                 }
@@ -80,6 +37,7 @@ struct RedWindowPinDetailView: View {
                 Group {
                     if let world = try? MinecraftWorld(version: "1.21.3", seed: 184_719_632_014) {
                         MinecraftMap(world: world, centerCoordinate: $center) {
+                            Marker(location: .zero, title: "#nodraw")
                             Marker(
                                 location: pin.position,
                                 title: pin.name,
@@ -88,6 +46,7 @@ struct RedWindowPinDetailView: View {
                         }
                         .mapColorScheme(.natural)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .allowsHitTesting(false)
                     }
                 }
                 .frame(idealWidth: 300, maxWidth: 375, maxHeight: .infinity)
@@ -97,12 +56,18 @@ struct RedWindowPinDetailView: View {
         .animation(.interactiveSpring, value: tabBarPlacement)
         .task {
             center = pin.position
+            if let currentColor = pin.color {
+                color = currentColor
+            }
+            if let about = pin.aboutDescription {
+                description = about
+            }
         }
-        .alert("Are you sure you want to delete \(pin.name)?", isPresented: $displayAlert) {
-            Button("Delete Pin", role: .destructive) {}
-            Button("Don't Remove", role: .cancel) {}
-        } message: {
-            Text("Deleting this pin will also remove any images associated with this pin.")
+        .onChange(of: color) { _, newValue in
+            pin.color = newValue
+        }
+        .onChange(of: description) { _, newValue in
+            pin.aboutDescription = newValue
         }
         .toolbar {
             ToolbarItem {
@@ -131,14 +96,13 @@ struct RedWindowPinDetailView: View {
 
             ToolbarItem {
                 Menu("Pin Color", systemImage: "paintpalette") {
-                    ForEach(MCMapManifestPin.Color.allCases, id: \.self) { color in
-                        Text(String(describing: color).localizedCapitalized)
+                    Picker("Pin Color", selection: $color) {
+                        ForEach(MCMapManifestPin.Color.allCases, id: \.self) { color in
+                            Text(String(describing: color).localizedCapitalized)
+                                .tag(color)
+                        }
                     }
                 }
-            }
-
-            ToolbarItem {
-                Button("Manage Tags", systemImage: "tag") {}
             }
 
             #if RED_WINDOW
@@ -148,10 +112,9 @@ struct RedWindowPinDetailView: View {
             #endif
 
             ToolbarItem {
-                Button("Delete Pin", systemImage: "trash", role: .destructive) {
-                    displayAlert.toggle()
-                }
+                Button("Manage Tags", systemImage: "tag") {}
             }
+
         }
     }
 
@@ -176,5 +139,58 @@ struct RedWindowPinDetailView: View {
                 }
                 .padding([.leading, .bottom])
             }
+    }
+
+    private var aboutSection: some View {
+        Group {
+            Text("About this Place")
+                .font(.title2)
+                .bold()
+                .padding(.top)
+            TextEditor(text: $description)
+                .frame(minHeight: 200)
+                .overlay(alignment: .topLeading) {
+                    if description.isEmpty {
+                        Text("Write a description about this place.")
+                            .foregroundStyle(.secondary)
+                            .padding(.leading, 4)
+                            .padding(.top, 8)
+                    }
+                }
+        }
+    }
+
+    private var tagsSection: some View {
+        Group {
+            Text("Tags")
+                .font(.title3)
+                .bold()
+                .padding(.top)
+            if let tags = pin.tags, !tags.isEmpty {
+                ScrollView(.horizontal) {
+                    HStack {
+                        ForEach(Array(tags), id: \.self) { tag in
+                            Text(tag)
+                                .padding(.horizontal)
+                                .padding(.vertical, 3)
+                                .background(Capsule().fill(.secondary.opacity(0.25)))
+                        }
+                    }
+                }
+            } else {
+                Text("No tags for this place.")
+                    .foregroundStyle(.secondary)
+            }
+        }
+    }
+
+    private var gallerySection: some View {
+        Group {
+            Text("Gallery")
+                .font(.title2)
+                .bold()
+                .padding(.top)
+            ContentUnavailableView("No Photos Uploaded", systemImage: "photo.stack")
+        }
     }
 }

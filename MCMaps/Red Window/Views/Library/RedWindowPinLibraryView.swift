@@ -13,7 +13,7 @@ extension MCMapManifestPin: Identifiable {
 }
 
 enum LibraryNavigationPath: Hashable {
-    case pin(MCMapManifestPin)
+    case pin(MCMapManifestPin, index: Int)
 }
 
 struct RedWindowPinLibraryView: View {
@@ -33,17 +33,22 @@ struct RedWindowPinLibraryView: View {
     var body: some View {
         NavigationStack(path: $path) {
             Group {
+                let collection = IndexedPinCollection(file.manifest.pins)
                 switch viewMode {
                 case .grid:
-                    RedWindowPinLibraryGridView(pins: file.manifest.pins)
+                    RedWindowPinLibraryGridView(pins: collection)
                 case .list:
-                    RedWindowPinLibraryListView(navigationPath: $path, pins: file.manifest.pins)
+                    RedWindowPinLibraryListView(navigationPath: $path, pins: collection)
                 }
             }
             .navigationDestination(for: LibraryNavigationPath.self) { path in
                 switch path {
-                case .pin(let pin):
-                    RedWindowPinDetailView(pin: pin)
+                case let .pin(_, index):
+                    RedWindowPinDetailView(pin: Binding {
+                        return file.manifest.pins[index]
+                    } set: { newValue in
+                        file.manifest.pins[index] = newValue
+                    })
                 }
             }
             .sheet(isPresented: $displayForm) {

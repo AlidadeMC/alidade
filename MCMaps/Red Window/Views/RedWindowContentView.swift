@@ -90,13 +90,21 @@ struct RedWindowContentView: View {
                 #if os(iOS)
                     .customizationBehavior(.disabled, for: .sidebar)
                 #endif
-                ForEach(file.manifest.pins, id: \.self) { mapPin in
-                    Tab(mapPin.name, systemImage: "mappin", value: RedWindowRoute.pin(mapPin)) {
+                ForEach(IndexedPinCollection(file.manifest.pins)) { (mapPin: IndexedPinCollection.Element) in
+                    Tab(
+                        mapPin.content.name,
+                        systemImage: "mappin",
+                        value: RedWindowRoute.pin(mapPin.content)
+                    ) {
                         NavigationStack {
-                            RedWindowPinDetailView(pin: mapPin)
+                            RedWindowPinDetailView(pin: Binding {
+                                return file.manifest.pins[mapPin.index]
+                            } set: { newValue in
+                                file.manifest.pins[mapPin.index] = newValue
+                            })
                         }
                     }
-                    .customizationID("app.tab.library.\(mapPin.name.snakeCase)")
+                    .customizationID("app.tab.library.\(mapPin.content.name.snakeCase)")
                     .customizationBehavior(.automatic, for: .automatic)
                 }
             }
@@ -121,21 +129,5 @@ struct RedWindowContentView: View {
                 break
             }
         }
-    }
-}
-
-extension View {
-    func backgroundExtensionEffectIfAvailable() -> some View {
-        #if RED_WINDOW
-        Group {
-            if #available(macOS 16, iOS 19, *) {
-                self.backgroundExtensionEffect()
-            } else {
-                self
-            }
-        }
-        #else
-        self
-        #endif
     }
 }
