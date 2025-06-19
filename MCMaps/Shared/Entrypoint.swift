@@ -38,7 +38,7 @@ struct MCMapsApp: App {
                 RedWindowContentView(file: configuration.$document)
                     .environment(redWindowEnvironment)
             } else {
-                ContentView(file: configuration.$document)
+                LegacyContentView(file: configuration.$document)
                     .toolbarRole(.editor)
                     #if os(iOS)
                         .toolbarVisibility(.hidden, for: .navigationBar)

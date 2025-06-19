@@ -12,7 +12,7 @@ import SwiftUI
 import TipKit
 
 /// The primary content view used to display the app's interface.
-struct ContentView: View {
+struct LegacyContentView: View {
     #if os(iOS)
         @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     #endif
@@ -79,18 +79,18 @@ struct ContentView: View {
 
 #Preview {
     @Previewable @State var file = CartographyMapFile(withManifest: .sampleFile)
-    ContentView(file: $file)
+    LegacyContentView(file: $file)
 }
 
 #if DEBUG
-    extension ContentView {
+    extension LegacyContentView {
         var testHooks: TestHooks { TestHooks(target: self) }
 
         @MainActor
         struct TestHooks {
-            private let target: ContentView
+            private let target: LegacyContentView
 
-            fileprivate init(target: ContentView) {
+            fileprivate init(target: LegacyContentView) {
                 self.target = target
             }
 
