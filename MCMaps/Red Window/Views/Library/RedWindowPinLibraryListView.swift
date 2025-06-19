@@ -11,12 +11,11 @@ import SwiftUI
 struct RedWindowPinLibraryListView: View {
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     @Binding var navigationPath: NavigationPath
+    @Binding var deletionRequest: RedWindowPinDeletionRequest
 
     var pins: IndexedPinCollection
 
-    @State private var selection: IndexedPinCollection.Element.ID?
-    @State private var deletePinAlertPresentation = false
-    @State private var deletePinAlert: IndexedPinCollection.Element?
+    @State private var selection = Set<IndexedPinCollection.Element.ID>()
 
     var body: some View {
         Table(pins, selection: $selection) {
@@ -66,8 +65,8 @@ struct RedWindowPinLibraryListView: View {
                     navigationPath.append(LibraryNavigationPath.pin(pin.content, index: pin.index))
                 }
                 Button("Remove...", systemImage: "trash", role: .destructive) {
-                    deletePinAlert = pins[element]
-                    deletePinAlertPresentation.toggle()
+                    deletionRequest.elementIDs = selection
+                    deletionRequest.presentAlert = true
                 }
             }
         } primaryAction: { selection in
@@ -75,16 +74,5 @@ struct RedWindowPinLibraryListView: View {
             let element = pins[pin]
             navigationPath.append(LibraryNavigationPath.pin(element.content, index: element.index))
         }
-        .alert(
-            "Are you sure you want to remove '\(deletePinAlert?.content.name ?? "Pin")'?",
-            isPresented: $deletePinAlertPresentation) {
-                Button("Remove Pin", role: .destructive) {}
-                Button("Don't Remove", role: .cancel) {
-                    deletePinAlert = nil
-                    deletePinAlertPresentation = false
-                }
-            } message: {
-                Text("Removing this pin will also remove any images associated with this pin.")
-            }
     }
 }

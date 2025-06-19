@@ -90,10 +90,16 @@
     "Ancient City" : {
 
     },
+    "Any associated images will be removed, and they will no longer be visible in the Gallery." : {
+
+    },
     "Are you sure you want to remove '%@'?" : {
 
     },
     "Are you sure you want to remove %@?" : {
+
+    },
+    "Are you sure you want to remove %lld pins?" : {
 
     },
     "Bastion" : {
@@ -348,13 +354,7 @@
     "Remove from Recents" : {
 
     },
-    "Remove Pin" : {
-
-    },
     "Remove..." : {
-
-    },
-    "Removing this pin will also remove any images associated with this pin." : {
 
     },
     "Rename" : {
@@ -409,6 +409,9 @@
 
     },
     "The following flags control experimental features. Proceed with caution." : {
+
+    },
+    "There are no pins to be removed." : {
 
     },
     "this pin" : {

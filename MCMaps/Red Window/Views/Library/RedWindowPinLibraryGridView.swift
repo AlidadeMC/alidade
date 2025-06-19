@@ -12,6 +12,9 @@ struct RedWindowPinLibraryGridView: View {
     @Environment(\.tabBarPlacement) private var tabBarPlacement
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
 
+    @Binding var navigationPath: NavigationPath
+    @Binding var deletionRequest: RedWindowPinDeletionRequest
+
     var pins: IndexedPinCollection
 
     private var columns: [GridItem] {
@@ -33,6 +36,16 @@ struct RedWindowPinLibraryGridView: View {
                     }
                     .tint(.primary)
                     .buttonStyle(.plain)
+                    .padding(2)
+                    .contextMenu {
+                        Button("Get Info", systemImage: "info.circle") {
+                            navigationPath.append(LibraryNavigationPath.pin(mapPin.content, index: mapPin.index))
+                        }
+                        Button("Remove", systemImage: "trash", role: .destructive) {
+                            deletionRequest.elementIDs = [mapPin.index]
+                            deletionRequest.presentAlert = true
+                        }
+                    }
                 }
                 .padding(.horizontal)
             }
