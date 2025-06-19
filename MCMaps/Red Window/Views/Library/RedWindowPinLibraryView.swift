@@ -131,10 +131,12 @@ struct RedWindowPinLibraryView: View {
                     }
                 }
 
+                #if os(iOS)
                 ToolbarItem {
                     EditButton()
                         .disabled(viewMode == .grid)
                 }
+                #endif
             }
         }
         .navigationTitle("All Pins")

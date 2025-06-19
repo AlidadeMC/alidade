@@ -159,6 +159,9 @@
     "Done" : {
 
     },
+    "Edit" : {
+
+    },
     "Edit World" : {
 
     },
@@ -285,6 +288,9 @@
     "Nether" : {
 
     },
+    "No Description Written" : {
+
+    },
     "No Photos Uploaded" : {
 
     },
@@ -355,9 +361,6 @@
 
     },
     "Remove..." : {
-
-    },
-    "Rename" : {
 
     },
     "Reset Tip Datastore" : {
@@ -479,6 +482,9 @@
 
     },
     "Write a description about this place." : {
+
+    },
+    "Write a description for what makes this place special." : {
 
     },
     "Write a description..." : {

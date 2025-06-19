@@ -9,7 +9,7 @@ import CubiomesKit
 import SwiftUI
 
 struct RedWindowPinDetailView: View {
-    @Environment(\.tabBarPlacement) var tabBarPlacement
+    @Environment(\.tabBarPlacement) private var tabBarPlacement
     @Binding var pin: MCMapManifestPin
 
     @State private var description = ""
@@ -17,6 +17,7 @@ struct RedWindowPinDetailView: View {
     @State private var displayAlert = false
     @State private var center = CGPoint.zero
     @State private var color = MCMapManifestPin.Color.blue
+    @State private var editMode = false
 
     var body: some View {
         HStack(spacing: 0) {
@@ -54,6 +55,7 @@ struct RedWindowPinDetailView: View {
         }
         .ignoresSafeArea(edges: .vertical)
         .animation(.interactiveSpring, value: tabBarPlacement)
+        .animation(.interactiveSpring, value: editMode)
         .task {
             center = pin.position
             if let currentColor = pin.color {
@@ -71,7 +73,7 @@ struct RedWindowPinDetailView: View {
         }
         .toolbar {
             ToolbarItem {
-                Button("Go Here", systemImage: "location") {}
+                editButton
             }
 
             #if RED_WINDOW
@@ -79,13 +81,6 @@ struct RedWindowPinDetailView: View {
                     ToolbarSpacer(.fixed)
                 }
             #endif
-
-            ToolbarItem {
-                Button {
-                } label: {
-                    Label("Rename", systemImage: "pencil")
-                }
-            }
 
             ToolbarItem {
                 Menu("Add Photos", systemImage: "photo.badge.plus") {
@@ -114,7 +109,6 @@ struct RedWindowPinDetailView: View {
             ToolbarItem {
                 Button("Manage Tags", systemImage: "tag") {}
             }
-
         }
     }
 
@@ -129,13 +123,21 @@ struct RedWindowPinDetailView: View {
             .backgroundExtensionEffectIfAvailable()
             .overlay(alignment: .bottomLeading) {
                 VStack(alignment: .leading) {
-                    Text(pin.name)
-                        .foregroundStyle(.primary)
-                        .font(.largeTitle)
-                        .bold()
+                    Group {
+                        if editMode {
+                            TextField("", text: $pin.name, prompt: Text("Name"))
+                        } else {
+                            Text(pin.name)
+                                .fontDesign(.serif)
+                        }
+                    }
+                    .foregroundStyle(.primary)
+                    .font(.largeTitle)
+                    .bold()
                     Text("(\(Int(pin.position.x)), \(Int(pin.position.y)))")
                         .font(.headline)
                         .foregroundStyle(.secondary)
+                        .fontDesign(.monospaced)
                 }
                 .padding([.leading, .bottom])
             }
@@ -147,16 +149,31 @@ struct RedWindowPinDetailView: View {
                 .font(.title2)
                 .bold()
                 .padding(.top)
-            TextEditor(text: $description)
-                .frame(minHeight: 200)
-                .overlay(alignment: .topLeading) {
+            if editMode {
+                TextEditor(text: $description)
+                    .frame(minHeight: 200)
+                    .overlay(alignment: .topLeading) {
+                        if description.isEmpty {
+                            Text("Write a description about this place.")
+                                .foregroundStyle(.secondary)
+                                .padding(.leading, 4)
+                                .padding(.top, 8)
+                        }
+                    }
+            } else {
+                Group {
                     if description.isEmpty {
-                        Text("Write a description about this place.")
-                            .foregroundStyle(.secondary)
-                            .padding(.leading, 4)
-                            .padding(.top, 8)
+                        ContentUnavailableView(
+                            "No Description Written",
+                            systemImage: "pencil",
+                            description: Text("Write a description for what makes this place special."))
+                    } else {
+                        Text(description)
+                            .padding(.top)
                     }
                 }
+                .fontDesign(.serif)
+            }
         }
     }
 
@@ -191,6 +208,27 @@ struct RedWindowPinDetailView: View {
                 .bold()
                 .padding(.top)
             ContentUnavailableView("No Photos Uploaded", systemImage: "photo.stack")
+        }
+    }
+
+    private var editButton: some View {
+        Group {
+            if editMode {
+                if #available(iOS 19, macOS 16, *) {
+                    Button(role: .confirm) {
+                        editMode.toggle()
+                    }
+                } else {
+                    Button("Done", systemImage: "checkmark") {
+                        editMode.toggle()
+                    }
+                    .buttonStyle(.borderedProminent)
+                }
+            } else {
+                Button("Edit") {
+                    editMode.toggle()
+                }
+            }
         }
     }
 }
