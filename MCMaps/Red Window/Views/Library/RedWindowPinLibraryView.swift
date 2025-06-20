@@ -101,8 +101,11 @@ struct RedWindowPinLibraryView: View {
                             return file.manifest.pins[index]
                         } set: { newValue in
                             file.manifest.pins[index] = newValue
-                        }, file: $file)
-                    .navigationTransition(.zoom(sourceID: pin, in: namespace))
+                        }, file: $file
+                    )
+                    #if os(iOS)
+                        .navigationTransition(.zoom(sourceID: pin, in: namespace))
+                    #endif
                 }
             }
             .sheet(isPresented: $displayForm) {
@@ -137,11 +140,11 @@ struct RedWindowPinLibraryView: View {
                 }
 
                 #if os(iOS)
-                ToolbarItem {
-                    if viewMode == .list {
-                        EditButton()
+                    ToolbarItem {
+                        if viewMode == .list {
+                            EditButton()
+                        }
                     }
-                }
                 #endif
             }
         }

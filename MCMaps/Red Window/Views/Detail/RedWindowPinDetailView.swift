@@ -41,7 +41,7 @@ struct RedWindowPinDetailView: View {
         .animation(.interactiveSpring, value: tabBarPlacement)
         // NOTE(alicerunsonfedora): The animation causes a flashing problem for some reason. Disabled to as to not
         // induce seizures from any potential players.
-//        .animation(.default, value: editMode)
+        //        .animation(.default, value: editMode)
         .task {
             center = pin.position
             if let currentColor = pin.color {
@@ -61,6 +61,9 @@ struct RedWindowPinDetailView: View {
         .sheet(isPresented: $presentTagEditor) {
             NavigationStack {
                 RedWindowTagForm(tags: $tags)
+                    #if os(macOS)
+                        .formStyle(.grouped)
+                    #endif
             }
         }
         .toolbar {
