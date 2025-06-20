@@ -75,6 +75,11 @@ struct CartographyMapFile: Sendable, Equatable {
     /// A map of all the images available in this file, and the raw data bytes for the images.
     var images: ImageMap = [:]
 
+    /// The features that the current file supports.
+    var supportedFeatures: CartographyMapFeatures {
+        CartographyMapFeatures(representing: self)
+    }
+
     /// Creates a map file from a world map and an image map.
     /// - Parameter map: The map structure to represent as the metadata.
     /// - Parameter images: The map containing the images available in this file.

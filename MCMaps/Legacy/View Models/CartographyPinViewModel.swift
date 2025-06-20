@@ -90,12 +90,12 @@ class CartographyPinViewModel {
         }
 
         self.pinTags = Binding {
-            guard (file.wrappedValue.manifest.manifestVersion ?? 1) > 1 else {
+            guard file.wrappedValue.supportedFeatures.contains(.pinTagging) else {
                 return []
             }
             return file.wrappedValue.manifest.pins[index].tags ?? []
         } set: { newValue in
-            guard (file.wrappedValue.manifest.manifestVersion ?? 1) > 1 else {
+            guard file.wrappedValue.supportedFeatures.contains(.pinTagging) else {
                 return
             }
             file.wrappedValue.manifest.pins[index].tags = newValue

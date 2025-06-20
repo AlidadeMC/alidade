@@ -55,8 +55,7 @@ struct RedWindowPinDetailView: View {
             pin.color = newValue
         }
         .onChange(of: tags) { _, newValue in
-            // TODO: We should prefer to do a feature check, instead of blindly checking the manifest version.
-            guard (file.manifest.manifestVersion ?? 1) > 1 else { return }
+            guard file.supportedFeatures.contains(.pinTagging) else { return }
             pin.tags = newValue
         }
         .sheet(isPresented: $presentTagEditor) {
