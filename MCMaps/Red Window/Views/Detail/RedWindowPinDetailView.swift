@@ -20,6 +20,7 @@ struct RedWindowPinDetailView: View {
     @State private var center = CGPoint.zero
     @State private var color = MCMapManifestPin.Color.blue
     @State private var editMode = false
+    @State private var presentTagEditor = false
 
     var body: some View {
         HStack(spacing: 0) {
@@ -46,9 +47,22 @@ struct RedWindowPinDetailView: View {
             if let currentColor = pin.color {
                 color = currentColor
             }
+            if let pinTags = pin.tags {
+                tags = pinTags
+            }
         }
         .onChange(of: color) { _, newValue in
             pin.color = newValue
+        }
+        .onChange(of: tags) { _, newValue in
+            // TODO: We should prefer to do a feature check, instead of blindly checking the manifest version.
+            guard (file.manifest.manifestVersion ?? 1) > 1 else { return }
+            pin.tags = newValue
+        }
+        .sheet(isPresented: $presentTagEditor) {
+            NavigationStack {
+                RedWindowTagForm(tags: $tags)
+            }
         }
         .toolbar {
             ToolbarItem {
@@ -86,7 +100,9 @@ struct RedWindowPinDetailView: View {
             #endif
 
             ToolbarItem {
-                Button("Manage Tags", systemImage: "tag") {}
+                Button("Manage Tags", systemImage: "tag") {
+                    presentTagEditor.toggle()
+                }
             }
         }
     }

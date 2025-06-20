@@ -4,6 +4,9 @@
     "" : {
 
     },
+    "... or update the existing tags." : {
+
+    },
     "(%@)" : {
 
     },
@@ -126,10 +129,16 @@
     "Create a Map" : {
 
     },
+    "Create a new tag..." : {
+
+    },
     "Create Map" : {
 
     },
     "Create Pin" : {
+
+    },
+    "Create Tag" : {
 
     },
     "Debug" : {
@@ -360,6 +369,9 @@
     "Remove from Recents" : {
 
     },
+    "Remove Tag" : {
+
+    },
     "Remove..." : {
 
     },
@@ -408,6 +420,9 @@
     "Switch between dimensions." : {
 
     },
+    "Tag Name" : {
+
+    },
     "Tags" : {
 
     },
@@ -433,6 +448,9 @@
 
     },
     "Trial Chamber" : {
+
+    },
+    "Type a tag above to create it." : {
 
     },
     "Update World" : {
