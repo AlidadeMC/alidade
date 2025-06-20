@@ -24,6 +24,8 @@ struct RedWindowPinLibraryView: View {
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     @Environment(\.tabBarPlacement) private var tabBarPlacement
 
+    @Namespace private var namespace
+
     @Binding var file: CartographyMapFile
     @Binding var path: NavigationPath
 
@@ -61,7 +63,9 @@ struct RedWindowPinLibraryView: View {
                     RedWindowPinLibraryGridView(
                         navigationPath: $path,
                         deletionRequest: $deletionRequest,
-                        pins: pinCollection
+                        file: file,
+                        pins: pinCollection,
+                        namespace: namespace
                     )
                 case .list:
                     RedWindowPinLibraryListView(
@@ -91,13 +95,14 @@ struct RedWindowPinLibraryView: View {
             }
             .navigationDestination(for: LibraryNavigationPath.self) { path in
                 switch path {
-                case .pin(_, let index):
+                case .pin(let pin, let index):
                     RedWindowPinDetailView(
                         pin: Binding {
                             return file.manifest.pins[index]
                         } set: { newValue in
                             file.manifest.pins[index] = newValue
-                        })
+                        }, file: $file)
+                    .navigationTransition(.zoom(sourceID: pin, in: namespace))
                 }
             }
             .sheet(isPresented: $displayForm) {
@@ -133,8 +138,9 @@ struct RedWindowPinLibraryView: View {
 
                 #if os(iOS)
                 ToolbarItem {
-                    EditButton()
-                        .disabled(viewMode == .grid)
+                    if viewMode == .list {
+                        EditButton()
+                    }
                 }
                 #endif
             }

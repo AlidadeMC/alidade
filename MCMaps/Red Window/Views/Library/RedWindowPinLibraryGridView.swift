@@ -15,24 +15,21 @@ struct RedWindowPinLibraryGridView: View {
     @Binding var navigationPath: NavigationPath
     @Binding var deletionRequest: RedWindowPinDeletionRequest
 
+    var file: CartographyMapFile
     var pins: IndexedPinCollection
+    let namespace: Namespace.ID
 
     private var columns: [GridItem] {
-        Array(repeating: GridItem(.flexible()), count: preferredColumnCount)
-    }
-
-    private var preferredColumnCount: Int {
-        if horizontalSizeClass == .compact { return 2 }
-        if tabBarPlacement == .sidebar { return 4 }
-        return 5
+        [GridItem(.adaptive(minimum: 180), spacing: 8)]
     }
 
     var body: some View {
         ScrollView(.vertical) {
-            LazyVGrid(columns: columns) {
+            LazyVGrid(columns: columns, spacing: 8) {
                 ForEach(pins, id: \.content.self) { mapPin in
                     NavigationLink(value: LibraryNavigationPath.pin(mapPin.content, index: mapPin.index)) {
-                        cell(for: mapPin.content)
+                        RedWindowLibraryGridCell(pin: mapPin.content, file: file)
+                            .matchedTransitionSource(id: mapPin.content, in: namespace)
                     }
                     .tint(.primary)
                     .buttonStyle(.plain)
@@ -49,27 +46,6 @@ struct RedWindowPinLibraryGridView: View {
                 }
                 .padding(.horizontal)
             }
-        }
-        .animation(.interactiveSpring, value: preferredColumnCount)
-    }
-
-    private func cell(for pin: MCMapManifestPin) -> some View {
-        VStack(alignment: .leading) {
-            RoundedRectangle(cornerRadius: 10)
-                .fill(Color(pin.color?.swiftUIColor ?? .accent).gradient)
-                .frame(height: 125)
-                .overlay {
-                    Image(systemName: "mappin")
-                        .font(.title)
-                        .foregroundStyle(.white)
-                }
-            Text(pin.name)
-                .lineLimit(1)
-                .font(.headline)
-                .foregroundStyle(.primary)
-            Text("(\(pin.position.accessibilityReadout))")
-                .font(.subheadline)
-                .foregroundStyle(.secondary)
         }
     }
 }

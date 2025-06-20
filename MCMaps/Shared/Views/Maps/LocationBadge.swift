@@ -18,7 +18,7 @@ import SwiftUI
 /// corner of the map view. On iOS and iPadOS, this might appear elsewhere, such as the top edge.
 struct LocationBadge: View {
     @FeatureFlagged(.redWindow) private var useRedWindowDesign
-    
+
     /// The location the badge is displaying.
     var location: CGPoint
 
@@ -53,15 +53,15 @@ struct LocationBadge: View {
         .if(useRedWindowDesign) { view in
             Group {
                 #if RED_WINDOW
-                if #available(macOS 16, iOS 19, *) {
-                    view.glassEffect()
-                } else {
-                    view.background(Capsule().fill(.thinMaterial))
-                }
+                    if #available(macOS 16, iOS 19, *) {
+                        view.glassEffect()
+                    } else {
+                        view.background(Capsule().fill(.thinMaterial))
+                    }
                 #endif
             }
         } `else`: { view in
-           view.background(Capsule().fill(.thinMaterial))
+            view.background(Capsule().fill(.thinMaterial))
         }
         .padding(8)
         .animation(.default, value: location)

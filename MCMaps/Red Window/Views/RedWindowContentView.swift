@@ -29,7 +29,6 @@ struct RedWindowContentView: View {
 
     @AppStorage("view.tab_customization") private var tabCustomization = TabViewCustomization()
 
-    @State private var currentTab = RedWindowRoute.map
     @State private var libraryNavigationPath = NavigationPath()
 
     private var subtitle: String {
@@ -101,7 +100,7 @@ struct RedWindowContentView: View {
                                 return file.manifest.pins[mapPin.index]
                             } set: { newValue in
                                 file.manifest.pins[mapPin.index] = newValue
-                            })
+                            }, file: $file)
                         }
                     }
                     .customizationID("app.tab.library.\(mapPin.content.name.snakeCase)")
@@ -118,13 +117,13 @@ struct RedWindowContentView: View {
         #endif
         .tabViewStyle(.sidebarAdaptable)
         .tabViewCustomization($tabCustomization)
-        .animation(.interactiveSpring, value: currentTab)
+        .animation(.interactiveSpring, value: env.currentRoute)
         .onChange(of: horizontalSizeClass, initial: true) { _, newSizeClass in
-            switch (newSizeClass, currentTab) {
+            switch (newSizeClass, env.currentRoute) {
             case (.regular, .allPinsCompact):
-                currentTab = .allPins
+                env.currentRoute = .allPins
             case (.compact, .allPins):
-                currentTab = .allPinsCompact
+                env.currentRoute = .allPinsCompact
             default:
                 break
             }

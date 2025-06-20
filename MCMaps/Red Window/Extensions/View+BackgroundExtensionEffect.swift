@@ -21,4 +21,18 @@ extension View {
         self
         #endif
     }
+
+    func glassEffectIfAvailable() -> some View {
+        #if RED_WINDOW
+        Group {
+            if #available(iOS 19, macOS 19, *) {
+                self.glassEffect()
+            } else {
+                self
+            }
+        }
+        #else
+        self
+        #endif
+    }
 }
