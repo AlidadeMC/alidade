@@ -6,6 +6,7 @@
 //
 
 import CubiomesKit
+import PhotosUI
 import SwiftUI
 
 struct RedWindowPinDetailView: View {
@@ -21,6 +22,9 @@ struct RedWindowPinDetailView: View {
     @State private var color = MCMapManifestPin.Color.blue
     @State private var editMode = false
     @State private var presentTagEditor = false
+
+    @State private var photosPickerItem: PhotosPickerItem?
+    @State private var uploadFromFiles = false
 
     var body: some View {
         HStack(spacing: 0) {
@@ -58,6 +62,20 @@ struct RedWindowPinDetailView: View {
             guard file.supportedFeatures.contains(.pinTagging) else { return }
             pin.tags = newValue
         }
+        .onChange(of: photosPickerItem) { _, newValue in
+            guard let item = newValue else { return }
+            Task { await loadPickerSelection(item) }
+        }
+        .fileImporter(isPresented: $uploadFromFiles, allowedContentTypes: [.image]) { result in
+            switch result {
+            case .success(let url):
+                Task {
+                    await attachImage(from: url)
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
         .sheet(isPresented: $presentTagEditor) {
             NavigationStack {
                 RedWindowTagForm(tags: $tags)
@@ -78,11 +96,21 @@ struct RedWindowPinDetailView: View {
             #endif
 
             ToolbarItem {
-                Menu("Add Photos", systemImage: "photo.badge.plus") {
-                    Button("From Photos", systemImage: "photo.on.rectangle.angled") {}
-                    Button("From Files", systemImage: "folder") {}
+                PhotosPicker(selection: $photosPickerItem, matching: .images) {
+                    Label("Add From Photos", systemImage: "photo.badge.plus")
                 }
             }
+            ToolbarItem {
+                Button("Add From Files", systemImage: "folder") {
+                    uploadFromFiles.toggle()
+                }
+            }
+
+            #if RED_WINDOW
+                if #available(macOS 16, iOS 19, *) {
+                    ToolbarSpacer(.fixed)
+                }
+            #endif
 
             ToolbarItem {
                 Menu("Pin Color", systemImage: "paintpalette") {
@@ -107,6 +135,35 @@ struct RedWindowPinDetailView: View {
                 }
             }
         }
+    }
+
+    private func loadPickerSelection(_ item: PhotosPickerItem) async {
+        do {
+            if let data = try await item.loadTransferable(type: Data.self) {
+                await attachImage(data: data)
+            }
+        } catch {
+            print(error)
+        }
+    }
+
+    private func attachImage(from url: URL) async {
+        do {
+            let data = try Data(contentsOf: url)
+            await attachImage(data: data)
+        } catch {
+            print(error)
+        }
+    }
+
+    private func attachImage(data: Data) async {
+        let imageName = UUID().uuidString + ".heic"
+        if pin.images == nil {
+            pin.images = [imageName]
+        } else {
+            pin.images?.append(imageName)
+        }
+        file.images[imageName] = data
     }
 
     private var mapView: some View {
