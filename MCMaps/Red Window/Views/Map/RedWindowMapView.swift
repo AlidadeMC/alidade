@@ -18,6 +18,8 @@ struct RedWindowMapView: View {
     @AppStorage(UserDefaults.Keys.mapNaturalColors.rawValue)
     private var useNaturalColors = true
 
+    @State private var displayWarpForm = false
+
     var body: some View {
         @Bindable var env = redWindowEnvironment
 
@@ -42,6 +44,11 @@ struct RedWindowMapView: View {
                 }
             }
             .ignoresSafeArea(.all)
+            .sheet(isPresented: $displayWarpForm) {
+                NavigationStack {
+                    RedWindowMapWarpForm()
+                }
+            }
             .toolbar {
                 ToolbarItem {
                     Menu {
@@ -52,6 +59,18 @@ struct RedWindowMapView: View {
                             .pickerStyle(.inline)
                     } label: {
                         Label("Map", systemImage: "map")
+                    }
+                }
+
+                #if RED_WINDOW
+                    if #available(macOS 16, iOS 19, *) {
+                        ToolbarSpacer(.fixed)
+                    }
+                #endif
+
+                ToolbarItem {
+                    Button("Go To", systemImage: "figure.walk") {
+                        displayWarpForm.toggle()
                     }
                 }
             }

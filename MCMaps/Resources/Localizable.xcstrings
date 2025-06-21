@@ -219,7 +219,16 @@
     "Get Info" : {
 
     },
+    "Go" : {
+
+    },
     "Go Here" : {
+
+    },
+    "Go To" : {
+
+    },
+    "Go To Coordinate" : {
 
     },
     "Go To..." : {
@@ -517,6 +526,9 @@
     "Write a tag..." : {
 
     },
+    "X" : {
+
+    },
     "X Coordinate" : {
 
     },
@@ -524,6 +536,9 @@
 
     },
     "Your Pinned Places" : {
+
+    },
+    "Z" : {
 
     },
     "Z Coordinate" : {
