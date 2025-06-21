@@ -47,6 +47,9 @@ struct RedWindowSearchView: View {
                     ) { newPin in
                         file.manifest.pins.append(newPin)
                     }
+                    #if os(macOS)
+                        .formStyle(.grouped)
+                    #endif
                 }
             }
         }
