@@ -41,7 +41,7 @@ struct RedWindowPinHeader: RedWindowDetailCell {
 
                     ZStack {
                         Rectangle()
-                            .fill(.ultraThinMaterial)
+                            .fill(.thinMaterial)
                             .mask {
                                 VStack(spacing: 0) {
                                     Spacer()
