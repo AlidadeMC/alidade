@@ -20,6 +20,8 @@ struct PinCreatorForm: View {
     /// The location where the pin is being created.
     var location: CGPoint
 
+    var initialName: String?
+
     @State private var name: String = "Pin"
     @State private var color: MCMapManifestPin.Color = .blue
     @State private var updatedLocation = CGPoint.zero
@@ -85,8 +87,11 @@ struct PinCreatorForm: View {
         }
         .navigationTitle("Create Pin")
         .animation(.bouncy, value: color)
-        .onAppear {
+        .task {
             updatedLocation = location
+            if let initialName {
+                name = initialName
+            }
             locationX = location.x
             locationY = location.y
         }

@@ -10,6 +10,8 @@ import CubiomesKit
 import SwiftUI
 
 struct CartographySearchView<InitialView: View, ResultsView: View>: View {
+    @FeatureFlagged(.redWindow) private var useRedWindowDesign
+
     typealias SearchQuery = CartographySearchService.Query
     typealias SearchResult = CartographySearchService.SearchResult
     typealias SearchToken = CartographySearchService.SearchFilter
@@ -22,7 +24,7 @@ struct CartographySearchView<InitialView: View, ResultsView: View>: View {
 
     private enum Constants {
         static var searchFieldPlacement: SearchFieldPlacement {
-            #if os(macOS)
+            #if os(macOS) || RED_WINDOW
                 return .automatic
             #else
                 return .navigationBarDrawer(displayMode: .always)
@@ -101,7 +103,7 @@ struct CartographySearchView<InitialView: View, ResultsView: View>: View {
             text: $rawQuery,
             tokens: $tokens,
             placement: Constants.searchFieldPlacement,
-            prompt: "Go To..."
+            prompt: useRedWindowDesign ? "Pinned Places, Biomes, Structures, and More" : "Go To..."
         ) { token in
             switch token {
             case let .tag(tagName):

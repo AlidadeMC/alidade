@@ -120,6 +120,9 @@
     "Biomes" : {
 
     },
+    "Biomes and Structures" : {
+
+    },
     "Browse and search your library." : {
 
     },
@@ -154,9 +157,6 @@
 
     },
     "Deleting this pin will also remove its photos from the map." : {
-
-    },
-    "Desert" : {
 
     },
     "Desert Pyramid" : {
@@ -243,9 +243,6 @@
     "Large Biomes" : {
 
     },
-    "Letztes" : {
-
-    },
     "Library" : {
 
     },
@@ -268,6 +265,9 @@
 
     },
     "Location in Overworld: %@" : {
+
+    },
+    "Locations You've Visited" : {
 
     },
     "Make it memorable." : {
@@ -354,16 +354,16 @@
     "Pin..." : {
 
     },
+    "Pinned Places, Biomes, Structures, and More" : {
+
+    },
     "Preview" : {
 
     },
-    "Recent Locations" : {
-
-    },
-    "Recent Queries" : {
-
-    },
     "Recents" : {
+
+    },
+    "Relative where you are on the map (%@)." : {
 
     },
     "Remove" : {
@@ -406,6 +406,9 @@
 
     },
     "Show in Finder" : {
+
+    },
+    "Show on Map" : {
 
     },
     "Structures" : {
@@ -518,6 +521,9 @@
 
     },
     "X Coordinate: " : {
+
+    },
+    "Your Pinned Places" : {
 
     },
     "Z Coordinate" : {

@@ -5,6 +5,7 @@
 //  Created by Marquis Kurt on 18-06-2025.
 //
 
+import CoreGraphics
 import CubiomesKit
 import Observation
 
@@ -20,4 +21,9 @@ class RedWindowEnvironment {
     ///
     /// This is generally used for the map.
     var currentDimension: MinecraftWorld.Dimension = .overworld
+
+    /// The position that corresponds to the center of the map's view.
+    ///
+    /// This is generally used to keep track of the map position, and it is used to relay information to search.
+    var mapCenterCoordinate = CGPoint.zero
 }

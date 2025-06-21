@@ -88,7 +88,7 @@ class CartographySearchService {
 
         for pin in context.file.manifest.pins {
             let nameMatches = pin.name.lowercased().contains(query.lowercased())
-            if let filters = filters {
+            if let filters = filters, !filters.isEmpty {
                 if filters.matchTags(for: pin).isEmpty { continue }
                 if !nameMatches, !query.isEmpty { continue }
                 results.pins.append(pin)

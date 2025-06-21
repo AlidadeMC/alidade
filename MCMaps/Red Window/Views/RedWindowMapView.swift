@@ -15,8 +15,6 @@ struct RedWindowMapView: View {
     /// The file to read from and write to.
     var file: CartographyMapFile
 
-    @State private var centerCoordinate = CGPoint.zero
-
     @AppStorage(UserDefaults.Keys.mapNaturalColors.rawValue)
     private var useNaturalColors = true
 
@@ -26,7 +24,11 @@ struct RedWindowMapView: View {
         NavigationStack {
             Group {
                 if let world = try? MinecraftWorld(worldSettings: file.manifest.worldSettings) {
-                    MinecraftMap(world: world, centerCoordinate: $centerCoordinate, dimension: env.currentDimension) {
+                    MinecraftMap(
+                        world: world,
+                        centerCoordinate: $env.mapCenterCoordinate,
+                        dimension: env.currentDimension
+                    ) {
                         file.manifest.pins.map { mapPin in
                             Marker(
                                 location: mapPin.position,
@@ -54,7 +56,7 @@ struct RedWindowMapView: View {
                 }
             }
             .overlay(alignment: .bottomTrailing) {
-                LocationBadge(location: centerCoordinate)
+                LocationBadge(location: env.mapCenterCoordinate)
                     .environment(\.contentTransitionAddsDrawingGroup, true)
                     .labelStyle(.titleAndIcon)
             }
