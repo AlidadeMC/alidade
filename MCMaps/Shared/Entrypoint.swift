@@ -25,6 +25,9 @@ struct MCMapsApp: App {
     @State private var redWindowEnvironment = RedWindowEnvironment()
 
     init() {
+        UserDefaults.standard.set(Self.version, forKey: "CFBundleShortVersionString")
+        UserDefaults.standard.set(Self.buildNumber, forKey: "CFBundleVersion")
+        UserDefaults.standard.synchronize()
         do {
             try Tips.configure()
         } catch {
