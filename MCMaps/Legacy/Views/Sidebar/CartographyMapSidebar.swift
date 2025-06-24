@@ -140,13 +140,13 @@ struct CartographyMapSidebar: View {
                 .tipViewStyle(.miniTip)
                 .listRowSeparator(.hidden)
                 .listRowBackground(Color.clear)
-            if !file.manifest.pins.isEmpty {
-                PinnedLibrarySection(pins: file.manifest.pins, viewModel: $viewModel, file: $file)
-            }
             if file.manifest.recentLocations?.isEmpty == false {
                 RecentLocationsListSection(viewModel: $viewModel, file: $file) { (position: CGPoint) in
                     viewModel.go(to: position, relativeTo: file)
                 }
+            }
+            if !file.manifest.pins.isEmpty {
+                PinnedLibrarySection(pins: file.manifest.pins, viewModel: $viewModel, file: $file)
             }
         }
     }
@@ -157,7 +157,7 @@ struct CartographyMapSidebar: View {
             return
         }
         file.manifest.recentLocations?.append(position)
-        if (file.manifest.recentLocations?.count ?? 0) > 15 {
+        if (file.manifest.recentLocations?.count ?? 0) > 5 {
             file.manifest.recentLocations?.remove(at: 0)
         }
         viewModel.currentRoute = .recent(position)
