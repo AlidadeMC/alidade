@@ -50,6 +50,19 @@ struct MCMapsApp: App {
         }
         .commands {
             CommandMenu("Map") {
+                if useRedWindowDesign {
+                    Button("Go To...", systemImage: "figure.walk") {
+                        redWindowEnvironment.currentModalRoute = .warpToLocation
+                    }
+                    .disabled(redWindowEnvironment.currentRoute != .map)
+                    .keyboardShortcut("G", modifiers: [.command])
+                    Button("Pin Here...", systemImage: "mappin.circle") {
+                        redWindowEnvironment.currentModalRoute = .createPin
+                    }
+                    .disabled(redWindowEnvironment.currentRoute != .map)
+                    .keyboardShortcut("P", modifiers: [.command])
+                    Divider()
+                }
                 Toggle(isOn: $naturalColors) {
                     Label("Natural Colors", systemImage: "paintpalette")
                 }
@@ -65,14 +78,21 @@ struct MCMapsApp: App {
                     Link("Send \(Self.appName) Feedback", destination: feedback)
                 }
             }
-            CommandGroup(before: .toolbar) {
-                ForEach(Array(RedWindowRoute.allCases.enumerated().reversed()), id: \.element.id) { (index, route) in
-                    let character = Character("\(index + 1)")
+            if useRedWindowDesign {
+                CommandGroup(before: .toolbar) {
+                    #if os(macOS)
+                        let menuItems = RedWindowRoute.allCases.enumerated()
+                    #else
+                        let menuItems = RedWindowRoute.allCases.enumerated().reversed()
+                    #endif
+                    ForEach(Array(menuItems), id: \.element.id) { (index, route) in
+                        let character = Character("\(index + 1)")
 
-                    Button(route.name, systemImage: route.symbol) {
-                        redWindowEnvironment.currentRoute = route
+                        Button(route.name, systemImage: route.symbol) {
+                            redWindowEnvironment.currentRoute = route
+                        }
+                        .keyboardShortcut(KeyEquivalent(character), modifiers: .command)
                     }
-                    .keyboardShortcut(KeyEquivalent(character), modifiers: .command)
                 }
             }
         }

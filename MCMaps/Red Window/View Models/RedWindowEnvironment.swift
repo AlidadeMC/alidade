@@ -26,4 +26,7 @@ class RedWindowEnvironment {
     ///
     /// This is generally used to keep track of the map position, and it is used to relay information to search.
     var mapCenterCoordinate = CGPoint.zero
+
+    /// Whether to open the warp form.
+    var currentModalRoute: RedWindowModalRoute?
 }

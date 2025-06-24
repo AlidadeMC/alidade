@@ -41,7 +41,7 @@ struct RedWindowContentView: View {
 
         TabView(selection: $env.currentRoute) {
             Tab(route: .map) {
-                RedWindowMapView(file: file)
+                RedWindowMapView(file: $file)
             }
 
             Tab(route: .worldEdit) {

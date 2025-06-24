@@ -13,12 +13,13 @@ struct RedWindowMapView: View {
     @Environment(RedWindowEnvironment.self) private var redWindowEnvironment
 
     /// The file to read from and write to.
-    var file: CartographyMapFile
+    @Binding var file: CartographyMapFile
 
     @AppStorage(UserDefaults.Keys.mapNaturalColors.rawValue)
     private var useNaturalColors = true
 
     @State private var displayWarpForm = false
+    @State private var displayPinForm = false
 
     var body: some View {
         @Bindable var env = redWindowEnvironment
@@ -44,9 +45,38 @@ struct RedWindowMapView: View {
                 }
             }
             .ignoresSafeArea(.all)
+            .onChange(of: env.currentModalRoute, initial: false) { _, newValue in
+                guard let newValue else { return }
+                switch newValue {
+                case .warpToLocation:
+                    displayWarpForm = true
+                case .createPin:
+                    displayPinForm = true
+                }
+            }
+            .onChange(of: displayWarpForm, initial: false) { _, newValue in
+                if !newValue, env.currentModalRoute != nil {
+                    env.currentModalRoute = nil
+                }
+            }
+            .onChange(of: displayPinForm, initial: false) { _, newValue in
+                if !newValue, env.currentModalRoute != nil {
+                    env.currentModalRoute = nil
+                }
+            }
             .sheet(isPresented: $displayWarpForm) {
                 NavigationStack {
                     RedWindowMapWarpForm()
+                }
+            }
+            .sheet(isPresented: $displayPinForm) {
+                NavigationStack {
+                    PinCreatorForm(location: env.mapCenterCoordinate.rounded()) { newPin in
+                        file.manifest.pins.append(newPin)
+                    }
+                    #if os(macOS)
+                        .formStyle(.grouped)
+                    #endif
                 }
             }
             .toolbar {
@@ -71,6 +101,11 @@ struct RedWindowMapView: View {
                 ToolbarItem {
                     Button("Go To", systemImage: "figure.walk") {
                         displayWarpForm.toggle()
+                    }
+                }
+                ToolbarItem {
+                    Button("Pin Here...", systemImage: "mappin.circle") {
+                        displayPinForm.toggle()
                     }
                 }
             }
