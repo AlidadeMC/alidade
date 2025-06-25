@@ -11,10 +11,6 @@ import VersionedCodable
 
 extension UTType {
     /// The uniform type identifier associated with `.mcmap` package files.
-    @available(*, deprecated, renamed: "mcmap")
-    public static let cartography = UTType.mcmap
-
-    /// The uniform type identifier associated with `.mcmap` package files.
     public static let mcmap = UTType(exportedAs: "net.marquiskurt.mcmap")
 }
 
@@ -62,15 +58,6 @@ public struct CartographyMapFile: Sendable, Equatable {
     /// > Note: When removing pins from the map, call ``removePin(at:)`` instead of directly removing the pin, as the
     /// > former ensures that any associated photos are removed.
     public var manifest: Manifest
-
-    /// The underlying Minecraft world map driven from the metadata.
-    ///
-    /// > Warning: This property has been renamed to ``manifest``. Please use this property instead.
-    @available(*, deprecated, renamed: "manifest")
-    public var map: MCMapManifest {
-        get { return manifest }
-        set { manifest = newValue }
-    }
 
     /// A map of all the images available in this file, and the raw data bytes for the images.
     public var images: ImageMap = [:]

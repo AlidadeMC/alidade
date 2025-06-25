@@ -35,6 +35,11 @@
           "containerPath" : "container:MCMapFormat",
           "identifier" : "MCMapFormatTests",
           "name" : "MCMapFormatTests"
+        },
+        {
+          "containerPath" : "container:AlidadeUI",
+          "identifier" : "AlidadeUITests",
+          "name" : "AlidadeUITests"
         }
       ]
     },

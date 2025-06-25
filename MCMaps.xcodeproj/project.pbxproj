@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		9504030F2D4D7E0A00F51903 /* CubiomesKit in Frameworks */ = {isa = PBXBuildFile; productRef = 9504030E2D4D7E0A00F51903 /* CubiomesKit */; };
 		951FE2BC2D5937630091BE11 /* ViewInspector in Frameworks */ = {isa = PBXBuildFile; productRef = 951FE2BB2D5937630091BE11 /* ViewInspector */; };
-		9522739A2DCD17B9007809BE /* VersionedCodable in Frameworks */ = {isa = PBXBuildFile; productRef = 952273992DCD17B9007809BE /* VersionedCodable */; };
-		954D31D42DE16A9000085D71 /* AlidadeUI in Frameworks */ = {isa = PBXBuildFile; productRef = 954D31D32DE16A9000085D71 /* AlidadeUI */; };
 		955A44382D8F47C600262A6D /* AdaptableSidebarSheetView in Frameworks */ = {isa = PBXBuildFile; productRef = 955A44372D8F47C600262A6D /* AdaptableSidebarSheetView */; };
 		955A4D682D932A6500262A6D /* DesignLibrary in Frameworks */ = {isa = PBXBuildFile; productRef = 955A4D672D932A6500262A6D /* DesignLibrary */; };
 		955CD1652DAAE1BE007F6FA1 /* CubiomesKit in Frameworks */ = {isa = PBXBuildFile; productRef = 955CD1642DAAE1BE007F6FA1 /* CubiomesKit */; };
@@ -67,11 +65,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				9504030F2D4D7E0A00F51903 /* CubiomesKit in Frameworks */,
-				954D31D42DE16A9000085D71 /* AlidadeUI in Frameworks */,
 				955A44382D8F47C600262A6D /* AdaptableSidebarSheetView in Frameworks */,
 				95FB72D02DE255630003CC61 /* AlidadeUI in Frameworks */,
 				955CD1652DAAE1BE007F6FA1 /* CubiomesKit in Frameworks */,
-				9522739A2DCD17B9007809BE /* VersionedCodable in Frameworks */,
 				955A4D682D932A6500262A6D /* DesignLibrary in Frameworks */,
 				9580C1062E0B762B00AC47D8 /* MCMapFormat in Frameworks */,
 				95F6B0AD2DADE504006A1B8C /* AsyncAlgorithms in Frameworks */,
@@ -133,8 +129,6 @@
 				955A4D672D932A6500262A6D /* DesignLibrary */,
 				955CD1642DAAE1BE007F6FA1 /* CubiomesKit */,
 				95F6B0AC2DADE504006A1B8C /* AsyncAlgorithms */,
-				952273992DCD17B9007809BE /* VersionedCodable */,
-				954D31D32DE16A9000085D71 /* AlidadeUI */,
 				95FB72CF2DE255630003CC61 /* AlidadeUI */,
 				9580C1052E0B762B00AC47D8 /* MCMapFormat */,
 			);
@@ -201,7 +195,6 @@
 				955A4D662D932A6500262A6D /* XCLocalSwiftPackageReference "DesignLibrary" */,
 				955CD1632DAAE1BE007F6FA1 /* XCRemoteSwiftPackageReference "CubiomesKit" */,
 				95F6B0AB2DADE504006A1B8C /* XCRemoteSwiftPackageReference "swift-async-algorithms" */,
-				952273982DCD17B9007809BE /* XCRemoteSwiftPackageReference "VersionedCodable" */,
 				95FB72CE2DE255630003CC61 /* XCLocalSwiftPackageReference "AlidadeUI" */,
 				9580C1042E0B762B00AC47D8 /* XCLocalSwiftPackageReference "MCMapFormat" */,
 			);
@@ -846,14 +839,6 @@
 				minimumVersion = 0.10.1;
 			};
 		};
-		952273982DCD17B9007809BE /* XCRemoteSwiftPackageReference "VersionedCodable" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/jrothwell/VersionedCodable.git";
-			requirement = {
-				kind = upToNextMinorVersion;
-				minimumVersion = 1.1.0;
-			};
-		};
 		955A44362D8F47C600262A6D /* XCRemoteSwiftPackageReference "AdaptableSidebarSheetView" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/alicerunsonfedora/AdaptableSidebarSheetView";
@@ -897,16 +882,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 951FE2BA2D5937630091BE11 /* XCRemoteSwiftPackageReference "ViewInspector" */;
 			productName = ViewInspector;
-		};
-		952273992DCD17B9007809BE /* VersionedCodable */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 952273982DCD17B9007809BE /* XCRemoteSwiftPackageReference "VersionedCodable" */;
-			productName = VersionedCodable;
-		};
-		954D31D32DE16A9000085D71 /* AlidadeUI */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 952273982DCD17B9007809BE /* XCRemoteSwiftPackageReference "VersionedCodable" */;
-			productName = AlidadeUI;
 		};
 		955A44372D8F47C600262A6D /* AdaptableSidebarSheetView */ = {
 			isa = XCSwiftPackageProductDependency;
