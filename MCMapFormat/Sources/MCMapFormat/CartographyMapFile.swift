@@ -12,21 +12,21 @@ import VersionedCodable
 extension UTType {
     /// The uniform type identifier associated with `.mcmap` package files.
     @available(*, deprecated, renamed: "mcmap")
-    static let cartography = UTType.mcmap
+    public static let cartography = UTType.mcmap
 
     /// The uniform type identifier associated with `.mcmap` package files.
-    static let mcmap = UTType(exportedAs: "net.marquiskurt.mcmap")
+    public static let mcmap = UTType(exportedAs: "net.marquiskurt.mcmap")
 }
 
 /// A structure representing the Minecraft map file format (`.mcmap`).
 ///
 /// This structure is used to open, edit, write, and save files through SwiftUI.
-struct CartographyMapFile: Sendable, Equatable {
+public struct CartographyMapFile: Sendable, Equatable {
     /// A typealias representing the manifest for the current file.
-    typealias Manifest = MCMapManifest
+    public typealias Manifest = MCMapManifest
 
     /// A typealias representing the mapping of image names to data blobs in the file.
-    typealias ImageMap = [String: Data]
+    public typealias ImageMap = [String: Data]
 
     /// A structure containing keys used to read from (and write to) an `.mcmap` file.
     ///
@@ -61,38 +61,29 @@ struct CartographyMapFile: Sendable, Equatable {
     ///
     /// > Note: When removing pins from the map, call ``removePin(at:)`` instead of directly removing the pin, as the
     /// > former ensures that any associated photos are removed.
-    var manifest: Manifest
+    public var manifest: Manifest
 
     /// The underlying Minecraft world map driven from the metadata.
     ///
     /// > Warning: This property has been renamed to ``manifest``. Please use this property instead.
     @available(*, deprecated, renamed: "manifest")
-    var map: MCMapManifest {
+    public var map: MCMapManifest {
         get { return manifest }
         set { manifest = newValue }
     }
 
     /// A map of all the images available in this file, and the raw data bytes for the images.
-    var images: ImageMap = [:]
+    public var images: ImageMap = [:]
 
     /// The features that the current file supports.
-    var supportedFeatures: CartographyMapFeatures {
+    public var supportedFeatures: CartographyMapFeatures {
         CartographyMapFeatures(representing: self)
-    }
-
-    /// Creates a map file from a world map and an image map.
-    /// - Parameter map: The map structure to represent as the metadata.
-    /// - Parameter images: The map containing the images available in this file.
-    @available(*, deprecated, renamed: "init(withManifest:images:)")
-    init(map: MCMapManifest, images: ImageMap = [:]) {
-        self.manifest = map
-        self.images = images
     }
 
     /// Creates a map file from a world map and an image map.
     /// - Parameter manifest: The map structure to represent as the metadata.
     /// - Parameter images: The map containing the images available in this file.
-    init(withManifest manifest: MCMapManifest, images: ImageMap = [:]) {
+    public init(withManifest manifest: MCMapManifest, images: ImageMap = [:]) {
         self.manifest = manifest
         self.images = images
     }
@@ -101,7 +92,7 @@ struct CartographyMapFile: Sendable, Equatable {
     ///
     /// > Note: This initializer does not provide an image map. An empty image map will be provided instead.
     /// - Parameter data: The data object to decode the map metadata from.
-    init(decoding data: Data) throws {
+    public init(decoding data: Data) throws {
         let decoder = JSONDecoder()
         self.manifest = try decoder.decode(versioned: MCMapManifest.self, from: data)
         self.images = [:]
@@ -120,7 +111,7 @@ struct CartographyMapFile: Sendable, Equatable {
 
     /// Removes a player-created pin at a given index, deleting associated images with it.
     /// - Parameter index: The index of the pin to remove from the library.
-    mutating func removePin(at index: [MCMapManifestPin].Index) {
+    public mutating func removePin(at index: [MCMapManifestPin].Index) {
         guard manifest.pins.indices.contains(index) else { return }
         let pin = manifest.pins[index]
         if let images = pin.images {
@@ -135,7 +126,7 @@ struct CartographyMapFile: Sendable, Equatable {
     ///
     /// This is generally recommended for built-in SwiftUI facilities or mass pin deletion operations.
     /// - Parameter offsets: The offsets to delete pins from.
-    mutating func removePins(at offsets: IndexSet) {
+    public mutating func removePins(at offsets: IndexSet) {
         var imagesToDelete = [String]()
         for offset in offsets {
             let pin = manifest.pins[offset]
@@ -152,14 +143,14 @@ struct CartographyMapFile: Sendable, Equatable {
 // MARK: - FileDocument Conformances
 
 extension CartographyMapFile: FileDocument {
-    static var readableContentTypes: [UTType] { [.mcmap] }
+    public static var readableContentTypes: [UTType] { [.mcmap] }
 
     /// Creates a file from a read configuration.
     ///
     /// - Note: This is only used via SwiftUI, and it cannot be tested or invoked manually.
     ///
     /// - Parameter configuration: The configuration to read the file from.
-    init(configuration: ReadConfiguration) throws {
+    public init(configuration: ReadConfiguration) throws {
         try self.init(fileWrappers: configuration.file.fileWrappers)
     }
 
@@ -185,7 +176,7 @@ extension CartographyMapFile: FileDocument {
     /// - Note:This is only used via SwiftUI, and it cannot be tested or invoked manually.
     ///
     /// - Parameter configuration: The configuration to write the file to.
-    func fileWrapper(configuration: WriteConfiguration) throws -> FileWrapper {
+    public func fileWrapper(configuration: WriteConfiguration) throws -> FileWrapper {
         return try wrapper()
     }
 
@@ -218,7 +209,7 @@ extension CartographyMapFile: Transferable {
     /// A representation of the data for exporting purposes.
     ///
     /// - Note: Images and the image map are _not_ considered in this representation.
-    static var transferRepresentation: some TransferRepresentation {
+    public static var transferRepresentation: some TransferRepresentation {
         DataRepresentation(contentType: .mcmap) { file in
             try file.prepareMetadataForExport()
         } importing: { data in

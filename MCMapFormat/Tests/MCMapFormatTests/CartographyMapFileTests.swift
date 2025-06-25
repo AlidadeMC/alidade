@@ -8,18 +8,16 @@
 import Foundation
 import Testing
 
-@testable import Alidade
+@testable import MCMapFormat
 
 struct CartographyMapFileTests {
-    @Test(.tags(.document))
-    func initEmpty() async throws {
+    @Test func initEmpty() async throws {
         let file = CartographyMapFile(withManifest: .sampleFile)
 
         #expect(file.manifest == .sampleFile)
     }
 
-    @Test(.tags(.document))
-    func initFromData() async throws {
+    @Test func initFromData() async throws {
         guard let map = Self.packMcmetaFile_V2.data(using: .utf8) else {
             Issue.record("Failed to convert to a Data object.")
             return
@@ -33,8 +31,7 @@ struct CartographyMapFileTests {
         #expect(file.manifest.recentLocations?.count == 1)
     }
 
-    @Test(.tags(.document))
-    func initFromFileWrappers() async throws {
+    @Test func initFromFileWrappers() async throws {
         guard let map = Self.packMcmetaFile_V2.data(using: .utf8) else {
             Issue.record("Failed to convert to a Data object.")
             return
@@ -48,8 +45,7 @@ struct CartographyMapFileTests {
         #expect(newFile.images == ["foo.png": Data()])
     }
 
-    @Test(.tags(.document))
-    func preparesForExport() async throws {
+    @Test func preparesForExport() async throws {
         guard let map = Self.packMcmetaFile_V2.data(using: .utf8) else {
             Issue.record("Failed to convert to a Data object.")
             return
@@ -60,8 +56,7 @@ struct CartographyMapFileTests {
         #expect(exported == map)
     }
 
-    @Test(.tags(.document))
-    func handlesMigrationToV2() async throws {
+    @Test func handlesMigrationToV2() async throws {
         guard let map = Self.packMcmetaFile_V1.data(using: .utf8),
               let mapV2 = Self.packMcmetaFile_V2.data(using: .utf8) else {
             Issue.record("Failed to convert to a Data object.")
@@ -73,8 +68,7 @@ struct CartographyMapFileTests {
         #expect(exported == mapV2)
     }
 
-    @Test(.tags(.document))
-    func fileWrapper() async throws {
+    @Test func fileWrapper() async throws {
         guard let map = Self.packMcmetaFile_V2.data(using: .utf8) else {
             Issue.record("Failed to convert to a Data object.")
             return
@@ -96,8 +90,7 @@ struct CartographyMapFileTests {
         #expect(imagesWrapper?.fileWrappers?["foo.png"] != nil)
     }
 
-    @Test(.tags(.document))
-    func pinDeletesAtIndex() async throws {
+    @Test func pinDeletesAtIndex() async throws {
         var file = CartographyMapFile(withManifest: .sampleFile, images: [
             "foo.png": Data()
         ])
@@ -108,8 +101,7 @@ struct CartographyMapFileTests {
         #expect(file.manifest.pins.isEmpty)
     }
 
-    @Test(.tags(.document))
-    func pinDeletesAtOffsets() async throws {
+    @Test func pinDeletesAtOffsets() async throws {
         var file = CartographyMapFile(withManifest: .sampleFile, images: [
             "foo.png": Data(),
             "bar.png": Data()

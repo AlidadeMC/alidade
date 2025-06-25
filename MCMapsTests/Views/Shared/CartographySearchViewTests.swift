@@ -6,6 +6,7 @@
 //
 
 import CubiomesKit
+import MCMapFormat
 import SwiftUI
 import Testing
 import ViewInspector

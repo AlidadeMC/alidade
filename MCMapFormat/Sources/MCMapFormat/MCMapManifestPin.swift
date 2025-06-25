@@ -8,66 +8,62 @@
 import SwiftUI
 
 /// A representation of a player-placed map pin.
-struct MCMapManifestPin: Codable, Hashable {
+public struct MCMapManifestPin: Codable, Hashable, Sendable {
     /// An enumeration representing the various colors a player can assign a pin to.
     ///
     /// When being encoded to and decoded from, they are represented as strings. For example, ``blue`` corresponds to
     /// `"blue"`.
-    enum Color: String, Codable, Hashable, CaseIterable {
+    public enum Color: String, Codable, Hashable, CaseIterable, Sendable {
         case red, orange, yellow, green, blue, indigo, brown, gray, pink
-
-        /// A SwiftUI color that matches the given color.
-        var swiftUIColor: SwiftUI.Color {
-            switch self {
-            case .red:
-                .red
-            case .orange:
-                .orange
-            case .yellow:
-                .yellow
-            case .green:
-                .green
-            case .blue:
-                .blue
-            case .indigo:
-                .indigo
-            case .brown:
-                .brown
-            case .gray:
-                .gray
-            case .pink:
-                .pink
-            }
-        }
     }
 
     /// The pin's world location.
     ///
     /// The X and Y coordinates correspond to the X and Z world coordinates, respectively.
-    var position: CGPoint
+    public var position: CGPoint
 
     /// The pin's assigned name.
-    var name: String
+    public var name: String
 
     /// The pin's color.
     ///
     /// Defaults to ``Color-swift.enum/blue`` if none was provided.
-    var color: Color? = .blue
+    public var color: Color? = .blue
 
     /// The image files that are associated with this pin.
     ///
     /// Images consist of player-uploaded screenshots and are located in the ``CartographyMapFile/Keys/images``
     /// directory.
-    var images: [String]? = []
+    public var images: [String]? = []
 
     /// A player-written note that describes this pin.
     ///
     /// This is typically used to describe player-provided information such as the pin's significance, notable areas of
     /// interest, and what is nearby.
-    var aboutDescription: String? = ""
+    public var aboutDescription: String? = ""
 
     /// A list of tags the player has assigned.
     ///
     /// > Note: This is only available in v2 of the manifest or later.
-    var tags: Set<String>? = []
+    public var tags: Set<String>? = []
+
+    public init(
+        position: CGPoint,
+        name: String,
+        color: Color? = nil,
+        images: [String]? = nil,
+        aboutDescription: String? = nil,
+        tags: Set<String>? = nil
+    ) {
+        self.position = position
+        self.name = name
+        self.color = color
+        self.images = images
+        self.aboutDescription = aboutDescription
+        self.tags = tags
+    }
+}
+
+extension MCMapManifestPin: Identifiable {
+    public var id: Self { self }
 }

@@ -6,6 +6,7 @@
 //
 
 import CubiomesKit
+import MCMapFormat
 import SwiftUI
 
 /// A sheet that displays the ``MapCreatorForm`` used to automatically edit changes to a world.

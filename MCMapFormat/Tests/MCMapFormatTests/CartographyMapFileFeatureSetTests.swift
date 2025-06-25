@@ -8,11 +8,10 @@
 import Foundation
 import Testing
 
-@testable import Alidade
+@testable import MCMapFormat
 
 struct CartographyMapFileFeatureSetTests {
-    @Test(.tags(.document))
-    func featureSet_v1() async throws {
+    @Test func featureSet_v1() async throws {
         let file = CartographyMapFile(
             withManifest: MCMapManifest(
                 manifestVersion: 1,
@@ -27,8 +26,7 @@ struct CartographyMapFileFeatureSetTests {
         #expect(!file.supportedFeatures.contains(.largeBiomes))
     }
 
-    @Test(.tags(.document))
-    func featureSet_v2() async throws {
+    @Test func featureSet_v2() async throws {
         let file = CartographyMapFile(
             withManifest: MCMapManifest(
                 manifestVersion: 2,

@@ -1,0 +1,15 @@
+{
+  "originHash" : "b46f659af581997c2f6f99096ad01562d54db394cbae08d309d7c2c58f841277",
+  "pins" : [
+    {
+      "identity" : "versionedcodable",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/jrothwell/VersionedCodable.git",
+      "state" : {
+        "revision" : "bc46608052e6bb9e12ebbfd9b4fa1f6d19724a6b",
+        "version" : "1.2.4"
+      }
+    }
+  ],
+  "version" : 3
+}

@@ -8,29 +8,33 @@
 import Foundation
 
 /// An option set used to surface what features are supported by a MCMap package.
-struct CartographyMapFeatures {
+public struct CartographyMapFeatures: Sendable {
     /// The raw value representation.
-    let rawValue: Int
+    public let rawValue: Int
+
+    public init(rawValue: Int) {
+        self.rawValue = rawValue
+    }
 }
 
 extension CartographyMapFeatures: OptionSet {
     /// The file supports the core searching capabilities.
-    static let coreSearch = CartographyMapFeatures(rawValue: 1 << 0)
+    public static let coreSearch = CartographyMapFeatures(rawValue: 1 << 0)
 
     /// The file supports the core pinning capabilities.
-    static let corePinning = CartographyMapFeatures(rawValue: 1 << 1)
+    public static let corePinning = CartographyMapFeatures(rawValue: 1 << 1)
 
     /// The file supports generating worlds with the "large biomes" feature.
-    static let largeBiomes = CartographyMapFeatures(rawValue: 1 << 2)
+    public static let largeBiomes = CartographyMapFeatures(rawValue: 1 << 2)
 
     /// The file supports tags in pinned places.
-    static let pinTagging = CartographyMapFeatures(rawValue: 1 << 3)
+    public static let pinTagging = CartographyMapFeatures(rawValue: 1 << 3)
 
     /// The default set of features for the minimum version supported.
-    static let minimumDefault: CartographyMapFeatures = [.coreSearch, .corePinning]
+    public static let minimumDefault: CartographyMapFeatures = [.coreSearch, .corePinning]
 
     /// Create a feature set from a file.
-    init(representing file: CartographyMapFile) {
+    public init(representing file: CartographyMapFile) {
         self = .minimumDefault
 
         guard let manifestVersion = file.manifest.manifestVersion else { return }

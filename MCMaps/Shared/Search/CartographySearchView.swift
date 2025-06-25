@@ -7,6 +7,7 @@
 
 import AsyncAlgorithms
 import CubiomesKit
+import MCMapFormat
 import SwiftUI
 
 struct CartographySearchView<InitialView: View, ResultsView: View>: View {

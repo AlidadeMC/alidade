@@ -6,11 +6,8 @@
 //
 
 import CubiomesKit
+import MCMapFormat
 import SwiftUI
-
-extension MCMapManifestPin: Identifiable {
-    var id: Self { self }
-}
 
 enum LibraryNavigationPath: Hashable {
     case pin(MCMapManifestPin, index: Int)

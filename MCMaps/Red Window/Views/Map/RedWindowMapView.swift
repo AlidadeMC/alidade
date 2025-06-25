@@ -6,6 +6,7 @@
 //
 
 import CubiomesKit
+import MCMapFormat
 import SwiftUI
 
 /// The view that is displayed in the Map tab on Red Window.

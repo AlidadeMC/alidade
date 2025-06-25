@@ -14,39 +14,55 @@ import VersionedCodable
 ///
 /// > Important: Unless specifying this version is strictly required, refer to the ``MCMapManifest`` type instead,
 /// > which points to the latest version.
-struct MCMapManifest_PreVersioning: Codable, Hashable, Sendable {
+public struct MCMapManifest_PreVersioning: Codable, Hashable, Sendable {
     /// The version of the Minecraft map manifest file.
     ///
     /// This is set to nil, since this structure represents versions of the file that did _not_ include the version.
-    var manifestVersion: Int?
+    public var manifestVersion: Int?
 
     /// The seed used to generate the world in-game.
-    var seed: Int64
+    public var seed: Int64
 
     /// A string representing the Minecraft version used to generate the world.
     ///
     /// World generations vary depending on the Minecraft version, despite having the same seed.
-    var mcVersion: String
+    public var mcVersion: String
 
     /// The player-assigned name of the world.
     ///
     /// This typically appears on iOS, and as part of the subtitle on macOS.
-    var name: String
+    public var name: String
 
     /// A list of player-created pins for notable areas in the world.
-    var pins: [MCMapManifestPin]
+    public var pins: [MCMapManifestPin]
 
     /// A stack containing the most recent locations visited.
     ///
     /// This is usually filled with results from prior searches, and it shouldn't contain more than a few items at most.
-    var recentLocations: [CGPoint]? = []
+    public var recentLocations: [CGPoint]? = []
+
+    public init(
+        manifestVersion: Int? = nil,
+        seed: Int64,
+        mcVersion: String,
+        name: String,
+        pins: [MCMapManifestPin],
+        recentLocations: [CGPoint]? = nil
+    ) {
+        self.manifestVersion = manifestVersion
+        self.seed = seed
+        self.mcVersion = mcVersion
+        self.name = name
+        self.pins = pins
+        self.recentLocations = recentLocations
+    }
 }
 
 extension MCMapManifest_PreVersioning: VersionedCodable {
-    typealias PreviousVersion = NothingEarlier
-    typealias VersionSpec = CartographyMapVersionSpec
+    public typealias PreviousVersion = NothingEarlier
+    public typealias VersionSpec = CartographyMapVersionSpec
 
-    static let version: Int? = nil
+    public static let version: Int? = nil
 }
 
 extension MCMapManifest_PreVersioning: MCMapManifestProviding {
@@ -54,7 +70,7 @@ extension MCMapManifest_PreVersioning: MCMapManifestProviding {
     ///
     /// This property is a "punch-up" migratory property used to handle forwards compatibility with newer manifest
     /// versions, such as ``MCMapManifest_v2``.
-    var worldSettings: MCMapManifestWorldSettings {
+    public var worldSettings: MCMapManifestWorldSettings {
         get { return MCMapManifestWorldSettings(version: self.mcVersion, seed: self.seed) }
         set {
             self.mcVersion = newValue.version
@@ -65,7 +81,7 @@ extension MCMapManifest_PreVersioning: MCMapManifestProviding {
     /// A sample file used for debugging, testing, and preview purposes.
     ///
     /// This might also be used to create a map quickly via a template.
-    static let sampleFile = MCMapManifest_PreVersioning(
+    public static let sampleFile = MCMapManifest_PreVersioning(
         seed: 123,
         mcVersion: "1.21.3",
         name: "My World",

@@ -5,6 +5,7 @@
 //  Created by Marquis Kurt on 16-06-2025.
 //
 
+import MCMapFormat
 import SwiftUI
 
 /// An enumeration representing all the available tab routes in the app.

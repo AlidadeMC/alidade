@@ -6,6 +6,7 @@
 //
 
 import CubiomesKit
+import MCMapFormat
 import Foundation
 
 /// A service that searches and filters content in Minecraft worlds and `.mcmap` files.

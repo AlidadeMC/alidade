@@ -6,6 +6,7 @@
 //
 
 import CubiomesKit
+import MCMapFormat
 
 extension MinecraftStructure {
     /// The localized name for the given Minecraft structure.

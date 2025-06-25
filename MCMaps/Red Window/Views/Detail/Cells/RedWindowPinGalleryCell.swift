@@ -5,6 +5,7 @@
 //  Created by Marquis Kurt on 19-06-2025.
 //
 
+import MCMapFormat
 import SwiftUI
 
 struct RedWindowPinGalleryCell: RedWindowDetailCell {

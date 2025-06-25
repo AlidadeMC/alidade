@@ -7,6 +7,7 @@
 
 import AlidadeUI
 import CubiomesKit
+import MCMapFormat
 import SwiftUI
 import TipKit
 
@@ -154,6 +155,7 @@ struct CartographyMapSidebar: View {
     func pushToRecentLocations(_ position: CGPoint) {
         if file.manifest.recentLocations == nil {
             file.manifest.recentLocations = [position]
+            viewModel.currentRoute = .recent(position)
             return
         }
         file.manifest.recentLocations?.append(position)

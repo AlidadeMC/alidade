@@ -8,6 +8,7 @@
 import AdaptableSidebarSheetView
 import CubiomesKit
 import Foundation
+import MCMapFormat
 import Observation
 import SwiftUI
 

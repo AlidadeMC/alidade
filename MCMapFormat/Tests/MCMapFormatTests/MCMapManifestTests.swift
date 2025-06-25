@@ -8,7 +8,7 @@
 import Foundation
 import Testing
 
-@testable import Alidade
+@testable import MCMapFormat
 
 struct MCMapManifestTests {
     @Test func emptyTagSetPre_V2() async throws {

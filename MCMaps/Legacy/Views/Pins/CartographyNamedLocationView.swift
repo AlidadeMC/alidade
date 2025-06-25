@@ -6,6 +6,7 @@
 //
 
 import AlidadeUI
+import MCMapFormat
 import SwiftUI
 
 extension NamedLocationView {

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import MCMapFormat
 import Testing
 import ViewInspector
 

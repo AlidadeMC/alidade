@@ -6,6 +6,7 @@
 //
 
 import AlidadeUI
+import MCMapFormat
 import SwiftUI
 
 /// A section used to display recently visited locations.

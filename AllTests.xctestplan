@@ -25,12 +25,29 @@
           "containerPath" : "container:AlidadeUI",
           "identifier" : "AlidadeUI",
           "name" : "AlidadeUI"
+        },
+        {
+          "containerPath" : "container:MCMapFormat",
+          "identifier" : "MCMapFormat",
+          "name" : "MCMapFormat"
+        },
+        {
+          "containerPath" : "container:MCMapFormat",
+          "identifier" : "MCMapFormatTests",
+          "name" : "MCMapFormatTests"
         }
       ]
     },
     "testTimeoutsEnabled" : true
   },
   "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:MCMapFormat",
+        "identifier" : "MCMapFormatTests",
+        "name" : "MCMapFormatTests"
+      }
+    },
     {
       "target" : {
         "containerPath" : "container:AlidadeUI",

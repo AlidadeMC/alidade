@@ -14,6 +14,7 @@
 		955A44382D8F47C600262A6D /* AdaptableSidebarSheetView in Frameworks */ = {isa = PBXBuildFile; productRef = 955A44372D8F47C600262A6D /* AdaptableSidebarSheetView */; };
 		955A4D682D932A6500262A6D /* DesignLibrary in Frameworks */ = {isa = PBXBuildFile; productRef = 955A4D672D932A6500262A6D /* DesignLibrary */; };
 		955CD1652DAAE1BE007F6FA1 /* CubiomesKit in Frameworks */ = {isa = PBXBuildFile; productRef = 955CD1642DAAE1BE007F6FA1 /* CubiomesKit */; };
+		9580C1062E0B762B00AC47D8 /* MCMapFormat in Frameworks */ = {isa = PBXBuildFile; productRef = 9580C1052E0B762B00AC47D8 /* MCMapFormat */; };
 		95F6B0AD2DADE504006A1B8C /* AsyncAlgorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 95F6B0AC2DADE504006A1B8C /* AsyncAlgorithms */; };
 		95FB72D02DE255630003CC61 /* AlidadeUI in Frameworks */ = {isa = PBXBuildFile; productRef = 95FB72CF2DE255630003CC61 /* AlidadeUI */; };
 /* End PBXBuildFile section */
@@ -72,6 +73,7 @@
 				955CD1652DAAE1BE007F6FA1 /* CubiomesKit in Frameworks */,
 				9522739A2DCD17B9007809BE /* VersionedCodable in Frameworks */,
 				955A4D682D932A6500262A6D /* DesignLibrary in Frameworks */,
+				9580C1062E0B762B00AC47D8 /* MCMapFormat in Frameworks */,
 				95F6B0AD2DADE504006A1B8C /* AsyncAlgorithms in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -134,6 +136,7 @@
 				952273992DCD17B9007809BE /* VersionedCodable */,
 				954D31D32DE16A9000085D71 /* AlidadeUI */,
 				95FB72CF2DE255630003CC61 /* AlidadeUI */,
+				9580C1052E0B762B00AC47D8 /* MCMapFormat */,
 			);
 			productName = MCMaps;
 			productReference = 950402CF2D4D522100F51903 /* Alidade.app */;
@@ -200,6 +203,7 @@
 				95F6B0AB2DADE504006A1B8C /* XCRemoteSwiftPackageReference "swift-async-algorithms" */,
 				952273982DCD17B9007809BE /* XCRemoteSwiftPackageReference "VersionedCodable" */,
 				95FB72CE2DE255630003CC61 /* XCLocalSwiftPackageReference "AlidadeUI" */,
+				9580C1042E0B762B00AC47D8 /* XCLocalSwiftPackageReference "MCMapFormat" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 950402D02D4D522100F51903 /* Products */;
@@ -823,6 +827,10 @@
 			isa = XCLocalSwiftPackageReference;
 			relativePath = DesignLibrary;
 		};
+		9580C1042E0B762B00AC47D8 /* XCLocalSwiftPackageReference "MCMapFormat" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = MCMapFormat;
+		};
 		95FB72CE2DE255630003CC61 /* XCLocalSwiftPackageReference "AlidadeUI" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = AlidadeUI;
@@ -913,6 +921,10 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 955CD1632DAAE1BE007F6FA1 /* XCRemoteSwiftPackageReference "CubiomesKit" */;
 			productName = CubiomesKit;
+		};
+		9580C1052E0B762B00AC47D8 /* MCMapFormat */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = MCMapFormat;
 		};
 		95DDE9662D57D0E9002B29D9 /* SwiftLintBuildToolPlugin */ = {
 			isa = XCSwiftPackageProductDependency;

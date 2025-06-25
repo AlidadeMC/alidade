@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import MCMapFormat
 import TipKit
 
 /// The main entry point for the Alidade app.

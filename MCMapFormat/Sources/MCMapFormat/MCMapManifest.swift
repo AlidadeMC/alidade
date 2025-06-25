@@ -13,17 +13,17 @@ import VersionedCodable
 /// This should be used in conjunction with ``CartographyMapFile`` to ensure that the latest version of the manifest is
 /// being used. Whenever encoding to and decoding from this type, use the `encode(versioned:)` and
 /// `decode(versioned:data:)` methods from `VersionedCodable`, respectively.
-typealias MCMapManifest = MCMapManifest_v2
+public typealias MCMapManifest = MCMapManifest_v2
 
 extension MCMapManifest {
     /// A typealias that points to a player-created pin.
-    typealias Pin = MCMapManifestPin
+    public typealias Pin = MCMapManifestPin
 
     /// A typealias that points to the manifest's world settings.
-    typealias WorldSettings = MCMapManifestWorldSettings
+    public typealias WorldSettings = MCMapManifestWorldSettings
 
     /// Retrieves all the tags available in the manifest.
-    func getAllAvailableTags() -> Set<String> {
+    public func getAllAvailableTags() -> Set<String> {
         if (manifestVersion ?? 1) < 2 { return [] }
         var tags = Set<String>()
 
@@ -58,14 +58,14 @@ protocol MCMapManifestProviding: VersionedCodable where VersionSpec == Cartograp
 /// A structure used to denote the version path in Codable structures.
 ///
 /// This should be used with any manifest files that conform to `VersionedCodable` via the `VersionSpec` typealias.
-struct CartographyMapVersionSpec: VersionPathSpec, Sendable {
-    nonisolated(unsafe) static let keyPathToVersion: KeyPath<CartographyMapVersionSpec, Int?> =
+public struct CartographyMapVersionSpec: VersionPathSpec, Sendable {
+    public nonisolated(unsafe) static let keyPathToVersion: KeyPath<CartographyMapVersionSpec, Int?> =
         \Self.manifestVersion
 
     /// The Minecraft world map package version.
-    var manifestVersion: Int?
+    public var manifestVersion: Int?
 
-    init(withVersion version: Int?) {
+    public init(withVersion version: Int?) {
         self.manifestVersion = version
     }
 }

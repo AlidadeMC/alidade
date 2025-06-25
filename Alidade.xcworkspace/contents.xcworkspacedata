@@ -25,4 +25,7 @@
    <FileRef
       location = "group:DesignLibrary">
    </FileRef>
+   <FileRef
+      location = "group:MCMapFormat">
+   </FileRef>
 </Workspace>
