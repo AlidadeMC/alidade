@@ -13,7 +13,8 @@ import ViewInspector
 
 @MainActor
 struct CartographyMapPinDetailViewTests {
-    @Test func viewInitializes() throws {
+    @Test(.tags(.legacyUI))
+    func viewInitializes() throws {
         let file = Binding(wrappedValue: CartographyMapFile(withManifest: .sampleFile))
         let viewModel = CartographyPinViewModel(file: file, index: 0)
         let view = CartographyMapPinDetailView(viewModel: viewModel)
@@ -24,7 +25,7 @@ struct CartographyMapPinDetailViewTests {
         #expect(view.testHooks.photoToUpdate == nil)
     }
 
-    @Test(.enabled(if: platform(is: .macOS)))
+    @Test(.enabled(if: platform(is: .macOS)), .tags(.legacyUI))
     func savePanelOpens() throws {
         let file = Binding(wrappedValue: CartographyMapFile(withManifest: .sampleFile))
         let viewModel = CartographyPinViewModel(file: file, index: 0)

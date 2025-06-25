@@ -14,7 +14,8 @@ import ViewInspector
 
 @MainActor
 struct CartographyNamedLocationViewTests {
-    @Test func initalizeWithPin() throws {
+    @Test(.tags(.legacyUI))
+    func initalizeWithPin() throws {
         let view = NamedLocationView(pin: .init(position: .zero, name: "Pin", color: .blue))
 
         #expect(view.testHooks.name == "Pin")

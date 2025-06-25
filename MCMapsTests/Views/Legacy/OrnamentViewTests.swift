@@ -13,7 +13,8 @@ import ViewInspector
 
 @MainActor
 struct OrnamentViewTests {
-    @Test func ornamentInit() throws {
+    @Test(.tags(.legacyUI))
+    func ornamentInit() throws {
         let ornament = Ornament(alignment: .bottom) {
             Text("Hi")
         }
@@ -23,7 +24,8 @@ struct OrnamentViewTests {
         #expect(try sut.flexFrame().alignment == .bottom)
     }
 
-    @Test func ornamentViewHandlesTap() throws {
+    @Test(.tags(.legacyUI))
+    func ornamentViewHandlesTap() throws {
         let ornamentView = OrnamentedView(content: Color.red) {
             Ornament(alignment: .bottom) {
                 Text("Hi")

@@ -14,7 +14,8 @@ import ViewInspector
 
 @MainActor
 struct SearchedStructuresSectionTests {
-    @Test func viewLayout() throws {
+    @Test(.tags(.legacyUI))
+    func viewLayout() throws {
         let viewModel = Binding(wrappedValue: CartographyMapViewModel())
         let file = Binding(wrappedValue: CartographyMapFile(withManifest: .sampleFile))
         let section = GroupedPinsSection(

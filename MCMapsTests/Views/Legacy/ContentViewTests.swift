@@ -13,7 +13,8 @@ import ViewInspector
 
 @MainActor
 struct ContentViewTests {
-    @Test func contentViewInit() async throws {
+    @Test(.tags(.legacyUI))
+    func contentViewInit() async throws {
         let file = Binding(wrappedValue: CartographyMapFile(withManifest: .sampleFile))
         let view = LegacyContentView(file: file)
 

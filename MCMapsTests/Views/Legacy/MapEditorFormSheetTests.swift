@@ -13,7 +13,8 @@ import ViewInspector
 
 @MainActor
 struct MapEditorFormSheetTests {
-    @Test func viewLayout() throws {
+    @Test(.tags(.legacyUI))
+    func viewLayout() throws {
         let file: Binding<CartographyMapFile> = .init(wrappedValue: CartographyMapFile(withManifest: .sampleFile))
         let view = MapEditorFormSheet(file: file)
         let sut = try view.inspect()
@@ -37,7 +38,8 @@ struct MapEditorFormSheetTests {
         #expect(try cancelButton.labelView().text().string() == "Cancel")
     }
 
-    @Test func formSubmitCallback() throws {
+    @Test(.tags(.legacyUI))
+    func formSubmitCallback() throws {
         let file: Binding<CartographyMapFile> = .init(wrappedValue: CartographyMapFile(withManifest: .sampleFile))
         let view = MapEditorFormSheet(file: file) {
             #expect(file.wrappedValue.manifest == .sampleFile)
@@ -48,7 +50,8 @@ struct MapEditorFormSheetTests {
         try sut.find(button: "Done").tap()
     }
 
-    @Test func formCancelCallback() throws {
+    @Test(.tags(.legacyUI))
+    func formCancelCallback() throws {
         let file: Binding<CartographyMapFile> = .init(wrappedValue: CartographyMapFile(withManifest: .sampleFile))
         let view = MapEditorFormSheet(file: file) {
             Issue.record("This callback shouldn't have been executed.")

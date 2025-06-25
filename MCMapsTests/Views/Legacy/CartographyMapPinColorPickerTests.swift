@@ -13,7 +13,7 @@ import ViewInspector
 
 @MainActor
 struct CartographyMapPinColorPickerTests {
-    @Test(.disabled(), arguments: MCMapManifestPin.Color.allCases)
+    @Test(.disabled(), .tags(.legacyUI), arguments: MCMapManifestPin.Color.allCases)
     func viewUpdatesSelection(expectedColor: MCMapManifestPin.Color) throws {
         let color = Binding<MCMapManifestPin.Color?>(wrappedValue: nil)
         let picker = CartographyMapPinColorPicker(color: color)

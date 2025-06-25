@@ -13,7 +13,8 @@ import ViewInspector
 
 @MainActor
 struct CartographyMapSidebarTests {
-    @Test func pushToRecentLocations() throws {
+    @Test(.tags(.legacyUI))
+    func pushToRecentLocations() throws {
         let file = Binding(wrappedValue: CartographyMapFile(withManifest: .sampleFile))
         let viewModel = Binding(wrappedValue: CartographyMapViewModel())
         let sidebar = CartographyMapSidebar(viewModel: viewModel, file: file)
@@ -23,7 +24,8 @@ struct CartographyMapSidebarTests {
         #expect(viewModel.wrappedValue.currentRoute == .recent(.zero))
     }
 
-    @Test func pushToRecentLocationsPurgesRecent() throws {
+    @Test(.tags(.legacyUI))
+    func pushToRecentLocationsPurgesRecent() throws {
         var filledFile = CartographyMapFile(withManifest: .sampleFile)
         filledFile.manifest.recentLocations = Array(repeating: .zero, count: 5)
         let file = Binding(wrappedValue: filledFile)
