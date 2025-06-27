@@ -21,21 +21,6 @@ extension MCMapManifest {
 
     /// A typealias that points to the manifest's world settings.
     public typealias WorldSettings = MCMapManifestWorldSettings
-
-    /// Retrieves all the tags available in the manifest.
-    public func getAllAvailableTags() -> Set<String> {
-        if (manifestVersion ?? 1) < 2 { return [] }
-        var tags = Set<String>()
-
-        // TODO: Is there a way we can reduce this from O(n^2)?
-        let pinTags = pins.compactMap(\.tags)
-        for tagSet in pinTags {
-            for tag in tagSet {
-                tags.insert(tag)
-            }
-        }
-        return tags
-    }
 }
 
 /// A protocol that defines a manifest file suitable for a Minecraft map package format.

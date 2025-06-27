@@ -67,6 +67,18 @@ public struct CartographyMapFile: Sendable, Equatable {
         CartographyMapFeatures(representing: self)
     }
 
+    /// A set containing all the available tags in the manifest's pins.
+    public var tags: Set<String> {
+        guard supportedFeatures.contains(.pinTagging) else { return [] }
+        var tags = Set<String>()
+        for pin in manifest.pins {
+            if let pinTags = pin.tags {
+                tags.formUnion(pinTags)
+            }
+        }
+        return tags
+    }
+
     /// Creates a map file from a world map and an image map.
     /// - Parameter manifest: The map structure to represent as the metadata.
     /// - Parameter images: The map containing the images available in this file.

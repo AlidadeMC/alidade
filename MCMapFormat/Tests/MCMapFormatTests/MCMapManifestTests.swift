@@ -19,8 +19,9 @@ struct MCMapManifestTests {
             pins: [MCMapManifestPin(position: .zero, name: "Spawn")]
         )
         let upgradedManifest = try MCMapManifest_v2(from: manifest)
+        let file = CartographyMapFile(withManifest: upgradedManifest)
 
-        #expect(upgradedManifest.getAllAvailableTags().isEmpty)
+        #expect(file.tags.isEmpty)
     }
 
     @Test func allAvailableTags() async throws {
@@ -34,7 +35,8 @@ struct MCMapManifestTests {
             ],
             recentLocations: []
         )
+        let file = CartographyMapFile(withManifest: manifest)
 
-        #expect(manifest.getAllAvailableTags() == ["Autocreated", "Forest", "Base"])
+        #expect(file.tags == ["Autocreated", "Forest", "Base"])
     }
 }

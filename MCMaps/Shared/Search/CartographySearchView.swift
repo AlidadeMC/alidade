@@ -159,7 +159,7 @@ struct CartographySearchView<InitialView: View, ResultsView: View>: View {
     }
 
     private func getSuggestions() -> [SearchToken] {
-        let fileTags = file.manifest.getAllAvailableTags()
+        let fileTags = file.tags
         let matchingTags = fileTags.filter { tag in rawQuery.lowercased().contains(tag.lowercased()) }
         return matchingTags.map { SearchToken.tag($0) }
     }
