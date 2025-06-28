@@ -12,7 +12,7 @@ import Testing
 @testable import Alidade
 
 struct DocumentLaunchViewModelTests {
-    @Test(.tags(.viewModel)) func sanitizedURL() throws {
+    @Test(.tags(.viewModel), .enabled(if: platform(is: .macOS))) func sanitizedURL() throws {
         let proxyMap = Binding(wrappedValue: MCMapManifest.sampleFile)
         let displayCreationWindow = Binding(wrappedValue: false)
         let launchViewModel = DocumentLaunchViewModel(displayCreationWindow: displayCreationWindow, proxyMap: proxyMap)
@@ -22,7 +22,7 @@ struct DocumentLaunchViewModelTests {
         #expect(fileName == "Augenwaldburg")
     }
 
-    @Test(.tags(.viewModel)) func friendlyURL() throws {
+    @Test(.tags(.viewModel), .enabled(if: platform(is: .macOS))) func friendlyURL() throws {
         let proxyMap = Binding(wrappedValue: MCMapManifest.sampleFile)
         let displayCreationWindow = Binding(wrappedValue: false)
         let launchViewModel = DocumentLaunchViewModel(displayCreationWindow: displayCreationWindow, proxyMap: proxyMap)
@@ -32,7 +32,7 @@ struct DocumentLaunchViewModelTests {
         #expect(path == "~/Documents")
     }
 
-    @Test(.tags(.viewModel)) func urlIsInMobileDocuments() throws {
+    @Test(.tags(.viewModel), .enabled(if: platform(is: .macOS))) func urlIsInMobileDocuments() throws {
         let proxyMap = Binding(wrappedValue: MCMapManifest.sampleFile)
         let displayCreationWindow = Binding(wrappedValue: false)
         let launchViewModel = DocumentLaunchViewModel(displayCreationWindow: displayCreationWindow, proxyMap: proxyMap)

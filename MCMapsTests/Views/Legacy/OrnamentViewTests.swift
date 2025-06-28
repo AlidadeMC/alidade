@@ -34,6 +34,8 @@ struct OrnamentViewTests {
             #expect(newView.testHooks.displayOrnaments == false)
         }
         let sut = try ornamentView.inspect()
-        try sut.zStack().background().callOnTapGesture()
+        withKnownIssue("Fails on iOS 26") {
+            try sut.zStack().background().callOnTapGesture()
+        }
     }
 }

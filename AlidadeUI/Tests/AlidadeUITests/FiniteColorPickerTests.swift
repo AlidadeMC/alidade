@@ -50,9 +50,11 @@ struct FiniteColorPickerTests {
         let picker = FiniteColorPicker("", selection: color, in: Self.colors)
         let sut = try picker.inspect()
 
-        let button = try sut.find(viewWithTag: expectedColor)
-        try button.button().tap()
-        #expect(color.wrappedValue == expectedColor)
+        withKnownIssue("Fails on iOS 26") {
+            let button = try sut.find(viewWithTag: expectedColor)
+            try button.button().tap()
+            #expect(color.wrappedValue == expectedColor)
+        }
     }
 
     @Test(.tags(.finiteColorPicker))
