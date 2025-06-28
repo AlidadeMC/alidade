@@ -30,6 +30,9 @@ extension CartographyMapFeatures: OptionSet {
     /// The file supports tags in pinned places.
     public static let pinTagging = CartographyMapFeatures(rawValue: 1 << 3)
 
+    /// The file supports tab customization app data.
+    public static let tabCustomization = CartographyMapFeatures(rawValue: 1 << 4)
+
     /// The default set of features for the minimum version supported.
     public static let minimumDefault: CartographyMapFeatures = [.coreSearch, .corePinning]
 
@@ -42,6 +45,7 @@ extension CartographyMapFeatures: OptionSet {
         case 2...:
             self.insert(.pinTagging)
             self.insert(.largeBiomes)
+            self.insert(.tabCustomization)
         default:
             break
         }

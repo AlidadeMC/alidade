@@ -5,7 +5,7 @@
 //  Created by Marquis Kurt on 31-01-2025.
 //
 
-import Foundation
+import SwiftUI
 import Testing
 
 @testable import MCMapFormat
@@ -75,11 +75,14 @@ struct CartographyMapFileTests {
         }
         var file = try CartographyMapFile(decoding: map)
         file.images = ["foo.png": Data()]
+        file.appState.tabCustomization = TabViewCustomization()
+    
         let wrapper = try file.wrapper()
 
         #expect(wrapper.isDirectory == true)
         #expect(wrapper.fileWrappers?["Info.json"] != nil)
         #expect(wrapper.fileWrappers?["Images"] != nil)
+        #expect(wrapper.fileWrappers?["AppState"] != nil)
 
         let infoWrapper = wrapper.fileWrappers?["Info.json"]!
         #expect(infoWrapper?.isRegularFile == true)
@@ -88,6 +91,10 @@ struct CartographyMapFileTests {
         let imagesWrapper = wrapper.fileWrappers?["Images"]!
         #expect(imagesWrapper?.isDirectory == true)
         #expect(imagesWrapper?.fileWrappers?["foo.png"] != nil)
+
+        let appStateWrapper = wrapper.fileWrappers?["AppState"]!
+        #expect(appStateWrapper?.isDirectory == true)
+        #expect(appStateWrapper?.fileWrappers?["Tabs.json"] != nil)
     }
 
     @Test func pinDeletesAtIndex() async throws {

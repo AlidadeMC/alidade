@@ -24,18 +24,23 @@ public struct CartographyMapFile: Sendable, Equatable {
     /// A typealias representing the mapping of image names to data blobs in the file.
     public typealias ImageMap = [String: Data]
 
-    /// A structure containing keys used to read from (and write to) an `.mcmap` file.
+    /// A structure containing information about the app's state.
     ///
-    /// This structure is designed to allow stable access to common pathways in an `.mcmap` file, rather than
-    /// hardcoding each key into relevant methods.
-    ///
-    /// - SeeAlso: For more information on these keys and the general format, refer to <doc:FileFormat>.
-    struct Keys {
-        /// The key that points to the primary metadata file.
-        static let metadata = "Info.json"
+    /// Generally, these items should be stored in the user's preferences via `UserDefaults`. However, some pieces of
+    /// data may be reliant on the current file being open, and it shouldn't pollute the user defaults space. Most of
+    /// these features are supported in v2 of the format and later.
+    public struct AppState: Sendable, Equatable {
+        /// The tab view customization for the current document.
+        ///
+        /// This is only applicable to the
+        public var tabCustomization = TabViewCustomization()
+    }
 
-        /// The key that points to the location where images are stored.
+    struct Keys {
+        static let metadata = "Info.json"
         static let images = "Images"
+        static let appState = "AppState"
+        static let appStateTabs = "Tabs.json"
 
         @available(*, unavailable)
         init() {}
@@ -62,6 +67,12 @@ public struct CartographyMapFile: Sendable, Equatable {
     /// A map of all the images available in this file, and the raw data bytes for the images.
     public var images: ImageMap = [:]
 
+    /// The app state as driven from the current file.
+    ///
+    /// This is generally used to house preferences for the app relative to the current file being open, such as which
+    /// tabs will be displayed.
+    public var appState = AppState()
+
     /// The features that the current file supports.
     public var supportedFeatures: CartographyMapFeatures {
         CartographyMapFeatures(representing: self)
@@ -85,6 +96,7 @@ public struct CartographyMapFile: Sendable, Equatable {
     public init(withManifest manifest: MCMapManifest, images: ImageMap = [:]) {
         self.manifest = manifest
         self.images = images
+        self.appState = AppState()
     }
 
     /// Creates a file by decoding a data object.
@@ -95,6 +107,7 @@ public struct CartographyMapFile: Sendable, Equatable {
         let decoder = JSONDecoder()
         self.manifest = try decoder.decode(versioned: MCMapManifest.self, from: data)
         self.images = [:]
+        self.appState = AppState()
     }
 
     /// Prepares the map metadata for an export or save operation.
@@ -168,6 +181,14 @@ extension CartographyMapFile: FileDocument {
                 imageMap[key] = data
             }
         }
+
+        self.appState = AppState()
+        if let asDir = fileWrappers?[Keys.appState], asDir.isDirectory, let wrappers = asDir.fileWrappers {
+            if let tabCustomizationFile = wrappers[Keys.appStateTabs]?.regularFileContents {
+                let decoder = JSONDecoder()
+                appState.tabCustomization = try decoder.decode(TabViewCustomization.self, from: tabCustomizationFile)
+            }
+        }
     }
 
     /// Creates a file wrapper from a write configuration.
@@ -193,10 +214,25 @@ extension CartographyMapFile: FileDocument {
 
         let imagesDirectoryWrapper = FileWrapper(directoryWithFileWrappers: imageWrappers)
 
-        return FileWrapper(directoryWithFileWrappers: [
+        let fileWrapper = FileWrapper(directoryWithFileWrappers: [
             Keys.metadata: metadataWrapper,
             Keys.images: imagesDirectoryWrapper,
         ])
+
+        var appStateWrapperFiles = [String: FileWrapper]()
+        if supportedFeatures.contains(.tabCustomization) {
+            let encoder = JSONEncoder()
+            let tabData = try encoder.encode(appState.tabCustomization)
+            appStateWrapperFiles[Keys.appStateTabs] = FileWrapper(regularFileWithContents: tabData)
+        }
+
+        if supportedFeatures != .minimumDefault {
+            let appStateWrapper = FileWrapper(directoryWithFileWrappers: appStateWrapperFiles)
+            appStateWrapper.preferredFilename = Keys.appState
+            fileWrapper.addFileWrapper(appStateWrapper)
+        }
+
+        return fileWrapper
     }
 }
 

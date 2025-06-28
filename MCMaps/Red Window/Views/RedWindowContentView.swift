@@ -28,8 +28,6 @@ struct RedWindowContentView: View {
 
     @FeatureFlagged(.redWindow) private var useRedWindowDesign
 
-    @AppStorage("view.tab_customization") private var tabCustomization = TabViewCustomization()
-
     @State private var libraryNavigationPath = NavigationPath()
 
     private var subtitle: String {
@@ -117,7 +115,7 @@ struct RedWindowContentView: View {
         .navigationSubtitle(subtitle)
         #endif
         .tabViewStyle(.sidebarAdaptable)
-        .tabViewCustomization($tabCustomization)
+        .tabViewCustomization($file.appState.tabCustomization)
         .animation(.interactiveSpring, value: env.currentRoute)
         .onChange(of: horizontalSizeClass, initial: true) { _, newSizeClass in
             switch (newSizeClass, env.currentRoute) {
