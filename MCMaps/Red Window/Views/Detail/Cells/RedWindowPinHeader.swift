@@ -115,6 +115,7 @@ struct RedWindowPinHeader: RedWindowDetailCell {
             }
             .ignoresSafeArea(.container)
             .toolbar {
+                #if RED_WINDOW
                 ToolbarItem {
                     if isEditing, #available(iOS 19, *) {
                         Button(role: .confirm) { isEditing.toggle() }
@@ -122,6 +123,7 @@ struct RedWindowPinHeader: RedWindowDetailCell {
                         Button("Edit", systemImage: "pencil") { isEditing.toggle() }
                     }
                 }
+                #endif
             }
         }
     }
