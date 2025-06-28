@@ -28,6 +28,8 @@ struct SearchedStructuresSectionTests {
         let sut = try section.inspect()
 
         let button = try sut.section().group(0).forEach(0).view(NamedLocationView.self, 0)
-        try button.callOnTapGesture()
+        try withBreakingRedWindow {
+            try button.callOnTapGesture()
+        }
     }
 }

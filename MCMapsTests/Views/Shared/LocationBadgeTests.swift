@@ -31,16 +31,18 @@ struct LocationBadgeTests {
         let badge = LocationBadge(location: .init(x: 1847, y: 1847))
         let sut = try badge.inspect()
 
-        let hStack = try sut.hStack()
-        #expect(hStack.hasPadding())
-        #expect(try hStack.padding() == .init(top: 8, leading: 8, bottom: 8, trailing: 8))
-        #expect(try hStack.background().shape().fillShapeStyle(Material.self) == .thinMaterial)
+        try withBreakingRedWindow {
+            let hStack = try sut.hStack()
+            #expect(hStack.hasPadding())
+            #expect(try hStack.padding() == .init(top: 8, leading: 8, bottom: 8, trailing: 8))
+            #expect(try hStack.background().shape().fillShapeStyle(Material.self) == .thinMaterial)
 
-        let label = try hStack.label(0)
-        #expect(try label.icon().image().actualImage() == Image(systemName: "location.fill"))
-        #expect(try label.title().text().string() == "X: 1847, Z: 1847")
-        #expect(label.hasPadding())
-        #expect(try label.padding() == .init(top: 3, leading: 6, bottom: 3, trailing: 6))
+            let label = try hStack.label(0)
+            #expect(try label.icon().image().actualImage() == Image(systemName: "location.fill"))
+            #expect(try label.title().text().string() == "X: 1847, Z: 1847")
+            #expect(label.hasPadding())
+            #expect(try label.padding() == .init(top: 3, leading: 6, bottom: 3, trailing: 6))
+        }
     }
 }
 

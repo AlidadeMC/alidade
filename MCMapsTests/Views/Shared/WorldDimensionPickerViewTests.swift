@@ -25,7 +25,11 @@ struct WorldDimensionPickerViewTests {
         let overworld = try picker.label(0)
         #expect(try overworld.title().text().string() == "Overworld")
         #expect(try overworld.icon().image().actualImage() == Image(systemName: "tree"))
-        #expect(try overworld.tag() as? MinecraftWorld.Dimension == MinecraftWorld.Dimension.overworld)
+        try withBreakingRedWindow {
+            let tag = try overworld.tag()
+            #expect(tag as? MinecraftWorld.Dimension == MinecraftWorld.Dimension.overworld)
+
+        }
 
         let nether = try picker.label(1)
         #expect(try nether.title().text().string() == "Nether")
