@@ -1,5 +1,5 @@
 {
-  "originHash" : "73abb88a9a90b8c2818455957e029e0ddc802c7292299197e2b1ad496d8f94fd",
+  "originHash" : "2bffca0c9ae2f932af119d9757af939bde60890f90f6266722847a0d77413712",
   "pins" : [
     {
       "identity" : "adaptablesidebarsheetview",
@@ -16,7 +16,7 @@
       "location" : "https://github.com/alicerunsonfedora/CubiomesKit",
       "state" : {
         "branch" : "root",
-        "revision" : "e6b269295c68a24c7d24a7126bc771327f616385"
+        "revision" : "15a84fc2a85cf713db4b58aa8cabcfe73e75ad72"
       }
     },
     {
@@ -24,8 +24,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/stadiamaps/mapkit-caching-tile-overlay",
       "state" : {
-        "revision" : "f4b992dbefc670d5fcad67623368e120003f8b71",
-        "version" : "1.0.4"
+        "revision" : "600f218ccc090678ab46bab162a82f63949eb04f",
+        "version" : "1.1.0"
       }
     },
     {
@@ -42,8 +42,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-collections.git",
       "state" : {
-        "revision" : "671108c96644956dddcd89dd59c203dcdb36cec7",
-        "version" : "1.1.4"
+        "revision" : "c1805596154bb3a265fd91b8ac0c4433b4348fb0",
+        "version" : "1.2.0"
       }
     },
     {
@@ -60,8 +60,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/jrothwell/VersionedCodable.git",
       "state" : {
-        "revision" : "fd6866a0d39e72a18ba71e47b5ab42c4a2a62600",
-        "version" : "1.1.1"
+        "revision" : "bc46608052e6bb9e12ebbfd9b4fa1f6d19724a6b",
+        "version" : "1.2.4"
       }
     },
     {
