@@ -8,6 +8,7 @@
 import AlidadeUI
 import MCMapFormat
 import SwiftUI
+import Testchamber
 import Testing
 import ViewInspector
 
@@ -28,7 +29,7 @@ struct SearchedStructuresSectionTests {
         let sut = try section.inspect()
 
         let button = try sut.section().group(0).forEach(0).view(NamedLocationView.self, 0)
-        try withBreakingRedWindow {
+        Testchamber.assumeRedWindowBreaks {
             try button.callOnTapGesture()
         }
     }

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		9504030F2D4D7E0A00F51903 /* CubiomesKit in Frameworks */ = {isa = PBXBuildFile; productRef = 9504030E2D4D7E0A00F51903 /* CubiomesKit */; };
 		951FE2BC2D5937630091BE11 /* ViewInspector in Frameworks */ = {isa = PBXBuildFile; productRef = 951FE2BB2D5937630091BE11 /* ViewInspector */; };
+		953CBB1D2E12FBD400C54DFD /* Testchamber in Frameworks */ = {isa = PBXBuildFile; productRef = 953CBB1C2E12FBD400C54DFD /* Testchamber */; };
 		955A44382D8F47C600262A6D /* AdaptableSidebarSheetView in Frameworks */ = {isa = PBXBuildFile; productRef = 955A44372D8F47C600262A6D /* AdaptableSidebarSheetView */; };
 		955A4D682D932A6500262A6D /* DesignLibrary in Frameworks */ = {isa = PBXBuildFile; productRef = 955A4D672D932A6500262A6D /* DesignLibrary */; };
 		955CD1652DAAE1BE007F6FA1 /* CubiomesKit in Frameworks */ = {isa = PBXBuildFile; productRef = 955CD1642DAAE1BE007F6FA1 /* CubiomesKit */; };
@@ -79,6 +80,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				951FE2BC2D5937630091BE11 /* ViewInspector in Frameworks */,
+				953CBB1D2E12FBD400C54DFD /* Testchamber in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -155,6 +157,7 @@
 			name = MCMapsTests;
 			packageProductDependencies = (
 				951FE2BB2D5937630091BE11 /* ViewInspector */,
+				953CBB1C2E12FBD400C54DFD /* Testchamber */,
 			);
 			productName = MCMapsTests;
 			productReference = 950402E02D4D522200F51903 /* MCMapsTests.xctest */;
@@ -197,6 +200,7 @@
 				95F6B0AB2DADE504006A1B8C /* XCRemoteSwiftPackageReference "swift-async-algorithms" */,
 				95FB72CE2DE255630003CC61 /* XCLocalSwiftPackageReference "AlidadeUI" */,
 				9580C1042E0B762B00AC47D8 /* XCLocalSwiftPackageReference "MCMapFormat" */,
+				953CBB1B2E12FBD400C54DFD /* XCLocalSwiftPackageReference "Testchamber" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 950402D02D4D522100F51903 /* Products */;
@@ -816,6 +820,10 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
+		953CBB1B2E12FBD400C54DFD /* XCLocalSwiftPackageReference "Testchamber" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Testchamber;
+		};
 		955A4D662D932A6500262A6D /* XCLocalSwiftPackageReference "DesignLibrary" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = DesignLibrary;
@@ -882,6 +890,10 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 951FE2BA2D5937630091BE11 /* XCRemoteSwiftPackageReference "ViewInspector" */;
 			productName = ViewInspector;
+		};
+		953CBB1C2E12FBD400C54DFD /* Testchamber */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Testchamber;
 		};
 		955A44372D8F47C600262A6D /* AdaptableSidebarSheetView */ = {
 			isa = XCSwiftPackageProductDependency;

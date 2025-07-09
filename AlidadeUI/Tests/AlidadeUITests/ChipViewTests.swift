@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Testchamber
 import Testing
 import ViewInspector
 

@@ -6,9 +6,9 @@
 //
 
 import CubiomesKit
-import Foundation
 import MCMapFormat
 import SwiftUI
+import Testchamber
 import Testing
 
 @testable import Alidade
@@ -18,74 +18,74 @@ struct CartographyMapViewModelTests {
     typealias SizeClass = UserInterfaceSizeClass
     typealias Coordinate = Point3D<Int32>
 
-    @Test(.timeLimit(.minutes(1)), .tags(.viewModel))
-    func viewModelInit() async throws {
+    @Test(.timeLimit(.minutes(1)), .tags(.viewModel, .legacyUI))
+    func viewModelInit() throws {
         let viewModel = CartographyMapViewModel()
-        #expect(await viewModel.currentRoute == nil)
-        #expect(await viewModel.displayCurrentRouteModally.wrappedValue == false)
-        #expect(await viewModel.searchQuery.isEmpty)
-        #expect(await viewModel.worldDimension == .overworld)
-        #expect(await viewModel.worldRange.origin == Coordinate(x: 0, y: 15, z: 0))
-        #expect(await viewModel.worldRange.size == MinecraftWorldRect.Size(length: 256, width: 256, height: 1))
+        #expect(viewModel.currentRoute == nil)
+        #expect(viewModel.displayCurrentRouteModally.wrappedValue == false)
+        #expect(viewModel.searchQuery.isEmpty)
+        #expect(viewModel.worldDimension == .overworld)
+        #expect(viewModel.worldRange.origin == Coordinate(x: 0, y: 15, z: 0))
+        #expect(viewModel.worldRange.size == MinecraftWorldRect.Size(length: 256, width: 256, height: 1))
     }
 
-    @Test(.timeLimit(.minutes(1)), .tags(.viewModel))
-    func viewModelPositionLabel() async throws {
+    @Test(.timeLimit(.minutes(1)), .tags(.viewModel, .legacyUI))
+    func viewModelPositionLabel() throws {
         let viewModel = CartographyMapViewModel()
-        #expect(await viewModel.positionLabel == "X: 0, Z: 0")
+        #expect(viewModel.positionLabel == "X: 0, Z: 0")
 
-        await MainActor.run {
+//        await MainActor.run {
             viewModel.worldRange.origin = .init(cgPoint: CGPoint(x: 1847, y: 1847))
-        }
+//        }
 
-        #expect(await viewModel.positionLabel == "X: 1847, Z: 1847")
+        #expect(viewModel.positionLabel == "X: 1847, Z: 1847")
     }
 
-    @Test(.timeLimit(.minutes(1)), .tags(.viewModel))
-    func viewModelGoesToPosition() async throws {
+    @Test(.timeLimit(.minutes(1)), .tags(.viewModel, .legacyUI))
+    func viewModelGoesToPosition() throws {
         let viewModel = CartographyMapViewModel()
         let file = CartographyMapFile(withManifest: .sampleFile)
-        #expect(await viewModel.worldRange.origin == .init(x: 0, y: 15, z: 0))
+        #expect(viewModel.worldRange.origin == .init(x: 0, y: 15, z: 0))
 
         viewModel.go(to: .init(x: 1847, y: 1847), relativeTo: file)
-        #expect(await viewModel.worldRange.origin == .init(x: 1847, y: 15, z: 1847))
+        #expect(viewModel.worldRange.origin == .init(x: 1847, y: 15, z: 1847))
     }
 
-    @Test(.timeLimit(.minutes(1)), .tags(.viewModel))
-    func viewModelSubmitsWorldChanges() async throws {
+    @Test(.timeLimit(.minutes(1)), .tags(.viewModel, .legacyUI))
+    func viewModelSubmitsWorldChanges() throws {
         let viewModel = CartographyMapViewModel()
         let file = CartographyMapFile(withManifest: .sampleFile)
 
-        await MainActor.run {
+//        await MainActor.run {
             viewModel.currentRoute = .editWorld
-        }
+//        }
 
         viewModel.submitWorldChanges(to: file)
-        #expect(await viewModel.currentRoute == nil)
+        #expect(viewModel.currentRoute == nil)
     }
 
-    @Test(.timeLimit(.minutes(1)), .tags(.viewModel), .enabled(if: platform(is: .iOS)))
-    func viewModelRouteBindingsMobile() async throws {
+    @Test(.timeLimit(.minutes(1)), .tags(.viewModel, .legacyUI), .enabled(if: Testchamber.platform(is: .iOS)))
+    func viewModelRouteBindingsMobile() throws {
         let viewModel = CartographyMapViewModel()
-        await MainActor.run {
+//        await MainActor.run {
             viewModel.currentRoute = .editWorld
-        }
+//        }
 
-        #expect(await viewModel.displayCurrentRouteAsInspector.wrappedValue == false)
-        #expect(await viewModel.displayCurrentRouteModally.wrappedValue == false)
+        #expect(viewModel.displayCurrentRouteAsInspector.wrappedValue == false)
+        #expect(viewModel.displayCurrentRouteModally.wrappedValue == false)
     }
 
-    @Test(.timeLimit(.minutes(1)), .tags(.viewModel), .enabled(if: platform(is: .macOS)))
-    func viewModelRouteBindingsDesktop() async throws {
+    @Test(.timeLimit(.minutes(1)), .tags(.viewModel, .legacyUI), .enabled(if: Testchamber.platform(is: .macOS)))
+    func viewModelRouteBindingsDesktop() throws {
         let viewModel = CartographyMapViewModel()
-        await MainActor.run {
+//        await MainActor.run {
             viewModel.currentRoute = .editWorld
-        }
+//        }
 
-        #expect(await viewModel.displayCurrentRouteAsInspector.wrappedValue == false)
-        #expect(await viewModel.displayCurrentRouteModally.wrappedValue == true)
+        #expect(viewModel.displayCurrentRouteAsInspector.wrappedValue == false)
+        #expect(viewModel.displayCurrentRouteModally.wrappedValue == true)
 
         viewModel.displayCurrentRouteModally.wrappedValue = false
-        #expect(await viewModel.currentRoute == nil)
+        #expect(viewModel.currentRoute == nil)
     }
 }

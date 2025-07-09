@@ -28,4 +28,7 @@
    <FileRef
       location = "group:MCMapFormat">
    </FileRef>
+   <FileRef
+      location = "group:Testchamber">
+   </FileRef>
 </Workspace>

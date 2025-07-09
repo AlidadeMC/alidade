@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Testchamber
 import Testing
 import ViewInspector
 
@@ -31,7 +32,7 @@ struct LocationBadgeTests {
         let badge = LocationBadge(location: .init(x: 1847, y: 1847))
         let sut = try badge.inspect()
 
-        try withBreakingRedWindow {
+        Testchamber.assumeRedWindowBreaks {
             let hStack = try sut.hStack()
             #expect(hStack.hasPadding())
             #expect(try hStack.padding() == .init(top: 8, leading: 8, bottom: 8, trailing: 8))

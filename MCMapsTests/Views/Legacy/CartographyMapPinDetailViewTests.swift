@@ -7,6 +7,7 @@
 
 import MCMapFormat
 import SwiftUI
+import Testchamber
 import Testing
 import ViewInspector
 
@@ -26,7 +27,7 @@ struct CartographyMapPinDetailViewTests {
         #expect(view.testHooks.photoToUpdate == nil)
     }
 
-    @Test(.enabled(if: platform(is: .macOS)), .tags(.legacyUI))
+    @Test(.enabled(if: Testchamber.platform(is: .macOS)), .tags(.legacyUI))
     func savePanelOpens() throws {
         let file = Binding(wrappedValue: CartographyMapFile(withManifest: .sampleFile))
         let viewModel = CartographyPinViewModel(file: file, index: 0)

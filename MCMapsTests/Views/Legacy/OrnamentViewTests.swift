@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Testchamber
 import Testing
 import ViewInspector
 
@@ -34,7 +35,7 @@ struct OrnamentViewTests {
             #expect(newView.testHooks.displayOrnaments == false)
         }
         let sut = try ornamentView.inspect()
-        try withBreakingRedWindow {
+        Testchamber.assumeRedWindowBreaks {
             try sut.zStack().background().callOnTapGesture()
         }
     }

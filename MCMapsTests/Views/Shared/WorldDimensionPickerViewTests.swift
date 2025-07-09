@@ -7,6 +7,7 @@
 
 import CubiomesKit
 import SwiftUI
+import Testchamber
 import Testing
 import ViewInspector
 
@@ -25,7 +26,7 @@ struct WorldDimensionPickerViewTests {
         let overworld = try picker.label(0)
         #expect(try overworld.title().text().string() == "Overworld")
         #expect(try overworld.icon().image().actualImage() == Image(systemName: "tree"))
-        try withBreakingRedWindow {
+        Testchamber.assumeRedWindowBreaks {
             let tag = try overworld.tag()
             #expect(tag as? MinecraftWorld.Dimension == MinecraftWorld.Dimension.overworld)
 

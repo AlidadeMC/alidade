@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Testchamber
 import Testing
 import ViewInspector
 
@@ -50,7 +51,7 @@ struct FiniteColorPickerTests {
         let picker = FiniteColorPicker("", selection: color, in: Self.colors)
         let sut = try picker.inspect()
 
-        try withBreakingRedWindow {
+        Testchamber.assumeRedWindowBreaks {
             let button = try sut.find(viewWithTag: expectedColor)
             try button.button().tap()
             #expect(color.wrappedValue == expectedColor)

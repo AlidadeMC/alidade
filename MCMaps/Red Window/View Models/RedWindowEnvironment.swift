@@ -28,5 +28,5 @@ class RedWindowEnvironment {
     var mapCenterCoordinate = CGPoint.zero
 
     /// Whether to open the warp form.
-    var currentModalRoute: RedWindowModalRoute?    
+    var currentModalRoute: RedWindowModalRoute?
 }

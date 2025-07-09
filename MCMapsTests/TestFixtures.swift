@@ -5,6 +5,7 @@
 //  Created by Marquis Kurt on 27-02-2025.
 //
 
+import Testchamber
 import Testing
 
 extension Tag {
@@ -19,30 +20,4 @@ extension Tag {
 
     /// A tag for tests under the Red Window user interface.
     @Tag static var redWindow: Self
-}
-
-enum TargetPlatform {
-    case macOS
-    case iOS
-}
-
-func platform(is target: TargetPlatform) -> Bool {
-    #if os(macOS)
-        return target == .macOS
-    #else
-        return target == .iOS
-    #endif
-}
-
-/// Run a test that is known to break under the Red Window redesign.
-func withBreakingRedWindow(
-    comment: Comment? = nil, sourceLocation: SourceLocation = #_sourceLocation, try closure: () throws -> Void
-) rethrows {
-    #if RED_WINDOW
-        withKnownIssue(comment, isIntermittent: true, sourceLocation: sourceLocation, closure)
-    #else
-        #expect(throws: Never.self, sourceLocation: sourceLocation) {
-            try closure()
-        }
-    #endif
 }

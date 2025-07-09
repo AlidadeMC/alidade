@@ -7,6 +7,7 @@
 
 import MCMapFormat
 import SwiftUI
+import Testchamber
 import Testing
 import ViewInspector
 
@@ -14,7 +15,7 @@ import ViewInspector
 
 @MainActor
 struct DocumentLaunchViewTests {
-    @Test(.enabled(if: platform(is: .iOS)))
+    @Test(.enabled(if: Testchamber.platform(is: .iOS)))
     func sceneInitializationMobile() throws {
         let proxyMap = Binding(wrappedValue: MCMapManifest.sampleFile)
         let displayCreationWindow = Binding(wrappedValue: false)

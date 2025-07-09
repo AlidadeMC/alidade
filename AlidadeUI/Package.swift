@@ -15,6 +15,7 @@ let package = Package(
     dependencies: [
         .package(url: "https://github.com/nalexn/ViewInspector", from: "0.10.0"),
         .package(name: "DesignLibrary", path: "../DesignLibrary"),
+        .package(name: "Testchamber", path: "../Testchamber"),
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
@@ -27,7 +28,7 @@ let package = Package(
             ]),
         .testTarget(
             name: "AlidadeUITests",
-            dependencies: ["AlidadeUI", "ViewInspector"]
+            dependencies: ["AlidadeUI", "ViewInspector", "Testchamber"]
         ),
     ]
 )
