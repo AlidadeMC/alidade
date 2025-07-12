@@ -33,6 +33,9 @@ extension CartographyMapFeatures: OptionSet {
     /// The file supports tab customization app data.
     public static let tabCustomization = CartographyMapFeatures(rawValue: 1 << 4)
 
+    /// The file supports integrations with other services.
+    public static let integrations = CartographyMapFeatures(rawValue: 1 << 5)
+
     /// The default set of features for the minimum version supported.
     public static let minimumDefault: CartographyMapFeatures = [.coreSearch, .corePinning]
 
@@ -46,6 +49,7 @@ extension CartographyMapFeatures: OptionSet {
             self.insert(.pinTagging)
             self.insert(.largeBiomes)
             self.insert(.tabCustomization)
+            self.insert(.integrations)
         default:
             break
         }

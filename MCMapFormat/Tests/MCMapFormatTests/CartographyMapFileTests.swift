@@ -95,6 +95,10 @@ struct CartographyMapFileTests {
         let appStateWrapper = wrapper.fileWrappers?["AppState"]!
         #expect(appStateWrapper?.isDirectory == true)
         #expect(appStateWrapper?.fileWrappers?["Tabs.json"] != nil)
+
+        let integrations = wrapper.fileWrappers?["Integrations"]!
+        #expect(integrations?.isDirectory == true)
+        #expect(integrations?.fileWrappers?["Bluemap.json"] != nil)
     }
 
     @Test func pinDeletesAtIndex() async throws {

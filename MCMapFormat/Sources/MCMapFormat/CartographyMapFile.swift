@@ -36,11 +36,19 @@ public struct CartographyMapFile: Sendable, Equatable {
         public var tabCustomization = TabViewCustomization()
     }
 
+    /// A structure containing integrations with other services.
+    public struct Integrations: Sendable, Equatable {
+        /// Integration with a Bluemap server.
+        public var bluemap = MCMapBluemapIntegration(baseURL: "")
+    }
+
     struct Keys {
         static let metadata = "Info.json"
         static let images = "Images"
         static let appState = "AppState"
         static let appStateTabs = "Tabs.json"
+
+        static let integrations = "Integrations"
 
         @available(*, unavailable)
         init() {}
@@ -78,6 +86,9 @@ public struct CartographyMapFile: Sendable, Equatable {
         CartographyMapFeatures(representing: self)
     }
 
+    /// The integrations provided with this file.
+    public var integrations = Integrations()
+
     /// A set containing all the available tags in the manifest's pins.
     public var tags: Set<String> {
         guard supportedFeatures.contains(.pinTagging) else { return [] }
@@ -108,6 +119,7 @@ public struct CartographyMapFile: Sendable, Equatable {
         self.manifest = try decoder.decode(versioned: MCMapManifest.self, from: data)
         self.images = [:]
         self.appState = AppState()
+        self.integrations = Integrations()
     }
 
     /// Prepares the map metadata for an export or save operation.
@@ -157,6 +169,12 @@ public struct CartographyMapFile: Sendable, Equatable {
 extension CartographyMapFile: FileDocument {
     public static var readableContentTypes: [UTType] { [.mcmap] }
 
+    static func jsonEncoder() -> JSONEncoder {
+        let encoder = JSONEncoder()
+        encoder.outputFormatting = [.prettyPrinted, .sortedKeys]
+        return encoder
+    }
+
     /// Creates a file from a read configuration.
     ///
     /// - Note: This is only used via SwiftUI, and it cannot be tested or invoked manually.
@@ -187,6 +205,14 @@ extension CartographyMapFile: FileDocument {
             if let tabCustomizationFile = wrappers[Keys.appStateTabs]?.regularFileContents {
                 let decoder = JSONDecoder()
                 appState.tabCustomization = try decoder.decode(TabViewCustomization.self, from: tabCustomizationFile)
+            }
+        }
+
+        self.integrations = Integrations()
+        if let intDir = fileWrappers?[Keys.integrations], intDir.isDirectory, let wrappers = intDir.fileWrappers {
+            if let bluemap = wrappers[MCMapBluemapIntegration.integrationKey]?.regularFileContents {
+                let decoder = JSONDecoder()
+                integrations.bluemap = try decoder.decode(MCMapBluemapIntegration.self, from: bluemap)
             }
         }
     }
@@ -221,15 +247,25 @@ extension CartographyMapFile: FileDocument {
 
         var appStateWrapperFiles = [String: FileWrapper]()
         if supportedFeatures.contains(.tabCustomization) {
-            let encoder = JSONEncoder()
-            let tabData = try encoder.encode(appState.tabCustomization)
+            let tabData = try Self.jsonEncoder().encode(appState.tabCustomization)
             appStateWrapperFiles[Keys.appStateTabs] = FileWrapper(regularFileWithContents: tabData)
+        }
+
+        var integrationsWrapperFiles = [String: FileWrapper]()
+        if supportedFeatures.contains(.integrations) {
+            let bluemap = try Self.jsonEncoder().encode(integrations.bluemap)
+            integrationsWrapperFiles[MCMapBluemapIntegration.integrationKey] = FileWrapper(
+                regularFileWithContents: bluemap)
         }
 
         if supportedFeatures != .minimumDefault {
             let appStateWrapper = FileWrapper(directoryWithFileWrappers: appStateWrapperFiles)
             appStateWrapper.preferredFilename = Keys.appState
             fileWrapper.addFileWrapper(appStateWrapper)
+
+            let integrationsWrapper = FileWrapper(directoryWithFileWrappers: integrationsWrapperFiles)
+            integrationsWrapper.preferredFilename = Keys.integrations
+            fileWrapper.addFileWrapper(integrationsWrapper)
         }
 
         return fileWrapper
