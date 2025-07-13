@@ -123,17 +123,6 @@ struct RedWindowContentView: View {
         .tabViewStyle(.sidebarAdaptable)
         .tabViewCustomization($file.appState.tabCustomization)
         .animation(.interactiveSpring, value: env.currentRoute)
-        .task {
-            do {
-                let data: [String: BluemapMarkerAnnotationGroup]? = try await bluemapService?.fetch(
-                    endpoint: .markers,
-                    for: .overworld
-                )
-                print(data?["bases"])
-            } catch {
-                print("up on stair")
-            }
-        }
         .onChange(of: horizontalSizeClass, initial: true) { _, newSizeClass in
             switch (newSizeClass, env.currentRoute) {
             case (.regular, .allPinsCompact):

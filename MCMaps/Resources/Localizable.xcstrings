@@ -477,6 +477,15 @@
     "Switch between dimensions." : {
 
     },
+    "Sync failed" : {
+
+    },
+    "Synced: %@" : {
+
+    },
+    "Syncing..." : {
+
+    },
     "Tag Name" : {
 
     },

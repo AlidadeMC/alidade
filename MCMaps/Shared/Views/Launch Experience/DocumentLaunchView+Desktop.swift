@@ -80,7 +80,10 @@ import SwiftUI
                     NavigationStack {
                         MapCreatorForm(
                             worldName: viewModel.proxyMap.name,
-                            worldSettings: viewModel.proxyMap.worldSettings
+                            worldSettings: viewModel.proxyMap.worldSettings,
+
+                            // Passing a constant since we're never displaying it anyway
+                            integrations: .constant(CartographyMapFile(withManifest: .sampleFile).integrations)
                         )
                         .navigationTitle("Create Map")
                         .formStyle(.grouped)
