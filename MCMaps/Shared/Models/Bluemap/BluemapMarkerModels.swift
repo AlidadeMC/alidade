@@ -13,15 +13,9 @@ struct BluemapMarkerAnnotation: Codable {
         var y: Double
     }
 
-    struct Position: Codable {
-        var x: Double
-        var y: Double
-        var z: Double
-    }
-
     var classes: [String]
     var label: String
-    var position: Position
+    var position: BluemapPosition
     var detail: String?
     var icon: URL?
 

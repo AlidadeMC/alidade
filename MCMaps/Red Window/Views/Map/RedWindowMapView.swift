@@ -13,7 +13,14 @@ import os
 
 private let logger = Logger(subsystem: "net.marquiskurt.mcmaps", category: "map.red_window")
 
+struct Applesauce {
+    var markers: [String: BluemapMarkerAnnotationGroup]?
+    var players: BluemapPlayerResponse?
 
+    var isNone: Bool {
+        return markers == nil && players == nil
+    }
+}
 
 /// The view that is displayed in the Map tab on Red Window.
 struct RedWindowMapView: View {
@@ -26,24 +33,46 @@ struct RedWindowMapView: View {
     @AppStorage(UserDefaults.Keys.mapNaturalColors.rawValue)
     private var useNaturalColors = true
 
+    @State private var applesauce = Applesauce()
     @State private var displayWarpForm = false
     @State private var displayPinForm = false
     @State private var integrationFetchState = IntegrationFetchState.initial
 
-    @State private var bmapCommonPOIs: [String: BluemapMarkerAnnotationGroup]?
-
     private let bmapTimer: Publishers.Autoconnect<Timer.TimerPublisher>
 
     private var bmapMarkers: [CubiomesKit.Marker] {
-        guard file.integrations.bluemap.enabled, file.integrations.bluemap.display.displayMarkers else {
+        guard file.integrations.bluemap.enabled else {
             return []
         }
 
-        guard let pois = bmapCommonPOIs?.values else { return [] }
-        return pois.flatMap { group in
-            group.markers.values.map { annotation in
-                Marker(location: CGPoint(x: annotation.position.x, y: annotation.position.z), title: annotation.label)
+        guard var poiMap = applesauce.markers else { return [] }
+        if !file.integrations.bluemap.displayOptions.contains(.deathMarkers) {
+            poiMap["death-markers"] = nil
+        }
+
+        return poiMap.flatMap { (key, group) in
+            if key == "death-markers" {
+                return group.markers.values.map { annotation in
+                    Marker(
+                        location: CGPoint(x: annotation.position.x, y: annotation.position.z),
+                        title: annotation.label,
+                        color: .gray)
+                }
             }
+            return group.markers.values.map { annotation in
+                Marker(
+                    location: CGPoint(x: annotation.position.x, y: annotation.position.z),
+                    title: annotation.label)
+            }
+        }
+    }
+
+    private var bmapPlayers: [CubiomesKit.Marker] {
+        guard file.integrations.bluemap.enabled, let players = applesauce.players else {
+            return []
+        }
+        return players.players.map { player in
+            Marker(location: CGPoint(x: player.position.x, y: player.position.z), title: player.name, color: .blue)
         }
     }
 
@@ -72,6 +101,7 @@ struct RedWindowMapView: View {
                             )
                         }
                         bmapMarkers
+                        bmapPlayers
                     }
                     .ornaments(.all)
                     .mapColorScheme(.natural)
@@ -79,11 +109,14 @@ struct RedWindowMapView: View {
             }
             .ignoresSafeArea(.all)
             .animation(.interactiveSpring, value: integrationFetchState)
-            .onAppear {
-                updateIntegrationData()
+            .task {
+                await updateIntegrationData()
             }
             .onReceive(bmapTimer) { _ in
-                updateIntegrationData()
+                Task { await updateIntegrationData() }
+            }
+            .onChange(of: env.currentDimension, initial: false) { _, _ in
+                Task { await updateIntegrationData() }
             }
             .onChange(of: env.currentModalRoute, initial: false) { _, newValue in
                 guard let newValue else { return }
@@ -120,6 +153,19 @@ struct RedWindowMapView: View {
                 }
             }
             .toolbar {
+                ToolbarItem {
+                    if file.integrations.bluemap.enabled {
+                        Button("Sync From Integrations", systemImage: "arrow.clockwise") {
+                            Task { await updateIntegrationData() }
+                        }
+                    }
+                }
+                #if RED_WINDOW
+                    if #available(macOS 16, iOS 19, *) {
+                        ToolbarSpacer(.fixed)
+                    }
+                #endif
+
                 ToolbarItem {
                     Menu {
                         Toggle(isOn: $useNaturalColors) {
@@ -161,8 +207,8 @@ struct RedWindowMapView: View {
         }
     }
 
-    private func updateIntegrationData() {
-        guard file.supportedFeatures.contains(.integrations), file.integrations.bluemap.enabled else {
+    private func updateIntegrationData() async {
+        guard file.supportedFeatures.contains(.integrations), file.integrations.enabled else {
             withAnimation {
                 integrationFetchState = .cancelled
             }
@@ -175,21 +221,57 @@ struct RedWindowMapView: View {
         }
         logger.debug("Starting update cycle.")
 
-        Task {
-            do {
-                bmapCommonPOIs = try await bluemapService?
-                    .fetch(endpoint: .markers, for: redWindowEnvironment.currentDimension)
-                let keys = bmapCommonPOIs?.keys.joined(separator: ",") ?? "none"
-                logger.debug("New data fetched: \(keys)")
-                withAnimation {
-                    integrationFetchState = .success(.now)
-                }
-            } catch {
-                logger.error("Failed to get map markers: \(error)")
-                withAnimation {
-                    integrationFetchState = .error(error.localizedDescription)
+        let dimension = redWindowEnvironment.currentDimension
+        let response = await withTaskGroup(of: Applesauce.self, returning: Applesauce.self) { taskGroup in
+            if !file.integrations.bluemap.displayOptions.isDisjoint(with: [.deathMarkers, .markers]) {
+                taskGroup.addTask {
+                    do {
+                        let data: [String: BluemapMarkerAnnotationGroup]? = try await bluemapService?.fetch(
+                            endpoint: .markers,
+                            for: dimension
+                        )
+                        return Applesauce(markers: data)
+                    } catch {
+                        logger.error("Failed to fetch POIs: \(error.localizedDescription)")
+                        return Applesauce()
+                    }
                 }
             }
+            if file.integrations.bluemap.displayOptions.contains(.players) {
+                taskGroup.addTask {
+                    do {
+                        let data: BluemapPlayerResponse? = try await bluemapService?.fetch(
+                            endpoint: .players,
+                            for: dimension
+                        )
+                        return Applesauce(players: data)
+                    } catch {
+                        logger.error("Failed to fetch players: \(error.localizedDescription)")
+                        return Applesauce()
+                    }
+                }
+            }
+
+            var finalResult = Applesauce()
+            for await result in taskGroup {
+                finalResult.markers = result.markers
+                finalResult.players = result.players
+            }
+            return finalResult
+        }
+
+        if response.isNone {
+            logger.info("Response received back is bad.")
+            withAnimation {
+                integrationFetchState = .error("Bad response")
+            }
+            return
+        }
+
+        logger.debug("Setting up from new response.")
+        self.applesauce = response
+        withAnimation {
+            integrationFetchState = .success(.now)
         }
     }
 }
