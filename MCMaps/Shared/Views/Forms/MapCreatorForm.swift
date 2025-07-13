@@ -17,11 +17,19 @@ import SwiftUI
 /// The version string is automatically validated to ensure it is a proper Minecraft version before the binding is
 /// updated. Likewise, the seed number can be automatically generated from a string input by using its hash value.
 struct MapCreatorForm: View {
+    enum DisplayMode {
+        case create, edit
+    }
+
     /// A binding to the name of the world.
     @Binding var worldName: String
 
     /// A binding to the world settings for a Minecraft world.
     @Binding var worldSettings: MCMapManifestWorldSettings
+
+    @Binding var integrations: CartographyMapFile.Integrations
+
+    var displayMode: DisplayMode = .create
 
     @Environment(\.colorScheme) private var colorScheme
 
@@ -80,11 +88,45 @@ struct MapCreatorForm: View {
             }
 
             #if os(iOS)
+                // swiftlint:disable line_length
                 InlineBanner(
-                    "Before You Begin",
-                    message: "Alidade supports maps with Minecraft versions and seeds for _Minecraft: Java Edition_.")
+                    "Alidade works with Minecraft: Java Edition.",
+                    message: "Maps that use version numbers and seeds from _Minecraft: Java Edition_ will work with Alidade. Minecraft (Bedrock) is currently not supported.")
+                // swiftlint:enable line_length
                 .inlineBannerVariant(.information)
             #endif
+
+            if displayMode == .edit {
+                Group {
+                    Section {
+                        NavigationLink {
+                            Form {
+                                BluemapIntegrationFormSection(
+                                    integration: $integrations.bluemap
+                                )
+                            }
+                            .navigationTitle("Bluemap")
+                            #if os(macOS)
+                            .formStyle(.grouped)
+                            #endif
+                        } label: {
+                            Label {
+                                Text("Bluemap")
+                            } icon: {
+                                Image("bluemap")
+                                    .resizable()
+                                    .scaledToFill()
+                                    .clipped()
+                                    .clipShape(.buttonBorder)
+                            }
+
+                        }
+
+                    } header: {
+                        Text("Integrations")
+                    }
+                }
+            }
         }
         .onAppear {
             version = MinecraftVersion(worldSettings.version)
@@ -97,11 +139,14 @@ struct MapCreatorForm: View {
 }
 
 #Preview {
-    @Previewable @State var worldName = "Hello World"
-    @Previewable @State var worldSettings = MCMapManifestWorldSettings(version: "1.21", seed: 123)
-    @Previewable @State var seed: Int64 = 123
+    @Previewable @State var file = CartographyMapFile(withManifest: .sampleFile)
     NavigationStack {
-        MapCreatorForm(worldName: $worldName, worldSettings: $worldSettings)
+        MapCreatorForm(
+            worldName: $file.manifest.name,
+            worldSettings: $file.manifest.worldSettings,
+            integrations: $file.integrations,
+            displayMode: .edit
+        )
             .navigationTitle("New World")
     }
 }

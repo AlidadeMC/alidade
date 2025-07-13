@@ -22,6 +22,7 @@ import SwiftUI
 struct RedWindowContentView: View {
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     @Environment(RedWindowEnvironment.self) private var redWindowEnvironment
+    @Environment(\.bluemapService) private var bluemapService
 
     /// The file to read from and write to.
     @Binding var file: CartographyMapFile
@@ -45,7 +46,12 @@ struct RedWindowContentView: View {
 
             Tab(route: .worldEdit) {
                 NavigationStack {
-                    MapCreatorForm(worldName: $file.manifest.name, worldSettings: $file.manifest.worldSettings)
+                    MapCreatorForm(
+                        worldName: $file.manifest.name,
+                        worldSettings: $file.manifest.worldSettings,
+                        integrations: $file.integrations,
+                        displayMode: .edit
+                    )
                     #if os(macOS)
                         .formStyle(.grouped)
                     #endif
@@ -117,6 +123,17 @@ struct RedWindowContentView: View {
         .tabViewStyle(.sidebarAdaptable)
         .tabViewCustomization($file.appState.tabCustomization)
         .animation(.interactiveSpring, value: env.currentRoute)
+        .task {
+            do {
+                let data: [String: BluemapMarkerAnnotationGroup]? = try await bluemapService?.fetch(
+                    endpoint: .markers,
+                    for: .overworld
+                )
+                print(data?["bases"])
+            } catch {
+                print("up on stair")
+            }
+        }
         .onChange(of: horizontalSizeClass, initial: true) { _, newSizeClass in
             switch (newSizeClass, env.currentRoute) {
             case (.regular, .allPinsCompact):

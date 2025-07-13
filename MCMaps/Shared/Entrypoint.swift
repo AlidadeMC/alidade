@@ -38,16 +38,22 @@ struct MCMapsApp: App {
 
     var body: some Scene {
         DocumentGroup(newDocument: CartographyMapFile(withManifest: .sampleFile)) { configuration in
-            if useRedWindowDesign {
-                RedWindowContentView(file: configuration.$document)
-                    .environment(redWindowEnvironment)
-            } else {
-                LegacyContentView(file: configuration.$document)
-                    .toolbarRole(.editor)
-                    #if os(iOS)
-                        .toolbarVisibility(.hidden, for: .navigationBar)
-                    #endif
+            Group {
+                if useRedWindowDesign {
+                    RedWindowContentView(file: configuration.$document)
+                        .environment(redWindowEnvironment)
+                } else {
+                    LegacyContentView(file: configuration.$document)
+                        .toolbarRole(.editor)
+                        #if os(iOS)
+                            .toolbarVisibility(.hidden, for: .navigationBar)
+                        #endif
+                }
             }
+            .environment(
+                \.bluemapService,
+                 CartographyBluemapService(withConfiguration: configuration.document.integrations.bluemap)
+            )
         }
         .commands {
             CommandMenu("Map") {

@@ -90,7 +90,7 @@
     "Add photos of your world to make this pin memorable." : {
 
     },
-    "Alidade supports maps with Minecraft versions and seeds for _Minecraft: Java Edition_." : {
+    "Alidade works with Minecraft: Java Edition." : {
 
     },
     "All Pins" : {
@@ -114,13 +114,16 @@
     "Bastion" : {
 
     },
-    "Before You Begin" : {
-
-    },
     "Biomes" : {
 
     },
     "Biomes and Structures" : {
+
+    },
+    "Bluemap" : {
+
+    },
+    "Bluemap Server" : {
 
     },
     "Browse and search your library." : {
@@ -168,6 +171,12 @@
     "Dimension" : {
 
     },
+    "Dimensions" : {
+
+    },
+    "Display" : {
+
+    },
     "Don't Remove" : {
 
     },
@@ -178,6 +187,12 @@
 
     },
     "Edit World" : {
+
+    },
+    "Enable Integration" : {
+
+    },
+    "Enabling this integration will allow Alidade to make requests to the Bluemap server listed below." : {
 
     },
     "End" : {
@@ -243,7 +258,13 @@
     "Hide All Tips" : {
 
     },
+    "Host" : {
+
+    },
     "Igloo" : {
+
+    },
+    "Integrations" : {
 
     },
     "Jungle Temple" : {
@@ -289,6 +310,9 @@
 
     },
     "Map" : {
+
+    },
+    "Maps that use version numbers and seeds from _Minecraft: Java Edition_ will work with Alidade. Minecraft (Bedrock) is currently not supported." : {
 
     },
     "Minecraft Version" : {
@@ -369,10 +393,22 @@
     "Pinned Places, Biomes, Structures, and More" : {
 
     },
+    "Player Death Markers" : {
+
+    },
+    "Player Markers" : {
+
+    },
+    "Points of Interest" : {
+
+    },
     "Preview" : {
 
     },
     "Recents" : {
+
+    },
+    "Refresh every: ^[%lld second](inflect: true)" : {
 
     },
     "Relative where you are on the map (%@)." : {
@@ -415,6 +451,9 @@
 
     },
     "Show All Tips" : {
+
+    },
+    "Show common points of interest and where players are on your Minecraft server from the Bluemap plugin.\n[Learn more...](http://example.com)" : {
 
     },
     "Show in Finder" : {

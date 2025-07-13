@@ -74,4 +74,19 @@ public struct MCMapBluemapIntegration: MCMapIntegration {
 
     /// The mapping for worlds to corresponding Minecraft dimensions.
     public var mapping: WorldMapping = WorldMapping()
+
+
+    public init(
+        baseURL: String,
+        enabled: Bool = false,
+        refreshRate: TimeInterval = 10,
+        display: DisplayProperties = DisplayProperties(),
+        mapping: WorldMapping = WorldMapping()
+    ) {
+        self.baseURL = baseURL
+        self.enabled = enabled
+        self.refreshRate = refreshRate
+        self.display = display
+        self.mapping = mapping
+    }
 }
