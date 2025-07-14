@@ -60,17 +60,15 @@ struct RedWindowMapView: View {
         }
     }
 
-    private var bmapPlayers: [CubiomesKit.Marker] {
+    private var bmapPlayers: [CubiomesKit.PlayerMarker] {
         guard file.integrations.bluemap.enabled, let players = applesauce.players else {
             return []
         }
         return players.players.map { player in
-            Marker(
+            PlayerMarker(
                 location: CGPoint(x: player.position.x, y: player.position.z),
-                title: player.name,
-                color: .blue,
-                systemImage: "figure.walk"
-            )
+                name: player.name,
+                playerUUID: player.uuid)
         }
     }
 
