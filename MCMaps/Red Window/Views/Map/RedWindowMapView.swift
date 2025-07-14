@@ -5,6 +5,7 @@
 //  Created by Marquis Kurt on 16-06-2025.
 //
 
+import AlidadeUI
 import Combine
 import CubiomesKit
 import MCMapFormat
@@ -12,15 +13,6 @@ import SwiftUI
 import os
 
 private let logger = Logger(subsystem: "net.marquiskurt.mcmaps", category: "map.red_window")
-
-struct Applesauce {
-    var markers: [String: BluemapMarkerAnnotationGroup]?
-    var players: BluemapPlayerResponse?
-
-    var isNone: Bool {
-        return markers == nil && players == nil
-    }
-}
 
 /// The view that is displayed in the Map tab on Red Window.
 struct RedWindowMapView: View {
@@ -33,7 +25,7 @@ struct RedWindowMapView: View {
     @AppStorage(UserDefaults.Keys.mapNaturalColors.rawValue)
     private var useNaturalColors = true
 
-    @State private var applesauce = Applesauce()
+    @State private var applesauce = BluemapResults()
     @State private var displayWarpForm = false
     @State private var displayPinForm = false
     @State private var integrationFetchState = IntegrationFetchState.initial
@@ -56,7 +48,8 @@ struct RedWindowMapView: View {
                     Marker(
                         location: CGPoint(x: annotation.position.x, y: annotation.position.z),
                         title: annotation.label,
-                        color: .gray)
+                        color: .gray,
+                        systemImage: "xmark.circle")
                 }
             }
             return group.markers.values.map { annotation in
@@ -72,7 +65,12 @@ struct RedWindowMapView: View {
             return []
         }
         return players.players.map { player in
-            Marker(location: CGPoint(x: player.position.x, y: player.position.z), title: player.name, color: .blue)
+            Marker(
+                location: CGPoint(x: player.position.x, y: player.position.z),
+                title: player.name,
+                color: .blue,
+                systemImage: "figure.walk"
+            )
         }
     }
 
@@ -104,7 +102,7 @@ struct RedWindowMapView: View {
                         bmapPlayers
                     }
                     .ornaments(.all)
-                    .mapColorScheme(.natural)
+                    .mapColorScheme(useNaturalColors ? .natural : .default)
                 }
             }
             .ignoresSafeArea(.all)
@@ -222,40 +220,21 @@ struct RedWindowMapView: View {
         logger.debug("Starting update cycle.")
 
         let dimension = redWindowEnvironment.currentDimension
-        let response = await withTaskGroup(of: Applesauce.self, returning: Applesauce.self) { taskGroup in
+        let response = await withTaskGroup(of: BluemapResults.self, returning: BluemapResults.self) { taskGroup in
             if !file.integrations.bluemap.displayOptions.isDisjoint(with: [.deathMarkers, .markers]) {
                 taskGroup.addTask {
-                    do {
-                        let data: [String: BluemapMarkerAnnotationGroup]? = try await bluemapService?.fetch(
-                            endpoint: .markers,
-                            for: dimension
-                        )
-                        return Applesauce(markers: data)
-                    } catch {
-                        logger.error("Failed to fetch POIs: \(error.localizedDescription)")
-                        return Applesauce()
-                    }
+                    await fetchMarkers(dimension: dimension)
                 }
             }
             if file.integrations.bluemap.displayOptions.contains(.players) {
                 taskGroup.addTask {
-                    do {
-                        let data: BluemapPlayerResponse? = try await bluemapService?.fetch(
-                            endpoint: .players,
-                            for: dimension
-                        )
-                        return Applesauce(players: data)
-                    } catch {
-                        logger.error("Failed to fetch players: \(error.localizedDescription)")
-                        return Applesauce()
-                    }
+                    await fetchPlayers(dimension: dimension)
                 }
             }
 
-            var finalResult = Applesauce()
+            var finalResult = BluemapResults()
             for await result in taskGroup {
-                finalResult.markers = result.markers
-                finalResult.players = result.players
+                finalResult = finalResult.merged(with: result)
             }
             return finalResult
         }
@@ -272,6 +251,32 @@ struct RedWindowMapView: View {
         self.applesauce = response
         withAnimation {
             integrationFetchState = .success(.now)
+        }
+    }
+
+    private func fetchMarkers(dimension: MinecraftWorld.Dimension) async -> BluemapResults {
+        do {
+            let data: [String: BluemapMarkerAnnotationGroup]? = try await bluemapService?.fetch(
+                endpoint: .markers,
+                for: dimension
+            )
+            return BluemapResults(markers: data)
+        } catch {
+            logger.error("Failed to fetch POIs: \(error.localizedDescription)")
+            return BluemapResults()
+        }
+    }
+
+    private func fetchPlayers(dimension: MinecraftWorld.Dimension) async -> BluemapResults {
+        do {
+            let data: BluemapPlayerResponse? = try await bluemapService?.fetch(
+                endpoint: .players,
+                for: dimension
+            )
+            return BluemapResults(players: data)
+        } catch {
+            logger.error("Failed to fetch players: \(error.localizedDescription)")
+            return BluemapResults()
         }
     }
 }
