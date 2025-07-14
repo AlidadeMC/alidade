@@ -18,6 +18,17 @@ enum NetworkServicableError: Error {
     case session(any Error)
     case nonHTTPResponse(URLResponse)
     case invalidResponseStatus(Int)
+
+    var localizedDescription: String {
+        switch self {
+        case let .session(error):
+            error.localizedDescription
+        case let .nonHTTPResponse(response):
+            "The response that was returned wasn't an HTTP response (\(type(of: response))"
+        case let .invalidResponseStatus(code):
+            "The response return a non-OK code: \(code)"
+        }
+    }
 }
 
 extension URLSession: NetworkServiceable {

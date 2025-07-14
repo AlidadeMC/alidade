@@ -6,6 +6,7 @@
 //
 
 import AsyncAlgorithms
+import Combine
 import CubiomesKit
 import MCMapFormat
 import SwiftUI
@@ -17,6 +18,8 @@ import TipKit
 /// direction navigator wheel, and dimension picker. On iOS and iPadOS, tapping the map will show or hide these
 /// ornaments.
 struct CartographyOrnamentMap: View {
+    private typealias IntegrationServiceType = CartographyIntegrationService.ServiceType
+
     private enum LocalTips {
         static let dimensionPicker = WorldDimensionPickerTip()
     }
@@ -43,6 +46,33 @@ struct CartographyOrnamentMap: View {
     @State private var centerCoordinate = CGPoint.zero
     private let centerCoordinateStream = AsyncChannel<CGPoint>()
 
+    @State private var integrationData = [IntegrationServiceType: any CartographyIntegrationServiceData]()
+    @State private var integrationFetchState = IntegrationFetchState.initial
+
+    private let bmapTimer: Publishers.Autoconnect<Timer.TimerPublisher>
+
+    private var integrationAnnotations: [any MinecraftMapBuilderContent] {
+        var annotations = [any MinecraftMapBuilderContent]()
+        for (key, value) in integrationData {
+            switch key {
+            case .bluemap:
+                if let data = value as? BluemapResults {
+                    annotations.append(contentsOf: data.annotations(from: file.integrations.bluemap))
+                }
+            }
+        }
+        return annotations
+    }
+
+    init(viewModel: Binding<CartographyMapViewModel>, file: Binding<CartographyMapFile>) {
+        self._file = file
+        self._viewModel = viewModel
+
+        self.bmapTimer = Timer
+            .publish(every: file.wrappedValue.integrations.bluemap.refreshRate, on: .main, in: .common)
+            .autoconnect()
+    }
+
     var body: some View {
         OrnamentedView {
             Group {
@@ -62,6 +92,7 @@ struct CartographyOrnamentMap: View {
                                 color: pin.color?.swiftUIColor ?? Color.accentColor
                             )
                         }
+                        integrationAnnotations
                     }
                     .mapColorScheme(naturalColors == true ? .natural : .default)
                     .ornaments([.zoom, .compass])
@@ -78,6 +109,8 @@ struct CartographyOrnamentMap: View {
                 await centerCoordinateStream.send(centerCoordinate)
             }
             .task {
+                await updateIntegrationData()
+
                 for await coordinate in centerCoordinateStream.debounce(for: .seconds(0.5)) {
                     let point = MinecraftPoint(cgPoint: coordinate)
                     if viewModel.worldRange.origin != point {
@@ -87,12 +120,15 @@ struct CartographyOrnamentMap: View {
                     }
                 }
             }
+            .onReceive(bmapTimer) { _ in
+                Task { await updateIntegrationData() }
+            }
         } ornaments: {
             Ornament(alignment: Constants.locationBadgePlacement) {
                 VStack(alignment: .trailing) {
+                    #if os(iOS)
                     LocationBadge(location: centerCoordinate)
                         .environment(\.contentTransitionAddsDrawingGroup, true)
-                    #if os(iOS)
                         HStack {
                             Menu {
                                 Toggle(isOn: $viewModel.renderNaturalColors) {
@@ -111,10 +147,39 @@ struct CartographyOrnamentMap: View {
                         .onChange(of: viewModel.worldDimension) { _, _ in
                             LocalTips.dimensionPicker.invalidate(reason: .actionPerformed)
                         }
+                    #else
+                    HStack(spacing: 0) {
+                        IntegrationFetchStateView(state: integrationFetchState)
+                            .padding(8)
+                        LocationBadge(location: centerCoordinate)
+                            .environment(\.contentTransitionAddsDrawingGroup, true)
+                    }
                     #endif
                 }
             }
             .padding(.trailing, 8)
+        }
+    }
+
+    private func updateIntegrationData() async {
+        let service = CartographyIntegrationService(serviceType: .bluemap, integrationSettings: file.integrations)
+        do {
+            withAnimation { integrationFetchState = .refreshing }
+            let result: BluemapResults? = try await service.sync(dimension: viewModel.worldDimension)
+            guard let result else {
+                withAnimation { integrationFetchState = .error("Response returned empty.") }
+                return
+            }
+            integrationData[.bluemap] = result
+            withAnimation { integrationFetchState = .success(.now) }
+        } catch CartographyIntegrationService.ServiceError.integrationDisabled {
+            withAnimation {
+                integrationFetchState = .cancelled
+            }
+        } catch {
+            withAnimation {
+                integrationFetchState = .error(error.localizedDescription)
+            }
         }
     }
 }

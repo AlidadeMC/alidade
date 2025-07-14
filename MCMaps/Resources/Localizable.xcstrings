@@ -264,13 +264,22 @@
     "Igloo" : {
 
     },
+    "Initial" : {
+
+    },
     "Integrations" : {
+
+    },
+    "Integrations disabled" : {
 
     },
     "Jungle Temple" : {
 
     },
     "Large Biomes" : {
+
+    },
+    "Last sync: %@" : {
 
     },
     "Library" : {
@@ -483,7 +492,7 @@
     "Sync From Integrations" : {
 
     },
-    "Synced: %@" : {
+    "Synced" : {
 
     },
     "Syncing..." : {

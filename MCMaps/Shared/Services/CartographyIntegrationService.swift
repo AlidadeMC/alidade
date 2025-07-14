@@ -7,6 +7,7 @@
 
 import CubiomesKit
 import MCMapFormat
+import os
 
 protocol CartographyIntegrationServiceProvider {
     associatedtype Endpoint: Sendable
@@ -47,6 +48,7 @@ actor CartographyIntegrationService {
     let serviceType: ServiceType
 
     private var service: any CartographyIntegrationServiceProvider
+    private let logger = Logger(subsystem: "net.marquiskurt.mcmaps", category: "\(CartographyIntegrationService.self)")
 
     init(serviceType: ServiceType, integrationSettings: CartographyMapFile.Integrations) {
         self.serviceType = serviceType
@@ -59,11 +61,13 @@ actor CartographyIntegrationService {
 
     func sync<Response>(dimension: MinecraftWorld.Dimension) async throws(ServiceError) -> Response? {
         guard integrationSettings.enabled else {
+            logger.debug("☁️ Integrations are not enabled. Skipping fetch.")
             throw .integrationDisabled
         }
 
         switch serviceType {
         case .bluemap:
+            self.logger.debug("☁️ Fetching data from Bluemap.")
             let response = try await fetchBluemapData(dimension: dimension)
             return response as? Response
         }
@@ -72,6 +76,7 @@ actor CartographyIntegrationService {
     private func fetchBluemapData(dimension: MinecraftWorld.Dimension) async throws(ServiceError) -> BluemapResults {
         let bluemapSettings = integrationSettings.bluemap
         guard bluemapSettings.enabled else {
+            logger.debug("☁️ Bluemap integration is not enabled. Skipping fetch.")
             throw .integrationDisabled
         }
 
@@ -80,6 +85,10 @@ actor CartographyIntegrationService {
             let response = await makeBluemapRequests(itemsToFetch: itemsToFetch, dimension: dimension)
             switch response {
             case .success(let results):
+                self.logger.debug("☁️ Results were fetched. Returning to sender.")
+                if results.isNone {
+                    self.logger.warning("☁️ Bluemap results don't contain anything.")
+                }
                 return results
             case .failure(let error):
                 throw error
@@ -96,6 +105,9 @@ actor CartographyIntegrationService {
         dimension: MinecraftWorld.Dimension
     ) async -> Result<BluemapResults, any Error> {
         guard let service = service as? CartographyBluemapService else {
+            logger.critical(
+                "☁️ Service provider isn't a Bluemap service, despite the service type saying so. That's illegal."
+            )
             return .failure(ServiceError.mismatchingService)
         }
         return await withTaskGroup(of: BluemapResult.self, returning: BluemapResult.self) { group in
@@ -108,6 +120,7 @@ actor CartographyIntegrationService {
                         )
                         return .success(BluemapResults(markers: response))
                     } catch {
+                        self.logger.error("☁️ Couldn't fetch markers: \(error.localizedDescription)")
                         return .failure(error)
                     }
                 }
@@ -121,6 +134,7 @@ actor CartographyIntegrationService {
                         )
                         return .success(BluemapResults(players: response))
                     } catch {
+                        self.logger.error("☁️ Couldn't fetch players: \(error.localizedDescription)")
                         return .failure(error)
                     }
                 }
@@ -132,6 +146,7 @@ actor CartographyIntegrationService {
                 case .success(let results):
                     finalResult = finalResult.merged(with: results)
                 case .failure(let error):
+                    self.logger.error("☁️ One or more fetch tasks failed: \(error.localizedDescription)")
                     return .failure(ServiceError.fetchTaskFailed(error))
                 }
             }
