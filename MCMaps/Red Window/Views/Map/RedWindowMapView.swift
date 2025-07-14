@@ -16,6 +16,8 @@ private let logger = Logger(subsystem: "net.marquiskurt.mcmaps", category: "map.
 
 /// The view that is displayed in the Map tab on Red Window.
 struct RedWindowMapView: View {
+    private typealias IntegrationServiceType = CartographyIntegrationService.ServiceType
+
     @Environment(\.bluemapService) private var bluemapService
     @Environment(RedWindowEnvironment.self) private var redWindowEnvironment
 
@@ -25,52 +27,25 @@ struct RedWindowMapView: View {
     @AppStorage(UserDefaults.Keys.mapNaturalColors.rawValue)
     private var useNaturalColors = true
 
-    @State private var applesauce = BluemapResults()
     @State private var displayWarpForm = false
     @State private var displayPinForm = false
     @State private var integrationFetchState = IntegrationFetchState.initial
+    @State private var integrationData = [IntegrationServiceType: any CartographyIntegrationServiceData]()
 
-    private let bmapTimer: Publishers.Autoconnect<Timer.TimerPublisher>
-
-    private var bmapMarkers: [CubiomesKit.Marker] {
-        guard file.integrations.bluemap.enabled else {
-            return []
-        }
-
-        guard var poiMap = applesauce.markers else { return [] }
-        if !file.integrations.bluemap.displayOptions.contains(.deathMarkers) {
-            poiMap["death-markers"] = nil
-        }
-
-        return poiMap.flatMap { (key, group) in
-            if key == "death-markers" {
-                return group.markers.values.map { annotation in
-                    Marker(
-                        location: CGPoint(x: annotation.position.x, y: annotation.position.z),
-                        title: annotation.label,
-                        color: .gray,
-                        systemImage: "xmark.circle")
+    private var integrationAnnotations: [any MinecraftMapBuilderContent] {
+        var annotations = [any MinecraftMapBuilderContent]()
+        for (key, value) in integrationData {
+            switch key {
+            case .bluemap:
+                if let data = value as? BluemapResults {
+                    annotations.append(contentsOf: data.annotations(from: file.integrations.bluemap))
                 }
             }
-            return group.markers.values.map { annotation in
-                Marker(
-                    location: CGPoint(x: annotation.position.x, y: annotation.position.z),
-                    title: annotation.label)
-            }
         }
+        return annotations
     }
 
-    private var bmapPlayers: [CubiomesKit.PlayerMarker] {
-        guard file.integrations.bluemap.enabled, let players = applesauce.players else {
-            return []
-        }
-        return players.players.map { player in
-            PlayerMarker(
-                location: CGPoint(x: player.position.x, y: player.position.z),
-                name: player.name,
-                playerUUID: player.uuid)
-        }
-    }
+    private let bmapTimer: Publishers.Autoconnect<Timer.TimerPublisher>
 
     init(file: Binding<CartographyMapFile>) {
         self._file = file
@@ -96,8 +71,7 @@ struct RedWindowMapView: View {
                                 color: mapPin.color?.swiftUIColor ?? .accent
                             )
                         }
-                        bmapMarkers
-                        bmapPlayers
+                        integrationAnnotations
                     }
                     .ornaments(.all)
                     .mapColorScheme(useNaturalColors ? .natural : .default)
@@ -204,77 +178,24 @@ struct RedWindowMapView: View {
     }
 
     private func updateIntegrationData() async {
-        guard file.supportedFeatures.contains(.integrations), file.integrations.enabled else {
+        let service = CartographyIntegrationService(serviceType: .bluemap, integrationSettings: file.integrations)
+        do {
+            withAnimation { integrationFetchState = .refreshing }
+            let result: BluemapResults? = try await service.sync(dimension: redWindowEnvironment.currentDimension)
+            guard let result else {
+                withAnimation { integrationFetchState = .error("Response returned empty.") }
+                return
+            }
+            integrationData[.bluemap] = result
+            withAnimation { integrationFetchState = .success(.now) }
+        } catch CartographyIntegrationService.ServiceError.integrationDisabled {
             withAnimation {
                 integrationFetchState = .cancelled
             }
-            logger.info("Integrations are not supported. Skipping this update cycle.")
-            return
-        }
-
-        withAnimation {
-            integrationFetchState = .refreshing
-        }
-        logger.debug("Starting update cycle.")
-
-        let dimension = redWindowEnvironment.currentDimension
-        let response = await withTaskGroup(of: BluemapResults.self, returning: BluemapResults.self) { taskGroup in
-            if !file.integrations.bluemap.displayOptions.isDisjoint(with: [.deathMarkers, .markers]) {
-                taskGroup.addTask {
-                    await fetchMarkers(dimension: dimension)
-                }
-            }
-            if file.integrations.bluemap.displayOptions.contains(.players) {
-                taskGroup.addTask {
-                    await fetchPlayers(dimension: dimension)
-                }
-            }
-
-            var finalResult = BluemapResults()
-            for await result in taskGroup {
-                finalResult = finalResult.merged(with: result)
-            }
-            return finalResult
-        }
-
-        if response.isNone {
-            logger.info("Response received back is bad.")
+        } catch {
             withAnimation {
-                integrationFetchState = .error("Bad response")
+                integrationFetchState = .error(error.localizedDescription)
             }
-            return
-        }
-
-        logger.debug("Setting up from new response.")
-        self.applesauce = response
-        withAnimation {
-            integrationFetchState = .success(.now)
-        }
-    }
-
-    private func fetchMarkers(dimension: MinecraftWorld.Dimension) async -> BluemapResults {
-        do {
-            let data: [String: BluemapMarkerAnnotationGroup]? = try await bluemapService?.fetch(
-                endpoint: .markers,
-                for: dimension
-            )
-            return BluemapResults(markers: data)
-        } catch {
-            logger.error("Failed to fetch POIs: \(error.localizedDescription)")
-            return BluemapResults()
-        }
-    }
-
-    private func fetchPlayers(dimension: MinecraftWorld.Dimension) async -> BluemapResults {
-        do {
-            let data: BluemapPlayerResponse? = try await bluemapService?.fetch(
-                endpoint: .players,
-                for: dimension
-            )
-            return BluemapResults(players: data)
-        } catch {
-            logger.error("Failed to fetch players: \(error.localizedDescription)")
-            return BluemapResults()
         }
     }
 }

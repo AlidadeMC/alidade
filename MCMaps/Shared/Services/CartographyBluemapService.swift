@@ -27,7 +27,7 @@ actor CartographyBluemapService {
         self.session = session
     }
 
-    func fetch<T: Codable>(
+    func fetch<T: Codable & Sendable>(
         endpoint: Endpoint,
         for dimension: MinecraftWorld.Dimension
     ) async throws(NetworkServicableError) -> T {
