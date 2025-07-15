@@ -5,6 +5,7 @@
 //  Created by Marquis Kurt on 13-07-2025.
 //
 
+import AlidadeUI
 import MCMapFormat
 import SwiftUI
 
@@ -17,24 +18,11 @@ struct BluemapIntegrationFormSection: View {
 
     var body: some View {
         Section {
-            HStack {
-                Spacer()
-                VStack {
-                    Image("bluemap")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 76, height: 76)
-                        .clipped()
-                        .clipShape(RoundedRectangle(cornerRadius: 10))
-                    Text("Bluemap")
-                        .font(.title2)
-                        .bold()
-                    Text("Show common points of interest and where players are on your Minecraft server from the Bluemap plugin.\n[Learn more...](http://example.com)")
-                        .multilineTextAlignment(.center)
-                        .font(.subheadline)
-                }
-                .padding(.vertical)
-                Spacer()
+            FormHeader(name: "bluemap") {
+                Text("Bluemap")
+            } description: {
+                // swiftlint:disable:next line_length
+                Text("Show common points of interest and where players are on your Minecraft server from the Bluemap plugin.\n[Learn more...](http://example.com)")
             }
             Toggle("Enable Integration", isOn: $integration.enabled)
         } footer: {
@@ -54,6 +42,7 @@ struct BluemapIntegrationFormSection: View {
                 in: 5...120,
                 step: 5
             )
+            .foregroundStyle(integration.enabled ? .primary : .secondary)
         } header: {
             Text("Bluemap Server")
         }

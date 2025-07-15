@@ -51,7 +51,7 @@ public struct MCMapBluemapIntegration: MCMapIntegration {
         public var nether: String = "world_nether"
 
         /// The map name corresponding to the End.
-        public var end: String = "world_end"
+        public var end: String = "world_the_end"
 
         public init(overworld: String = "world", nether: String = "world_nether", end: String = "world_end") {
             self.overworld = overworld

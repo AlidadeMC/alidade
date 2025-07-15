@@ -52,7 +52,8 @@ extension CartographyBluemapService: CartographyIntegrationServiceProvider {
 
 /// A service that makes requests to integration servers.
 ///
-/// This type is generally used to fetch data from integrations asynchronously. For example, to make calls to the Bluemap service:
+/// This type is generally used to fetch data from integrations asynchronously. For example, to make calls to the
+/// Bluemap service:
 /// ```swift
 /// let service = CartographyIntegrationService(
 ///     serviceType: .bluemap,

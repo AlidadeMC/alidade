@@ -48,6 +48,8 @@ struct ContentView: View {
                 ChipTextFieldDemoView()
             case .finiteColorPicker:
                 FiniteColorPickerDemoView()
+            case .formHeader:
+                FormHeaderDemoView()
             case .inlineBanner:
                 InlineBannerDemoView()
             case .namedLocation:

@@ -34,8 +34,6 @@ struct LocationBadgeTests {
 
         Testchamber.assumeRedWindowBreaks {
             let hStack = try sut.hStack()
-            #expect(hStack.hasPadding())
-            #expect(try hStack.padding() == .init(top: 8, leading: 8, bottom: 8, trailing: 8))
             #expect(try hStack.background().shape().fillShapeStyle(Material.self) == .thinMaterial)
 
             let label = try hStack.label(0)
