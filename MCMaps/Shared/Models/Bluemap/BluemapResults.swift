@@ -9,14 +9,25 @@ import CoreGraphics
 import CubiomesKit
 import MCMapFormat
 
+/// A structure that represents the results received from a Bluemap integration sync.
+///
+/// This type is generally used to collect groups of data responses together neatly, so that they can be easily
+/// displayed on a map.
 struct BluemapResults: Sendable {
+    /// The markers that are live for the current world dimension.
     var markers: [String: BluemapMarkerAnnotationGroup]?
+
+    /// The players that are currently active in this world dimension.
     var players: BluemapPlayerResponse?
 
-    var isNone: Bool {
+    /// Whether the response is empty.
+    var isEmpty: Bool {
         return markers == nil && players == nil
     }
 
+    /// Merges the contents of the current result with another, taking self precedence.
+    ///
+    /// This type is used to merge responses together piecemeal, such as through the results of a task group.
     func merged(with other: BluemapResults) -> BluemapResults {
         var applesauce = BluemapResults(markers: self.markers, players: self.players)
         if applesauce.markers == nil {

@@ -9,19 +9,40 @@ import CubiomesKit
 import MCMapFormat
 import os
 
+/// A protocol that describes a provider for an integration service.
+///
+/// The ``CartographyIntegrationService`` will attempt to initialize a provider of this type when creating the service
+/// based on the appropriate service type.
 protocol CartographyIntegrationServiceProvider {
+    /// An type representing the various endpoints the service can make requests to.
     associatedtype Endpoint: Sendable
+
+    /// A type representing the model used to configure the service provider.
     associatedtype Configuration: Sendable
 
+    /// Make a request to a specified endpoint relative to the given world dimension, decoding the response.
+    /// - Parameter endpoint: The endpoint to make a request to.
+    /// - Parameter dimension: The dimension relevant to the request.
     func fetch<T: Codable>(
         endpoint: Endpoint,
         for dimension: MinecraftWorld.Dimension
     ) async throws(NetworkServicableError) -> T
 }
 
+/// A protocol that represents a collective response type from ``CartographyIntegrationService``.
+///
+/// Some requests in the ``CartographyIntegrationService`` will be called concurrently and will fold into a singular
+/// type. This protocol defines the general layout for these types, and provides a facility for converting the requested
+/// data into annotations that `MinecraftMap` can use.
 protocol CartographyIntegrationServiceData {
+    /// A type representing the model used to configure the data when creating an annotation.
     associatedtype Configuration
+
+    /// A type alias representing Minecraft map annotation content.
     typealias AnnotationContent = any MinecraftMapBuilderContent
+
+    /// Generates an array of annotations from the current data, configured by a given configuration.
+    /// - Parameter configuration: The configuration to configure the annotations with.
     func annotations(from configuration: Configuration) -> [AnnotationContent]
 }
 
@@ -29,27 +50,55 @@ extension CartographyBluemapService: CartographyIntegrationServiceProvider {
     typealias Configuration = MCMapBluemapIntegration
 }
 
+/// A service that makes requests to integration servers.
+///
+/// This type is generally used to fetch data from integrations asynchronously. For example, to make calls to the Bluemap service:
+/// ```swift
+/// let service = CartographyIntegrationService(
+///     serviceType: .bluemap,
+///     integrationSettings: ...)
+///
+/// let data: BluemapResults? = await service
+///     .sync(dimension: .overworld)
+/// ```
 actor CartographyIntegrationService {
+    /// A typealias representing the settings for a given integration.
     typealias IntegrationSettings = CartographyMapFile.Integrations
 
     private typealias BluemapResult = Result<BluemapResults, any Error>
 
+    /// An enumeration of the integrations supported by this service.
     enum ServiceType {
         case bluemap
     }
 
+    /// An enumeration of the errors that the service can throw when attempting to make requests.
     enum ServiceError: Error {
+        /// The integration is disabled.
         case integrationDisabled
+
+        /// The service provider doesn't match the expected service type.
+        ///
+        /// This error is generally not caused by the end user, but rather an internal implementation detail.
         case mismatchingService
+
+        /// The fetch task failed.
+        /// - Parameter error: The error that was thrown by the task.
         case fetchTaskFailed(Error)
     }
 
+    /// The integration settings used to configure the service.
     let integrationSettings: IntegrationSettings
+
+    /// The service type, used to configure which providers to call.
     let serviceType: ServiceType
 
     private var service: any CartographyIntegrationServiceProvider
     private let logger = Logger(subsystem: "net.marquiskurt.mcmaps", category: "\(CartographyIntegrationService.self)")
 
+    /// Initialize a service of a given type with integration settings.
+    /// - Parameter serviceType: The service type to use with the integration service.
+    /// - Parameter integrationSettings: The settings for integrations used to configure this service.
     init(serviceType: ServiceType, integrationSettings: CartographyMapFile.Integrations) {
         self.serviceType = serviceType
         self.integrationSettings = integrationSettings
@@ -59,7 +108,11 @@ actor CartographyIntegrationService {
         }
     }
 
-    func sync<Response>(dimension: MinecraftWorld.Dimension) async throws(ServiceError) -> Response? {
+    /// Synchronize the current dataset from the integrations that the service supports, decoding the response.
+    /// - Parameter dimension: The Minecraft world dimension to perform the synchronization operation under.
+    func sync<Response: CartographyIntegrationServiceData>(
+        dimension: MinecraftWorld.Dimension
+    ) async throws(ServiceError) -> Response? {
         guard integrationSettings.enabled else {
             logger.debug("☁️ Integrations are not enabled. Skipping fetch.")
             throw .integrationDisabled
@@ -86,7 +139,7 @@ actor CartographyIntegrationService {
             switch response {
             case .success(let results):
                 self.logger.debug("☁️ Results were fetched. Returning to sender.")
-                if results.isNone {
+                if results.isEmpty {
                     self.logger.warning("☁️ Bluemap results don't contain anything.")
                 }
                 return results

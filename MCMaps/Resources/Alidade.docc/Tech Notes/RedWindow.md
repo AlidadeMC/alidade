@@ -1,8 +1,9 @@
-# Designing for Liquid Glass via Red Window
+# TN0001: Designing for Liquid Glass via Red Window
 
 @Metadata {
     @TitleHeading("Technical Note")
     @PageColor(orange)
+    @Redirected(from: "RedWindow")
 }
 
 Understand the changes that control the new Liquid Glass design.

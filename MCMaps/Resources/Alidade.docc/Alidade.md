@@ -79,7 +79,7 @@ contributors to read through.
 
 - <doc:Architecture>
 - ``MCMapsApp``
-- ``ContentView``
+- ``LegacyContentView``
 - ``ContentViewToolbar``
 - ``DocumentLaunchView-6qz0r``
 - ``CartographyMapSplitView``
@@ -93,6 +93,8 @@ contributors to read through.
 
 ### Services
 
+- <doc:Integrations>
+- ``CartographyIntegrationService``
 - ``CartographySearchService``
 
 ### Ornament View

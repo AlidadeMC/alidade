@@ -7,13 +7,31 @@
 
 import SwiftUI
 
+/// An enumeration of the various states a view that fetches data from integrations can be in.
 enum IntegrationFetchState: Equatable {
-    case initial, refreshing, cancelled
+    /// The initial state.
+    case initial
+
+    /// The view is refreshing the current state, fetching new data.
+    case refreshing
+
+    /// The fetching operating was cancelled.
+    case cancelled
+
+    /// The fetching of new data was successful.
+    /// - Parameter updateDate: When the update succeeded.
     case success(Date)
+
+    /// An error occurred when fetching the data.
+    /// - Parameter error: The error that occurred.
     case error(String)
 }
 
+/// A view that displays an integration fetch state.
+///
+/// This is typically used as a status bar item to display the current state for a view that is actively fetching data.
 struct IntegrationFetchStateView: View {
+    /// The current state to represent in the view.
     var state: IntegrationFetchState
 
     private var title: String {

@@ -8,8 +8,13 @@
 import MCMapFormat
 import SwiftUI
 
+/// A form section that allows players to edit settings for integrations with Bluemap.
+///
+/// This section generally isn't used on its own, but as part of a larger form, such as with the ``MapCreatorForm``.
 struct BluemapIntegrationFormSection: View {
+    /// The Bluemap integration settings to edit in this form.
     @Binding var integration: MCMapBluemapIntegration
+
     var body: some View {
         Section {
             HStack {
