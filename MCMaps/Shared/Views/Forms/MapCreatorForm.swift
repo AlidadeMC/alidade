@@ -51,15 +51,7 @@ struct MapCreatorForm: View {
                         Text(String(ver) ?? "?").tag(ver)
                     }
                 }
-                #if os(macOS)
-                    TextField("Seed", text: $seedString)
-                #else
-                    LabeledContent("Seed") {
-                        TextField("Seed", text: $seedString)
-                            .fontDesign(.monospaced)
-                            .textFieldStyle(.plain)
-                    }
-                #endif
+                NamedTextField("Seed", text: $seedString)
                 Toggle(isOn: $worldSettings.largeBiomes) {
                     Text("Large Biomes")
                 }

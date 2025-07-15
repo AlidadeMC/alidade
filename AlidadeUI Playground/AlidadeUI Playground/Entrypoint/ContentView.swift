@@ -54,6 +54,8 @@ struct ContentView: View {
                 InlineBannerDemoView()
             case .namedLocation:
                 NamedLocationDemoView()
+            case .namedTextField:
+                NamedTextFieldDemoView()
             case nil:
                 ContentUnavailableView(
                     "Select a component",

@@ -13,6 +13,7 @@ enum Route: Hashable, CaseIterable {
     case formHeader
     case inlineBanner
     case namedLocation
+    case namedTextField
 }
 
 extension Route {
@@ -28,6 +29,8 @@ extension Route {
             "Inline Banner"
         case .namedLocation:
             "Named Location"
+        case .namedTextField:
+            "Named Text Field"
         }
     }
 
@@ -43,6 +46,8 @@ extension Route {
             "bubble"
         case .namedLocation:
             "mappin"
+        case .namedTextField:
+            "character.textbox"
         }
     }
 

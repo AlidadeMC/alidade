@@ -32,7 +32,8 @@ struct BluemapIntegrationFormSection: View {
         }
 
         Section {
-            NamedTextField("Host", text: $integration.baseURL, disabled: !integration.enabled)
+            NamedTextField("Host", text: $integration.baseURL)
+                .disabled(!integration.enabled)
             #if os(iOS)
                 .keyboardType(.URL)
             #endif
@@ -49,9 +50,9 @@ struct BluemapIntegrationFormSection: View {
         .disabled(!integration.enabled)
 
         Section {
-            NamedTextField("Overworld", text: $integration.mapping.overworld, disabled: !integration.enabled)
-            NamedTextField("Nether", text: $integration.mapping.nether, disabled: !integration.enabled)
-            NamedTextField("End", text: $integration.mapping.end, disabled: !integration.enabled)
+            NamedTextField("Overworld", text: $integration.mapping.overworld)
+            NamedTextField("Nether", text: $integration.mapping.nether)
+            NamedTextField("End", text: $integration.mapping.end)
         } header: {
             Text("Dimensions")
         }
