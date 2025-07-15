@@ -24,7 +24,15 @@ struct MapCreatorFormTests {
         let worldSettings = Binding<MCMapManifestWorldSettings>(
             wrappedValue: MCMapManifestWorldSettings(version: "1.21", seed: 123)
         )
-        let view = MapCreatorForm(worldName: worldName, worldSettings: worldSettings) { newView in
+        let integrations = Binding<CartographyMapFile.Integrations>(
+            wrappedValue: CartographyMapFile(withManifest: .sampleFile).integrations
+        )
+
+        let view = MapCreatorForm(
+            worldName: worldName,
+            worldSettings: worldSettings,
+            integrations: integrations
+        ) { newView in
             #expect(newView.testHooks.seedString == "123")
         }
         defer { ViewHosting.expel() }
