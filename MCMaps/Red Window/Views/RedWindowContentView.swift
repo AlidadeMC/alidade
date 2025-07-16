@@ -23,6 +23,7 @@ struct RedWindowContentView: View {
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     @Environment(RedWindowEnvironment.self) private var redWindowEnvironment
     @Environment(\.bluemapService) private var bluemapService
+    @Environment(\.openWindow) private var openWindow
 
     /// The file to read from and write to.
     @Binding var file: CartographyMapFile
@@ -30,6 +31,7 @@ struct RedWindowContentView: View {
     @FeatureFlagged(.redWindow) private var useRedWindowDesign
 
     @State private var libraryNavigationPath = NavigationPath()
+    @State private var foo = ""
 
     private var subtitle: String {
         let seed = String(file.manifest.worldSettings.seed)
@@ -74,12 +76,16 @@ struct RedWindowContentView: View {
             #endif
 
             Tab(route: .gallery) {
-                ContentUnavailableView(
-                    "Gallery is Empty",
-                    systemImage: "photo.stack",
-                    description: Text("Photos you add to your pinned places will appear here."))
+                NavigationStack {
+                    CartographyGalleryView(context: CartographyGalleryWindowContext(file: file))
+                }
             }
             .customizationID("app.tab.gallery")
+            .contextMenu {
+                Button("Open in New Window", systemImage: "rectangle.badge.plus") {
+                    openWindow(id: .gallery, context: CartographyGalleryWindowContext(file: file))
+                }
+            }
 
             Tab(value: .search, role: .search) {
                 RedWindowSearchView(file: $file)

@@ -5,14 +5,18 @@
 //  Created by Marquis Kurt on 05-05-2025.
 //
 
+import MCMapFormat
 import SwiftUI
 
 /// A toolbar that is used inside of ``ContentView``.
 struct ContentViewToolbar: ToolbarContent {
+    @Environment(\.openWindow) private var openWindow
+
     private enum LocalTips {
         static let dimensionPicker = WorldDimensionPickerTip()
     }
 
+    var file: CartographyMapFile
     @Binding var viewModel: CartographyMapViewModel
 
     var body: some ToolbarContent {
@@ -53,6 +57,12 @@ struct ContentViewToolbar: ToolbarContent {
                     .keyboardShortcut("p", modifiers: [.command])
                 }
             #endif
+
+            ToolbarItem {
+                Button("Gallery", systemImage: "photo.stack") {
+                    openWindow(id: .gallery, context: CartographyGalleryWindowContext(file: file))
+                }
+            }
 
             #if os(macOS)
                 ToolbarItem {

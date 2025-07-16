@@ -74,7 +74,7 @@ struct LegacyContentView: View {
     }
 
     private var toolbarContent: some ToolbarContent {
-        ContentViewToolbar(viewModel: $viewModel)
+        ContentViewToolbar(file: file, viewModel: $viewModel)
     }
 }
 

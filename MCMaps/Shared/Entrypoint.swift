@@ -5,8 +5,8 @@
 //  Created by Marquis Kurt on 31-01-2025.
 //
 
-import SwiftUI
 import MCMapFormat
+import SwiftUI
 import TipKit
 
 /// The main entry point for the Alidade app.
@@ -52,7 +52,7 @@ struct MCMapsApp: App {
             }
             .environment(
                 \.bluemapService,
-                 CartographyBluemapService(withConfiguration: configuration.document.integrations.bluemap)
+                CartographyBluemapService(withConfiguration: configuration.document.integrations.bluemap)
             )
         }
         .commands {
@@ -107,12 +107,12 @@ struct MCMapsApp: App {
             .commands {
                 CommandGroup(replacing: .appInfo) {
                     Button("About \(Self.appName)") {
-                        openWindow(id: "about")
+                        openWindow(id: .about)
                     }
                 }
                 CommandGroup(after: .windowArrangement) {
                     Button("Welcome to \(Self.appName)") {
-                        openWindow(id: "launch")
+                        openWindow(id: .launch)
                     }
                     .keyboardShortcut("0", modifiers: [.shift, .command])
                 }
@@ -159,6 +159,15 @@ struct MCMapsApp: App {
                     .presentedWindowToolbarStyle(.unifiedCompact)
             }
         #endif
+
+        WindowGroup(id: WindowID.gallery.rawValue, for: CartographyGalleryWindowContext.self) { galleryCtx in
+            NavigationStack {
+                CartographyGalleryView(context: galleryCtx.wrappedValue ?? .empty())
+            }
+            #if os(iOS)
+                .toolbarRole(.browser)
+            #endif
+        }
     }
 }
 
