@@ -13,6 +13,8 @@ import SwiftUI
 /// A section used to display grouped pins that are being searched for.
 ///
 /// This is normally invoked from ``CartographyMapSidebar`` and is almost never instantiated on its own.
+@available(macOS, introduced: 15.0, deprecated: 26.0)
+@available(iOS, introduced: 18.0, deprecated: 26.0)
 struct GroupedPinsSection: View {
     /// The name of the grouped pin section.
     var name: LocalizedStringKey = "Structures"

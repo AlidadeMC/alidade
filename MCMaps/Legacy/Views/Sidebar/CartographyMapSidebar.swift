@@ -15,6 +15,8 @@ import TipKit
 ///
 /// This will appear as the sheet content in the app's adaptable sidebar sheet, and as the sidebar in the
 /// ``CartographyMapSplitView``.
+@available(macOS, introduced: 15.0, deprecated: 26.0)
+@available(iOS, introduced: 18.0, deprecated: 26.0)
 struct CartographyMapSidebar: View {
     private enum LocalTips {
         static let onboarding = LibraryOnboardingTip()

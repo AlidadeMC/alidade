@@ -8,7 +8,9 @@
 import MCMapFormat
 import SwiftUI
 
-/// A toolbar that is used inside of ``ContentView``.
+/// A toolbar that is used inside of ``LegacyContentView``.
+@available(macOS, introduced: 15.0, deprecated: 26.0)
+@available(iOS, introduced: 18.0, deprecated: 26.0)
 struct ContentViewToolbar: ToolbarContent {
     @Environment(\.documentURL) private var documentURL
     @Environment(\.openWindow) private var openWindow

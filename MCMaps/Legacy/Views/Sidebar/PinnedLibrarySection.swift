@@ -12,6 +12,8 @@ import SwiftUI
 /// A section used to display player-created pins in a sidebar.
 ///
 /// This is normally invoked from ``CartographyMapSidebar`` and is almost never instantiated on its own.
+@available(macOS, introduced: 15.0, deprecated: 26.0)
+@available(iOS, introduced: 18.0, deprecated: 26.0)
 struct PinnedLibrarySection: View {
     /// The player-created pins to display.
     var pins: [MCMapManifestPin]

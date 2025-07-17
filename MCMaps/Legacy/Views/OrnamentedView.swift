@@ -20,6 +20,8 @@ import SwiftUI
 ///     }
 /// }
 /// ```
+@available(macOS, introduced: 15.0, deprecated: 26.0)
+@available(iOS, introduced: 18.0, deprecated: 26.0)
 struct Ornament<Content: View>: View {
     /// The edges that the ornament should be aligned to.
     var alignment: Alignment
@@ -39,6 +41,8 @@ struct Ornament<Content: View>: View {
 ///
 /// Tapping the view will show or hide the ornaments on iOS and iPadOS. Ornaments can be placed anywhere along the
 /// edges of the containing view, or anywhere `Alignment` accepts.
+@available(macOS, introduced: 15.0, deprecated: 26.0)
+@available(iOS, introduced: 18.0, deprecated: 26.0)
 struct OrnamentedView<Ornaments: View, BackgroundContent: View>: View {
     @State private var displayOrnaments: Bool = true
 

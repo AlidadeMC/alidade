@@ -15,6 +15,8 @@ import TipKit
 ///
 /// This detail view also acts as a form to edit various aspects of a pin, such as its color or associated images.
 /// The presentation of this view should be driven by the properties in ``CartographyRoute/pin(_:pin:)``.
+@available(macOS, introduced: 15.0, deprecated: 26.0)
+@available(iOS, introduced: 18.0, deprecated: 26.0)
 struct CartographyMapPinDetailView: View {
     private enum Constants {
         #if os(macOS)

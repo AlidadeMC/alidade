@@ -13,6 +13,8 @@ import SwiftUI
 import TipKit
 
 /// The primary content view used to display the app's interface.
+@available(macOS, introduced: 15.0, deprecated: 26.0)
+@available(iOS, introduced: 18.0, deprecated: 26.0)
 struct LegacyContentView: View {
     #if os(iOS)
         @Environment(\.horizontalSizeClass) private var horizontalSizeClass

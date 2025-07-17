@@ -27,6 +27,8 @@ import SwiftUI
 ///
 /// > Important: This view model should **not** be used to add or remove pins. Rather, this view model should be used
 /// > to update pins in-place, assuming its index in the ``MCMapManifest/pins`` list is stable.
+@available(macOS, introduced: 15.0, deprecated: 26.0)
+@available(iOS, introduced: 18.0, deprecated: 26.0)
 class CartographyPinViewModel {
     private var file: Binding<CartographyMapFile>
     private var index: Int

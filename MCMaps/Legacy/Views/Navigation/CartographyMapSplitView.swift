@@ -15,7 +15,7 @@ import SwiftUI
 /// as the app's sidebar, and the main content window displays the corresponding Minecraft map. Routes in
 /// ``CartographyRoute`` that are to be displayed as an inspector via ``CartographyRoute/requiresInspectorDisplay``
 /// are displayed as an inspector inside the detail view, rather than the window's edge.
-@available(macOS 15.0, *)
+@available(macOS, introduced: 15.0, deprecated: 26.0)
 struct CartographyMapSplitView: View {
     /// The view model the interface will be interacting with.
     @Binding var viewModel: CartographyMapViewModel

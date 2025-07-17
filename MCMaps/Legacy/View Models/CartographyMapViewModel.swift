@@ -13,6 +13,8 @@ import Observation
 import SwiftUI
 
 /// A view model for handling various interactions within the app.
+@available(macOS, introduced: 15.0, deprecated: 26.0)
+@available(iOS, introduced: 18.0, deprecated: 26.0)
 @Observable
 @MainActor
 class CartographyMapViewModel {

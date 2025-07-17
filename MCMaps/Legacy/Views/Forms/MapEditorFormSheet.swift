@@ -14,6 +14,8 @@ import SwiftUI
 /// This is typically used to display the editor as a modal on macOS.
 ///
 /// - SeeAlso: Refer to the documentation for ``MapCreatorForm`` for usage of this view.
+@available(macOS, introduced: 15.0, deprecated: 26.0)
+@available(iOS, introduced: 18.0, deprecated: 26.0)
 struct MapEditorFormSheet: View {
     /// The file that is being actively edited.
     @Binding var file: CartographyMapFile

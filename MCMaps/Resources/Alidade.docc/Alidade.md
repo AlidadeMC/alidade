@@ -84,6 +84,7 @@ contributors to read through.
 ### Launch experience
 - ``DocumentLaunchView-6qz0r``
 - ``RecentDocumentsList``
+- ``DocumentLaunchViewModel``
 
 ### Services
 
@@ -100,7 +101,6 @@ contributors to read through.
 
 - ``MapCreatorForm``
 - ``PinCreatorForm``
-- ``MapEditorFormSheet``
 
 ### Pickers
 

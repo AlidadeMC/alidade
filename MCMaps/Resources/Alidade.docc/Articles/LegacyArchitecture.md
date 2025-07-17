@@ -165,7 +165,6 @@ for adjustments at similar breakpoints.
 - ``CartographyRoute``
 - ``CartographyMapViewModel``
 - ``CartographyPinViewModel``
-- ``DocumentLaunchViewModel``
 
 ### Ornament View
 
@@ -175,6 +174,7 @@ for adjustments at similar breakpoints.
 ### Maps
 
 - ``CartographyOrnamentMap``
+- ``MapEditorFormSheet``
 
 ### Sidebar
 

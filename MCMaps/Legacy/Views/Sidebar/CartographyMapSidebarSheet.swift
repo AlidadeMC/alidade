@@ -10,6 +10,8 @@ import SwiftUI
 
 extension PresentationDetent {
     /// A presentation detent that matches a navigation bar with its search bar visible.
+    @available(macOS, introduced: 15.0, deprecated: 26.0)
+    @available(iOS, introduced: 18.0, deprecated: 26.0)
     static let smallSearch = Self.height(108)
 }
 
@@ -17,6 +19,7 @@ extension PresentationDetent {
 ///
 /// This view should be used instead of ``CartographyMapSidebar`` directly. The sidebar sheet also handles appropriate
 /// routing from ``CartographyRoute``.
+@available(iOS, introduced: 18.0, deprecated: 26.0)
 struct CartographyMapSidebarSheet<T: ToolbarContent>: View {
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
 

@@ -17,6 +17,8 @@ import TipKit
 /// The ornament map displays the regular map while having various ornaments on top, such as the location badge,
 /// direction navigator wheel, and dimension picker. On iOS and iPadOS, tapping the map will show or hide these
 /// ornaments.
+@available(macOS, introduced: 15.0, deprecated: 26.0)
+@available(iOS, introduced: 18.0, deprecated: 26.0)
 struct CartographyOrnamentMap: View {
     private typealias IntegrationServiceType = CartographyIntegrationService.ServiceType
 

@@ -11,6 +11,8 @@ import MCMapFormat
 /// An enumeration representing the routes available within the app.
 ///
 /// - SeeAlso: For more information on its usage, refer to ``CartographyMapViewModel/currentRoute``.
+@available(macOS, introduced: 15.0, deprecated: 26.0)
+@available(iOS, introduced: 18.0, deprecated: 26.0)
 enum CartographyRoute: Equatable, Hashable, Identifiable {
     /// A unique identifier for the current route.
     var id: UUID { UUID() }
