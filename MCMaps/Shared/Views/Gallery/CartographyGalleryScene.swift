@@ -21,6 +21,8 @@ struct CartographyGalleryScene: Scene {
                 .toolbarRole(.browser)
             #endif
         }
+        #if os(macOS)
         .restorationBehavior(.disabled)
+        #endif
     }
 }
