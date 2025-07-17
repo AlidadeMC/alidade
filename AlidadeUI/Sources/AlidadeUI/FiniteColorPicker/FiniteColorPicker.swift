@@ -121,7 +121,7 @@ public struct FiniteColorPicker: View {
 
 #Preview {
     @Previewable @State var currentColor = Color.blue
-    var allowedColors = [Color.red, Color.yellow, Color.green, Color.blue]
+    let allowedColors = [Color.red, Color.yellow, Color.green, Color.blue]
 
     Form {
         Section {
