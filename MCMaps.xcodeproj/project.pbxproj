@@ -112,6 +112,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 950402F42D4D522200F51903 /* Build configuration list for PBXNativeTarget "Alidade" */;
 			buildPhases = (
+				95BD7DA42E296A6C00950204 /* Rebuild Acknowledgements */,
 				950402CB2D4D522100F51903 /* Sources */,
 				950402CC2D4D522100F51903 /* Frameworks */,
 				950402CD2D4D522100F51903 /* Resources */,
@@ -229,6 +230,30 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		95BD7DA42E296A6C00950204 /* Rebuild Acknowledgements */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/MCMaps/Resources/Credits.md",
+				"$(SRCROOT)/MCMaps/Resources/Acknowledgements.rb",
+			);
+			name = "Rebuild Acknowledgements";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(SRCROOT)/MCMaps/Resources/Settings.bundle/en.lproj/Credits.strings",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nruby \"$SCRIPT_INPUT_FILE_1\" \"$SCRIPT_INPUT_FILE_0\" \"$SCRIPT_OUTPUT_FILE_0\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		950402CB2D4D522100F51903 /* Sources */ = {
@@ -407,6 +432,7 @@
 				ENABLE_RESOURCE_ACCESS_LOCATION = NO;
 				ENABLE_RESOURCE_ACCESS_PRINTING = NO;
 				ENABLE_RESOURCE_ACCESS_USB = NO;
+				ENABLE_USER_SELECTED_FILES = readwrite;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MCMaps/Resources/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Alidade;
@@ -463,6 +489,7 @@
 				ENABLE_RESOURCE_ACCESS_LOCATION = NO;
 				ENABLE_RESOURCE_ACCESS_PRINTING = NO;
 				ENABLE_RESOURCE_ACCESS_USB = NO;
+				ENABLE_USER_SELECTED_FILES = readwrite;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MCMaps/Resources/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Alidade;
@@ -631,6 +658,7 @@
 				ENABLE_RESOURCE_ACCESS_LOCATION = NO;
 				ENABLE_RESOURCE_ACCESS_PRINTING = NO;
 				ENABLE_RESOURCE_ACCESS_USB = NO;
+				ENABLE_USER_SELECTED_FILES = readwrite;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MCMaps/Resources/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Alidade;
@@ -769,6 +797,7 @@
 				ENABLE_RESOURCE_ACCESS_LOCATION = NO;
 				ENABLE_RESOURCE_ACCESS_PRINTING = NO;
 				ENABLE_RESOURCE_ACCESS_USB = NO;
+				ENABLE_USER_SELECTED_FILES = readwrite;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MCMaps/Resources/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Alidade;
