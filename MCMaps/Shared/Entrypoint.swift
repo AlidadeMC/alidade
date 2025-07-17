@@ -54,6 +54,7 @@ struct MCMapsApp: App {
                 \.bluemapService,
                 CartographyBluemapService(withConfiguration: configuration.document.integrations.bluemap)
             )
+            .environment(\.documentURL, configuration.fileURL)
         }
         .commands {
             CommandMenu("Map") {
@@ -160,14 +161,7 @@ struct MCMapsApp: App {
             }
         #endif
 
-        WindowGroup(id: WindowID.gallery.rawValue, for: CartographyGalleryWindowContext.self) { galleryCtx in
-            NavigationStack {
-                CartographyGalleryView(context: galleryCtx.wrappedValue ?? .empty())
-            }
-            #if os(iOS)
-                .toolbarRole(.browser)
-            #endif
-        }
+        CartographyGalleryScene()
     }
 }
 

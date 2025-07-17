@@ -42,13 +42,22 @@ public struct CartographyMapFile: Sendable, Equatable {
         public var bluemap = MCMapBluemapIntegration(baseURL: "")
     }
 
-    struct Keys {
-        static let metadata = "Info.json"
-        static let images = "Images"
-        static let appState = "AppState"
-        static let appStateTabs = "Tabs.json"
+    /// A structure that defines several keys used for paths to folders or files in the package.
+    public struct Keys {
+        /// The key that points to the primary manifest file.
+        public static let metadata = "Info.json"
 
-        static let integrations = "Integrations"
+        /// The key that points to where images are stored on disk.
+        public static let images = "Images"
+
+        /// The key that points to where information about the app's current state is stored.
+        public static let appState = "AppState"
+
+        /// The key that points to the tab customizations file, located inside of ``appState``.
+        public static let appStateTabs = "Tabs.json"
+
+        /// The key that points to where information about integrations with other services are stored.
+        public static let integrations = "Integrations"
 
         @available(*, unavailable)
         init() {}

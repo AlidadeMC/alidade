@@ -10,6 +10,7 @@ import SwiftUI
 
 /// A toolbar that is used inside of ``ContentView``.
 struct ContentViewToolbar: ToolbarContent {
+    @Environment(\.documentURL) private var documentURL
     @Environment(\.openWindow) private var openWindow
 
     private enum LocalTips {
@@ -60,7 +61,10 @@ struct ContentViewToolbar: ToolbarContent {
 
             ToolbarItem {
                 Button("Gallery", systemImage: "photo.stack") {
-                    openWindow(id: .gallery, context: CartographyGalleryWindowContext(file: file))
+                    openWindow(
+                        id: .gallery,
+                        context: CartographyGalleryWindowContext(file: file, documentBaseURL: documentURL)
+                    )
                 }
             }
 

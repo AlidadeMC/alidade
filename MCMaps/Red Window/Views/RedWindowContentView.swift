@@ -23,6 +23,7 @@ struct RedWindowContentView: View {
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     @Environment(RedWindowEnvironment.self) private var redWindowEnvironment
     @Environment(\.bluemapService) private var bluemapService
+    @Environment(\.documentURL) private var documentURL
     @Environment(\.openWindow) private var openWindow
 
     /// The file to read from and write to.
@@ -77,13 +78,21 @@ struct RedWindowContentView: View {
 
             Tab(route: .gallery) {
                 NavigationStack {
-                    CartographyGalleryView(context: CartographyGalleryWindowContext(file: file))
+                    CartographyGalleryView(
+                        context: CartographyGalleryWindowContext(
+                            file: file,
+                            documentBaseURL: documentURL
+                        )
+                    )
                 }
             }
             .customizationID("app.tab.gallery")
             .contextMenu {
                 Button("Open in New Window", systemImage: "rectangle.badge.plus") {
-                    openWindow(id: .gallery, context: CartographyGalleryWindowContext(file: file))
+                    openWindow(
+                        id: .gallery,
+                        context: CartographyGalleryWindowContext(file: file, documentBaseURL: documentURL)
+                    )
                 }
             }
 

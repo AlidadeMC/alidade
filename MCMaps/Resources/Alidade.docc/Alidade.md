@@ -142,6 +142,12 @@ contributors to read through.
 - ``WorldDimensionPickerTip``
 - ``AboutWindowView``
 
+### Gallery
+
+- ``CartographyGalleryScene``
+- ``CartographyGalleryView``
+- ``CartographyGalleryWindowContext``
+
 ### Settings and Feature Flags
 
 - ``FeatureFlag``
