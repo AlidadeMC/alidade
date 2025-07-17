@@ -100,20 +100,3 @@ Red Window is being mapped out in the following manner:
 | **Summer 2025** | Development of Red Window is gated and controlled by feature flags while OS 26 remains in beta (both developer and public). |
 | **Fall 2025** | Around the time of the release candidates, the feature flag will be deprecated in favor of OS availability checks. When OS 26 releases and, later, Alidade, Red Window will be available for players on OS 26. Players on macOS 15 Sequoia and iOS/iPadOS 18 will continue to have the current Alidade design. By this time, the feature flag for Red Window will be removed entirely.
 | **Summer 2026** | The current Alidade design will be removed entirely when OS 27 releases, and Red Window will be the only design experience. |
-
-## Topics
-
-### New Views with Red Window
-
-- ``RedWindowContentView``
-- ``RedWindowMapView``
-- ``RedWindowSearchView``
-- ``RedWindowPinDetailView``
-- ``RedWindowPinLibraryView``
-- ``RedWindowPinLibraryListView``
-- ``RedWindowPinLibraryGridView``
-
-### New Types with Red Window
-
-- ``RedWindowRoute``
-- ``LibraryNavigationPath``

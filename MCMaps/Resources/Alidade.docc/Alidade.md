@@ -78,18 +78,12 @@ contributors to read through.
 ### Architecture and View Hierarchy
 
 - <doc:Architecture>
+- <doc:LegacyArchitecture>
 - ``MCMapsApp``
-- ``LegacyContentView``
-- ``ContentViewToolbar``
+
+### Launch experience
 - ``DocumentLaunchView-6qz0r``
-- ``CartographyMapSplitView``
-
-### View Models and Routing
-
-- ``CartographyRoute``
-- ``CartographyMapViewModel``
-- ``CartographyPinViewModel``
-- ``DocumentLaunchViewModel``
+- ``RecentDocumentsList``
 
 ### Services
 
@@ -97,18 +91,10 @@ contributors to read through.
 - ``CartographyIntegrationService``
 - ``CartographySearchService``
 
-### Ornament View
-
-- ``OrnamentedView``
-- ``Ornament``
-
-### Maps
-
-- ``CartographyOrnamentMap``
-
 ### Map Ornaments
 
 - ``LocationBadge``
+- ``IntegrationFetchStateView``
 
 ### Editor Forms
 
@@ -116,23 +102,10 @@ contributors to read through.
 - ``PinCreatorForm``
 - ``MapEditorFormSheet``
 
-### Named Locations and Pins
-
-- ``CartographyNamedLocationView``
-- ``CartographyMapPinDetailView``
-
 ### Pickers
 
 - ``CartographyMapPinColorPicker``
 - ``WorldDimensionPickerView``
-
-### Sidebar
-
-- ``CartographyMapSidebar``
-- ``CartographyMapSidebarSheet``
-- ``RecentLocationsListSection``
-- ``PinnedLibrarySection``
-- ``GroupedPinsSection``
 
 ### Tips and Onboarding
 
@@ -147,6 +120,16 @@ contributors to read through.
 - ``CartographyGalleryScene``
 - ``CartographyGalleryView``
 - ``CartographyGalleryWindowContext``
+
+### Search
+
+- ``CartographySearchView``
+- ``CartographySearchLabel``
+
+### Collection Types
+
+- ``IndexedPinCollection``
+- ``RandomAccessDictionary``
 
 ### Settings and Feature Flags
 

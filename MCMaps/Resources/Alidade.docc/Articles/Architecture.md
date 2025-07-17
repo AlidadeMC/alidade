@@ -1,149 +1,160 @@
 # Architecture
 
+Learn and understand Alidade's architecture and view hierarchy.
+
 @Metadata {
     @PageImage(purpose: card, source: "Card-Architecture")
 }
 
-Learn and understand Alidade's architecture and view hierarchy.
-
 ## Overview
 
-Alidade presents slightly different interfaces based on the platform it is
-running on. This document will outline the views used to lay out this
-architecture, and how the view hierarchy is navigated.
+> Important: To view information about the legacy architecture, refer to
+> the <doc:LegacyArchitecture> article.
 
-## App Architecture
+Under the **Red Window** design, Alidade provides a consistent
+architecture and user interface that applies across Mac, iPhone, and iPad.
+This article will cover how the app is structured and how it interacts
+with other views.
 
-Alidade uses a typical Model/View/View Model (MVVM) approach while
-leveraging the binding and state capabilities of SwiftUI. Most views will
-reference the main view model, ``CartographyMapViewModel``, and the
-current file via ``CartographyMapFile``. Some views might present their
-own view models, generally derived from the main view model; for example,
-the pin detail view creates a ``CartographyPinViewModel`` using the
-current file and pin index to automatically read and write the changes for
-a specific pin.
+### Rationale
 
-Some views might maintain their own internal state independent of the main
-view model, such as in ``OrnamentedView``. These should remain lightweight
-or generate their own view model.
+In the past, Alidade needed to provide unique interfaces for each of the
+major platforms, shared by a common view model. While this allowed each
+platform to have an interface uniquely tuned for it, this came at the cost
+of maintainability, as views became much more bloated or confusing.
+
+When creating the **Red Window** design as noted in <doc:RedWindow>, we
+had the opportunity to restructure the app in a way that allows for more
+portable views while leveraging what SwiftUI has to offer.
 
 ## Entrypoint
 
-Alidade shares the same entry point across macOS, iOS, and iPadOS through
-``MCMapsApp`` and ``ContentView``. These entry points are used to set up
-the document group that handles reading and writing files, along with the
-document launch windows for macOS, iOS, and iPadOS. It also handles
-creating the main view model that is generally passed down through a
-`@Binding` property.
+Much like the legacy architecture, the main app starts at the
+``MCMapsApp`` entrypoint. Here, the ``RedWindowContentView`` is created,
+which receives the currently open file as an argument. Information about
+the current app state is passed through as an environment object,
+``RedWindowEnvironment``. This environment object contains key information
+such as which tab route is currently active, what pins should be deleted,
+etc:
 
-``ContentView`` handles displaying the appropriate layouts based on the
-platform and window size, and it applies the appropriate toolbar items.
-This is mostly due to how `DocumentGroup` handles displaying document
-views, where macOS receives no additional navigation view.
+```swift
+import SwiftUI
 
-Both the iOS and macOS versions of the app use a document launch view to
-provide facilities for creating new maps and opening recent files. The iOS
-version leverages the `DocumentLaunchGroupScene` introduced in iOS 18,
-while the macOS version creates its own view that looks and functions
-similarly to that of other apps like Grids and Xcode.
-
-## Common Routing
-
-To maintain a consistent routing system between macOS, iOS, and iPadOS, a
-routing system is defined through ``CartographyRoute``. Routes define
-common pathways for various parts of the app, such as the pin detail view
-and the world information editor.
-
-On iOS and iPadOS, these routes will be displayed as views in the
-navigation stack inside of the main sidebar sheet
-(see ``CartographyMapSidebarSheet`` and the adaptable sidebar sheet view,
-respectively).
-
-macOS displays some of these routes differently based on the type of route
-being displayed. To assist with these behaviors, the
-``CartographyRoute/requiresInspectorDisplay`` and
-``CartographyRoute/requiresModalDisplay`` properties are available on the
-current route. To maintain bindings with SwiftUI, these properties also
-have shadow properties through the main view model (see 
-``CartographyMapViewModel/displayCurrentRouteAsInspector`` and
-``CartographyMapViewModel/displayCurrentRouteModally``, respectively).
-
-## View hierarchy
-
-While Alidade uses a common entrypoint and content view, the user
-interfaces and experiences vary based on the target platform it is running
-on. Most internal views will be shared between the two experiences to
-maintain consistency, however, such as the ``CartographyOrnamentMap`` and
-the ``CartographyMapSidebar``.
-
-### macOS - Split View
-
-@Image(
-   source: "Architecture-MacOS_Main",
-   alt: "A traditional Alidade Mac window")
-_Fig. 1: A traditional Alidade Mac window_
-
-The macOS target uses a traditional `NavigationSplitView` to display a
-collapsible sidebar on the left, and the map as the main detail content on
-the right. This view is defined in ``CartographyMapSplitView``, and it is
-only available for the macOS target. See below for how various routes
-defined in ``CartographyRoute`` are handled.
-
-@TabNavigator {
-    @Tab("Inspectors") {
-        Routes that are to be displayed as inspectors (see
-        ``CartographyRoute/requiresInspectorDisplay``) will display in an
-        inspector pane, sharing space with the map. A toolbar button is
-        available to toggle whether this pane is displayed per player
-        preference.
-
-        > Note: Currently, this only applies to the
-        > ``CartographyRoute/pin(_:pin:)`` route.
-
-        @Image(
-           source: "Architecture-MacOS_Inspector",
-           alt: "An Alidade Mac window with the pin inspector open")
-        _Fig. 2a: An Alidade Mac window with the pin inspector open_
-    }
-    @Tab("Sheets") {
-        Routes that are to be displayed as modals (see
-        ``CartographyRoute/requiresModalDisplay``) will display as a sheet
-        on top of the main view. Only one sheet can be present at a given
-        time, and the corresponding views are responsible for displaying
-        mechanisms for dismissing sheets in one form or another.
-
-        @Image(
-           source: "Architecture-MacOS_Sheet",
-           alt: "An Alidade Mac window with the world editor sheet open")
-        _Fig. 2b: An Alidade Mac window with the world editor sheet open_
+struct MCMapsApp: App {
+    @State private var redWindowEnv = RedWindowEnvironment()
+    var body: some Scene {
+        DocumentGroup(...) { configuration in
+            ...
+        }
+        .environment(redWindowEnv)
     }
 }
+```
 
-### iOS and iPadOS - Sidebar Sheet
+This effectively replaces the old ``CartographyMapViewModel``.
 
-The iOS and iPadOS targets use a custom view type, the adaptable sidebar
-sheet. This view type allows iOS and iPadOS to share the same sheet content
-and scale accordingly based on the width of available space. Routes defined
-with ``CartographyRoute`` will be pushed to the navigation stack containing
-the sheet view.
+At this time, any integration services are also set up. For example, the
+Bluemap integration service is provided as an environment variable to the
+view through the ``SwiftUICore/EnvironmentValues/bluemapService`` key
+path.
 
+On top of this, menu commands for managing the current environment are
+provided here.
 
-The sidebar sheet view is always visible, and it cannot be dismissed
-automatically. On iOS or smaller widths (such as when running via Slide
-Over), the view takes on the appearance of a regular sheet, allowing for
-adjustments at small, medium, and large breakpoints. On iPadOS or larger
-widths, the view takes on the appearance of a floating sidebar, allowing
-for adjustments at similar breakpoints. 
+## Main content view
 
-@Row(numberOfColumns: 4) {
-    @Column(size: 3) {
-        @Image(source: "Architecture-iOS_Sidebar",
-               alt: "The Alidade app running on iPadOS")
-        _Fig. 3a: The sidebar sheet as it appears on iPad._
-    }
-    @Column(size: 1) {
-        @Image(source: "Architecture-iOS_Sheet",
-               alt: "The Alidade app running on iOS")
-        _Fig. 3b: The sidebar sheet as it appears on iPhone._
+The ``RedWindowContentView`` provides a tabbed interface that works across
+macOS, iOS, and iPadOS seamlessly. On iPhone, a more compact tab bar is
+used, with pins being a child page in the library. On macOS and iPadOS,
+pins can be listed on the side as their own tab. On iPadOS, this can be
+configured so that only certain pins are displayed.
+
+### Routing
+
+Each tab is configured to map to a corresponding ``RedWindowRoute``. The
+library is unique in that there are two routes corresponding to it: the
+``RedWindowRoute/allPinsCompact`` is used whenever the interface is
+displayed in a compact horizontal size class, such as with the iPhone.
+When the view expands into the regular horizontal size class, this tab
+will automatically transition itself to the ``RedWindowRoute/allPins``
+route.
+
+### Tab pages
+
+Because each tab page provides its own interface, there are no assumptions
+made about navigation stacks or additional child views. Some child routes
+such as ``RedWindowRoute/pin(_:)`` will have their own tab pages, but
+these are generally registered for their own corresponding tab in the
+interface. As such, each tab page view is responsible for providing their
+own models and interfaces.
+
+For legacy or shared views that need a little extra setup, the content
+view will wrap these views in a navigation stack. Such examples include
+the ``RedWindowRoute/worldEdit`` and ``RedWindowRoute/gallery`` views.
+
+### Tab customizations
+
+On some platforms (most notably, iPadOS), players can customize the tabs
+and sidebar to display the elements they'd like to see. Starting with v2
+of the Minecraft map package format, these changes are automatically
+stored and saved into the app state directory.
+
+## Multiple windows
+
+Some parts of the app, such as the gallery feature, can be opened in a new
+window entirely, allowing more flexibility across workflows and devices.
+These window types are generally registered at the entrypoint and can be
+invoked through SwiftUI's `openWindow` method.
+
+Generally, it is recommended to use
+``SwiftUI/OpenWindowAction/callAsFunction(id:)`` or
+``SwiftUI/OpenWindowAction/callAsFunction(id:context:)``, as these
+overloads can guarantee type safety for the various window types
+registered under ``WindowID``. For example, to open the Gallery in a
+separate window:
+
+```swift
+import SwiftUI
+
+struct MyView: View {
+    typealias Context = CartographyGalleryWindowContext
+    @Environment(\.openWindow) private var openWindow
+
+    var body: some View {
+        Button("Open Gallery") {
+            openWindow(
+                id: .gallery,
+                context: Context(...))
+        }
     }
 }
+```
+
+> Note: For some views such as the Gallery, these window features are
+> shared with the legacy architecture and can be invoked in the same way.
+
+## Topics
+
+### Routing and environment
+
+- ``RedWindowEnvironment``
+- ``RedWindowRoute``
+- ``RedWindowModalRoute``
+- ``RedWindowPinDeletionRequest``
+
+### Entrypoint content
+
+- ``RedWindowContentView``
+
+### Child pages
+
+- ``RedWindowMapView``
+- ``RedWindowSearchView``
+- ``RedWindowPinLibraryView``
+- ``RedWindowPinDetailView``
+
+### Working with multiple windows
+
+- ``WindowID``
+- ``SwiftUI/OpenWindowAction/callAsFunction(id:)``
+- ``SwiftUI/OpenWindowAction/callAsFunction(id:context:)``
