@@ -8,9 +8,15 @@
 import MCMapFormat
 import SwiftUI
 
+/// The cell used to display and edit a pin's description.
 struct RedWindowDescriptionCell: RedWindowDetailCell {
+    /// The pin whose description is being modified.
     @Binding var pin: MCMapManifestPin
+
+    /// Whether the edit mode has been activated.
     @Binding var isEditing: Bool
+
+    /// The file that contains the pin being edited.
     @Binding var file: CartographyMapFile
 
     @State private var description = ""

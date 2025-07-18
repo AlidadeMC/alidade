@@ -8,6 +8,7 @@
 import SwiftUI
 
 extension View {
+    /// Adds a background extension effect to the selected view if the effect is available.
     func backgroundExtensionEffectIfAvailable() -> some View {
         #if RED_WINDOW
         Group {
@@ -22,6 +23,7 @@ extension View {
         #endif
     }
 
+    /// Adds a glass effect to the selected view if available.
     func glassEffectIfAvailable() -> some View {
         #if RED_WINDOW
         Group {

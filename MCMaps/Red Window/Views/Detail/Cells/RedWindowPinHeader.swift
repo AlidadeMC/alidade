@@ -8,13 +8,26 @@
 import MCMapFormat
 import SwiftUI
 
+/// A header view that displays the pin's title and coordinates.
+///
+/// The header view extends to the edge of the view, using a background extension effect to leverage the designs in
+/// Liquid Glass. If the pin contains images, the first image in the list will be used; otherwise, a gradient of the
+/// pin's color will be used.
+///
+/// Entering edit mode on the header will allow players to edit the title of the pin, switching to the default system
+/// font.
 struct RedWindowPinHeader: RedWindowDetailCell {
     private enum Constants {
         static let headerHeight = 300.0
     }
+
+    /// The pin to display the header for and allow editing of the title.
     @Binding var pin: MCMapManifestPin
+
+    /// Whether the view is in editing mode.
     @Binding var isEditing: Bool
 
+    /// The file that contains the pin and images being displayed.
     var file: CartographyMapFile
 
     private var gradient: LinearGradient {

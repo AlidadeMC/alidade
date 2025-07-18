@@ -8,9 +8,18 @@
 import MCMapFormat
 import SwiftUI
 
+/// The cell used to display the images associated with this pin.
+///
+/// This is a read-only cell, and the ``isEditing`` property has no effect on this view.
 struct RedWindowPinGalleryCell: RedWindowDetailCell {
+    /// The pin from whose images are being displayed.
     @Binding var pin: MCMapManifestPin
+
+    /// Whether the view is in editing mode.
+    /// - Note: This property has no effect on this view.
     @Binding var isEditing: Bool
+
+    /// The file that contains the pin and images being displayed.
     @Binding var file: CartographyMapFile
 
     var body: some View {

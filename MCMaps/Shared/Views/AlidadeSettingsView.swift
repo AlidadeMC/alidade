@@ -8,6 +8,12 @@
 import AlidadeUI
 import SwiftUI
 
+/// A view that displays the app's settings.
+///
+/// This view is only applicable to macOS, as going to **Alidade &rsaquo; Settings...** will display this view. On iOS
+/// and iPadOS, the settings are stored in the Settings app via **Settings &rsaquo; Apps &rsaquo; Alidade**, and the
+/// user interface is driven by the Settings bundle for this app.
+@available(macOS 15.0, *)
 struct AlidadeSettingsView: View {
     @AppStorage(FeatureFlag.redWindow.keyName) private var flagRedWindow = true
 

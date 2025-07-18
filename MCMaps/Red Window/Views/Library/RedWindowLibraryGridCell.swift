@@ -8,10 +8,20 @@
 import MCMapFormat
 import SwiftUI
 
+/// A cell for the ``RedWindowPinLibraryView`` using the grid layout.
+///
+/// This cell type shows a card of the pin and its corresponding images, along with information at the bottom for the
+/// pin's name and coordinates.
+///
+/// > Note: This cell view type does not trigger any actions on its own. Rather, behaviors are handled in the parent
+/// > grid view.
 struct RedWindowLibraryGridCell: View {
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
 
+    /// The pin being displayed in the current cell.
     var pin: MCMapManifestPin
+
+    /// The file from which the pin and images originated from.
     var file: CartographyMapFile
 
     var body: some View {

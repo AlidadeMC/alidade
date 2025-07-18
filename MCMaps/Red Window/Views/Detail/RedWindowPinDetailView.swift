@@ -10,11 +10,22 @@ import MCMapFormat
 import PhotosUI
 import SwiftUI
 
+/// A detail view that displays a player-created pin and its properties.
+///
+/// The detail view uses a collection view-like layout with multiple cells, allowing editing of key properties when
+/// toggling the edit mode. This view also allows editing the tags, uploading photos from both the player's Photos
+/// library and local files (supported universally), and changing the pin's color.
+///
+/// On regular horizontal size classes, such as iPad and Mac, the detail view will also display a small map of the
+/// pin's region. On iPad, this is contingent on whether the tab bar is collapsed.
 struct RedWindowPinDetailView: View {
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     @Environment(\.tabBarPlacement) private var tabBarPlacement
 
+    /// The pin that the detail view will display and edit.
     @Binding var pin: MCMapManifestPin
+
+    /// The file containing the pin and its corresponding images.
     @Binding var file: CartographyMapFile
 
     @State private var tags = Set<String>()

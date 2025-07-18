@@ -8,8 +8,12 @@
 import MCMapFormat
 import SwiftUI
 
+// swiftlint:disable line_length
+
 extension CartographyMapFile {
-    // swiftlint:disable line_length
+    /// A preview version of a map package.
+    ///
+    /// This is intended to be used for SwiftUI previews.
     static var preview: Self {
         CartographyMapFile(
             withManifest: MCMapManifest(
@@ -33,9 +37,13 @@ extension CartographyMapFile {
             ]
 )
     }
-    // swiftlint:enable line_length
 
+    /// A preview version of a map pin.
+    ///
+    /// This is intended to be used for SwiftUI previews.
     static var previewPin: MCMapManifestPin {
         Self.preview.manifest.pins[0]
     }
 }
+
+// swiftlint:enable line_length

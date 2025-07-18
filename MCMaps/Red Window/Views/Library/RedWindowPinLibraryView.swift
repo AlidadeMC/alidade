@@ -9,7 +9,7 @@ import CubiomesKit
 import MCMapFormat
 import SwiftUI
 
-enum LibraryNavigationPath: Hashable {
+enum RedWindowLibraryNavigationPath: Hashable {
     case pin(MCMapManifestPin, index: Int)
 }
 
@@ -28,7 +28,7 @@ struct RedWindowPinLibraryView: View {
 
     @AppStorage("library.view") private var viewMode = LibraryViewMode.grid
     @State private var displayForm = false
-    @State private var presentedPins: [LibraryNavigationPath] = []
+    @State private var presentedPins: [RedWindowLibraryNavigationPath] = []
     @State private var deletionRequest = RedWindowPinDeletionRequest()
 
     var pinCollection: IndexedPinCollection {
@@ -90,7 +90,7 @@ struct RedWindowPinLibraryView: View {
                     "Any associated images will be removed, and they will no longer be visible in the Gallery."
                 )
             }
-            .navigationDestination(for: LibraryNavigationPath.self) { path in
+            .navigationDestination(for: RedWindowLibraryNavigationPath.self) { path in
                 switch path {
                 case .pin(let pin, let index):
                     RedWindowPinDetailView(

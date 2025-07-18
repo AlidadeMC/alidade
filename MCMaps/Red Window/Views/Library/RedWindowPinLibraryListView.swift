@@ -62,7 +62,7 @@ struct RedWindowPinLibraryListView: View {
             if let element = selection.first {
                 Button("Get Info", systemImage: "info.circle") {
                     let pin = pins[element]
-                    navigationPath.append(LibraryNavigationPath.pin(pin.content, index: pin.index))
+                    navigationPath.append(RedWindowLibraryNavigationPath.pin(pin.content, index: pin.index))
                 }
                 Button("Remove...", systemImage: "trash", role: .destructive) {
                     deletionRequest.elementIDs = selection
@@ -72,7 +72,7 @@ struct RedWindowPinLibraryListView: View {
         } primaryAction: { selection in
             guard let pin = selection.first else { return }
             let element = pins[pin]
-            navigationPath.append(LibraryNavigationPath.pin(element.content, index: element.index))
+            navigationPath.append(RedWindowLibraryNavigationPath.pin(element.content, index: element.index))
         }
     }
 }
