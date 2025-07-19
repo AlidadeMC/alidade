@@ -13,10 +13,10 @@ enum AppLink: String {
     case help = "https://docs.alidade.dev/documentation/alidade/userguide"
 
     /// The link to the source code.
-    case github = "https://github.com/alicerunsonfedora/mcmaps"
+    case github = "https://github.com/AlidadeMC/Alidade"
 
     /// The link to the bug reporter.
-    case issues = "https://github.com/alicerunsonfedora/mcmaps/issues"
+    case issues = "https://github.com/AlidadeMC/Alidade/issues"
 
     /// The link to the app's document.
     case docs = "https://docs.alidade.dev/documentation/alidade"

@@ -922,7 +922,7 @@
 		};
 		955A44362D8F47C600262A6D /* XCRemoteSwiftPackageReference "AdaptableSidebarSheetView" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/alicerunsonfedora/AdaptableSidebarSheetView";
+			repositoryURL = "https://github.com/AlidadeMC/AdaptableSidebarSheetView";
 			requirement = {
 				branch = main;
 				kind = branch;
@@ -930,7 +930,7 @@
 		};
 		955CD1632DAAE1BE007F6FA1 /* XCRemoteSwiftPackageReference "CubiomesKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/alicerunsonfedora/CubiomesKit";
+			repositoryURL = "https://github.com/AlidadeMC/CubiomesKit";
 			requirement = {
 				branch = root;
 				kind = branch;

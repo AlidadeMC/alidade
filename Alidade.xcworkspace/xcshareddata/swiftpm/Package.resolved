@@ -1,10 +1,10 @@
 {
-  "originHash" : "2bffca0c9ae2f932af119d9757af939bde60890f90f6266722847a0d77413712",
+  "originHash" : "7464a2b54f463942465dc2120c62b31ee786529dbe5087be2172697235094eaa",
   "pins" : [
     {
       "identity" : "adaptablesidebarsheetview",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/alicerunsonfedora/AdaptableSidebarSheetView",
+      "location" : "https://github.com/AlidadeMC/AdaptableSidebarSheetView",
       "state" : {
         "branch" : "main",
         "revision" : "4b24a7d0399561db1a5ea67b449bc4d3855847b0"
@@ -13,7 +13,7 @@
     {
       "identity" : "cubiomeskit",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/alicerunsonfedora/CubiomesKit",
+      "location" : "https://github.com/AlidadeMC/CubiomesKit",
       "state" : {
         "branch" : "root",
         "revision" : "1a99f002e4b1ce195264446d4cf6121a9a970a69"

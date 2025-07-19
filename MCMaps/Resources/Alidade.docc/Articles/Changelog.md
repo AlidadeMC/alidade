@@ -39,6 +39,9 @@ across Mac, iPhone, and iPad.
   - The format includes new `AppState` and `Integrations` subdirectories
     that are used to store configuration data for the app's state and the
     integrations supported for a given map, respectively.
+- Code pertaining to the encoding and decoding of the file format is now
+  moved into a separate package, `MCMapFormat`. This may become its own
+  repository in the future.
 
 #### Integrations
 
@@ -52,6 +55,8 @@ across Mac, iPhone, and iPad.
 - Players can create and edit tags for pins in the inspector (#15). When
   searching for content, players can filter by a given tag to show pins
   that are tagged with the specified tag.
+- The new Gallery view allows players to view all the photos in their
+  world from the pins they've created in a single place (#14).
 
 #### User Interface
 

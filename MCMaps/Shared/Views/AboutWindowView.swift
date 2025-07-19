@@ -43,17 +43,17 @@ struct AboutWindowView: View {
                 }
 
                 VStack {
-                    if let github = URL(string: "https://github.com/alicerunsonfedora/mcmaps") {
+                    if let github = URL(appLink: .github) {
                         Link(destination: github) {
                             Label("View Source Code", systemImage: "hammer")
                         }
                     }
-                    if let issues = URL(string: "https://github.com/alicerunsonfedora/mcmaps/issues") {
+                    if let issues = URL(appLink: .issues) {
                         Link(destination: issues) {
                             Label("Send Feedback", systemImage: "ladybug")
                         }
                     }
-                    if let docs = URL(string: "https://docs.alidade.dev") {
+                    if let docs = URL(appLink: .docs) {
                         Link(destination: docs) {
                             Label("View Documentation", systemImage: "books.vertical")
                         }

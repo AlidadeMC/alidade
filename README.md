@@ -53,7 +53,7 @@ LICENSE.txt or visit https://www.mozilla.org/en-US/MPL/2.0/.
 **Alidade** is made possible by the following open source libraries:
 
 - [**Cubiomes**](https://github.com/Cubitect/cubiomes) - MIT License
-- [**Adaptable Sidebar Sheet**](https://github.com/alicerunsonfedora/adaptablesidebarsheetview) - Mozilla Public License, v2
+- [**Adaptable Sidebar Sheet**](https://github.com/AlidadeMC/adaptablesidebarsheetview) - Mozilla Public License, v2
 - [**VersionedCodable**](https://github.com/jrothwell/VersionedCodable) - MIT License
 
 **Alidade** is also made possible with these invaluable snippets:
