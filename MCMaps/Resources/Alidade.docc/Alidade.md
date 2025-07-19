@@ -66,7 +66,6 @@ contributors to read through.
 
 - <doc:UserGuide>
 - <doc:Changelog>
-- <doc:Building>
 - <doc:FileFormat>
 
 ### Contribute to Alidade
