@@ -15,7 +15,7 @@ public struct MCMapBluemapIntegration: MCMapIntegration {
     public static let integrationKey = "Bluemap.json"
 
     /// A structure used to house which sets of markers to display on the map.
-    public struct DisplayProperties: Codable, Sendable, Equatable {
+    public struct DisplayProperties: Codable, Sendable, Equatable, Hashable {
         private enum CodingKeys: String, CodingKey {
             case displayPlayers = "players"
             case displayMarkers = "markers"
@@ -43,7 +43,7 @@ public struct MCMapBluemapIntegration: MCMapIntegration {
     /// By default, most Paper servers will point to `world`, `world_nether`, and `world_end` for each of the
     /// respective dimensions. However, some servers might have these named differently; this structure can be used to
     /// configure the integration to point to the right places.
-    public struct WorldMapping: Codable, Sendable, Equatable {
+    public struct WorldMapping: Codable, Sendable, Equatable, Hashable {
         /// The map name corresponding to the overworld.
         public var overworld: String = "world"
 

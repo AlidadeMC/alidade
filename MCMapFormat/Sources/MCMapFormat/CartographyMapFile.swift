@@ -29,15 +29,25 @@ public struct CartographyMapFile: Sendable, Equatable {
     /// Generally, these items should be stored in the user's preferences via `UserDefaults`. However, some pieces of
     /// data may be reliant on the current file being open, and it shouldn't pollute the user defaults space. Most of
     /// these features are supported in v2 of the format and later.
-    public struct AppState: Sendable, Equatable {
+    public struct AppState: Sendable, Equatable, Hashable {
         /// The tab view customization for the current document.
         ///
-        /// This is only applicable to the
+        /// This is only applicable to the Red Window design.
         public var tabCustomization = TabViewCustomization()
+
+        public func hash(into hasher: inout Hasher) {
+            let encoder = JSONEncoder()
+            do {
+                let encoded = try encoder.encode(tabCustomization)
+                hasher.combine(encoded)
+            } catch {
+                print("Unable to encode the tab customization.")
+            }
+        }
     }
 
     /// A structure containing integrations with other services.
-    public struct Integrations: Sendable, Equatable {
+    public struct Integrations: Sendable, Equatable, Hashable {
         /// Integration with a Bluemap server.
         public var bluemap = MCMapBluemapIntegration(baseURL: "")
     }
@@ -296,5 +306,19 @@ extension CartographyMapFile: Transferable {
             try CartographyMapFile(decoding: data)
         }
 
+    }
+}
+
+// MARK: - Hashable Conformance
+
+extension CartographyMapFile: Hashable {
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(manifest)
+        for (name, image) in images {
+            hasher.combine(name)
+            hasher.combine(image)
+        }
+        hasher.combine(integrations)
+        hasher.combine(appState)
     }
 }
