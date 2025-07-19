@@ -161,14 +161,10 @@ struct RedWindowPinDetailView: View {
 
     private func attachImage(from url: URL) async {
         do {
-            #if os(iOS)
             _ = url.startAccessingSecurityScopedResource()
-            #endif
             let data = try Data(contentsOf: url)
             await attachImage(data: data)
-            #if os(iOS)
             url.stopAccessingSecurityScopedResource()
-            #endif
         } catch {
             print(error)
         }
