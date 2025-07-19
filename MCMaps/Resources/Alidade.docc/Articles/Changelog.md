@@ -25,6 +25,8 @@ across Mac, iPhone, and iPad.
   released will now follow the `<year>.<release-number>.<bugfix?>` format,
   making it easier to identify versions over time. Currently, this release
   will be reflected as `2025.2`.
+- The map should now display more accurate biome boundaries based on the
+  dimension being viewed.
 
 #### File Format
 
