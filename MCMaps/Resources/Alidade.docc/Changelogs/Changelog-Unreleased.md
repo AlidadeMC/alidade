@@ -66,3 +66,16 @@ time as new versions and features are added.
 - The Recents section has been moved to the top in the legacy view, and
   the maximum number of items has been trimmed to five locations,
   providing better visibility for the player's library.
+
+### Known Issues
+
+- Editing the title or description of a pin when accessed from the sidebar
+  on macOS or iPadOS causes the app to jump back to the map unexpectedly,
+  only saving the first character typed. (#45)
+
+**Known Workaround**: Navigate to the pin from the **All Pins** tab in the
+sidebar, and toggle edit mode there.
+
+- Pins when displayed on the map in the pin detail view may display as
+  '#nodraw' and don't accurately reflect the location on macOS and,
+  occasionally, iPadOS. (#46) 
