@@ -22,6 +22,7 @@ The current latest release is **1.0.1**.
 ### Unreleased and Beta Versions
 
 - <doc:Changelog-Unreleased>
+- <doc:Changelog-2025.2>
 
 ### Stable Releases
 
