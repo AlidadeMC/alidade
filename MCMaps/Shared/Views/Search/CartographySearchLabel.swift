@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// A simple view that displays when the ``CartographySearchView`` is currently performing a search.
 struct CartographySearchLabel: View {
     var body: some View {
         HStack {

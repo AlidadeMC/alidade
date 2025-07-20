@@ -10,17 +10,33 @@ import CubiomesKit
 import MCMapFormat
 import SwiftUI
 
+/// A view that displays an interface for searching through content provided in a file.
+///
+/// The search view requires an initial and result view, as these will be served when a search has been performed, or
+/// when the view is in its initial state. Queries are currently handled internally and requires no additional bindings
+/// on the developer's part.
 struct CartographySearchView<InitialView: View, ResultsView: View>: View {
     @FeatureFlagged(.redWindow) private var useRedWindowDesign
 
+    /// A typealias pointing to the search query type.
     typealias SearchQuery = CartographySearchService.Query
+
+    /// A typealias pointing to the search result type.
     typealias SearchResult = CartographySearchService.SearchResult
+
+    /// A typealias pointing to the search token type.
     typealias SearchToken = CartographySearchService.SearchFilter
 
+    /// An enumeration of the search states the view can undergo.
     enum SearchState: Equatable, Hashable {
+        /// The initial search state.
         case initial
+
+        /// The view is actively performing a search.
         case searching
-        case found(CartographySearchService.SearchResult)
+
+        /// The search service returned a search result.
+        case found(SearchResult)
     }
 
     private enum Constants {
@@ -39,11 +55,19 @@ struct CartographySearchView<InitialView: View, ResultsView: View>: View {
     @State private var rawQuery: SearchQuery = ""
     @State private var tokens = [SearchToken]()
 
+    /// The file that the search service will perform operations on.
     var file: CartographyMapFile
+
+    /// The player's current position on the map.
     var position: MinecraftPoint
+
+    /// The player's current dimension.
     var dimension: MinecraftWorld.Dimension
 
+    /// The view to display when in the initial state.
     var initial: () -> InitialView
+
+    /// The view to display when the search service has returned results.
     var results: (SearchResult) -> ResultsView
 
     private var searchGainedFocus: (() -> Void)?
@@ -78,6 +102,9 @@ struct CartographySearchView<InitialView: View, ResultsView: View>: View {
         self.searchGainedFocus = searchGainedFocus
     }
 
+    /// Assign an action to when the search bar becomes the currently focused element.
+    ///
+    /// This is typically used in views to adjust the layout, such as with the ``CartographyMapSidebar``.
     func searchBecomesFocused(_ callback: @escaping () -> Void) -> Self {
         CartographySearchView(
             file: file,
