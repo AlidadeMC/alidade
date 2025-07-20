@@ -7,7 +7,7 @@
 
 import CoreGraphics
 import CubiomesKit
-import MCMapFormat
+import MCMap
 
 /// A structure that represents the results received from a Bluemap integration sync.
 ///

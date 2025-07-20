@@ -8,7 +8,7 @@
 import AsyncAlgorithms
 import Combine
 import CubiomesKit
-import MCMapFormat
+import MCMap
 import SwiftUI
 import TipKit
 

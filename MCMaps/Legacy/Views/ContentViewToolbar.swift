@@ -5,7 +5,7 @@
 //  Created by Marquis Kurt on 05-05-2025.
 //
 
-import MCMapFormat
+import MCMap
 import SwiftUI
 
 /// A toolbar that is used inside of ``LegacyContentView``.

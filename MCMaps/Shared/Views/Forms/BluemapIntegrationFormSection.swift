@@ -6,7 +6,7 @@
 //
 
 import AlidadeUI
-import MCMapFormat
+import MCMap
 import SwiftUI
 
 /// A form section that allows players to edit settings for integrations with Bluemap.

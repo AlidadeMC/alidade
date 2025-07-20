@@ -5,7 +5,7 @@
 //  Created by Marquis Kurt on 19-06-2025.
 //
 
-import MCMapFormat
+import MCMap
 import SwiftUI
 
 /// A protocol used to register a cell for the ``RedWindowPinDetailView``.

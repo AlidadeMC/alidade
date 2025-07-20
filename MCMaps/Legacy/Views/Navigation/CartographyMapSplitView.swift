@@ -6,7 +6,7 @@
 //
 
 import CubiomesKit
-import MCMapFormat
+import MCMap
 import SwiftUI
 
 /// A split view used to display a Minecraft map and the player library as a sidebar.

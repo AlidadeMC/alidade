@@ -6,7 +6,7 @@
 //
 
 import CubiomesKit
-import MCMapFormat
+import MCMap
 import SwiftUI
 
 /// An enumeration of the different navigation paths that can be traveled to in the ``RedWindowPinLibraryView``.

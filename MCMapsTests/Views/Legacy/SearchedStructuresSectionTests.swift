@@ -6,7 +6,7 @@
 //
 
 import AlidadeUI
-import MCMapFormat
+import MCMap
 import SwiftUI
 import Testchamber
 import Testing

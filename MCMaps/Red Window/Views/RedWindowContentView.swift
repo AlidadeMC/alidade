@@ -6,7 +6,7 @@
 //
 
 import CubiomesKit
-import MCMapFormat
+import MCMap
 import SwiftUI
 
 /// The new main content view designed for Red Window.

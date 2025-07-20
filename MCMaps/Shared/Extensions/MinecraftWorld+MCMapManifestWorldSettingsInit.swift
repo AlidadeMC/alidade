@@ -6,7 +6,7 @@
 //
 
 import CubiomesKit
-import MCMapFormat
+import MCMap
 
 extension MinecraftWorld {
     init(worldSettings: MCMapManifestWorldSettings) throws {

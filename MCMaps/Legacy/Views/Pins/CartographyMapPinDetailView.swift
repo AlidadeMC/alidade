@@ -6,7 +6,7 @@
 //
 
 import AlidadeUI
-import MCMapFormat
+import MCMap
 import PhotosUI
 import SwiftUI
 import TipKit

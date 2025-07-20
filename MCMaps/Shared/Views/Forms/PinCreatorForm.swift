@@ -6,7 +6,7 @@
 //
 
 import AlidadeUI
-import MCMapFormat
+import MCMap
 import SwiftUI
 
 // NOTE(alicerunsonfedora): Perhaps this can get replaced with the new pin detail view?

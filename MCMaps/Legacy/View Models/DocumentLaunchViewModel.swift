@@ -5,7 +5,7 @@
 //  Created by Marquis Kurt on 15-03-2025.
 //
 
-import MCMapFormat
+import MCMap
 import SwiftUI
 
 // NOTE(alicerunsonfedora): This should likely be converted into an actor of some kind, to get around the @unchecked

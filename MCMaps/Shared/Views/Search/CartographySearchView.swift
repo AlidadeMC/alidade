@@ -7,7 +7,7 @@
 
 import AsyncAlgorithms
 import CubiomesKit
-import MCMapFormat
+import MCMap
 import SwiftUI
 
 /// A view that displays an interface for searching through content provided in a file.

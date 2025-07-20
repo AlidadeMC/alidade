@@ -7,7 +7,7 @@
 
 import AlidadeUI
 import CubiomesKit
-import MCMapFormat
+import MCMap
 import SwiftUI
 
 /// A section used to display grouped pins that are being searched for.

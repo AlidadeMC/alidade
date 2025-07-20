@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import MCMapFormat
+import MCMap
 
 /// A structure that describes the context for the gallery view.
 ///

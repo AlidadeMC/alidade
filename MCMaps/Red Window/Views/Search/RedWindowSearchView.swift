@@ -6,7 +6,7 @@
 //
 
 import CubiomesKit
-import MCMapFormat
+import MCMap
 import SwiftUI
 
 /// A view that allows players to search their Minecraft world and pins.

@@ -1,5 +1,5 @@
 {
-  "originHash" : "7464a2b54f463942465dc2120c62b31ee786529dbe5087be2172697235094eaa",
+  "originHash" : "95a01cdb8125e5d971d6ff6534dfff7c1776bd1bb9ec64c06cdc3a30bda779b8",
   "pins" : [
     {
       "identity" : "adaptablesidebarsheetview",
@@ -26,6 +26,15 @@
       "state" : {
         "revision" : "600f218ccc090678ab46bab162a82f63949eb04f",
         "version" : "1.1.0"
+      }
+    },
+    {
+      "identity" : "mcmap",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/AlidadeMC/mcmap.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "77f76ec748b84eb7658959d006844733acec8c66"
       }
     },
     {

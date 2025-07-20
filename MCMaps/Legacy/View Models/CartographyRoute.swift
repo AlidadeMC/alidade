@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import MCMapFormat
+import MCMap
 
 /// An enumeration representing the routes available within the app.
 ///

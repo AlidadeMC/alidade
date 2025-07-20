@@ -7,7 +7,7 @@
 
 import AdaptableSidebarSheetView
 import CubiomesKit
-import MCMapFormat
+import MCMap
 import Observation
 import SwiftUI
 import TipKit

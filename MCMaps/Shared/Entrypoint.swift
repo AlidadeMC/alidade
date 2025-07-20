@@ -5,7 +5,7 @@
 //  Created by Marquis Kurt on 31-01-2025.
 //
 
-import MCMapFormat
+import MCMap
 import SwiftUI
 import TipKit
 

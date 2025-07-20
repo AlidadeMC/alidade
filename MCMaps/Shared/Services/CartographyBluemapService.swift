@@ -7,7 +7,7 @@
 
 import CubiomesKit
 import Foundation
-import MCMapFormat
+import MCMap
 
 /// A service that pulls information from a Bluemap server.
 actor CartographyBluemapService {

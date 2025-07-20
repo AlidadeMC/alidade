@@ -5,7 +5,7 @@
 //  Created by Marquis Kurt on 19-06-2025.
 //
 
-import MCMapFormat
+import MCMap
 import SwiftUI
 
 /// The cell used to display the tags associated with a given pin.

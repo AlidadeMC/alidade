@@ -8,7 +8,7 @@
 import AlidadeUI
 import Combine
 import CubiomesKit
-import MCMapFormat
+import MCMap
 import SwiftUI
 import os
 

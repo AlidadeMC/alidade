@@ -7,7 +7,7 @@
 
 import AlidadeUI
 import CubiomesKit
-import MCMapFormat
+import MCMap
 import SwiftUI
 
 /// A view used to create and edit Minecraft world maps using the `.mcmap` format.

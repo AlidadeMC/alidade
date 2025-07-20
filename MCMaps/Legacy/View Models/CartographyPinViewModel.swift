@@ -5,7 +5,7 @@
 //  Created by Marquis Kurt on 18-02-2025.
 //
 
-import MCMapFormat
+import MCMap
 import SwiftUI
 
 /// A view model used for manipulating a pin in a file directly.

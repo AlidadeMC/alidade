@@ -6,7 +6,7 @@
 //
 
 import CubiomesKit
-import MCMapFormat
+import MCMap
 import SwiftUI
 
 /// A cell that displays a landmark for a search result.

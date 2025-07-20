@@ -6,7 +6,7 @@
 //
 
 import AlidadeUI
-import MCMapFormat
+import MCMap
 import SwiftUI
 
 /// A picker used to pick a color used in a player-created pin.

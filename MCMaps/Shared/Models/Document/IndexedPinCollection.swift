@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import MCMapFormat
+import MCMap
 
 /// A collection of pins, organized by index.
 ///

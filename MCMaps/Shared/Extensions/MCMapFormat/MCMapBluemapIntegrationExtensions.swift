@@ -5,7 +5,7 @@
 //  Created by Marquis Kurt on 13-07-2025.
 //
 
-import MCMapFormat
+import MCMap
 
 /// An option set that describes what should be displayed on the map from Bluemap.
 struct BluemapDisplayProperties: OptionSet {

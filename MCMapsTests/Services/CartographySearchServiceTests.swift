@@ -7,7 +7,7 @@
 
 import CubiomesKit
 import Foundation
-import MCMapFormat
+import MCMap
 import Testing
 
 @testable import Alidade

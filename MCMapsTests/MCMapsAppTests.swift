@@ -5,7 +5,7 @@
 //  Created by Marquis Kurt on 09-02-2025.
 //
 
-import MCMapFormat
+import MCMap
 import SwiftUI
 import Testing
 

@@ -6,7 +6,7 @@
 //
 
 import CubiomesKit
-import MCMapFormat
+import MCMap
 import os
 
 /// A protocol that describes a provider for an integration service.

@@ -7,7 +7,7 @@
 
 import AlidadeUI
 import CubiomesKit
-import MCMapFormat
+import MCMap
 import SwiftUI
 import TipKit
 

@@ -5,7 +5,7 @@
 //  Created by Marquis Kurt on 19-06-2025.
 //
 
-import MCMapFormat
+import MCMap
 import SwiftUI
 
 /// A header view that displays the pin's title and coordinates.

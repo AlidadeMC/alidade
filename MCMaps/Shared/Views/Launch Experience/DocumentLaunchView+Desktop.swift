@@ -6,7 +6,7 @@
 //
 
 import DesignLibrary
-import MCMapFormat
+import MCMap
 import Observation
 import SwiftUI
 

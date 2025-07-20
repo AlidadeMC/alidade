@@ -5,7 +5,7 @@
 //  Created by Marquis Kurt on 01-06-2025.
 //
 
-import MCMapFormat
+import MCMap
 
 extension CartographySearchService {
     /// An enumeration representing the various filter types for a search.
