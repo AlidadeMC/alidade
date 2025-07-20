@@ -7,6 +7,11 @@
 
 import SwiftUI
 
+/// A form used to let players jump to a specific location on the map.
+///
+/// In previous versions of the app, this action was achieved through search. However, because search has been
+/// separated into a different tab, this form is displayed instead. Upon submission of the form, the environment is
+/// updated to reflect the new changes.
 struct RedWindowMapWarpForm: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(RedWindowEnvironment.self) private var redWindowEnvironment

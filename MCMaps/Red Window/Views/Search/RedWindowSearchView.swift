@@ -9,14 +9,26 @@ import CubiomesKit
 import MCMapFormat
 import SwiftUI
 
+/// A view that allows players to search their Minecraft world and pins.
+///
+/// This view wraps around the shared ``CartographySearchView``, pushing it into a dedicated search tab accessible from
+/// anywhere.
 struct RedWindowSearchView: View {
+    /// A structure used to construct a request to create a pin.
     struct PinCreationRequest {
+        /// The suggested name for the pin being created.
         var name = ""
+
+        /// The pin's suggested location.
         var position = CGPoint.zero
+
+        /// Whether the form should be displayed.
         var displayForm = false
     }
 
     @Environment(RedWindowEnvironment.self) private var redWindowEnvironment
+
+    /// The file that will be searched through.
     @Binding var file: CartographyMapFile
 
     @State private var query = ""

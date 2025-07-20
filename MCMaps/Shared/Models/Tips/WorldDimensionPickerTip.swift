@@ -8,6 +8,7 @@
 import SwiftUI
 import TipKit
 
+/// A tip that encourages players to switch between world dimensions.
 struct WorldDimensionPickerTip: Tip {
     static let viewDisplayed = Event(id: "dimensionpicker.displayed")
 

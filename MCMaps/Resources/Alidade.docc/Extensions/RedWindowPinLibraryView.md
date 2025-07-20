@@ -4,7 +4,7 @@
 
 ### Navigation
 
-- ``LibraryNavigationPath``
+- ``RedWindowLibraryNavigationPath``
 
 ### Grid layout
 

@@ -8,6 +8,7 @@
 import SwiftUI
 import TipKit
 
+/// A tip that encourages players to pin commonly visited locations.
 struct PinActionOnboardingTip: Tip {
     static let libraryEmpty = Event(id: "library.emptyPins")
 

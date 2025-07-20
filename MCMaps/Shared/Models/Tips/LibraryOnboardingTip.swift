@@ -8,6 +8,7 @@
 import SwiftUI
 import TipKit
 
+/// A tip that encourages players to search for content through the library.
 struct LibraryOnboardingTip: Tip {
     var options: [Option] {
         MaxDisplayCount(3)

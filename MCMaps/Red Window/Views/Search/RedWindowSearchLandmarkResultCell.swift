@@ -9,10 +9,23 @@ import CubiomesKit
 import MCMapFormat
 import SwiftUI
 
+/// A cell that displays a landmark for a search result.
+///
+/// Tapping on the result will move to the map to the specified landmark. Additional context menu options are available
+/// for more actions, such as creating a pin from the location.
 struct RedWindowSearchLandmarkResultCell: View {
+    /// An enumeration of the landmark types available to the cell.
     enum LandmarkType {
-        case biome, structure, pin
+        /// The landmark represents a Minecraft biome.
+        case biome
 
+        /// The landmark represents a Minecraft structure.
+        case structure
+
+        /// The landmark represents a player-created pin.
+        case pin
+
+        /// A symbol representation for the landmark.
         var symbol: String {
             switch self {
             case .biome: "mountain.2"
@@ -23,9 +36,13 @@ struct RedWindowSearchLandmarkResultCell: View {
     }
     @Environment(RedWindowEnvironment.self) private var redWindowEnvironment
 
+    /// The request to create a pin.
     @Binding var request: RedWindowSearchView.PinCreationRequest
 
+    /// The landmark that will be represented in the cell.
     var landmark: MCMapManifestPin
+
+    /// The type of the landmark being represented in the cell.
     var landmarkType: LandmarkType
 
     var body: some View {

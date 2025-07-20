@@ -14,14 +14,20 @@ import os
 
 private let logger = Logger(subsystem: "net.marquiskurt.mcmaps", category: "map.red_window")
 
-/// The view that is displayed in the Map tab on Red Window.
+/// A view that displays a map of the current Minecraft world.
+///
+/// Much like the original map view, this map view allows players to navigate around their world in a map view using
+/// MapKit. Depending on whether the integration is enabled, markers from Bluemap are also displayed in this view. A
+/// timer is automatically created at initialization to periodically refresh the data at the time that the player requests.
+///
+/// Players can also quickly switch between dimensions, jump to locations, and create a pin.
 struct RedWindowMapView: View {
     private typealias IntegrationServiceType = CartographyIntegrationService.ServiceType
 
     @Environment(\.bluemapService) private var bluemapService
     @Environment(RedWindowEnvironment.self) private var redWindowEnvironment
 
-    /// The file to read from and write to.
+    /// The file containing the information about the world, integrations, etc.
     @Binding var file: CartographyMapFile
 
     @AppStorage(UserDefaults.Keys.mapNaturalColors.rawValue)

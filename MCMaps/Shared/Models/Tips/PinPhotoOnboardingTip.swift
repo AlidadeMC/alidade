@@ -8,6 +8,7 @@
 import SwiftUI
 import TipKit
 
+/// A tip that encourages players to add photos to a pin.
 struct PinPhotoOnboardingTip: Tip {
     var options: [Option] {
         [MaxDisplayCount(3)]

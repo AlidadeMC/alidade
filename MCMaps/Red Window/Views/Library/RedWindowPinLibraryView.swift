@@ -9,13 +9,27 @@ import CubiomesKit
 import MCMapFormat
 import SwiftUI
 
+/// An enumeration of the different navigation paths that can be traveled to in the ``RedWindowPinLibraryView``.
 enum RedWindowLibraryNavigationPath: Hashable {
+    /// A pin being displayed in a detail view.
+    /// - Parameter pin: The pin to display.
+    /// - Parameter index: The index of the pin relative to the pins list in the file.
     case pin(MCMapManifestPin, index: Int)
 }
 
+/// A view that displays the player's library of pinned places.
+///
+/// Players can switch between displaying the pins as a list of entries, or as a grid. Selecting a pin will open it in
+/// a detail view as a child page. Additionally, a create button is available to let players create a pin directly from
+/// this view.
 struct RedWindowPinLibraryView: View {
+    /// An enumeration of the different library view modes.
     enum LibraryViewMode: String, Hashable {
-        case grid, list
+        /// Display the library as a grid of pins.
+        case grid
+
+        /// Display the library as a list of pins.
+        case list
     }
 
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
@@ -23,7 +37,10 @@ struct RedWindowPinLibraryView: View {
 
     @Namespace private var namespace
 
+    /// The file containing the pins to display.
     @Binding var file: CartographyMapFile
+
+    /// The parent navigation view's path.
     @Binding var path: NavigationPath
 
     @AppStorage("library.view") private var viewMode = LibraryViewMode.grid
@@ -31,6 +48,11 @@ struct RedWindowPinLibraryView: View {
     @State private var presentedPins: [RedWindowLibraryNavigationPath] = []
     @State private var deletionRequest = RedWindowPinDeletionRequest()
 
+    /// The collection of pins to display in the grid and list layouts.
+    ///
+    /// This collection is typically preferred over `file.manifest.pins` because it guarantees that it will work
+    /// correctly with SwiftUI view structures such as `ForEach`. However, as this property is computed, this should
+    /// **not** be used to mutate the data.
     var pinCollection: IndexedPinCollection {
         IndexedPinCollection(file.manifest.pins)
     }
