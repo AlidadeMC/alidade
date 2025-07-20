@@ -38,6 +38,7 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Resources/Acknowledgements.rb,
+				"Resources/AppIcon-RedWindow.icon",
 				Resources/Info.plist,
 			);
 			target = 950402CE2D4D522100F51903 /* Alidade */;
