@@ -19,7 +19,7 @@ struct RedWindowLibraryGridCell: View {
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
 
     /// The pin being displayed in the current cell.
-    var pin: MCMapManifestPin
+    var pin: CartographyMapPin
 
     /// The file from which the pin and images originated from.
     var file: CartographyMapFile

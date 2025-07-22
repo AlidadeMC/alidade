@@ -14,7 +14,7 @@ enum RedWindowLibraryNavigationPath: Hashable {
     /// A pin being displayed in a detail view.
     /// - Parameter pin: The pin to display.
     /// - Parameter index: The index of the pin relative to the pins list in the file.
-    case pin(MCMapManifestPin, index: Int)
+    case pin(CartographyMapPin, index: Int)
 }
 
 /// A view that displays the player's library of pinned places.
@@ -54,13 +54,13 @@ struct RedWindowPinLibraryView: View {
     /// correctly with SwiftUI view structures such as `ForEach`. However, as this property is computed, this should
     /// **not** be used to mutate the data.
     var pinCollection: IndexedPinCollection {
-        IndexedPinCollection(file.manifest.pins)
+        IndexedPinCollection(file.pins)
     }
 
     private var deletionTitle: LocalizedStringKey {
         let pinsToDelete = deletionRequest.elementIDs.compactMap { index in
-            if file.manifest.pins.indices.contains(index) {
-                return file.manifest.pins[index]
+            if file.pins.indices.contains(index) {
+                return file.pins[index]
             }
             return nil
         }
@@ -117,9 +117,9 @@ struct RedWindowPinLibraryView: View {
                 case .pin(let pin, let index):
                     RedWindowPinDetailView(
                         pin: Binding {
-                            return file.manifest.pins[index]
+                            return file.pins[index]
                         } set: { newValue in
-                            file.manifest.pins[index] = newValue
+                            file.pins[index] = newValue
                         }, file: $file
                     )
                     #if os(iOS)
@@ -130,7 +130,7 @@ struct RedWindowPinLibraryView: View {
             .sheet(isPresented: $displayForm) {
                 NavigationStack {
                     PinCreatorForm(location: .zero) { newPin in
-                        file.manifest.pins.append(newPin)
+                        file.pins.append(newPin)
                     }
                     #if os(macOS)
                         .formStyle(.grouped)

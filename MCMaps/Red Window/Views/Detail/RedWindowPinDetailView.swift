@@ -23,7 +23,7 @@ struct RedWindowPinDetailView: View {
     @Environment(\.tabBarPlacement) private var tabBarPlacement
 
     /// The pin that the detail view will display and edit.
-    @Binding var pin: MCMapManifestPin
+    @Binding var pin: CartographyMapPin
 
     /// The file containing the pin and its corresponding images.
     @Binding var file: CartographyMapFile
@@ -31,7 +31,7 @@ struct RedWindowPinDetailView: View {
     @State private var tags = Set<String>()
     @State private var displayAlert = false
     @State private var center = CGPoint.zero
-    @State private var color = MCMapManifestPin.Color.blue
+    @State private var color = CartographyMapPin.Color.blue
     @State private var editMode = false
     @State private var presentTagEditor = false
 
@@ -127,7 +127,7 @@ struct RedWindowPinDetailView: View {
             ToolbarItem {
                 Menu("Pin Color", systemImage: "paintpalette") {
                     Picker("Pin Color", selection: $color) {
-                        ForEach(MCMapManifestPin.Color.allCases, id: \.self) { color in
+                        ForEach(CartographyMapPin.Color.allCases, id: \.self) { color in
                             Text(String(describing: color).localizedCapitalized)
                                 .tag(color)
                         }
@@ -175,7 +175,7 @@ struct RedWindowPinDetailView: View {
         if pin.images == nil {
             pin.images = [imageName]
         } else {
-            pin.images?.append(imageName)
+            pin.images?.insert(imageName)
         }
         file.images[imageName] = data
     }

@@ -38,7 +38,7 @@ struct CartographyMapSplitView: View {
                     switch viewModel.currentRoute {
                     case let .pin(index, _):
                         Group {
-                            if (file.manifest.pins.indices).contains(index) {
+                            if (file.pins.indices).contains(index) {
                                 CartographyMapPinDetailView(
                                     viewModel: CartographyPinViewModel(
                                         file: $file, index: index))

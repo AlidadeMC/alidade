@@ -12,14 +12,23 @@ import SwiftUI
 extension NamedLocationView {
     /// Create a named location view using a player-created pin.
     /// - Parameter pin: The pin to create a named location view from.
-    init(pin: MCMapManifestPin) {
+    init(pin: CartographyMapPin) {
+        let systemImage =
+            switch pin.icon {
+            case .default, nil, .emoji:
+                "mappin"
+            default:
+                pin.icon?.rawValue
+            }
+
         self.init(
             name: pin.name,
             location: pin.position,
-            systemImage: "mappin",
+            systemImage: systemImage ?? "mappin",
             color: pin.color?.swiftUIColor ?? .accent
         )
     }
+
 }
 
 /// A view that displays a location with a specified name.

@@ -40,7 +40,7 @@ enum RedWindowRoute: Identifiable, Hashable {
     /// A tab showing a specific pin.
     ///
     /// This tab only appears under the regular horizontal size class, where it appears in the sidebar.
-    case pin(MCMapManifestPin)
+    case pin(UUID)
 
     /// The search tab.
     case search
@@ -62,7 +62,7 @@ extension RedWindowRoute {
         case .allPins: "All Pins"
         case .allPinsCompact: "Library"
         case .search: "Search"
-        case let .pin(pin): LocalizedStringKey(pin.name)
+        case let .pin(pin): "Pin"
         }
     }
 

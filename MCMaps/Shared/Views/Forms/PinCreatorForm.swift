@@ -24,7 +24,7 @@ struct PinCreatorForm: View {
     var initialName: String?
 
     @State private var name: String = "Pin"
-    @State private var color: MCMapManifestPin.Color = .blue
+    @State private var color: CartographyMapPin.Color = .blue
     @State private var updatedLocation = CGPoint.zero
 
     @State private var locationX = 0.0
@@ -32,13 +32,13 @@ struct PinCreatorForm: View {
 
     /// A completion handler that executes when the player has confirmed the pin they want to create.
     /// - Parameter pin: The pin the player has created.
-    var completion: (MCMapManifestPin) -> Void
+    var completion: (CartographyMapPin) -> Void
 
     var body: some View {
         Form {
             TextField("Name", text: $name)
             Picker("Color", selection: $color) {
-                ForEach(MCMapManifestPin.Color.allCases, id: \.self) { pinColor in
+                ForEach(CartographyMapPin.Color.allCases, id: \.self) { pinColor in
                     Text("\(pinColor)".localizedCapitalized)
                         .tag(pinColor)
                 }
@@ -100,7 +100,7 @@ struct PinCreatorForm: View {
             ToolbarItem(placement: .confirmationAction) {
                 Button("Create", systemImage: "checkmark") {
                     dismiss()
-                    completion(MCMapManifestPin(position: updatedLocation, name: name, color: color))
+                    completion(CartographyMapPin(named: name, at: updatedLocation, color: color))
                 }
             }
             #if os(macOS)
@@ -143,11 +143,11 @@ struct PinCreatorForm: View {
                 target._name
             }
 
-            var color: MCMapManifestPin.Color {
+            var color: CartographyMapPin.Color {
                 target.color
             }
 
-            var colorState: State<MCMapManifestPin.Color> {
+            var colorState: State<CartographyMapPin.Color> {
                 target._color
             }
 
@@ -155,7 +155,7 @@ struct PinCreatorForm: View {
                 target.location
             }
 
-            var completion: (MCMapManifestPin) -> Void {
+            var completion: (CartographyMapPin) -> Void {
                 target.completion
             }
         }

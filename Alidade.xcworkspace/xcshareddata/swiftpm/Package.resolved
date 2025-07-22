@@ -1,5 +1,5 @@
 {
-  "originHash" : "95a01cdb8125e5d971d6ff6534dfff7c1776bd1bb9ec64c06cdc3a30bda779b8",
+  "originHash" : "af1b628a0a0e3b49e27259c0080fc31504c21f8a72d8c6bdf7bdd289582958c6",
   "pins" : [
     {
       "identity" : "adaptablesidebarsheetview",
@@ -34,7 +34,7 @@
       "location" : "https://github.com/AlidadeMC/mcmap.git",
       "state" : {
         "branch" : "main",
-        "revision" : "77f76ec748b84eb7658959d006844733acec8c66"
+        "revision" : "33de9e39455a16592f62ad2f84ee90ece6695c02"
       }
     },
     {

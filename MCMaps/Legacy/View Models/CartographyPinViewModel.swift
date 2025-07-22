@@ -36,7 +36,7 @@ class CartographyPinViewModel {
     /// The pin that will be edited through this view model.
     ///
     /// Changes to this property will automatically propagate to the file.
-    var pin: Binding<MCMapManifestPin>
+    var pin: Binding<CartographyMapPin>
 
     /// A binding to the pin's about description.
     ///
@@ -81,27 +81,23 @@ class CartographyPinViewModel {
         self.file = file
         self.index = index
         self.pin = Binding {
-            return file.wrappedValue.manifest.pins[index]
+            return file.wrappedValue.pins[index]
         } set: { newPin in
-            file.wrappedValue.manifest.pins[index] = newPin
+            file.wrappedValue.pins[index] = newPin
         }
 
-        self.pinAboutDescription = Binding {
-            return file.wrappedValue.manifest.pins[index].aboutDescription ?? ""
-        } set: { newValue in
-            file.wrappedValue.manifest.pins[index].aboutDescription = newValue
-        }
+        self.pinAboutDescription = file.pins[index].description
 
         self.pinTags = Binding {
             guard file.wrappedValue.supportedFeatures.contains(.pinTagging) else {
                 return []
             }
-            return file.wrappedValue.manifest.pins[index].tags ?? []
+            return file.wrappedValue.pins[index].tags ?? []
         } set: { newValue in
             guard file.wrappedValue.supportedFeatures.contains(.pinTagging) else {
                 return
             }
-            file.wrappedValue.manifest.pins[index].tags = newValue
+            file.wrappedValue.pins[index].tags = newValue
         }
     }
 
@@ -109,7 +105,7 @@ class CartographyPinViewModel {
     ///
     /// Images consist of player-uploaded screenshots that can be displayed alongside pins.
     func images() -> [Data] {
-        let pin = file.wrappedValue.manifest.pins[index]
+        let pin = file.wrappedValue.pins[index]
         guard let images = pin.images else { return [] }
         return images.compactMap { name in
             file.wrappedValue.images[name]
@@ -126,10 +122,10 @@ class CartographyPinViewModel {
     func uploadImage(_ data: Data, completion: (() -> Void)? = nil) {
         let imageName = UUID().uuidString + ".heic"
         file.wrappedValue.images[imageName] = data
-        if file.wrappedValue.manifest.pins[index].images == nil {
-            file.wrappedValue.manifest.pins[index].images = [imageName]
+        if file.wrappedValue.pins[index].images == nil {
+            file.wrappedValue.pins[index].images = [imageName]
         } else {
-            file.wrappedValue.manifest.pins[index].images?.append(imageName)
+            file.wrappedValue.pins[index].images?.insert(imageName)
         }
         completion?()
     }

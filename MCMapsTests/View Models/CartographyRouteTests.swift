@@ -5,6 +5,7 @@
 //  Created by Marquis Kurt on 19-02-2025.
 //
 
+import MCMap
 import Testing
 
 @testable import Alidade
@@ -18,7 +19,8 @@ struct CartographyRouteTests {
         let routes = [
             CartographyRoute.editWorld,
             CartographyRoute.createPin(.zero),
-            CartographyRoute.pin(0, pin: .init(position: .zero, name: "Spawn")),
+            
+            CartographyRoute.pin(0, pin: CartographyMapPin(named: "Spawn", at: .zero)),
             CartographyRoute.recent(.init(x: 1, y: 1)),
         ]
         #if os(iOS)
@@ -36,7 +38,7 @@ struct CartographyRouteTests {
         let routes = [
             CartographyRoute.editWorld,
             CartographyRoute.createPin(.zero),
-            CartographyRoute.pin(0, pin: .init(position: .zero, name: "Spawn")),
+            CartographyRoute.pin(0, pin: CartographyMapPin(named: "Spawn", at: .zero)),
             CartographyRoute.recent(.init(x: 1, y: 1)),
         ]
         #if os(iOS)

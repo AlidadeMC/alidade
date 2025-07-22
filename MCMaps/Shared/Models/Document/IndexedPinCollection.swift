@@ -27,7 +27,7 @@ import MCMap
 /// }
 /// ```
 struct IndexedPinCollection {
-    fileprivate typealias InternalContainer = [MCMapManifestPin]
+    fileprivate typealias InternalContainer = [CartographyMapPin]
     /// A structure representing an element in the collection.
     struct Element: Identifiable {
         /// A unique identifier for the element.
@@ -37,13 +37,13 @@ struct IndexedPinCollection {
         var index: Int
 
         /// The contents of the pin.
-        var content: MCMapManifestPin
+        var content: CartographyMapPin
     }
 
-    private var elements: [MCMapManifestPin]
+    private var elements: [CartographyMapPin]
 
     /// Create a collection from an existing array of pins.
-    init(_ elements: [MCMapManifestPin]) {
+    init(_ elements: [CartographyMapPin]) {
         self.elements = elements
     }
 }
@@ -69,29 +69,29 @@ extension IndexedPinCollection: Hashable {
 }
 
 extension IndexedPinCollection: ExpressibleByArrayLiteral {
-    typealias ArrayLiteralElement = MCMapManifestPin
+    typealias ArrayLiteralElement = CartographyMapPin
 
-    init(arrayLiteral elements: MCMapManifestPin...) {
+    init(arrayLiteral elements: CartographyMapPin...) {
         self.init(elements)
     }
 }
 
 extension IndexedPinCollection: Collection {
-    typealias Index = [MCMapManifestPin].Index
+    typealias Index = [CartographyMapPin].Index
 
-    var startIndex: Array<MCMapManifestPin>.Index {
+    var startIndex: Array<CartographyMapPin>.Index {
         elements.startIndex
     }
 
-    var endIndex: Array<MCMapManifestPin>.Index {
+    var endIndex: Array<CartographyMapPin>.Index {
         elements.endIndex
     }
 
-    subscript(position: Array<MCMapManifestPin>.Index) -> Element {
+    subscript(position: Array<CartographyMapPin>.Index) -> Element {
         return Element(index: Int(position), content: elements[position])
     }
 
-    func index(after index: Array<MCMapManifestPin>.Index) -> Array<MCMapManifestPin>.Index {
+    func index(after index: Array<CartographyMapPin>.Index) -> Array<CartographyMapPin>.Index {
         elements.index(after: index)
     }
 }

@@ -29,7 +29,7 @@ extension CartographySearchService {
 }
 
 extension CartographySearchService.SearchFilterGroup {
-    func matchTags(for pin: MCMapManifestPin) -> Set<CartographySearchService.SearchFilter> {
+    func matchTags(for pin: CartographyMapPin) -> Set<CartographySearchService.SearchFilter> {
         var matches = Set<CartographySearchService.SearchFilter>()
         guard let pinTags = pin.tags else {
             return []

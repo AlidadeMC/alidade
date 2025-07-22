@@ -11,7 +11,7 @@ import SwiftUI
 /// A protocol used to register a cell for the ``RedWindowPinDetailView``.
 protocol RedWindowDetailCell: View {
     /// The pin being displayed or edited.
-    var pin: MCMapManifestPin { get set }
+    var pin: CartographyMapPin { get set }
 
     /// Whether the view is in editing mode.
     var isEditing: Bool { get set }

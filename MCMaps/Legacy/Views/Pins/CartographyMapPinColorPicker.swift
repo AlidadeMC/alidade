@@ -18,20 +18,26 @@ import SwiftUI
 /// back-propagate the color value to the pin.
 struct CartographyMapPinColorPicker: View {
     /// The color the picker will select.
-    @Binding var color: MCMapManifestPin.Color?
+    @Binding var color: CartographyMapPin.Color?
     @State private var swiftUIColor = Color.blue
 
     var availableColors: [Color] {
-        MCMapManifestPin.Color.allCases.map(\.swiftUIColor)
+        CartographyMapPin.Color.allCases.map(\.swiftUIColor)
     }
 
     var body: some View {
         FiniteColorPicker("", selection: $swiftUIColor, in: availableColors)
             .onChange(of: swiftUIColor) { _, newValue in
-                for suiColor in MCMapManifest.Pin.Color.allCases where suiColor.swiftUIColor == newValue {
+                for suiColor in CartographyMapPin.Color.allCases where suiColor.swiftUIColor == newValue {
                     color = suiColor
                     return
                 }
             }
+    }
+}
+
+extension CartographyMapPin.Color: @retroactive CaseIterable {
+    public static var allCases: [CartographyMapPin.Color] {
+        [.red, .orange, .yellow, .green, .blue, .indigo, .gray, .pink, .brown]
     }
 }

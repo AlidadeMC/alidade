@@ -11,15 +11,13 @@ import SwiftUI
 /// The cell used to display and edit a pin's description.
 struct RedWindowDescriptionCell: RedWindowDetailCell {
     /// The pin whose description is being modified.
-    @Binding var pin: MCMapManifestPin
+    @Binding var pin: CartographyMapPin
 
     /// Whether the edit mode has been activated.
     @Binding var isEditing: Bool
 
     /// The file that contains the pin being edited.
     @Binding var file: CartographyMapFile
-
-    @State private var description = ""
 
     var body: some View {
         Group {
@@ -28,10 +26,10 @@ struct RedWindowDescriptionCell: RedWindowDetailCell {
                 .bold()
                 .padding(.top)
             if isEditing {
-                TextEditor(text: $description)
+                TextEditor(text: $pin.description)
                     .frame(minHeight: 200)
                     .overlay(alignment: .topLeading) {
-                        if description.isEmpty {
+                        if pin.description.isEmpty {
                             Text("Write a description about this place.")
                                 .foregroundStyle(.secondary)
                                 .padding(.leading, 4)
@@ -40,26 +38,18 @@ struct RedWindowDescriptionCell: RedWindowDetailCell {
                     }
             } else {
                 Group {
-                    if description.isEmpty {
+                    if pin.description.isEmpty {
                         ContentUnavailableView(
                             "No Description Written",
                             systemImage: "pencil",
                             description: Text("Write a description for what makes this place special."))
                     } else {
-                        Text(description)
+                        Text(pin.description)
                             .padding(.top)
                     }
                 }
                 .fontDesign(.serif)
             }
-        }
-        .task {
-            if let aboutDescription = pin.aboutDescription {
-                description = aboutDescription
-            }
-        }
-        .onChange(of: description, initial: false) { _, newValue in
-            pin.aboutDescription = newValue
         }
     }
 }

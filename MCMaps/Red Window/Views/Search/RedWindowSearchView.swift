@@ -58,7 +58,7 @@ struct RedWindowSearchView: View {
                         location: pinCreationRequest.position,
                         initialName: pinCreationRequest.name
                     ) { newPin in
-                        file.manifest.pins.append(newPin)
+                        file.pins.append(newPin)
                     }
                     #if os(macOS)
                         .formStyle(.grouped)

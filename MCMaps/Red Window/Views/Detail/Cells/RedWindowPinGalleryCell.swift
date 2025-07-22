@@ -13,7 +13,7 @@ import SwiftUI
 /// This is a read-only cell, and the ``isEditing`` property has no effect on this view.
 struct RedWindowPinGalleryCell: RedWindowDetailCell {
     /// The pin from whose images are being displayed.
-    @Binding var pin: MCMapManifestPin
+    @Binding var pin: CartographyMapPin
 
     /// Whether the view is in editing mode.
     /// - Note: This property has no effect on this view.
@@ -31,7 +31,7 @@ struct RedWindowPinGalleryCell: RedWindowDetailCell {
             if let images = pin.images, !images.isEmpty {
                 ScrollView(.horizontal) {
                     HStack {
-                        ForEach(images, id: \.self) { image in
+                        ForEach(Array(images), id: \.self) { image in
                             if let imageData = getImage(named: image) {
                                 Image(data: imageData)
                                     .resizable()

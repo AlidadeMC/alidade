@@ -18,31 +18,44 @@ extension CartographyMapFile {
         CartographyMapFile(
             withManifest: MCMapManifest(
                 name: "Augenwaldburg",
-                worldSettings: MCMapManifestWorldSettings(version: "1.21", seed: 184719632014),
-                pins: [
-                    MCMapManifestPin(
-                        position: CGPoint(x: 1847, y: 1847),
-                        name: "Letztes Jahr",
-                        color: .gray,
-                        images: ["letztes-jahr"],
-                        aboutDescription: "I am an old woman; I'm yesterday's news. I dream in black and white, and see it all through laser eyes.",
-                        tags: []
-                    ),
-                    MCMapManifestPin(position: CGPoint(x: 1963, y: 1963), name: "KLB Electronics", color: .pink),
-                    MCMapManifestPin(position: CGPoint(x: 2014, y: 2014), name: "Café Trommeln", color: .brown)
-                ]
+                worldSettings: MCMapManifestWorldSettings(version: "1.21", seed: 184_719_632_014),
+                pins: []
             ),
+            pins: [
+                CartographyMapPin(
+                    named: "Letztes Jahr",
+                    at: CGPoint(x: 1847, y: 1847),
+                    color: .gray,
+                    icon: .home,
+                    description:
+                        "I am an old woman; I'm yesterday's news. I dream in black and white, and see it all through laser eyes.",
+                    images: ["letztes-jahr"],
+                    tags: []
+                ),
+                CartographyMapPin(
+                    named: "KLB Electronics",
+                    at: CGPoint(x: 1963, y: 1963),
+                    color: .pink,
+                    icon: .building
+                ),
+                CartographyMapPin(
+                    named: "Café Trommeln",
+                    at: CGPoint(x: 2014, y: 2014),
+                    color: .brown,
+                    icon: .emoji("☕️")
+                ),
+            ],
             images: [
                 "letztes-jahr": NSDataAsset(name: "hero-sample")?.data ?? Data()
             ]
-)
+        )
     }
 
     /// A preview version of a map pin.
     ///
     /// This is intended to be used for SwiftUI previews.
-    static var previewPin: MCMapManifestPin {
-        Self.preview.manifest.pins[0]
+    static var previewPin: CartographyMapPin {
+        Self.preview.pins[0]
     }
 }
 

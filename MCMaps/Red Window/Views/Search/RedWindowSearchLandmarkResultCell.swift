@@ -40,7 +40,7 @@ struct RedWindowSearchLandmarkResultCell: View {
     @Binding var request: RedWindowSearchView.PinCreationRequest
 
     /// The landmark that will be represented in the cell.
-    var landmark: MCMapManifestPin
+    var landmark: CartographyMapPin
 
     /// The type of the landmark being represented in the cell.
     var landmarkType: LandmarkType
@@ -71,7 +71,7 @@ struct RedWindowSearchLandmarkResultCell: View {
                 }
             } else {
                 Button("Get Info", systemImage: "info.circle") {
-                    redWindowEnvironment.currentRoute = .pin(landmark)
+                    redWindowEnvironment.currentRoute = .pin(landmark.id)
                 }
             }
         }

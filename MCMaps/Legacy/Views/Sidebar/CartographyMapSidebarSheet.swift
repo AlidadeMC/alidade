@@ -74,7 +74,7 @@ struct CartographyMapSidebarSheet<T: ToolbarContent>: View {
                     }
             case let .createPin(location):
                 PinCreatorForm(location: location) { newPin in
-                    file.manifest.pins.append(newPin)
+                    file.pins.append(newPin)
                 }
             case .editWorld:
                 MapCreatorForm(

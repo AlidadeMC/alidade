@@ -22,7 +22,7 @@ struct RedWindowPinHeader: RedWindowDetailCell {
     }
 
     /// The pin to display the header for and allow editing of the title.
-    @Binding var pin: MCMapManifestPin
+    @Binding var pin: CartographyMapPin
 
     /// Whether the view is in editing mode.
     @Binding var isEditing: Bool

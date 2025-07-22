@@ -13,7 +13,7 @@ import SwiftUI
 /// This cell is read-only, and the ``isEditing`` property has no effect on this cell.
 struct RedWindowPinTagsCell: RedWindowDetailCell {
     /// The pin to display the tags for.
-    @Binding var pin: MCMapManifestPin
+    @Binding var pin: CartographyMapPin
 
     /// Whether the view is in editing mode.
     /// - Note: This property has no effect on this view.

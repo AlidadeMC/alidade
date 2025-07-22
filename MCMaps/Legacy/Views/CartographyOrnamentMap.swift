@@ -87,7 +87,7 @@ struct CartographyOrnamentMap: View {
                         centerCoordinate: $centerCoordinate,
                         dimension: viewModel.worldDimension
                     ) {
-                        file.manifest.pins.map { pin in
+                        file.pins.map { pin in
                             Marker(
                                 location: pin.position,
                                 title: pin.name,

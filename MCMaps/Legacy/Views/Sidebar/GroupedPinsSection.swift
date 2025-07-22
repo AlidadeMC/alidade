@@ -20,7 +20,7 @@ struct GroupedPinsSection: View {
     var name: LocalizedStringKey = "Structures"
 
     /// The structures from the search results.
-    var pins: [MCMapManifestPin]
+    var pins: [CartographyMapPin]
 
     /// The view model the sidebar will interact with.
     @Binding var viewModel: CartographyMapViewModel
@@ -31,7 +31,7 @@ struct GroupedPinsSection: View {
     @Binding var file: CartographyMapFile
 
     /// A completion handler that executes when the player has jumped to a pin.
-    var jumpedToPin: ((MCMapManifestPin) -> Void)?
+    var jumpedToPin: ((CartographyMapPin) -> Void)?
 
     var body: some View {
         Section(name) {

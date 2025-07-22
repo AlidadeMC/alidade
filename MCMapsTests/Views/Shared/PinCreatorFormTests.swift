@@ -5,6 +5,7 @@
 //  Created by Marquis Kurt on 09-02-2025.
 //
 
+import MCMap
 import SwiftUI
 import Testing
 import ViewInspector
@@ -24,7 +25,9 @@ struct PinCreatorFormTests {
     @Test func formSubmit() throws {
         let form =
             PinCreatorForm(location: .zero) { newPin in
-                #expect(newPin == .init(position: .zero, name: "Pin", color: .blue))
+                #expect(newPin.name == "Pin")
+                #expect(newPin.color == .blue)
+                #expect(newPin.position == .zero)
             }
         let sut = try form.inspect()
         let doneButton = try sut.find(button: "Create")

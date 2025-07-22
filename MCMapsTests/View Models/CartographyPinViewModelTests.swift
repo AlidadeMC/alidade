@@ -14,7 +14,7 @@ import ViewInspector
 
 struct CartographyPinViewModelTests {
     private struct PinModifierView: View {
-        @Binding var pin: MCMapManifestPin
+        @Binding var pin: CartographyMapPin
 
         var body: some View {
             Text(pin.name)
@@ -32,7 +32,7 @@ struct CartographyPinViewModelTests {
 
         #expect(vm.testHooks.file.wrappedValue == file)
         #expect(vm.testHooks.index == 0)
-        #expect(vm.pin.wrappedValue == file.manifest.pins[0])
+        #expect(vm.pin.wrappedValue == file.pins[0])
         #expect(vm.images().isEmpty)
         #expect(vm.pinLocationLabel == "(0, 0)")
     }
@@ -47,7 +47,7 @@ struct CartographyPinViewModelTests {
         let sut = try view.inspect().text()
         try sut.callOnAppear()
 
-        #expect(fileBinding.wrappedValue.manifest.pins[0].name == "Geschlossene Erinnerungen")
+        #expect(fileBinding.wrappedValue.pins[0].name == "Geschlossene Erinnerungen")
     }
 
     @Test(.tags(.viewModel))
@@ -63,7 +63,7 @@ struct CartographyPinViewModelTests {
         vm.uploadImage(data)
 
         #expect(!fileBinding.wrappedValue.images.isEmpty)
-        #expect(fileBinding.wrappedValue.manifest.pins[0].images?.count == 1)
+        #expect(fileBinding.wrappedValue.pins[0].images?.count == 1)
     }
 
     @Test(.tags(.viewModel))
@@ -74,13 +74,13 @@ struct CartographyPinViewModelTests {
         #expect(vm.pinAboutDescription.wrappedValue == "")
 
         vm.pinAboutDescription.wrappedValue = "This is the spawn point."
-        #expect(fileBinding.wrappedValue.manifest.pins[0].aboutDescription == "This is the spawn point.")
+        #expect(fileBinding.wrappedValue.pins[0].description == "This is the spawn point.")
     }
 
     @Test(.tags(.viewModel))
     func viewModelPinLabels() async throws {
         var file = CartographyMapFile(withManifest: .sampleFile)
-        file.manifest.pins[0].position = CGPoint(x: 1847, y: 1847)
+        file.pins[0].position = CGPoint(x: 1847, y: 1847)
         let fileBinding: Binding<CartographyMapFile> = .init(wrappedValue: file)
         let vm = CartographyPinViewModel(file: fileBinding, index: 0)
 

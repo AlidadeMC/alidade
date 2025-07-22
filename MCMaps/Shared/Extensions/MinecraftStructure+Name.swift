@@ -78,7 +78,7 @@ extension MinecraftStructure {
     /// The pin color associated with the structure.
     ///
     /// This is used in the sidebar to display a unique color based on the structure type.
-    var pinColor: MCMapManifestPin.Color {
+    var pinColor: CartographyMapPin.Color {
         switch self {
         case .desertWell, .desertPyramid:
             return .yellow

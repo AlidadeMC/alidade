@@ -58,7 +58,7 @@ struct LegacyContentView: View {
                 case .createPin(let cgPoint):
                     NavigationStack {
                         PinCreatorForm(location: cgPoint) { pin in
-                            file.manifest.pins.append(pin)
+                            file.pins.append(pin)
                         }
                         .formStyle(.grouped)
                     }

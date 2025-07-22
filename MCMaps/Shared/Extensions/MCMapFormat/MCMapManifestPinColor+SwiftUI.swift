@@ -8,7 +8,7 @@
 import MCMap
 import SwiftUI
 
-extension MCMapManifestPin.Color {
+extension CartographyMapPin.Color {
     /// A SwiftUI color that matches the given color.
     var swiftUIColor: SwiftUI.Color {
         switch self {

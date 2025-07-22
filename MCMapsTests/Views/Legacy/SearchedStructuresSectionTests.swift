@@ -21,10 +21,11 @@ struct SearchedStructuresSectionTests {
         let viewModel = Binding(wrappedValue: CartographyMapViewModel())
         let file = Binding(wrappedValue: CartographyMapFile(withManifest: .sampleFile))
         let section = GroupedPinsSection(
-            pins: [.init(position: .zero, name: "Mineshaft")],
+            pins: [CartographyMapPin(named: "Mineshaft", at: .zero)],
             viewModel: viewModel,
             file: file) { location in
-                #expect(location == .init(position: .zero, name: "Mineshaft"))
+                #expect(location.name == "Mineshaft")
+                #expect(location.position == .zero)
             }
         let sut = try section.inspect()
 

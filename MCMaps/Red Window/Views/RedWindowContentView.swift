@@ -109,17 +109,17 @@ struct RedWindowContentView: View {
                 #if os(iOS)
                     .customizationBehavior(.disabled, for: .sidebar)
                 #endif
-                ForEach(IndexedPinCollection(file.manifest.pins)) { (mapPin: IndexedPinCollection.Element) in
+                ForEach(IndexedPinCollection(file.pins)) { (mapPin: IndexedPinCollection.Element) in
                     Tab(
                         mapPin.content.name,
                         systemImage: "mappin",
-                        value: RedWindowRoute.pin(mapPin.content)
+                        value: RedWindowRoute.pin(mapPin.content.id)
                     ) {
                         NavigationStack {
                             RedWindowPinDetailView(pin: Binding {
-                                return file.manifest.pins[mapPin.index]
+                                return file.pins[mapPin.index]
                             } set: { newValue in
-                                file.manifest.pins[mapPin.index] = newValue
+                                file.pins[mapPin.index] = newValue
                             }, file: $file)
                         }
                     }

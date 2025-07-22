@@ -34,7 +34,8 @@ struct CartographySearchServiceTests {
 
         let results = await service.search(for: query, in: SearchContext(world: world, file: file))
         #expect(results.pins.count == 1)
-        #expect(results.pins.first == .init(position: .zero, name: "Spawn"))
+        #expect(results.pins.first?.name == "Spawn")
+        #expect(results.pins.first?.position == .zero)
     }
 
     @Test(arguments: ["test", ""])
@@ -43,10 +44,10 @@ struct CartographySearchServiceTests {
         var file = CartographyMapFile(withManifest: .sampleFile)
         let service = CartographySearchService()
 
-        file.manifest.pins.append(contentsOf: [
-            MCMapManifestPin(position: CGPoint(x: 12, y: 12), name: "Testing", tags: ["Tag", "Forest"]),
-            MCMapManifestPin(position: CGPoint(x: 10, y: 10), name: "Testing Grounds", tags: ["Base"]),
-            MCMapManifestPin(position: CGPoint(x: 11, y: 11), name: "Test Test", tags: ["Tag"])
+        file.pins.append(contentsOf: [
+            CartographyMapPin(named: "Testing", at: CGPoint(x: 12, y: 12), tags: ["Tag", "Forest"]),
+            CartographyMapPin(named: "Testing Grounds", at: CGPoint(x: 10, y: 10), tags: ["Base"]),
+            CartographyMapPin(named: "Test Test", at: CGPoint(x: 11, y: 11), tags: ["Tag"])
         ])
 
         let results = await service.search(

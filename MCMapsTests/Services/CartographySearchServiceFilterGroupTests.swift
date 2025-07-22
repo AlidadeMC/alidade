@@ -24,7 +24,7 @@ struct CartographySearchServiceFilterGroupTests {
 
     @Test func matchTags() async throws {
         let group = SearchFilterGroup(filters: [.tag("Foo"), .tag("Bar"), .tag("Baz")])
-        let pin = MCMapManifestPin(position: .zero, name: "Spawn", tags: ["Foo", "Baz"])
+        let pin = CartographyMapPin(named: "Spawn", at: .zero, tags: ["Foo", "Baz"])
 
         let matches = group.matchTags(for: pin)
         #expect(matches.count == 2)

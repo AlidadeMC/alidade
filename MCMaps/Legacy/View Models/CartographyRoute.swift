@@ -18,7 +18,7 @@ enum CartographyRoute: Equatable, Hashable, Identifiable {
     var id: UUID { UUID() }
 
     /// A player-pinned location at a specified index in the file.
-    case pin(Int, pin: MCMapManifestPin)
+    case pin(Int, pin: CartographyMapPin)
 
     /// A location the player has visited before.
     case recent(CGPoint)

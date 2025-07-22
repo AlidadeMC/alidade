@@ -65,7 +65,7 @@ struct CartographyMapSidebar: View {
         }
         .frame(minWidth: 175, idealWidth: 200)
         .onAppear {
-            if file.manifest.pins.isEmpty {
+            if file.pins.isEmpty {
                 Task {
                     await PinActionOnboardingTip.libraryEmpty.donate()
                 }
@@ -82,7 +82,7 @@ struct CartographyMapSidebar: View {
             }
         }
 
-        .onChange(of: file.manifest.pins) { _, newValue in
+        .onChange(of: file.pins) { _, newValue in
             if !newValue.isEmpty {
                 LocalTips.emptyLibrary.invalidate(reason: .actionPerformed)
             }
@@ -148,8 +148,8 @@ struct CartographyMapSidebar: View {
                     viewModel.go(to: position, relativeTo: file)
                 }
             }
-            if !file.manifest.pins.isEmpty {
-                PinnedLibrarySection(pins: file.manifest.pins, viewModel: $viewModel, file: $file)
+            if !file.pins.isEmpty {
+                PinnedLibrarySection(pins: file.pins, viewModel: $viewModel, file: $file)
             }
         }
     }

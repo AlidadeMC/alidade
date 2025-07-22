@@ -45,7 +45,9 @@ public enum Testchamber {
         when target: @escaping () throws -> Void
     ) {
         #if RED_WINDOW
-        withKnownIssue(comment, isIntermittent: true, sourceLocation: sourceLocation, target)
+        withKnownIssue(comment, isIntermittent: true, sourceLocation: sourceLocation) {
+            try target()
+        }
         #else
         #expect(throws: Never.self, sourceLocation: sourceLocation) {
             try target()

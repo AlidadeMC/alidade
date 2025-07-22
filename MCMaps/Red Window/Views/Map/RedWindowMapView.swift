@@ -18,7 +18,8 @@ private let logger = Logger(subsystem: "net.marquiskurt.mcmaps", category: "map.
 ///
 /// Much like the original map view, this map view allows players to navigate around their world in a map view using
 /// MapKit. Depending on whether the integration is enabled, markers from Bluemap are also displayed in this view. A
-/// timer is automatically created at initialization to periodically refresh the data at the time that the player requests.
+/// timer is automatically created at initialization to periodically refresh the data at the time that the player
+/// requests.
 ///
 /// Players can also quickly switch between dimensions, jump to locations, and create a pin.
 struct RedWindowMapView: View {
@@ -70,7 +71,7 @@ struct RedWindowMapView: View {
                         centerCoordinate: $env.mapCenterCoordinate,
                         dimension: env.currentDimension
                     ) {
-                        file.manifest.pins.map { mapPin in
+                        file.pins.map { mapPin in
                             Marker(
                                 location: mapPin.position,
                                 title: mapPin.name,
@@ -121,7 +122,7 @@ struct RedWindowMapView: View {
             .sheet(isPresented: $displayPinForm) {
                 NavigationStack {
                     PinCreatorForm(location: env.mapCenterCoordinate.rounded()) { newPin in
-                        file.manifest.pins.append(newPin)
+                        file.pins.append(newPin)
                     }
                     #if os(macOS)
                         .formStyle(.grouped)

@@ -16,7 +16,7 @@ import SwiftUI
 @available(iOS, introduced: 18.0, deprecated: 26.0)
 struct PinnedLibrarySection: View {
     /// The player-created pins to display.
-    var pins: [MCMapManifestPin]
+    var pins: [CartographyMapPin]
 
     /// The view model the sidebar will interact with.
     @Binding var viewModel: CartographyMapViewModel
@@ -25,11 +25,11 @@ struct PinnedLibrarySection: View {
     @Binding var file: CartographyMapFile
 
     @State private var displayDeletionPrompt = false
-    @State private var deletionIndex: [MCMapManifestPin].Index?
+    @State private var deletionIndex: [CartographyMapPin].Index?
 
     var body: some View {
         Section("Library") {
-            ForEach(Array(pins.enumerated()), id: \.element) { (idx: Int, pin: MCMapManifestPin) in
+            ForEach(Array(pins.enumerated()), id: \.element) { (idx: Int, pin: CartographyMapPin) in
                 NavigationLink(value: CartographyRoute.pin(idx, pin: pin)) {
                     NamedLocationView(pin: pin)
                         .tag(CartographyRoute.pin(idx, pin: pin))
@@ -98,7 +98,7 @@ struct PinnedLibrarySection: View {
             Button(role: .destructive) {
                 displayDeletionPrompt = false
                 if let deletionIndex {
-                    file.removePin(at: deletionIndex)
+                    file.removePinFromLibrary(at: deletionIndex)
                 }
                 self.deletionIndex = nil
             } label: {
@@ -111,17 +111,17 @@ struct PinnedLibrarySection: View {
 
     private var deletionPinName: String {
         if let deletionIndex {
-            return file.manifest.pins[deletionIndex].name
+            return file.pins[deletionIndex].name
         }
         return String(localized: "this pin")
     }
 
     private func recolorPins(
-        to color: MCMapManifestPin.Color,
-        where predicate: @escaping (MCMapManifestPin) -> Bool
+        to color: CartographyMapPin.Color,
+        where predicate: @escaping (CartographyMapPin) -> Bool
     ) {
-        for (index, pin) in file.manifest.pins.enumerated() where predicate(pin) {
-            file.manifest.pins[index].color = color
+        for (index, pin) in file.pins.enumerated() where predicate(pin) {
+            file.pins[index].color = color
         }
     }
 }
