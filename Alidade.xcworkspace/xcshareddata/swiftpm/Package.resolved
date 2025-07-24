@@ -34,7 +34,7 @@
       "location" : "https://github.com/AlidadeMC/mcmap.git",
       "state" : {
         "branch" : "main",
-        "revision" : "33de9e39455a16592f62ad2f84ee90ece6695c02"
+        "revision" : "055175ec8475efb0dccde3c661840ddad4af2c62"
       }
     },
     {
@@ -51,8 +51,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-collections.git",
       "state" : {
-        "revision" : "c1805596154bb3a265fd91b8ac0c4433b4348fb0",
-        "version" : "1.2.0"
+        "revision" : "8c0c0a8b49e080e54e5e328cc552821ff07cd341",
+        "version" : "1.2.1"
       }
     },
     {

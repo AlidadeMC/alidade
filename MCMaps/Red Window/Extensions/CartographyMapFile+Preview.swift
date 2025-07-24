@@ -42,7 +42,7 @@ extension CartographyMapFile {
                     named: "Café Trommeln",
                     at: CGPoint(x: 2014, y: 2014),
                     color: .brown,
-                    icon: .emoji("☕️")
+                    icon: .forkAndKnife
                 ),
             ],
             images: [
