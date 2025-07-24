@@ -51,8 +51,12 @@ struct RedWindowSearchLandmarkResultCell: View {
             Text(landmark.position.accessibilityReadout)
                 .foregroundStyle(.secondary)
         } icon: {
-            Image(systemName: landmarkType.symbol)
-                .foregroundStyle(landmark.color?.swiftUIColor ?? .accent)
+            Image(
+                systemName: landmarkType == .pin
+                    ? landmark.icon?.resolveSFSymbol(in: .pin) ?? "mappin"
+                    : landmarkType.symbol
+            )
+            .foregroundStyle(landmark.color?.swiftUIColor ?? .accent)
         }
         .onTapGesture {
             redWindowEnvironment.mapCenterCoordinate = landmark.position
