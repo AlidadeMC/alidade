@@ -28,6 +28,8 @@ public struct NamedLocationView: View {
     var systemImage: String
     var color: Color
 
+    @ScaledMetric private var baseScale = 1.0
+
     init(
         name: String,
         location: CGPoint,
@@ -59,6 +61,7 @@ public struct NamedLocationView: View {
             Image(systemName: systemImage)
                 .foregroundStyle(.white)
                 .padding(6)
+                .frame(width: 28 * baseScale, height: 28 * baseScale)
                 .background(Circle().fill(color))
             VStack(alignment: .leading) {
                 Text(name)

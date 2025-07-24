@@ -51,6 +51,9 @@ class CartographyPinViewModel {
     /// mirrors the ``MCMapManifestPin/tags`` property, providing an empty set if it wasn't defined before.
     var pinTags: Binding<Set<String>>
 
+    /// A binding to the pin's icon.
+    var pinIcon: Binding<CartographyIcon>
+    
     /// A label that can be used to describe the pin's current position.
     var pinLocationLabel: String {
         let location = pin.wrappedValue.position
@@ -98,6 +101,16 @@ class CartographyPinViewModel {
                 return
             }
             file.wrappedValue.pins[index].tags = newValue
+        }
+
+        self.pinIcon = Binding {
+            guard file.wrappedValue.supportedFeatures.contains(.pinIcons) else {
+                return .default
+            }
+            return file.wrappedValue.pins[index].icon ?? .default
+        } set: { newValue in
+            guard file.wrappedValue.supportedFeatures.contains(.pinIcons) else { return }
+            file.wrappedValue.pins[index].icon = newValue
         }
     }
 

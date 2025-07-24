@@ -112,7 +112,7 @@ struct RedWindowContentView: View {
                 ForEach(IndexedPinCollection(file.pins)) { (mapPin: IndexedPinCollection.Element) in
                     Tab(
                         mapPin.content.name,
-                        systemImage: "mappin",
+                        systemImage: mapPin.content.icon?.resolveSFSymbol(in: .pin) ?? "mappin",
                         value: RedWindowRoute.pin(mapPin.content.id)
                     ) {
                         NavigationStack {

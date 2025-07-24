@@ -399,6 +399,9 @@
     "Pin Here..." : {
 
     },
+    "Pin Icon" : {
+
+    },
     "Pin Inspector" : {
 
     },
@@ -456,10 +459,16 @@
     "Search" : {
 
     },
+    "Search..." : {
+
+    },
     "Searching..." : {
 
     },
     "Seed" : {
+
+    },
+    "Select an Icon" : {
 
     },
     "Send %@ Feedback" : {

@@ -75,7 +75,8 @@ struct RedWindowMapView: View {
                             Marker(
                                 location: mapPin.position,
                                 title: mapPin.name,
-                                color: mapPin.color?.swiftUIColor ?? .accent
+                                color: mapPin.color?.swiftUIColor ?? .accent,
+                                systemImage: mapPin.icon?.resolveSFSymbol(in: .pin) ?? "mappin"
                             )
                         }
                         integrationAnnotations

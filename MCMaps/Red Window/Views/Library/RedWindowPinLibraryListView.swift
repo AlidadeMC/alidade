@@ -6,6 +6,7 @@
 //
 
 import CubiomesKit
+import MCMap
 import SwiftUI
 
 /// A collection view that displays player-created pins in a list layout.
@@ -29,6 +30,7 @@ struct RedWindowPinLibraryListView: View {
     var pins: IndexedPinCollection
 
     @State private var selection = Set<IndexedPinCollection.Element.ID>()
+    @ScaledMetric private var baseScale = 1.0
 
     var body: some View {
         Table(pins, selection: $selection) {
@@ -43,8 +45,9 @@ struct RedWindowPinLibraryListView: View {
                         }
                     }
                 } icon: {
-                    Image(systemName: "mappin")
+                    Image(cartographyIcon: val.content.icon ?? .default, in: .pin)
                         .foregroundStyle(val.content.color?.swiftUIColor ?? .accent)
+                        .frame(width: 28 * baseScale)
                 }
             }
             TableColumn("Location", value: \.content.position.accessibilityReadout)

@@ -33,6 +33,9 @@ struct RedWindowPinDetailView: View {
     @State private var center = CGPoint.zero
     @State private var color = CartographyMapPin.Color.blue
     @State private var editMode = false
+    @State private var icon = CartographyIcon.default
+
+    @State private var presentIconPicker = false
     @State private var presentTagEditor = false
 
     @State private var photosPickerItem: PhotosPickerItem?
@@ -66,6 +69,9 @@ struct RedWindowPinDetailView: View {
             if let pinTags = pin.tags {
                 tags = pinTags
             }
+            if let pinIcon = pin.icon {
+                icon = pinIcon
+            }
         }
         .onChange(of: color) { _, newValue in
             pin.color = newValue
@@ -73,6 +79,10 @@ struct RedWindowPinDetailView: View {
         .onChange(of: tags) { _, newValue in
             guard file.supportedFeatures.contains(.pinTagging) else { return }
             pin.tags = newValue
+        }
+        .onChange(of: icon) { _, newValue in
+            guard file.supportedFeatures.contains(.pinIcons) else { return }
+            pin.icon = newValue
         }
         .onChange(of: photosPickerItem) { _, newValue in
             guard let item = newValue else { return }
@@ -94,6 +104,12 @@ struct RedWindowPinDetailView: View {
                     #if os(macOS)
                         .formStyle(.grouped)
                     #endif
+            }
+        }
+        .sheet(isPresented: $presentIconPicker) {
+            NavigationStack {
+                CartographyIconPicker(icon: $icon, context: .pin)
+                    .navigationTitle("Select an Icon")
             }
         }
         .toolbar {
@@ -132,6 +148,12 @@ struct RedWindowPinDetailView: View {
                                 .tag(color)
                         }
                     }
+                }
+            }
+
+            ToolbarItem {
+                Button("Pin Icon", systemImage: "heart.text.square") {
+                    presentIconPicker.toggle()
                 }
             }
 
@@ -185,12 +207,13 @@ struct RedWindowPinDetailView: View {
             Divider()
             Group {
                 if let world = try? MinecraftWorld(version: "1.21.3", seed: 184_719_632_014) {
-                    MinecraftMap(world: world, centerCoordinate: $center) {
+                    MinecraftMap(world: world, centerCoordinate: .constant(pin.position)) {
                         Marker(location: .zero, title: "#nodraw")
                         Marker(
                             location: pin.position,
                             title: pin.name,
-                            color: pin.color?.swiftUIColor ?? .accent
+                            color: pin.color?.swiftUIColor ?? .accent,
+                            systemImage: pin.icon?.resolveSFSymbol(in: .pin) ?? "mappin"
                         )
                     }
                     .mapColorScheme(.natural)

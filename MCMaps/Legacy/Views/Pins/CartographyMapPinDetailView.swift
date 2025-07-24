@@ -32,6 +32,7 @@ struct CartographyMapPinDetailView: View {
         static let photosOnboarding = PinPhotoOnboardingTip()
     }
 
+    @State private var iconPicker = false
     @State private var photoItem: PhotosPickerItem?
     @State private var photoToUpdate: Image?
 
@@ -43,11 +44,25 @@ struct CartographyMapPinDetailView: View {
     var body: some View {
         List {
             VStack(alignment: .leading) {
-                TextField("Name", text: viewModel.pin.name)
-                    .allowsTightening(true)
-                    .font(.title)
-                    .bold()
-                    .textFieldStyle(.plain)
+                HStack {
+                    TextField("Name", text: viewModel.pin.name)
+                        .allowsTightening(true)
+                        .bold()
+                        .textFieldStyle(.plain)
+                        .font(.title)
+                    Button {
+                        iconPicker.toggle()
+                    } label: {
+                        Image(cartographyIcon: viewModel.pinIcon.wrappedValue, in: .pin)
+                            .font(.title)
+                    }
+                    .buttonStyle(.plain)
+                    .popover(isPresented: $iconPicker) {
+                        CartographyIconPicker(icon: viewModel.pinIcon, context: .pin)
+                            .frame(maxHeight: 450)
+                    }
+                }
+
                 HStack {
                     Label(viewModel.pinLocationLabel, systemImage: "tree")
                         .font(.subheadline)

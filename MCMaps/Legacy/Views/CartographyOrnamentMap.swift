@@ -91,7 +91,8 @@ struct CartographyOrnamentMap: View {
                             Marker(
                                 location: pin.position,
                                 title: pin.name,
-                                color: pin.color?.swiftUIColor ?? Color.accentColor
+                                color: pin.color?.swiftUIColor ?? Color.accentColor,
+                                systemImage: pin.icon?.resolveSFSymbol(in: .pin) ?? "mappin"
                             )
                         }
                         integrationAnnotations

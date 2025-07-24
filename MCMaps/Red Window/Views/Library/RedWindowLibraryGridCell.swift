@@ -46,7 +46,7 @@ struct RedWindowLibraryGridCell: View {
             .clipped()
             .clipShape(RoundedRectangle(cornerRadius: 10))
             .overlay {
-                Image(systemName: "mappin")
+                Image(cartographyIcon: pin.icon ?? .default, in: .pin)
                     .font(.title)
                     .foregroundStyle(.white)
             }
