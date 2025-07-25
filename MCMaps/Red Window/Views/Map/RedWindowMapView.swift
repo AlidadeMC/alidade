@@ -12,7 +12,7 @@ import MCMap
 import SwiftUI
 import os
 
-private let logger = Logger(subsystem: "net.marquiskurt.mcmaps", category: "map.red_window")
+private let logger = Logger(subsystem: "net.marquiskurt.mcmaps", category: "\(RedWindowMapView.self)")
 
 /// A view that displays a map of the current Minecraft world.
 ///
@@ -57,7 +57,7 @@ struct RedWindowMapView: View {
     init(file: Binding<CartographyMapFile>) {
         self._file = file
         let bmap = file.wrappedValue.integrations.bluemap
-        self.bmapTimer = Timer.publish(every: bmap.refreshRate, on: .main, in: .common).autoconnect()
+        self.bmapTimer = Timer.publish(every: bmap.refreshRate, tolerance: 0.5, on: .main, in: .common).autoconnect()
     }
 
     var body: some View {
@@ -89,6 +89,10 @@ struct RedWindowMapView: View {
             .animation(.interactiveSpring, value: integrationFetchState)
             .task {
                 await updateIntegrationData()
+            }
+            .onDisappear {
+                bmapTimer.upstream.connect().cancel()
+                logger.debug("⏰ Timer has been stopped.")
             }
             .onReceive(bmapTimer) { _ in
                 Task { await updateIntegrationData() }

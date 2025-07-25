@@ -126,6 +126,9 @@ struct CartographyOrnamentMap: View {
             .onReceive(bmapTimer) { _ in
                 Task { await updateIntegrationData() }
             }
+            .onDisappear {
+                bmapTimer.upstream.connect().cancel()
+            }
         } ornaments: {
             Ornament(alignment: Constants.locationBadgePlacement) {
                 VStack(alignment: .trailing) {
