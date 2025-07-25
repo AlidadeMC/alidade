@@ -44,14 +44,14 @@ public enum Testchamber {
         at sourceLocation: SourceLocation = #_sourceLocation,
         when target: @escaping () throws -> Void
     ) {
-        #if RED_WINDOW
-        withKnownIssue(comment, isIntermittent: true, sourceLocation: sourceLocation) {
-            try target()
+        if #available(iOS 19, macOS 16, *) {
+            withKnownIssue(comment, isIntermittent: true, sourceLocation: sourceLocation) {
+                try target()
+            }
+        } else {
+            #expect(throws: Never.self, sourceLocation: sourceLocation) {
+                try target()
+            }
         }
-        #else
-        #expect(throws: Never.self, sourceLocation: sourceLocation) {
-            try target()
-        }
-        #endif
     }
 }

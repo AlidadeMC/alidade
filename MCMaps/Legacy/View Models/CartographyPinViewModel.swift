@@ -53,7 +53,7 @@ class CartographyPinViewModel {
 
     /// A binding to the pin's icon.
     var pinIcon: Binding<CartographyIcon>
-    
+
     /// A label that can be used to describe the pin's current position.
     var pinLocationLabel: String {
         let location = pin.wrappedValue.position

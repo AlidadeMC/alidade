@@ -5,6 +5,7 @@
 //  Created by Marquis Kurt on 10-02-2025.
 //
 
+import MCMap
 import SwiftUI
 import Testing
 import ViewInspector
@@ -16,7 +17,7 @@ import ViewInspector
 struct CartographyNamedLocationViewTests {
     @Test(.tags(.legacyUI))
     func initalizeWithPin() throws {
-        let view = NamedLocationView(pin: .init(position: .zero, name: "Pin", color: .blue))
+        let view = NamedLocationView(pin: CartographyMapPin(named: "Pin", at: .zero, color: .blue))
 
         #expect(view.testHooks.name == "Pin")
         #expect(view.testHooks.location == .zero)

@@ -108,6 +108,7 @@ public struct FiniteColorPicker: View {
             Text(title)
             ForEach(colors, id: \.description) { color in
                 ColorChoiceButton(selection: $selection, color: color, colorStyle: colorStyle)
+                    .tag(color)
             }
             if allowCustomSelection {
                 ColorPicker("", selection: $selection)
