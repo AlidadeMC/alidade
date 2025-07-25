@@ -32,7 +32,6 @@ struct RedWindowContentView: View {
     @FeatureFlagged(.redWindow) private var useRedWindowDesign
 
     @State private var libraryNavigationPath = NavigationPath()
-    @State private var foo = ""
 
     private var subtitle: String {
         let seed = String(file.manifest.worldSettings.seed)

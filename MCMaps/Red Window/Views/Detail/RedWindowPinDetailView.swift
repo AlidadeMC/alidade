@@ -157,12 +157,6 @@ struct RedWindowPinDetailView: View {
                 }
             }
 
-            #if RED_WINDOW
-                if #available(macOS 16, iOS 19, *) {
-                    ToolbarSpacer(.fixed)
-                }
-            #endif
-
             ToolbarItem {
                 Button("Manage Tags", systemImage: "tag") {
                     presentTagEditor.toggle()
