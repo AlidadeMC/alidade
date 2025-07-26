@@ -27,6 +27,12 @@ struct RedWindowPinGalleryCell: RedWindowDetailCell {
 
     @State private var imageToPreview: URL?
 
+    private var imageURLs: [URL] {
+        pin.images?.compactMap { filename in
+            getUrl(forImageNamed: filename)
+        } ?? []
+    }
+
     var body: some View {
         Group {
             Text("Gallery")
@@ -57,7 +63,7 @@ struct RedWindowPinGalleryCell: RedWindowDetailCell {
                 ContentUnavailableView("No Photos Uploaded", systemImage: "photo.stack")
             }
         }
-        .quickLookPreview($imageToPreview)
+        .quickLookPreview($imageToPreview, in: imageURLs)
     }
 
     private func getImage(named name: String) -> Data? {

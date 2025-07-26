@@ -29,6 +29,12 @@ struct CartographyGalleryView: View {
     @State private var scaledToFill = true
     @State private var currentPhotoURL: URL?
 
+    private var imageURLs: [URL] {
+        context.imageCollection.compactMap { (key, _) in
+            getURL(forImageNamed: key)
+        }
+    }
+
     var body: some View {
         Group {
             if context.imageCollection.isEmpty {
@@ -40,7 +46,7 @@ struct CartographyGalleryView: View {
                     LazyVGrid(columns: columns, spacing: 2) {
                         ForEach(RandomAccessDictionary(context.imageCollection)) { element in
                             Button {
-                                prepareQuickLook(forImageNamed: element.key)
+                                currentPhotoURL = getURL(forImageNamed: element.key)
                             } label: {
                                 cell(for: element.value)
                                     .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -48,7 +54,7 @@ struct CartographyGalleryView: View {
                             .buttonStyle(.plain)
                             .contextMenu {
                                 Button("Preview Image") {
-                                    prepareQuickLook(forImageNamed: element.key)
+                                    currentPhotoURL = getURL(forImageNamed: element.key)
                                 }
                                 ShareLink(
                                     item: element.value,
@@ -66,7 +72,7 @@ struct CartographyGalleryView: View {
                 }
             }
         }
-        .quickLookPreview($currentPhotoURL)
+        .quickLookPreview($currentPhotoURL, in: imageURLs)
         .navigationTitle("Gallery")
         #if os(macOS)
         .navigationSubtitle(context.documentBaseURL?.lastPathComponent ?? "Untitled Map")
@@ -96,8 +102,7 @@ struct CartographyGalleryView: View {
             .aspectRatio(1, contentMode: .fit)
     }
 
-    private func prepareQuickLook(forImageNamed imageName: String) {
-        guard let baseURL = context.documentBaseURL else { return }
-        currentPhotoURL = baseURL.appending(components: CartographyMapFile.Keys.images, imageName)
+    private func getURL(forImageNamed name: String) -> URL? {
+        context.documentBaseURL?.appending(components: CartographyMapFile.Keys.images, name)
     }
 }

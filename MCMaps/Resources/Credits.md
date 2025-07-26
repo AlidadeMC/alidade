@@ -25,4 +25,4 @@ Alidade was made possible thanks to the following open-source projects:
 - femialiu
 - Jon Reid
 - Joe Graf (joeisanerd)
-
+- Morris Richman
