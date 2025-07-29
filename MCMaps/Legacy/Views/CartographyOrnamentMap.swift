@@ -6,7 +6,6 @@
 //
 
 import AsyncAlgorithms
-import Combine
 import CubiomesKit
 import MCMap
 import SwiftUI
@@ -51,7 +50,7 @@ struct CartographyOrnamentMap: View {
     @State private var integrationData = [IntegrationServiceType: any CartographyIntegrationServiceData]()
     @State private var integrationFetchState = IntegrationFetchState.initial
 
-    private let bmapTimer: Publishers.Autoconnect<Timer.TimerPublisher>
+    private let clock: CartographyClock
 
     private var integrationAnnotations: [any MinecraftMapBuilderContent] {
         var annotations = [any MinecraftMapBuilderContent]()
@@ -70,9 +69,11 @@ struct CartographyOrnamentMap: View {
         self._file = file
         self._viewModel = viewModel
 
-        self.bmapTimer = Timer
-            .publish(every: file.wrappedValue.integrations.bluemap.refreshRate, on: .main, in: .common)
-            .autoconnect()
+        self.clock = CartographyClock()
+        if file.wrappedValue.integrations.bluemap.enabled {
+            clock.setupTimer(for: .bluemap, with: file.wrappedValue.integrations.bluemap.refreshRate)
+        }
+        clock.restartTimers()
     }
 
     var body: some View {
@@ -123,18 +124,18 @@ struct CartographyOrnamentMap: View {
                     }
                 }
             }
-            .onReceive(bmapTimer) { _ in
+            .onReceive(clock.bluemap) { _ in
                 Task { await updateIntegrationData() }
             }
             .onDisappear {
-                bmapTimer.upstream.connect().cancel()
+                clock.cancelTimers()
             }
         } ornaments: {
             Ornament(alignment: Constants.locationBadgePlacement) {
                 VStack(alignment: .trailing) {
                     #if os(iOS)
-                    LocationBadge(location: centerCoordinate)
-                        .environment(\.contentTransitionAddsDrawingGroup, true)
+                        LocationBadge(location: centerCoordinate)
+                            .environment(\.contentTransitionAddsDrawingGroup, true)
                         HStack {
                             Menu {
                                 Toggle(isOn: $viewModel.renderNaturalColors) {
@@ -154,12 +155,12 @@ struct CartographyOrnamentMap: View {
                             LocalTips.dimensionPicker.invalidate(reason: .actionPerformed)
                         }
                     #else
-                    HStack(spacing: 0) {
-                        IntegrationFetchStateView(state: integrationFetchState)
-                            .padding(8)
-                        LocationBadge(location: centerCoordinate)
-                            .environment(\.contentTransitionAddsDrawingGroup, true)
-                    }
+                        HStack(spacing: 0) {
+                            IntegrationFetchStateView(state: integrationFetchState)
+                                .padding(8)
+                            LocationBadge(location: centerCoordinate)
+                                .environment(\.contentTransitionAddsDrawingGroup, true)
+                        }
                     #endif
                 }
             }

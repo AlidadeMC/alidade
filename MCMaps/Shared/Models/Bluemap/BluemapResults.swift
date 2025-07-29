@@ -61,7 +61,7 @@ extension BluemapResults: CartographyIntegrationServiceData {
         if let markers {
             for (markerGroup, group) in markers {
                 if markerGroup == "death-markers", configuration.displayOptions.contains(.deathMarkers) {
-                    let deathMarkers = group.markers.values.map { annotation in
+                    let deathMarkers = group.markers.map { (id, annotation) in
                         Marker(
                             location: CGPoint(x: annotation.position.x, y: annotation.position.z),
                             title: annotation.label,
@@ -74,7 +74,7 @@ extension BluemapResults: CartographyIntegrationServiceData {
                     continue
                 }
 
-                let mapMarkers = group.markers.values.map { annotation in
+                let mapMarkers = group.markers.map { (id, annotation) in
                     Marker(
                         location: CGPoint(x: annotation.position.x, y: annotation.position.z),
                         title: annotation.label,

@@ -6,7 +6,6 @@
 //
 
 import AlidadeUI
-import Combine
 import CubiomesKit
 import MCMap
 import SwiftUI
@@ -52,12 +51,15 @@ struct RedWindowMapView: View {
         return annotations
     }
 
-    private let bmapTimer: Publishers.Autoconnect<Timer.TimerPublisher>
+    private let clock = CartographyClock()
 
     init(file: Binding<CartographyMapFile>) {
         self._file = file
         let bmap = file.wrappedValue.integrations.bluemap
-        self.bmapTimer = Timer.publish(every: bmap.refreshRate, tolerance: 0.5, on: .main, in: .common).autoconnect()
+        if bmap.enabled {
+            clock.setupTimer(for: .bluemap, with: bmap.refreshRate)
+        }
+        clock.restartTimers()
     }
 
     var body: some View {
@@ -91,10 +93,9 @@ struct RedWindowMapView: View {
                 await updateIntegrationData()
             }
             .onDisappear {
-                bmapTimer.upstream.connect().cancel()
-                logger.debug("⏰ Timer has been stopped.")
+                clock.cancelTimers()
             }
-            .onReceive(bmapTimer) { _ in
+            .onReceive(clock.bluemap) { _ in
                 Task { await updateIntegrationData() }
             }
             .onChange(of: env.currentDimension, initial: false) { _, _ in

@@ -73,6 +73,22 @@ actor CartographyIntegrationService {
         case bluemap
     }
 
+    /// An enumeration of the types of sync requests.
+    enum SyncType {
+        /// Fetch data used for a regular context.
+        case regular
+
+        /// Fetch data used for realtime updates.
+        case realtime
+
+        fileprivate var logValue: String {
+            switch self {
+            case .regular: "Regular"
+            case .realtime: "Realtime"
+            }
+        }
+    }
+
     /// An enumeration of the errors that the service can throw when attempting to make requests.
     enum ServiceError: Error {
         /// The integration is disabled.
@@ -112,7 +128,8 @@ actor CartographyIntegrationService {
     /// Synchronize the current dataset from the integrations that the service supports, decoding the response.
     /// - Parameter dimension: The Minecraft world dimension to perform the synchronization operation under.
     func sync<Response: CartographyIntegrationServiceData>(
-        dimension: MinecraftWorld.Dimension
+        dimension: MinecraftWorld.Dimension,
+        syncType: SyncType = .regular
     ) async throws(ServiceError) -> Response? {
         guard integrationSettings.enabled else {
             logger.debug("☁️ Integrations are not enabled. Skipping fetch.")
@@ -121,27 +138,30 @@ actor CartographyIntegrationService {
 
         switch serviceType {
         case .bluemap:
-            self.logger.debug("☁️ Fetching data from Bluemap.")
-            let response = try await fetchBluemapData(dimension: dimension)
+            self.logger.debug("☁️ (\(syncType.logValue)) Fetching data from Bluemap.")
+            let response = try await fetchBluemapData(dimension: dimension, syncType: syncType)
             return response as? Response
         }
     }
 
-    private func fetchBluemapData(dimension: MinecraftWorld.Dimension) async throws(ServiceError) -> BluemapResults {
+    private func fetchBluemapData(
+        dimension: MinecraftWorld.Dimension,
+        syncType: SyncType = .regular
+    ) async throws(ServiceError) -> BluemapResults {
         let bluemapSettings = integrationSettings.bluemap
         guard bluemapSettings.enabled else {
-            logger.debug("☁️ Bluemap integration is not enabled. Skipping fetch.")
+            logger.debug("☁️ (\(syncType.logValue)) Bluemap integration is not enabled. Skipping fetch.")
             throw .integrationDisabled
         }
 
-        let itemsToFetch = bluemapSettings.displayOptions
+        let itemsToFetch = syncType == .realtime ? [.players] : bluemapSettings.displayOptions
         do {
             let response = await makeBluemapRequests(itemsToFetch: itemsToFetch, dimension: dimension)
             switch response {
             case .success(let results):
-                self.logger.debug("☁️ Results were fetched. Returning to sender.")
+                self.logger.debug("☁️ (\(syncType.logValue)) Results were fetched. Returning to sender.")
                 if results.isEmpty {
-                    self.logger.warning("☁️ Bluemap results don't contain anything.")
+                    self.logger.warning("☁️ (\(syncType.logValue)) Bluemap results don't contain anything.")
                 }
                 return results
             case .failure(let error):
