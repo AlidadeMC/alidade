@@ -22,7 +22,7 @@ struct BluemapIntegrationFormSection: View {
                 Text("Bluemap")
             } description: {
                 // swiftlint:disable:next line_length
-                Text("Show common points of interest and where players are on your Minecraft server from the Bluemap plugin.\n[Learn more...](http://example.com)")
+                Text("Show common points of interest and where players are on your Minecraft server from the Bluemap plugin.\n[Learn more…](http://example.com)")
             }
             Toggle("Enable Integration", isOn: $integration.enabled)
         } footer: {
@@ -44,8 +44,11 @@ struct BluemapIntegrationFormSection: View {
                 step: 5
             )
             .foregroundStyle(integration.enabled ? .primary : .secondary)
+            Toggle("Realtime Sync", isOn: $integration.realtime)
         } header: {
             Text("Bluemap Server")
+        } footer: {
+            Text("Update player locations more frequently with Realtime Sync. [Learn more…](https://example.com)")
         }
         .disabled(!integration.enabled)
 

@@ -154,6 +154,11 @@ actor CartographyIntegrationService {
             throw .integrationDisabled
         }
 
+        if syncType == .realtime, !bluemapSettings.realtime {
+            logger.debug("☁️ (\(syncType.logValue)) Bluemap realtime sync is not enabled. Skipping fetch.")
+            throw .integrationDisabled
+        }
+
         let itemsToFetch = syncType == .realtime ? [.players] : bluemapSettings.displayOptions
         do {
             let response = await makeBluemapRequests(itemsToFetch: itemsToFetch, dimension: dimension)

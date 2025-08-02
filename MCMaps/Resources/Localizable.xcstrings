@@ -426,6 +426,9 @@
     "Preview Image" : {
 
     },
+    "Realtime Sync" : {
+
+    },
     "Recents" : {
 
     },
@@ -483,7 +486,7 @@
     "Show All Tips" : {
 
     },
-    "Show common points of interest and where players are on your Minecraft server from the Bluemap plugin.\n[Learn more...](http://example.com)" : {
+    "Show common points of interest and where players are on your Minecraft server from the Bluemap plugin.\n[Learn more…](http://example.com)" : {
 
     },
     "Show in Finder" : {
@@ -550,6 +553,9 @@
 
     },
     "Type a tag above to create it." : {
+
+    },
+    "Update player locations more frequently with Realtime Sync. [Learn more…](https://example.com)" : {
 
     },
     "Update World" : {
