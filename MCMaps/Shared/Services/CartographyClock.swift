@@ -22,7 +22,7 @@ class CartographyClock {
     /// If the service is disabled or hasn't been set up with ``setupTimer(for:with:)``, this will almost never fire.
     var bluemap: Publishers.Autoconnect<Timer.TimerPublisher>
 
-    private let realtimeTimer = Timer.publish(every: 0.250, on: .main, in: .common)
+    private let realtimeTimer = Timer.publish(every: 0.5, on: .main, in: .common)
     private var bluemapTimer: Timer.TimerPublisher?
     private let stillFrame = Timer.publish(every: .greatestFiniteMagnitude, on: .main, in: .default)
 

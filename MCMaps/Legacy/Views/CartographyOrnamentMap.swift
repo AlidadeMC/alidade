@@ -92,6 +92,7 @@ struct CartographyOrnamentMap: View {
                             Marker(
                                 location: pin.position,
                                 title: pin.name,
+                                id: pin.id,
                                 color: pin.color?.swiftUIColor ?? Color.accentColor,
                                 systemImage: pin.icon?.resolveSFSymbol(in: .pin) ?? "mappin"
                             )
@@ -126,6 +127,9 @@ struct CartographyOrnamentMap: View {
             }
             .onReceive(clock.bluemap) { _ in
                 Task { await updateIntegrationData() }
+            }
+            .onReceive(clock.realtime) { _ in
+                Task { await updateRealtimeIntegrationData() }
             }
             .onDisappear {
                 clock.cancelTimers()
@@ -187,6 +191,22 @@ struct CartographyOrnamentMap: View {
             withAnimation {
                 integrationFetchState = .error(error.localizedDescription)
             }
+        }
+    }
+
+    private func updateRealtimeIntegrationData() async {
+        let service = CartographyIntegrationService(serviceType: .bluemap, integrationSettings: file.integrations)
+        do {
+            let result: BluemapResults? = try await service.sync(
+                dimension: viewModel.worldDimension,
+                syncType: .realtime
+            )
+            guard let result else { return }
+            if let currentData = integrationData[.bluemap] as? BluemapResults {
+                integrationData[.bluemap] = result.merged(with: currentData)
+            }
+        } catch {
+            print(error)
         }
     }
 }

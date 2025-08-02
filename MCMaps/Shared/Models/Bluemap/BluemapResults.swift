@@ -65,6 +65,7 @@ extension BluemapResults: CartographyIntegrationServiceData {
                         Marker(
                             location: CGPoint(x: annotation.position.x, y: annotation.position.z),
                             title: annotation.label,
+                            id: id,
                             color: .gray,
                             systemImage: "xmark.circle",
                             clusterIdentifier: "bmap-death-marker"
@@ -78,6 +79,7 @@ extension BluemapResults: CartographyIntegrationServiceData {
                     Marker(
                         location: CGPoint(x: annotation.position.x, y: annotation.position.z),
                         title: annotation.label,
+                        id: id,
                         clusterIdentifier: "bmap-server-marker")
                 }
                 annotations.append(contentsOf: mapMarkers)

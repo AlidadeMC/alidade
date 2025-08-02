@@ -202,10 +202,11 @@ struct RedWindowPinDetailView: View {
             Group {
                 if let world = try? MinecraftWorld(version: "1.21.3", seed: 184_719_632_014) {
                     MinecraftMap(world: world, centerCoordinate: .constant(pin.position)) {
-                        Marker(location: .zero, title: "#nodraw")
+                        Marker(location: .zero, title: "#nodraw", id: "nodraw")
                         Marker(
                             location: pin.position,
                             title: pin.name,
+                            id: pin.id,
                             color: pin.color?.swiftUIColor ?? .accent,
                             systemImage: pin.icon?.resolveSFSymbol(in: .pin) ?? "mappin"
                         )

@@ -77,6 +77,7 @@ struct RedWindowMapView: View {
                             Marker(
                                 location: mapPin.position,
                                 title: mapPin.name,
+                                id: mapPin.id,
                                 color: mapPin.color?.swiftUIColor ?? .accent,
                                 systemImage: mapPin.icon?.resolveSFSymbol(in: .pin) ?? "mappin"
                             )
@@ -97,6 +98,9 @@ struct RedWindowMapView: View {
             }
             .onReceive(clock.bluemap) { _ in
                 Task { await updateIntegrationData() }
+            }
+            .onReceive(clock.realtime) { _ in
+                Task { await updateRealtimeIntegrationData() }
             }
             .onChange(of: env.currentDimension, initial: false) { _, _ in
                 Task { await updateIntegrationData() }
@@ -209,6 +213,22 @@ struct RedWindowMapView: View {
             withAnimation {
                 integrationFetchState = .error(error.localizedDescription)
             }
+        }
+    }
+
+    private func updateRealtimeIntegrationData() async {
+        let service = CartographyIntegrationService(serviceType: .bluemap, integrationSettings: file.integrations)
+        do {
+            let result: BluemapResults? = try await service.sync(
+                dimension: redWindowEnvironment.currentDimension,
+                syncType: .realtime
+            )
+            guard let result else { return }
+            if let currentData = integrationData[.bluemap] as? BluemapResults {
+                integrationData[.bluemap] = result.merged(with: currentData)
+            }
+        } catch {
+            print(error)
         }
     }
 }
