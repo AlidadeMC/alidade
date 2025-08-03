@@ -81,7 +81,7 @@ struct RecentLocationsListSection: View {
     private func createPinButton(for position: CGPoint) -> some View {
         Group {
             #if os(iOS)
-                NavigationLink(value: CartographyRoute.createPin(position)) {
+                NavigationLink(value: CartographyRoute.createPin(position, nil)) {
                     Label("Pin...", systemImage: "mappin")
                 }
             #else

@@ -31,7 +31,7 @@ struct ContentViewToolbar: ToolbarContent {
                     }
                 }
                 ToolbarItem {
-                    NavigationLink(value: CartographyRoute.createPin(.zero)) {
+                    NavigationLink(value: CartographyRoute.createPin(.zero, nil)) {
                         Label("Create Pin", image: "mappin.circle.badge.plus")
                     }
                 }
