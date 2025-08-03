@@ -86,7 +86,7 @@ struct RecentLocationsListSection: View {
                 }
             #else
                 Button {
-                    viewModel.currentRoute = .createPin(position)
+                    viewModel.currentRoute = .createPin(position, nil)
                 } label: {
                     Label("Pin...", systemImage: "mappin")
                 }

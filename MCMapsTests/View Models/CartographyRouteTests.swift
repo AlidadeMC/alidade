@@ -18,7 +18,7 @@ struct CartographyRouteTests {
     @Test func requiresModalDisplay() async throws {
         let routes = [
             CartographyRoute.editWorld,
-            CartographyRoute.createPin(.zero),
+            CartographyRoute.createPin(.zero, nil),
             
             CartographyRoute.pin(0, pin: CartographyMapPin(named: "Spawn", at: .zero)),
             CartographyRoute.recent(.init(x: 1, y: 1)),
@@ -37,7 +37,7 @@ struct CartographyRouteTests {
     @Test func requiresInspectorDisplay() async throws {
         let routes = [
             CartographyRoute.editWorld,
-            CartographyRoute.createPin(.zero),
+            CartographyRoute.createPin(.zero, nil),
             CartographyRoute.pin(0, pin: CartographyMapPin(named: "Spawn", at: .zero)),
             CartographyRoute.recent(.init(x: 1, y: 1)),
         ]

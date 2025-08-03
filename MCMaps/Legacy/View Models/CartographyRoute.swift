@@ -24,7 +24,7 @@ enum CartographyRoute: Equatable, Hashable, Identifiable {
     case recent(CGPoint)
 
     /// The player is requesting to create a pin from a location.
-    case createPin(CGPoint)
+    case createPin(CGPoint, Set<String>?)
 
     /// The player is requesting to make changes to the world.
     case editWorld

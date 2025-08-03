@@ -55,10 +55,12 @@ struct LegacyContentView: View {
         .sheet(isPresented: viewModel.displayCurrentRouteModally) {
             Group {
                 switch viewModel.currentRoute {
-                case .createPin(let cgPoint):
+                case .createPin(let cgPoint, let alternateIDs):
                     NavigationStack {
                         PinCreatorForm(location: cgPoint) { pin in
-                            file.pins.append(pin)
+                            var transformedPin = pin
+                            transformedPin.alternateIDs = alternateIDs
+                            file.pins.append(transformedPin)
                         }
                         .formStyle(.grouped)
                     }

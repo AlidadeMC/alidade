@@ -72,9 +72,11 @@ struct CartographyMapSidebarSheet<T: ToolbarContent>: View {
                     .task {
                         viewModel.go(to: pin.position, relativeTo: file)
                     }
-            case let .createPin(location):
+            case let .createPin(location, alternateIDs):
                 PinCreatorForm(location: location) { newPin in
-                    file.pins.append(newPin)
+                    var transformedPin = newPin
+                    transformedPin.alternateIDs = alternateIDs
+                    file.pins.append(transformedPin)
                 }
             case .editWorld:
                 MapCreatorForm(

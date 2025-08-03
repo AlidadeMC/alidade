@@ -57,7 +57,7 @@ struct GroupedPinsSection: View {
                                     Label("Go Here", systemImage: "location")
                                 }
                                 Button {
-                                    viewModel.currentRoute = .createPin(pin.position)
+                                    viewModel.currentRoute = .createPin(pin.position, pin.alternateIDs)
                                 } label: {
                                     Label("Pin...", systemImage: "mappin")
                                 }

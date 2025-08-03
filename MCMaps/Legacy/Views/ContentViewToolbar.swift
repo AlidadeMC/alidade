@@ -53,7 +53,7 @@ struct ContentViewToolbar: ToolbarContent {
                 }
                 ToolbarItem {
                     Button {
-                        viewModel.currentRoute = .createPin(.zero)
+                        viewModel.currentRoute = .createPin(.zero, nil)
                     } label: {
                         Label("Create Pin", image: "mappin.circle.badge.plus")
                     }
