@@ -14,12 +14,28 @@ import os
 /// Maps and other parts of the interface might require a constant stream of updates based on a timer. Rather than
 /// creating several timers to manage, views can create a clock and subscribe to the timers they need.
 class CartographyClock {
+    /// An enumeration of the clock timers the clock handles.
+    enum ClockTimer: Equatable, Hashable, CustomStringConvertible {
+        /// A realtime timer used to publish realtime data.
+        case realtime
+
+        /// A timer used to publish Bluemap data.
+        case bluemap
+
+        var description: String {
+            switch self {
+            case .realtime: "Realtime"
+            case .bluemap: "Bluemap"
+            }
+        }
+    }
+
     /// A timer used to publish realtime data.
     var realtime: Publishers.Autoconnect<Timer.TimerPublisher>
 
     /// A timer used to publish data when connecting to the Bluemap service.
     ///
-    /// If the service is disabled or hasn't been set up with ``setupTimer(for:with:)``, this will almost never fire.
+    /// If the service is disabled or hasn't been set up with ``setup(timer:at:)``, this will almost never fire.
     var bluemap: Publishers.Autoconnect<Timer.TimerPublisher>
 
     private let realtimeTimer = Timer.publish(every: 0.5, on: .main, in: .common)
@@ -36,28 +52,59 @@ class CartographyClock {
     }
 
     /// Set up a timer for a corresponding service integration.
-    /// - Parameter integration: The integration to set up a timer for.
+    /// - Parameter timer: The integration to set up a timer for.
     /// - Parameter timeInterval: The duration of the timer before a new event is published.
-    func setupTimer(for integration: CartographyIntegrationService.ServiceType, with timeInterval: TimeInterval) {
-        switch integration {
+    func setup(timer: ClockTimer, at timeInterval: TimeInterval) {
+        switch timer {
         case .bluemap:
+            bluemapTimer?.connect().cancel()
             bluemapTimer = Timer.publish(every: timeInterval, on: .main, in: .common)
+        case .realtime:
+            logger.error("⏰ The realtime timer cannot be set up manually.")
         }
     }
 
-    /// Restart all the current timers.
-    func restartTimers() {
-        let still = stillFrame.autoconnect()
-        realtime = realtimeTimer.autoconnect()
-        bluemap = bluemapTimer?.autoconnect() ?? still
-        logger.debug("⏰ Timers have been restarted.")
+    /// Start the specified timer.
+    /// - Parameter timer: The timer to start.
+    func start(timer: ClockTimer) {
+        switch timer {
+        case .bluemap:
+            guard let bluemapTimer else {
+                logger.error("⏰ The Bluemap timer wasn't set up.")
+                return
+            }
+            bluemap = bluemapTimer.autoconnect()
+        case .realtime:
+            realtime = realtimeTimer.autoconnect()
+        }
+        logger.debug("⏰ \(timer) timer was started.")
     }
 
-    /// Cancel all currently running timers.
-    func cancelTimers() {
-        realtimeTimer.connect().cancel()
-        bluemapTimer?.connect().cancel()
-        stillFrame.connect().cancel()
-        logger.debug("⏰ Timers have been cancelled.")
+    /// Start the specified timers.
+    /// - Parameter timers: The timer to start.
+    func start(timers: [ClockTimer]) {
+        for timer in timers {
+            start(timer: timer)
+        }
+    }
+
+    /// Stop the specified timer.
+    /// - Parameter timer: The timer to stop.
+    func stop(timer: ClockTimer) {
+        switch timer {
+        case .bluemap:
+            bluemapTimer?.connect().cancel()
+        case .realtime:
+            realtimeTimer.connect().cancel()
+        }
+        logger.debug("⏰ \(timer) timer was stopped.")
+    }
+
+    /// Stop the specified timers.
+    /// - Parameter timers: The timers to stop.
+    func stop(timers: [ClockTimer]) {
+        for timer in timers {
+            stop(timer: timer)
+        }
     }
 }

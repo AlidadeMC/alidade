@@ -12,6 +12,7 @@ import TipKit
 /// The main entry point for the Alidade app.
 @main
 struct MCMapsApp: App {
+    @Environment(\.scenePhase) private var scenePhase
     @Environment(\.openWindow) private var openWindow
     @Environment(\.openURL) private var openURL
 
@@ -19,6 +20,7 @@ struct MCMapsApp: App {
 
     @FeatureFlagged(.redWindow) private var useRedWindowDesign
 
+    @State private var clock = CartographyClock()
     @State private var displayCreationWindow = false
     @State private var proxyMap = MCMapManifest(
         name: "My World", worldSettings: MCMapManifestWorldSettings(version: "1.21", seed: 0), pins: [])
@@ -55,6 +57,17 @@ struct MCMapsApp: App {
                 CartographyBluemapService(withConfiguration: configuration.document.integrations.bluemap)
             )
             .environment(\.documentURL, configuration.fileURL)
+            .environment(\.clock, clock)
+        }
+        .onChange(of: scenePhase) { _, newValue in
+            switch newValue {
+            case .active:
+                clock.start(timers: [.bluemap, .realtime])
+            case .inactive, .background:
+                fallthrough
+            @unknown default:
+                clock.stop(timers: [.bluemap, .realtime])
+            }
         }
         .commands {
             CommandMenu("Map") {

@@ -34,6 +34,8 @@ struct CartographyOrnamentMap: View {
 
         static let navigatorWheelPlacement = Alignment.bottomTrailing
     }
+
+    @Environment(\.clock) private var clock
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
 
     @AppStorage(UserDefaults.Keys.mapNaturalColors.rawValue) private var naturalColors = true
@@ -50,8 +52,6 @@ struct CartographyOrnamentMap: View {
     @State private var integrationData = [IntegrationServiceType: any CartographyIntegrationServiceData]()
     @State private var integrationFetchState = IntegrationFetchState.initial
 
-    private let clock: CartographyClock
-
     private var integrationAnnotations: [any MinecraftMapBuilderContent] {
         var annotations = [any MinecraftMapBuilderContent]()
         for (key, value) in integrationData {
@@ -63,17 +63,6 @@ struct CartographyOrnamentMap: View {
             }
         }
         return annotations
-    }
-
-    init(viewModel: Binding<CartographyMapViewModel>, file: Binding<CartographyMapFile>) {
-        self._file = file
-        self._viewModel = viewModel
-
-        self.clock = CartographyClock()
-        if file.wrappedValue.integrations.bluemap.enabled {
-            clock.setupTimer(for: .bluemap, with: file.wrappedValue.integrations.bluemap.refreshRate)
-        }
-        clock.restartTimers()
     }
 
     var body: some View {
@@ -114,6 +103,13 @@ struct CartographyOrnamentMap: View {
                 await centerCoordinateStream.send(centerCoordinate)
             }
             .task {
+                if file.integrations.bluemap.enabled {
+                    clock.setup(timer: .bluemap, at: file.integrations.bluemap.refreshRate)
+                    clock.start(timer: .bluemap)
+                    if file.integrations.bluemap.realtime {
+                        clock.start(timer: .realtime)
+                    }
+                }
                 await updateIntegrationData()
 
                 for await coordinate in centerCoordinateStream.debounce(for: .seconds(0.5)) {
@@ -132,7 +128,7 @@ struct CartographyOrnamentMap: View {
                 Task { await updateRealtimeIntegrationData() }
             }
             .onDisappear {
-                clock.cancelTimers()
+                clock.stop(timers: [.bluemap, .realtime])
             }
         } ornaments: {
             Ornament(alignment: Constants.locationBadgePlacement) {
@@ -195,6 +191,7 @@ struct CartographyOrnamentMap: View {
     }
 
     private func updateRealtimeIntegrationData() async {
+        guard file.integrations.enabled else { return }
         let service = CartographyIntegrationService(serviceType: .bluemap, integrationSettings: file.integrations)
         do {
             let result: BluemapResults? = try await service.sync(

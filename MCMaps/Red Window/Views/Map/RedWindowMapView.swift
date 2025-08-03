@@ -24,6 +24,7 @@ private let logger = Logger(subsystem: "net.marquiskurt.mcmaps", category: "\(Re
 struct RedWindowMapView: View {
     private typealias IntegrationServiceType = CartographyIntegrationService.ServiceType
 
+    @Environment(\.clock) private var clock
     @Environment(\.bluemapService) private var bluemapService
     @Environment(RedWindowEnvironment.self) private var redWindowEnvironment
 
@@ -49,17 +50,6 @@ struct RedWindowMapView: View {
             }
         }
         return annotations
-    }
-
-    private let clock = CartographyClock()
-
-    init(file: Binding<CartographyMapFile>) {
-        self._file = file
-        let bmap = file.wrappedValue.integrations.bluemap
-        if bmap.enabled {
-            clock.setupTimer(for: .bluemap, with: bmap.refreshRate)
-        }
-        clock.restartTimers()
     }
 
     var body: some View {
@@ -91,10 +81,19 @@ struct RedWindowMapView: View {
             .ignoresSafeArea(.all)
             .animation(.interactiveSpring, value: integrationFetchState)
             .task {
+                let bmap = file.integrations.bluemap
+                if bmap.enabled {
+                    clock.setup(timer: .bluemap, at: bmap.refreshRate)
+                    clock.start(timer: .bluemap)
+                    if bmap.realtime {
+                        clock.start(timer: .realtime)
+                    }
+                }
+
                 await updateIntegrationData()
             }
             .onDisappear {
-                clock.cancelTimers()
+                clock.stop(timers: [.bluemap, .realtime])
             }
             .onReceive(clock.bluemap) { _ in
                 Task { await updateIntegrationData() }
@@ -217,6 +216,7 @@ struct RedWindowMapView: View {
     }
 
     private func updateRealtimeIntegrationData() async {
+        guard file.integrations.enabled else { return }
         let service = CartographyIntegrationService(serviceType: .bluemap, integrationSettings: file.integrations)
         do {
             let result: BluemapResults? = try await service.sync(

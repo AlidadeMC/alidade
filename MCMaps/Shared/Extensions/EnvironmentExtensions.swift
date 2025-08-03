@@ -13,4 +13,7 @@ extension EnvironmentValues {
 
     /// The URL for the current document.
     @Entry var documentURL: URL?
+
+    /// The current clock handler.
+    @Entry var clock = CartographyClock()
 }
