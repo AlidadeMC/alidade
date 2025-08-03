@@ -74,6 +74,9 @@ struct RedWindowSearchLandmarkResultCell: View {
                 Button("Create Pin", systemImage: "mappin") {
                     request.position = landmark.position
                     request.name = landmark.name
+                    if landmarkType == .integratedPin {
+                        request.alternateIDs = landmark.alternateIDs
+                    }
                     request.displayForm = true
                 }
             } else {

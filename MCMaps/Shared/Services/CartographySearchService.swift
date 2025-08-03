@@ -127,11 +127,12 @@ class CartographySearchService {
             }
             let allMarkers = markers.map(\.value)
             return allMarkers.flatMap { group in
-                group.markers.map { (_, marker) in
+                group.markers.map { (id, marker) in
                     CartographyMapPin(
                         named: marker.label,
                         at: CGPoint(x: marker.position.x, y: marker.position.z),
-                        color: .gray
+                        color: .gray,
+                        alternateIDs: [id]
                     )
                 }
             }

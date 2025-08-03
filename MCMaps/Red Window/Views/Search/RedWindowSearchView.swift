@@ -22,6 +22,9 @@ struct RedWindowSearchView: View {
         /// The pin's suggested location.
         var position = CGPoint.zero
 
+        /// The proposed alternate IDs for this pin.
+        var alternateIDs: Set<String>?
+
         /// Whether the form should be displayed.
         var displayForm = false
     }
@@ -58,7 +61,9 @@ struct RedWindowSearchView: View {
                         location: pinCreationRequest.position,
                         initialName: pinCreationRequest.name
                     ) { newPin in
-                        file.pins.append(newPin)
+                        var transformedPin = newPin
+                        transformedPin.alternateIDs = pinCreationRequest.alternateIDs
+                        file.pins.append(transformedPin)
                     }
                     #if os(macOS)
                         .formStyle(.grouped)
