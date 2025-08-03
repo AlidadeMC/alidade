@@ -38,7 +38,6 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Resources/Acknowledgements.rb,
-				"Resources/AppIcon-RedWindow.icon",
 				Resources/Info.plist,
 			);
 			target = 950402CE2D4D522100F51903 /* Alidade */;
@@ -639,7 +638,7 @@
 		9561D8852DFE0464001FE875 /* Debug (Red Window) */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-RedWindow";
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = MCMaps/Resources/MCMaps.entitlements;
 				CODE_SIGN_STYLE = Automatic;
@@ -778,7 +777,7 @@
 		9561D8882DFE056F001FE875 /* Release (Red Window) */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-RedWindow";
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = MCMaps/Resources/MCMaps.entitlements;
 				CODE_SIGN_STYLE = Automatic;
