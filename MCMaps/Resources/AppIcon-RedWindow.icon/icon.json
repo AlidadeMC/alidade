@@ -2,14 +2,15 @@
   "color-space-for-untagged-svg-colors" : "display-p3",
   "fill" : {
     "linear-gradient" : [
-      "srgb:0.41233,0.61333,0.72654,1.00000",
-      "srgb:0.16708,0.40676,0.52647,1.00000"
+      "srgb:0.24121,0.62164,0.72654,1.00000",
+      "srgb:0.10620,0.36519,0.52647,1.00000"
     ]
   },
   "groups" : [
     {
       "layers" : [
         {
+          "glass" : true,
           "image-name" : "Icon-2.png",
           "name" : "Icon-2",
           "position" : {
@@ -21,10 +22,13 @@
           }
         },
         {
+          "blend-mode" : "normal",
+          "fill" : "none",
           "glass" : true,
           "hidden" : false,
           "image-name" : "Icon.png",
           "name" : "Icon",
+          "opacity" : 0.8,
           "position-specializations" : [
             {
               "value" : {

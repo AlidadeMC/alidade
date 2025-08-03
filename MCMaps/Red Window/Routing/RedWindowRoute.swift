@@ -62,7 +62,7 @@ extension RedWindowRoute {
         case .allPins: "All Pins"
         case .allPinsCompact: "Library"
         case .search: "Search"
-        case let .pin(pin): "Pin"
+        case .pin: "Pin"
         }
     }
 

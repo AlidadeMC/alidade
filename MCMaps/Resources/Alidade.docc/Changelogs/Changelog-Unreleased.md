@@ -25,6 +25,7 @@ time as new versions and features are added.
 - Players can now enable Realtime Sync for Bluemap to get realtime updates
   for player locations. Server and death markers sync independently of
   players.
+- Players can now search for markers from Bluemap in the search views.
 
 ### Map
 

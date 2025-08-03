@@ -93,7 +93,6 @@ struct RedWindowSearchView: View {
     }
 
     private func resultList(for result: CartographySearchService.SearchResult) -> some View {
-        let currentLoc = redWindowEnvironment.mapCenterCoordinate
         return List {
             Section {
                 ForEach(result.pins) { pin in
@@ -105,31 +104,57 @@ struct RedWindowSearchView: View {
             } header: {
                 Text("Your Pinned Places")
             }
-            Section {
-                ForEach(result.biomes) { biome in
-                    RedWindowSearchLandmarkResultCell(
-                        request: $pinCreationRequest,
-                        landmark: biome,
-                        landmarkType: .biome
-                    )
-                }
-                ForEach(result.structures) { structure in
-                    RedWindowSearchLandmarkResultCell(
-                        request: $pinCreationRequest,
-                        landmark: structure,
-                        landmarkType: .structure
-                    )
-                }
-                if result.structures.isEmpty, result.biomes.isEmpty {
-                    ContentUnavailableView.search(text: query)
-                }
-            } header: {
-                Text("Biomes and Structures")
-            } footer: {
-                Text(
-                    "Relative where you are on the map (\(currentLoc.accessibilityReadout))."
+            if file.integrations.enabled {
+                integratedSection(data: result.integratedData)
+            }
+            biomesAndStructures(result: result)
+        }
+    }
+
+    private func integratedSection(data: [CartographyMapPin]) -> some View {
+        Section {
+            ForEach(data) { pin in
+                RedWindowSearchLandmarkResultCell(
+                    request: $pinCreationRequest,
+                    landmark: pin,
+                    landmarkType: .integratedPin
                 )
             }
+            if data.isEmpty {
+                ContentUnavailableView.search(text: query)
+            }
+        } header: {
+            Text("From Integrations")
+        }
+    }
+
+    private func biomesAndStructures(result: CartographySearchService.SearchResult) -> some View {
+        let currentLoc = redWindowEnvironment.mapCenterCoordinate
+
+        return Section {
+            ForEach(result.biomes) { biome in
+                RedWindowSearchLandmarkResultCell(
+                    request: $pinCreationRequest,
+                    landmark: biome,
+                    landmarkType: .biome
+                )
+            }
+            ForEach(result.structures) { structure in
+                RedWindowSearchLandmarkResultCell(
+                    request: $pinCreationRequest,
+                    landmark: structure,
+                    landmarkType: .structure
+                )
+            }
+            if result.structures.isEmpty, result.biomes.isEmpty {
+                ContentUnavailableView.search(text: query)
+            }
+        } header: {
+            Text("Biomes and Structures")
+        } footer: {
+            Text(
+                "Relative where you are on the map (\(currentLoc.accessibilityReadout))."
+            )
         }
     }
 }

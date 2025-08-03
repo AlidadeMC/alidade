@@ -25,12 +25,15 @@ struct RedWindowSearchLandmarkResultCell: View {
         /// The landmark represents a player-created pin.
         case pin
 
+        /// The landmark represents a pin pulled from integrations.
+        case integratedPin
+
         /// A symbol representation for the landmark.
         var symbol: String {
             switch self {
             case .biome: "mountain.2"
             case .structure: "building.2.crop.circle"
-            case .pin: "mappin"
+            case .pin, .integratedPin: "mappin"
             }
         }
     }

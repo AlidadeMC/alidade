@@ -113,6 +113,15 @@ struct CartographyMapSidebar: View {
                 PinnedLibrarySection(pins: results.pins, viewModel: $viewModel, file: $file)
             }
 
+            if !results.integratedData.isEmpty {
+                GroupedPinsSection(
+                    name: "From Integrations",
+                    pins: results.integratedData,
+                    viewModel: $viewModel,
+                    file: $file
+                )
+            }
+
             GroupedPinsSection(
                 pins: results.structures,
                 viewModel: $viewModel,
