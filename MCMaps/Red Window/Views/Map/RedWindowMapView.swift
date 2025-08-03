@@ -24,8 +24,6 @@ private let logger = Logger(subsystem: "net.marquiskurt.mcmaps", category: "\(Re
 struct RedWindowMapView: View {
     private typealias IntegrationServiceType = CartographyIntegrationService.ServiceType
 
-    @Environment(\.clock) private var clock
-    @Environment(\.bluemapService) private var bluemapService
     @Environment(RedWindowEnvironment.self) private var redWindowEnvironment
 
     /// The file containing the information about the world, integrations, etc.
@@ -36,199 +34,102 @@ struct RedWindowMapView: View {
 
     @State private var displayWarpForm = false
     @State private var displayPinForm = false
-    @State private var integrationFetchState = IntegrationFetchState.initial
-    @State private var integrationData = [IntegrationServiceType: any CartographyIntegrationServiceData]()
-
-    private var integrationAnnotations: [any MinecraftMapBuilderContent] {
-        var annotations = [any MinecraftMapBuilderContent]()
-        for (key, value) in integrationData {
-            switch key {
-            case .bluemap:
-                if let data = value as? BluemapResults {
-                    annotations.append(contentsOf: data.annotations(from: file.integrations.bluemap))
-                }
-            }
-        }
-        return annotations
-    }
+    @State private var integrationState = IntegrationFetchState.initial
 
     var body: some View {
         @Bindable var env = redWindowEnvironment
 
-        NavigationStack {
-            Group {
-                if let world = try? MinecraftWorld(worldSettings: file.manifest.worldSettings) {
-                    MinecraftMap(
-                        world: world,
-                        centerCoordinate: $env.mapCenterCoordinate,
-                        dimension: env.currentDimension
-                    ) {
-                        file.pins.map { mapPin in
-                            Marker(
-                                location: mapPin.position,
-                                title: mapPin.name,
-                                id: mapPin.id,
-                                color: mapPin.color?.swiftUIColor ?? .accent,
-                                systemImage: mapPin.icon?.resolveSFSymbol(in: .pin) ?? "mappin"
-                            )
+        ManagedAnnotatedMap(file: file, dimension: redWindowEnvironment.currentDimension) { state, annotations in
+            NavigationStack {
+                Group {
+                    if let world = try? MinecraftWorld(worldSettings: file.manifest.worldSettings) {
+                        MinecraftMap(
+                            world: world,
+                            centerCoordinate: $env.mapCenterCoordinate,
+                            dimension: env.currentDimension
+                        ) {
+                            annotations
                         }
-                        integrationAnnotations
-                    }
-                    .ornaments(.all)
-                    .mapColorScheme(useNaturalColors ? .natural : .default)
-                }
-            }
-            .ignoresSafeArea(.all)
-            .animation(.interactiveSpring, value: integrationFetchState)
-            .task {
-                let bmap = file.integrations.bluemap
-                if bmap.enabled {
-                    clock.setup(timer: .bluemap, at: bmap.refreshRate)
-                    clock.start(timer: .bluemap)
-                    if bmap.realtime {
-                        clock.start(timer: .realtime)
+                        .ornaments(.all)
+                        .mapColorScheme(useNaturalColors ? .natural : .default)
                     }
                 }
+                .animation(.interactiveSpring, value: state)
+                .ignoresSafeArea(.all)
+                .overlay(alignment: .bottomLeading) {
+                    IntegrationFetchStateView(state: state)
+                        .padding(8)
+                }
+                .overlay(alignment: .bottomTrailing) {
+                    LocationBadge(location: env.mapCenterCoordinate)
+                        .environment(\.contentTransitionAddsDrawingGroup, true)
+                        .labelStyle(.titleAndIcon)
+                }
+                .onChange(of: env.currentModalRoute, initial: false) { _, newValue in
+                    guard let newValue else { return }
+                    switch newValue {
+                    case .warpToLocation:
+                        displayWarpForm = true
+                    case .createPin:
+                        displayPinForm = true
+                    }
+                }
+                .onChange(of: displayWarpForm, initial: false) { _, newValue in
+                    if !newValue, env.currentModalRoute != nil {
+                        env.currentModalRoute = nil
+                    }
+                }
+                .onChange(of: displayPinForm, initial: false) { _, newValue in
+                    if !newValue, env.currentModalRoute != nil {
+                        env.currentModalRoute = nil
+                    }
+                }
+                .sheet(isPresented: $displayWarpForm) {
+                    NavigationStack {
+                        RedWindowMapWarpForm()
+                    }
+                }
+                .sheet(isPresented: $displayPinForm) {
+                    NavigationStack {
+                        PinCreatorForm(location: env.mapCenterCoordinate.rounded()) { newPin in
+                            file.pins.append(newPin)
+                        }
+                        #if os(macOS)
+                            .formStyle(.grouped)
+                        #endif
+                    }
+                }
+                .toolbar {
+                    ToolbarItem {
+                        Menu {
+                            Toggle(isOn: $useNaturalColors) {
+                                Label("Natural Colors", systemImage: "paintpalette")
+                            }
+                            WorldDimensionPickerView(selection: $env.currentDimension)
+                                .pickerStyle(.inline)
+                        } label: {
+                            Label("Map", systemImage: "map")
+                        }
+                    }
 
-                await updateIntegrationData()
-            }
-            .onDisappear {
-                clock.stop(timers: [.bluemap, .realtime])
-            }
-            .onReceive(clock.bluemap) { _ in
-                Task { await updateIntegrationData() }
-            }
-            .onReceive(clock.realtime) { _ in
-                Task { await updateRealtimeIntegrationData() }
-            }
-            .onChange(of: env.currentDimension, initial: false) { _, _ in
-                Task { await updateIntegrationData() }
-            }
-            .onChange(of: env.currentModalRoute, initial: false) { _, newValue in
-                guard let newValue else { return }
-                switch newValue {
-                case .warpToLocation:
-                    displayWarpForm = true
-                case .createPin:
-                    displayPinForm = true
-                }
-            }
-            .onChange(of: displayWarpForm, initial: false) { _, newValue in
-                if !newValue, env.currentModalRoute != nil {
-                    env.currentModalRoute = nil
-                }
-            }
-            .onChange(of: displayPinForm, initial: false) { _, newValue in
-                if !newValue, env.currentModalRoute != nil {
-                    env.currentModalRoute = nil
-                }
-            }
-            .sheet(isPresented: $displayWarpForm) {
-                NavigationStack {
-                    RedWindowMapWarpForm()
-                }
-            }
-            .sheet(isPresented: $displayPinForm) {
-                NavigationStack {
-                    PinCreatorForm(location: env.mapCenterCoordinate.rounded()) { newPin in
-                        file.pins.append(newPin)
-                    }
-                    #if os(macOS)
-                        .formStyle(.grouped)
+                    #if RED_WINDOW
+                        if #available(macOS 16, iOS 19, *) {
+                            ToolbarSpacer(.fixed)
+                        }
                     #endif
-                }
-            }
-            .toolbar {
-                ToolbarItem {
-                    if file.integrations.bluemap.enabled {
-                        Button("Sync From Integrations", systemImage: "arrow.clockwise") {
-                            Task { await updateIntegrationData() }
+
+                    ToolbarItem {
+                        Button("Go To", systemImage: "figure.walk") {
+                            displayWarpForm.toggle()
+                        }
+                    }
+                    ToolbarItem {
+                        Button("Pin Here...", systemImage: "mappin.circle") {
+                            displayPinForm.toggle()
                         }
                     }
                 }
-                #if RED_WINDOW
-                    if #available(macOS 16, iOS 19, *) {
-                        ToolbarSpacer(.fixed)
-                    }
-                #endif
-
-                ToolbarItem {
-                    Menu {
-                        Toggle(isOn: $useNaturalColors) {
-                            Label("Natural Colors", systemImage: "paintpalette")
-                        }
-                        WorldDimensionPickerView(selection: $env.currentDimension)
-                            .pickerStyle(.inline)
-                    } label: {
-                        Label("Map", systemImage: "map")
-                    }
-                }
-
-                #if RED_WINDOW
-                    if #available(macOS 16, iOS 19, *) {
-                        ToolbarSpacer(.fixed)
-                    }
-                #endif
-
-                ToolbarItem {
-                    Button("Go To", systemImage: "figure.walk") {
-                        displayWarpForm.toggle()
-                    }
-                }
-                ToolbarItem {
-                    Button("Pin Here...", systemImage: "mappin.circle") {
-                        displayPinForm.toggle()
-                    }
-                }
             }
-            .overlay(alignment: .bottomTrailing) {
-                LocationBadge(location: env.mapCenterCoordinate)
-                    .environment(\.contentTransitionAddsDrawingGroup, true)
-                    .labelStyle(.titleAndIcon)
-            }
-            .overlay(alignment: .bottomLeading) {
-                IntegrationFetchStateView(state: integrationFetchState)
-                    .padding(8)
-            }
-        }
-    }
-
-    private func updateIntegrationData() async {
-        let service = CartographyIntegrationService(serviceType: .bluemap, integrationSettings: file.integrations)
-        do {
-            withAnimation { integrationFetchState = .refreshing }
-            let result: BluemapResults? = try await service.sync(dimension: redWindowEnvironment.currentDimension)
-            guard let result else {
-                withAnimation { integrationFetchState = .error("Response returned empty.") }
-                return
-            }
-            integrationData[.bluemap] = result
-            withAnimation { integrationFetchState = .success(.now) }
-        } catch CartographyIntegrationService.ServiceError.integrationDisabled {
-            withAnimation {
-                integrationFetchState = .cancelled
-            }
-        } catch {
-            withAnimation {
-                integrationFetchState = .error(error.localizedDescription)
-            }
-        }
-    }
-
-    private func updateRealtimeIntegrationData() async {
-        guard file.integrations.enabled else { return }
-        let service = CartographyIntegrationService(serviceType: .bluemap, integrationSettings: file.integrations)
-        do {
-            let result: BluemapResults? = try await service.sync(
-                dimension: redWindowEnvironment.currentDimension,
-                syncType: .realtime
-            )
-            guard let result else { return }
-            if let currentData = integrationData[.bluemap] as? BluemapResults {
-                integrationData[.bluemap] = result.merged(with: currentData)
-            }
-        } catch {
-            print(error)
         }
     }
 }
