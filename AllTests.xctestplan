@@ -17,29 +17,19 @@
           "name" : "Alidade"
         },
         {
-          "containerPath" : "container:MCMaps.xcodeproj",
-          "identifier" : "950402DF2D4D522200F51903",
-          "name" : "MCMapsTests"
-        },
-        {
           "containerPath" : "container:AlidadeUI",
           "identifier" : "AlidadeUI",
           "name" : "AlidadeUI"
         },
         {
-          "containerPath" : "container:MCMapFormat",
-          "identifier" : "MCMapFormat",
-          "name" : "MCMapFormat"
-        },
-        {
-          "containerPath" : "container:MCMapFormat",
-          "identifier" : "MCMapFormatTests",
-          "name" : "MCMapFormatTests"
-        },
-        {
           "containerPath" : "container:AlidadeUI",
           "identifier" : "AlidadeUITests",
           "name" : "AlidadeUITests"
+        },
+        {
+          "containerPath" : "container:MCMaps.xcodeproj",
+          "identifier" : "950402DF2D4D522200F51903",
+          "name" : "MCMapsTests"
         }
       ]
     },

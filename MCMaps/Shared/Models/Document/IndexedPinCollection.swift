@@ -29,7 +29,7 @@ import MCMap
 struct IndexedPinCollection {
     fileprivate typealias InternalContainer = [CartographyMapPin]
     /// A structure representing an element in the collection.
-    struct Element: Identifiable {
+    struct Element: Identifiable, Equatable, Hashable {
         /// A unique identifier for the element.
         var id: Int { index }
 

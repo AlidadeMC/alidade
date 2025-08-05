@@ -67,9 +67,15 @@ extension RandomAccessDictionary: Collection {
     }
 }
 
+extension RandomAccessDictionary.Element: Equatable where Key: Equatable, Value: Equatable {}
+
 extension RandomAccessDictionary: RandomAccessCollection {
+    // NOTE: This is more or less a dummy function, because dictionaries are unordered!
     func index(before index: Index) -> Index {
-        dictionary.index(index, offsetBy: -1)
+        let offset = self.distance(from: startIndex, to: index)
+        return dictionary.index(
+            after: dictionary.index(dictionary.startIndex, offsetBy: offset - 1)
+        )
     }
 }
 
