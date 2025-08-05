@@ -6,6 +6,7 @@
 //
 
 import CubiomesKit
+import Foundation
 import MCMap
 import os
 
@@ -90,7 +91,7 @@ actor CartographyIntegrationService {
     }
 
     /// An enumeration of the errors that the service can throw when attempting to make requests.
-    enum ServiceError: Error {
+    enum ServiceError: Equatable, Error {
         /// The integration is disabled.
         case integrationDisabled
 
@@ -102,6 +103,19 @@ actor CartographyIntegrationService {
         /// The fetch task failed.
         /// - Parameter error: The error that was thrown by the task.
         case fetchTaskFailed(Error)
+
+        static func == (lhs: ServiceError, rhs: ServiceError) -> Bool {
+            switch (lhs, rhs) {
+            case (.integrationDisabled, .integrationDisabled):
+                return true
+            case (.mismatchingService, .mismatchingService):
+                return true
+            case let (.fetchTaskFailed(lhsErr), .fetchTaskFailed(rhsErr)):
+                return lhsErr.localizedDescription == rhsErr.localizedDescription
+            default:
+                return false
+            }
+        }
     }
 
     /// The integration settings used to configure the service.
@@ -116,12 +130,16 @@ actor CartographyIntegrationService {
     /// Initialize a service of a given type with integration settings.
     /// - Parameter serviceType: The service type to use with the integration service.
     /// - Parameter integrationSettings: The settings for integrations used to configure this service.
-    init(serviceType: ServiceType, integrationSettings: CartographyMapFile.Integrations) {
+    init(
+        serviceType: ServiceType,
+        integrationSettings: CartographyMapFile.Integrations,
+        session: any NetworkServiceable = URLSession(configuration: .default)
+    ) {
         self.serviceType = serviceType
         self.integrationSettings = integrationSettings
         switch serviceType {
         case .bluemap:
-            self.service = CartographyBluemapService(withConfiguration: integrationSettings.bluemap)
+            self.service = CartographyBluemapService(withConfiguration: integrationSettings.bluemap, session: session)
         }
     }
 
