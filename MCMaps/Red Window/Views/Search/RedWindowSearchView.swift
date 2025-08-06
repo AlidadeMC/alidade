@@ -74,25 +74,37 @@ struct RedWindowSearchView: View {
     }
 
     private var initialView: some View {
-        List {
+        Group {
             if let recentLocations = file.manifest.recentLocations {
-                Section {
-                    ForEach(recentLocations, id: \.self) { recent in
-                        Label(recent.accessibilityReadout, systemImage: "location")
-                            .onTapGesture {
-                                redWindowEnvironment.mapCenterCoordinate = recent
-                                redWindowEnvironment.currentRoute = .map
-                            }
-                            .contextMenu {
-                                Button("Show on Map", systemImage: "location") {
+                List {
+                    Section {
+                        ForEach(recentLocations, id: \.self) { recent in
+                            Label(recent.accessibilityReadout, systemImage: "location")
+                                .onTapGesture {
                                     redWindowEnvironment.mapCenterCoordinate = recent
                                     redWindowEnvironment.currentRoute = .map
                                 }
-                            }
+                                .contextMenu {
+                                    Button("Show on Map", systemImage: "location") {
+                                        redWindowEnvironment.mapCenterCoordinate = recent
+                                        redWindowEnvironment.currentRoute = .map
+                                    }
+                                }
+                        }
+                    } header: {
+                        Text("Locations You've Visited")
                     }
-                } header: {
-                    Text("Locations You've Visited")
                 }
+            } else {
+                // swiftlint:disable line_length
+                ContentUnavailableView(
+                    "Search Everything",
+                    image: "map.badge.magnifyingglass",
+                    description: Text(
+                        "Search for nearby biomes and structures, pinned places, and any marked locations from integrations like Bluemap."
+                    )
+                )
+                // swiftlint:enable line_length
             }
         }
     }
