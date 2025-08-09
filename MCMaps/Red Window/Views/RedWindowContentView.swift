@@ -124,6 +124,16 @@ struct RedWindowContentView: View {
                     }
                     .customizationID("app.tab.library.\(mapPin.content.name.snakeCase)")
                     .customizationBehavior(.automatic, for: .automatic)
+                    .contextMenu {
+                        Button("Go Here", systemImage: "location") {
+                            redWindowEnvironment.mapCenterCoordinate = mapPin.content.position
+                        }
+                    }
+                    .swipeActions {
+                        Button("Go Here", systemImage: "location") {
+                            redWindowEnvironment.mapCenterCoordinate = mapPin.content.position
+                        }
+                    }
                 }
             }
             .hidden(horizontalSizeClass == .compact)
