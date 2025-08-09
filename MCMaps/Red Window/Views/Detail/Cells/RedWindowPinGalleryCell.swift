@@ -39,6 +39,7 @@ struct RedWindowPinGalleryCell: RedWindowDetailCell {
                 .font(.title2)
                 .bold()
                 .padding(.top)
+                .fontDesign(.serif)
             if let images = pin.images, !images.isEmpty {
                 ScrollView(.horizontal) {
                     HStack {
@@ -60,7 +61,12 @@ struct RedWindowPinGalleryCell: RedWindowDetailCell {
                     }
                 }
             } else {
-                ContentUnavailableView("No Photos Uploaded", systemImage: "photo.stack")
+                ContentUnavailableView(
+                    "No Photos Uploaded",
+                    systemImage: "photo.stack",
+                    description: Text("Add photos from your device to show this place and what makes it special.")
+                )
+                    .fontDesign(.serif)
             }
         }
         .quickLookPreview($imageToPreview, in: imageURLs)

@@ -22,7 +22,7 @@ struct RedWindowDescriptionCell: RedWindowDetailCell {
     var body: some View {
         Group {
             Text("About this Place")
-                .font(.title2)
+                .font(.system(.title2, design: .serif))
                 .bold()
                 .padding(.top)
             if isEditing {

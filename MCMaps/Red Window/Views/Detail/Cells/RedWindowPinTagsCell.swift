@@ -25,22 +25,25 @@ struct RedWindowPinTagsCell: RedWindowDetailCell {
     var body: some View {
         Group {
             Text("Tags")
-                .font(.title3)
+                .font(.system(.title3, design: .serif))
                 .bold()
                 .padding(.top)
             if let tags = pin.tags, !tags.isEmpty {
                 ScrollView(.horizontal) {
                     HStack {
                         ForEach(Array(tags), id: \.self) { tag in
-                            Text(tag)
+                            Label(tag, systemImage: "tag")
                                 .padding(.horizontal)
                                 .padding(.vertical, 3)
+                                .padding(2)
                                 .background(Capsule().fill(.secondary.opacity(0.25)))
+                                .fontDesign(.serif)
                         }
                     }
                 }
             } else {
                 Text("No tags for this place.")
+                    .fontDesign(.serif)
                     .foregroundStyle(.secondary)
             }
         }

@@ -21,6 +21,7 @@ import SwiftUI
 struct RedWindowPinDetailView: View {
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     @Environment(\.tabBarPlacement) private var tabBarPlacement
+    @Environment(RedWindowEnvironment.self) private var redWindowEnvironment
 
     /// The pin that the detail view will display and edit.
     @Binding var pin: CartographyMapPin
@@ -42,13 +43,17 @@ struct RedWindowPinDetailView: View {
     @State private var uploadFromFiles = false
 
     var body: some View {
+        @Bindable var env = redWindowEnvironment
+
         HStack(spacing: 0) {
             ScrollView {
                 VStack(alignment: .leading) {
                     RedWindowPinHeader(pin: $pin, isEditing: $editMode, file: file)
                     Group {
                         RedWindowDescriptionCell(pin: $pin, isEditing: $editMode, file: $file)
-                        RedWindowPinTagsCell(pin: $pin, isEditing: $editMode, file: $file)
+                        if !tags.isEmpty {
+                            RedWindowPinTagsCell(pin: $pin, isEditing: $editMode, file: $file)
+                        }
                         RedWindowPinGalleryCell(pin: $pin, isEditing: $editMode, file: $file)
                     }
                     .padding(.horizontal)
@@ -114,7 +119,10 @@ struct RedWindowPinDetailView: View {
         }
         .toolbar {
             ToolbarItem {
-                editButton
+                Button("Show on Map", systemImage: "location") {
+                    env.mapCenterCoordinate = pin.position
+                    env.currentRoute = .map
+                }
             }
 
             #if RED_WINDOW
@@ -171,6 +179,16 @@ struct RedWindowPinDetailView: View {
                     presentTagEditor.toggle()
                 }
             }
+
+            #if RED_WINDOW
+                if #available(macOS 16, iOS 19, *) {
+                    ToolbarSpacer(.fixed)
+                }
+            #endif
+
+            ToolbarItem {
+                editButton
+            }
         }
     }
 
@@ -209,9 +227,8 @@ struct RedWindowPinDetailView: View {
         Group {
             Divider()
             Group {
-                if let world = try? MinecraftWorld(version: "1.21.3", seed: 184_719_632_014) {
+                if let world = try? MinecraftWorld(worldSettings: file.manifest.worldSettings) {
                     MinecraftMap(world: world, centerCoordinate: .constant(pin.position)) {
-                        Marker(location: .zero, title: "#nodraw", id: "nodraw")
                         Marker(
                             location: pin.position,
                             title: pin.name,
