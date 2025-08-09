@@ -142,10 +142,19 @@ struct RedWindowPinDetailView: View {
 
             ToolbarItem {
                 Menu("Pin Color", systemImage: "paintpalette") {
+                    Label("Pin Color", systemImage: "paintpalette")
+                        .foregroundStyle(.secondary)
                     Picker("Pin Color", selection: $color) {
                         ForEach(CartographyMapPin.Color.allCases, id: \.self) { color in
-                            Text(String(describing: color).localizedCapitalized)
-                                .tag(color)
+                            Group {
+                                #if os(iOS)
+                                    Label(String(describing: color).localizedCapitalized, systemImage: "circle.fill")
+                                        .tint(color.swiftUIColor)
+                                #else
+                                    Text(String(describing: color).localizedCapitalized)
+                                #endif
+                            }
+                            .tag(color)
                         }
                     }
                 }
@@ -224,21 +233,21 @@ struct RedWindowPinDetailView: View {
         Group {
             if editMode {
                 #if RED_WINDOW
-                if #available(iOS 19, macOS 16, *) {
-                    Button(role: .confirm) {
-                        editMode.toggle()
+                    if #available(iOS 19, macOS 16, *) {
+                        Button(role: .confirm) {
+                            editMode.toggle()
+                        }
+                    } else {
+                        Button("Done", systemImage: "checkmark") {
+                            editMode.toggle()
+                        }
+                        .buttonStyle(.borderedProminent)
                     }
-                } else {
+                #else
                     Button("Done", systemImage: "checkmark") {
                         editMode.toggle()
                     }
                     .buttonStyle(.borderedProminent)
-                }
-                #else
-                Button("Done", systemImage: "checkmark") {
-                    editMode.toggle()
-                }
-                .buttonStyle(.borderedProminent)
                 #endif
             } else {
                 Button("Edit") {
