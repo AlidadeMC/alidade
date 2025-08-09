@@ -88,14 +88,17 @@ struct ManagedAnnotatedMap<MapContent: View>: View {
         }
 
         for annotation in integrationAnnotations {
-            guard let marker = annotation as? Marker else { continue }
-            if usedIDs.contains(marker.id) {
-                logger.debug(
-                    "📍 A marker with alternate ID '\(marker.id)' already exists. This server marker will be skipped."
-                )
-                continue
+            if let player = annotation as? PlayerMarker {
+                markers.append(player)
+            } else if let marker = annotation as? Marker {
+                if usedIDs.contains(marker.id) {
+                    logger.debug(
+                        "📍 A marker with alternate ID '\(marker.id)' already exists. Skipping server copy."
+                    )
+                    continue
+                }
+                markers.append(marker)
             }
-            markers.append(marker)
         }
 
         return markers
