@@ -140,6 +140,8 @@ struct RedWindowPinLibraryView: View {
             .toolbar {
                 ToolbarItem {
                     Menu("View Mode", systemImage: viewMode == .grid ? "square.grid.2x2" : "list.bullet") {
+                        Label("View Mode", systemImage: viewMode == .grid ? "square.grid.2x2" : "list.bullet")
+                            .foregroundStyle(.secondary)
                         Picker("View Mode", selection: $viewMode) {
                             Label("Grid", systemImage: "square.grid.2x2").tag(LibraryViewMode.grid)
                             Label("List", systemImage: "list.bullet").tag(LibraryViewMode.list)
