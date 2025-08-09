@@ -131,7 +131,14 @@ struct CartographySearchView<InitialView: View, ResultsView: View>: View {
             text: $rawQuery,
             tokens: $tokens,
             placement: Constants.searchFieldPlacement,
-            prompt: useRedWindowDesign ? "Pinned Places, Biomes, Structures, and More" : "Go To..."
+
+            // NOTE(alicerunsonfedora): Recent iOS betas changed the search bar placement so it's always in the toolbar
+            // on iPad and Mac. Which is great (and what we want), but it seems the search bar is a little short, so
+            // having "Pinned Places, Biomes, Structures, and More" as a placeholder prompt doesn't read well because
+            // it gets prematurely truncated.
+            //
+            // For now, set this to 'Search' and watch future betas to see if the search bar size changes at all.
+            prompt: useRedWindowDesign ? "Search" : "Go To..."
         ) { token in
             switch token {
             case let .tag(tagName):
