@@ -59,6 +59,7 @@ struct RedWindowMapView: View {
                 .overlay(alignment: .bottomLeading) {
                     IntegrationFetchStateView(state: state)
                         .padding(8)
+                        .opacity(file.integrations.enabled ? 1 : 0)
                 }
                 .overlay(alignment: .bottomTrailing) {
                     LocationBadge(location: env.mapCenterCoordinate)

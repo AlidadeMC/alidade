@@ -113,8 +113,10 @@ struct CartographyOrnamentMap: View {
                             }
                         #else
                             HStack(spacing: 0) {
-                                IntegrationFetchStateView(state: state)
-                                    .padding(8)
+                                if file.integrations.enabled {
+                                    IntegrationFetchStateView(state: state)
+                                        .padding(8)
+                                }
                                 LocationBadge(location: centerCoordinate)
                                     .environment(\.contentTransitionAddsDrawingGroup, true)
                             }
