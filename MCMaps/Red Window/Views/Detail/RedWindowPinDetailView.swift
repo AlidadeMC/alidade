@@ -150,8 +150,10 @@ struct RedWindowPinDetailView: View {
 
             ToolbarItem {
                 Menu("Pin Color", systemImage: "paintpalette") {
-                    Label("Pin Color", systemImage: "paintpalette")
-                        .foregroundStyle(.secondary)
+                    #if os(iOS)
+                        Label("Pin Color", systemImage: "paintpalette")
+                            .foregroundStyle(.secondary)
+                    #endif
                     Picker("Pin Color", selection: $color) {
                         ForEach(CartographyMapPin.Color.allCases, id: \.self) { color in
                             Group {

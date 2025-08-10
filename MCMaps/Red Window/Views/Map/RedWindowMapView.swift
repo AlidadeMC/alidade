@@ -103,8 +103,10 @@ struct RedWindowMapView: View {
                 .toolbar {
                     ToolbarItem {
                         Menu {
-                            Label("Map", systemImage: "map")
-                                .foregroundStyle(.secondary)
+                            #if os(iOS)
+                                Label("Map", systemImage: "map")
+                                    .foregroundStyle(.secondary)
+                            #endif
                             Divider()
                             Toggle(isOn: $useNaturalColors) {
                                 Label("Natural Colors", systemImage: "paintpalette")
