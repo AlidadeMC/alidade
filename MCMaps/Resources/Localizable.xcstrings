@@ -114,6 +114,9 @@
     "Are you sure you want to remove %lld pins?" : {
 
     },
+    "At: (%@)" : {
+
+    },
     "Bastion" : {
 
     },
@@ -438,9 +441,6 @@
     "Refresh every: ^[%lld second](inflect: true)" : {
 
     },
-    "Relative where you are on the map (%@)." : {
-
-    },
     "Remove" : {
 
     },
@@ -561,10 +561,16 @@
     "Type a tag above to create it." : {
 
     },
+    "Type the name of a tag to filter search results by that tag." : {
+
+    },
     "Update player locations more frequently with Realtime Sync. [Learn more…](https://example.com)" : {
 
     },
     "Update World" : {
+
+    },
+    "Use the `@{0,0} syntax to filter search results near a specific coordinate." : {
 
     },
     "Use the search bar to look through your pins, or to locate nearby structures and biomes." : {

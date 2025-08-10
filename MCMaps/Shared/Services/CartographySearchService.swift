@@ -85,6 +85,11 @@ class CartographySearchService {
     func search(for query: Query, in context: SearchContext, filters: SearchFilterGroup? = nil) async -> SearchResult {
         var results = SearchResult()
         var integratedMarkers = [CartographyMapPin]()
+        var position = context.position
+
+        if let point = filters?.getFilteredOrigin() {
+            position = MinecraftPoint(cgPoint: point)
+        }
 
         if context.file.supportedFeatures.contains(.integrations), context.file.integrations.bluemap.enabled {
             integratedMarkers.append(contentsOf: await getBluemapMarkers(in: context))
@@ -102,14 +107,14 @@ class CartographySearchService {
         results.integratedData = filteredMarkers
 
         if let structure = MinecraftStructure(string: query) {
-            searchStructures(context, structure, &results)
+            searchStructures(at: position, context, structure, &results)
         }
 
         results.biomes = searchBiomes(
             query: query,
             mcVersion: context.file.manifest.worldSettings.version,
             world: context.world,
-            pos: context.position,
+            pos: position,
             dimension: context.dimension
         )
 
@@ -191,13 +196,14 @@ class CartographySearchService {
     }
 
     private func searchStructures(
+        at position: MinecraftPoint,
         _ context: SearchContext,
         _ structure: MinecraftStructure,
         _ results: inout SearchResult
     ) {
         let foundStructures = context.world.findStructures(
             ofType: structure,
-            at: context.position,
+            at: position,
             inRadius: searchRadius,
             dimension: context.dimension
         )

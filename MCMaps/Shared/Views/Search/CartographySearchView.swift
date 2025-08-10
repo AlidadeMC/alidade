@@ -141,16 +141,21 @@ struct CartographySearchView<InitialView: View, ResultsView: View>: View {
             prompt: useRedWindowDesign ? "Search" : "Go To..."
         ) { token in
             switch token {
-            case let .tag(tagName):
+            case .tag(let tagName):
                 Text(tagName)
+            case .origin(let point):
+                Text("At: (\(point.accessibilityReadout))")
             }
         }
         .searchFocused($searchFocused)
         .searchSuggestions {
             ForEach(getSuggestions()) { searchToken in
                 switch searchToken {
-                case let .tag(tagName):
+                case .tag(let tagName):
                     Label(tagName, systemImage: "tag")
+                        .searchCompletion(searchToken)
+                case .origin(let pos):
+                    Label(pos.accessibilityReadout, systemImage: "location")
                         .searchCompletion(searchToken)
                 }
             }
@@ -193,9 +198,19 @@ struct CartographySearchView<InitialView: View, ResultsView: View>: View {
     }
 
     private func getSuggestions() -> [SearchToken] {
+        var searchTokens = [SearchToken]()
+
+        let positionSyntax = /\@\{(-?\d+),\s*(-?\d+)\}/
+        if let match = rawQuery.wholeMatch(of: positionSyntax) {
+            let (_, xCoord, zCoord) = match.output
+            let coordinate = CGPoint(x: Int(xCoord) ?? 0, y: Int(zCoord) ?? 0)
+            searchTokens.append(.origin(coordinate))
+        }
+
         let fileTags = file.tags
         let matchingTags = fileTags.filter { tag in rawQuery.lowercased().contains(tag.lowercased()) }
-        return matchingTags.map { SearchToken.tag($0) }
+        searchTokens.append(contentsOf: matchingTags.map { SearchToken.tag($0) })
+        return searchTokens
     }
 }
 

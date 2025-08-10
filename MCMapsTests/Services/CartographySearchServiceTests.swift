@@ -99,4 +99,23 @@ struct CartographySearchServiceTests {
             in: SearchContext(world: world, file: file, position: .zero))
         #expect(!results.biomes.isEmpty)
     }
+
+    @Test func searchReturnsNearbyBiomesRelativeToFilteredOrigin() async throws {
+        let world = try MinecraftWorld(version: "1.21.3", seed: 123)
+        let file = CartographyMapFile(withManifest: .sampleFile)
+        let service = CartographySearchService()
+        let context = SearchContext(world: world, file: file, position: .zero)
+
+        let originResults = await service.search(for: "Frozen River", in: context)
+        
+        let results = await service.search(
+            for: "Frozen River",
+            in: context,
+            filters: SearchFilterGroup(
+                filters: [.origin(CGPoint(x: 1000, y: 1000))]
+            )
+        )
+
+        #expect(originResults.biomes.map(\.position) != results.biomes.map(\.position))
+    }
 }

@@ -97,13 +97,16 @@ struct RedWindowSearchView: View {
                 }
             } else {
                 // swiftlint:disable line_length
-                ContentUnavailableView(
-                    "Search Everything",
-                    image: "map.badge.magnifyingglass",
-                    description: Text(
+                ContentUnavailableView {
+                    Label("Search Everything", image: "map.badge.magnifyingglass")
+                } description: {
+                    Text(
                         "Search for nearby biomes and structures, pinned places, and any marked locations from integrations like Bluemap."
                     )
-                )
+                } actions: {
+                    RedWindowSearchTips()
+                }
+
                 // swiftlint:enable line_length
             }
         }
@@ -168,10 +171,6 @@ struct RedWindowSearchView: View {
             }
         } header: {
             Text("Biomes and Structures")
-        } footer: {
-            Text(
-                "Relative where you are on the map (\(currentLoc.accessibilityReadout))."
-            )
         }
     }
 }

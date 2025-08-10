@@ -5,6 +5,7 @@
 //  Created by Marquis Kurt on 01-06-2025.
 //
 
+import Foundation
 import MCMap
 
 extension CartographySearchService {
@@ -14,6 +15,9 @@ extension CartographySearchService {
 
         /// Filter by a specific tag.
         case tag(String)
+
+        /// Filter results relative to a specific origin.
+        case origin(CGPoint)
     }
 
     /// A collection of search filters.
@@ -43,6 +47,19 @@ extension CartographySearchService.SearchFilterGroup {
         }
 
         return matches
+    }
+
+    func getFilteredOrigin() -> CGPoint? {
+        var point: CGPoint?
+        for filter in filters {
+            switch filter {
+            case .tag:
+                continue
+            case let .origin(position):
+                point = position
+            }
+        }
+        return point
     }
 }
 
