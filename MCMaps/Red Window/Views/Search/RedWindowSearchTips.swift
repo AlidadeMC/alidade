@@ -9,7 +9,7 @@ import SwiftUI
 
 struct RedWindowSearchTips: View {
     private let tips: [LocalizedStringKey] = [
-        "Use the `@{0,0} syntax to filter search results near a specific coordinate.",
+        "Use the `@{0,0}` syntax to filter search results near a specific coordinate.",
         "Type the name of a tag to filter search results by that tag."
     ]
 
