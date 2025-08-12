@@ -128,6 +128,12 @@ struct RedWindowContentView: View {
                         Button("Go Here", systemImage: "location") {
                             redWindowEnvironment.mapCenterCoordinate = mapPin.content.position
                         }
+                        Button("Copy Coordinates", systemImage: "document.on.document") {
+                            Task {
+                                let pasteboard = PasteboardActor()
+                                await pasteboard.copy(mapPin.content.position)
+                            }
+                        }
                     }
                     .swipeActions {
                         Button("Go Here", systemImage: "location") {

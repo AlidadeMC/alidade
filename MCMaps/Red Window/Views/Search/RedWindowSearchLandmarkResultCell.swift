@@ -66,9 +66,15 @@ struct RedWindowSearchLandmarkResultCell: View {
             redWindowEnvironment.currentRoute = .map
         }
         .contextMenu {
-            Button("Show on Map", systemImage: "location") {
+            Button("Go Here", systemImage: "location") {
                 redWindowEnvironment.mapCenterCoordinate = landmark.position
                 redWindowEnvironment.currentRoute = .map
+            }
+            Button("Copy Coordinates", systemImage: "document.on.document") {
+                Task {
+                    let pasteboard = PasteboardActor()
+                    await pasteboard.copy(landmark.position)
+                }
             }
             if landmarkType != .pin {
                 Button("Create Pin", systemImage: "mappin") {

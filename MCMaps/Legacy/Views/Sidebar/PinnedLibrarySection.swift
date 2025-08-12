@@ -47,6 +47,12 @@ struct PinnedLibrarySection: View {
                                 Label("Get Info", systemImage: "info.circle")
                             }
                         #endif
+                        Button("Copy Coordinates", systemImage: "document.on.document") {
+                            Task {
+                                let pasteboard = PasteboardActor()
+                                await pasteboard.copy(pin.position)
+                            }
+                        }
                         Button(role: .destructive) {
                             deletionIndex = idx
                             displayDeletionPrompt.toggle()

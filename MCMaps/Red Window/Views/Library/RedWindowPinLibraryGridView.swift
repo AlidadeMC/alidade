@@ -52,6 +52,12 @@ struct RedWindowPinLibraryGridView: View {
                             navigationPath.append(
                                 RedWindowLibraryNavigationPath.pin(mapPin.content, index: mapPin.index))
                         }
+                        Button("Copy Coordinates", systemImage: "document.on.document") {
+                            Task {
+                                let pasteboard = PasteboardActor()
+                                await pasteboard.copy(mapPin.content.position)
+                            }
+                        }
                         Button("Remove", systemImage: "trash", role: .destructive) {
                             deletionRequest.elementIDs = [mapPin.index]
                             deletionRequest.presentAlert = true

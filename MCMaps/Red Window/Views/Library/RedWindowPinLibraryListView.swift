@@ -80,6 +80,13 @@ struct RedWindowPinLibraryListView: View {
                     let pin = pins[element]
                     navigationPath.append(RedWindowLibraryNavigationPath.pin(pin.content, index: pin.index))
                 }
+                Button("Copy Coordinates", systemImage: "document.on.document") {
+                    Task {
+                        let pin = pins[element]
+                        let pasteboard = PasteboardActor()
+                        await pasteboard.copy(pin.content.position)
+                    }
+                }
                 Button("Remove...", systemImage: "trash", role: .destructive) {
                     deletionRequest.elementIDs = selection
                     deletionRequest.presentAlert = true

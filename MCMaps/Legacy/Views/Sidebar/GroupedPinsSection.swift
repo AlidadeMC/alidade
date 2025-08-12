@@ -56,6 +56,12 @@ struct GroupedPinsSection: View {
                                 } label: {
                                     Label("Go Here", systemImage: "location")
                                 }
+                                Button("Copy Coordinates", systemImage: "document.on.document") {
+                                    Task {
+                                        let pasteboard = PasteboardActor()
+                                        await pasteboard.copy(pin.position)
+                                    }
+                                }
                                 Button {
                                     viewModel.currentRoute = .createPin(pin.position, pin.alternateIDs)
                                 } label: {
