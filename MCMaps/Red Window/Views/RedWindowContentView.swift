@@ -125,10 +125,10 @@ struct RedWindowContentView: View {
                     .customizationID("app.tab.library.\(mapPin.content.name.snakeCase)")
                     .customizationBehavior(.automatic, for: .automatic)
                     .contextMenu {
-                        Button("Go Here", systemImage: "location") {
+                        Button("Go Here", semanticIcon: .goHere) {
                             redWindowEnvironment.mapCenterCoordinate = mapPin.content.position
                         }
-                        Button("Copy Coordinates", systemImage: "document.on.document") {
+                        Button("Copy Coordinates", semanticIcon: .copy) {
                             Task {
                                 let pasteboard = PasteboardActor()
                                 await pasteboard.copy(mapPin.content.position)
@@ -136,7 +136,7 @@ struct RedWindowContentView: View {
                         }
                     }
                     .swipeActions {
-                        Button("Go Here", systemImage: "location") {
+                        Button("Go Here", semanticIcon: .goHere) {
                             redWindowEnvironment.mapCenterCoordinate = mapPin.content.position
                         }
                     }

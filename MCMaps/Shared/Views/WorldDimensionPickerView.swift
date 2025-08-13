@@ -18,11 +18,11 @@ struct WorldDimensionPickerView: View {
 
     var body: some View {
         Picker("Dimension", selection: $selection) {
-            Label("Overworld", systemImage: "tree")
+            Label("Overworld", semanticIcon: .overworld)
                 .tag(MinecraftWorld.Dimension.overworld)
-            Label("Nether", systemImage: "flame")
+            Label("Nether", semanticIcon: .nether)
                 .tag(MinecraftWorld.Dimension.nether)
-            Label("End", systemImage: "sparkles")
+            Label("End", semanticIcon: .end)
                 .tag(MinecraftWorld.Dimension.end)
         }
     }

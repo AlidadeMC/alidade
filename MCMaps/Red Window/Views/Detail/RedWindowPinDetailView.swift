@@ -119,7 +119,7 @@ struct RedWindowPinDetailView: View {
         }
         .toolbar {
             ToolbarItem {
-                Button("Show on Map", systemImage: "location") {
+                Button("Show on Map", semanticIcon: .goHere) {
                     env.mapCenterCoordinate = pin.position
                     env.currentRoute = .map
                 }

@@ -80,7 +80,7 @@ struct RedWindowPinLibraryListView: View {
                     let pin = pins[element]
                     navigationPath.append(RedWindowLibraryNavigationPath.pin(pin.content, index: pin.index))
                 }
-                Button("Copy Coordinates", systemImage: "document.on.document") {
+                Button("Copy Coordinates", semanticIcon: .copy) {
                     Task {
                         let pin = pins[element]
                         let pasteboard = PasteboardActor()

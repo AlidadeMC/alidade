@@ -38,7 +38,7 @@ struct PinnedLibrarySection: View {
                         Button {
                             viewModel.go(to: pin.position, relativeTo: file)
                         } label: {
-                            Label("Go Here", systemImage: "location")
+                            Label("Go Here", semanticIcon: .goHere)
                         }
                         #if os(macOS)
                             Button {
@@ -47,7 +47,7 @@ struct PinnedLibrarySection: View {
                                 Label("Get Info", systemImage: "info.circle")
                             }
                         #endif
-                        Button("Copy Coordinates", systemImage: "document.on.document") {
+                        Button("Copy Coordinates", semanticIcon: .copy) {
                             Task {
                                 let pasteboard = PasteboardActor()
                                 await pasteboard.copy(pin.position)
@@ -64,7 +64,7 @@ struct PinnedLibrarySection: View {
                         Button {
                             viewModel.go(to: pin.position, relativeTo: file)
                         } label: {
-                            Label("Go Here", systemImage: "location")
+                            Label("Go Here", semanticIcon: .goHere)
                         }
                         .tint(.accentColor)
                     }

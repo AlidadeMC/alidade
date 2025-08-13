@@ -66,11 +66,11 @@ struct RedWindowSearchLandmarkResultCell: View {
             redWindowEnvironment.currentRoute = .map
         }
         .contextMenu {
-            Button("Go Here", systemImage: "location") {
+            Button("Go Here", semanticIcon: .goHere) {
                 redWindowEnvironment.mapCenterCoordinate = landmark.position
                 redWindowEnvironment.currentRoute = .map
             }
-            Button("Copy Coordinates", systemImage: "document.on.document") {
+            Button("Copy Coordinates", semanticIcon: .copy) {
                 Task {
                     let pasteboard = PasteboardActor()
                     await pasteboard.copy(landmark.position)

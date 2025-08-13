@@ -79,13 +79,13 @@ struct RedWindowSearchView: View {
                 List {
                     Section {
                         ForEach(recentLocations, id: \.self) { recent in
-                            Label(recent.accessibilityReadout, systemImage: "location")
+                            Label(recent.accessibilityReadout, semanticIcon: .goHere)
                                 .onTapGesture {
                                     redWindowEnvironment.mapCenterCoordinate = recent
                                     redWindowEnvironment.currentRoute = .map
                                 }
                                 .contextMenu {
-                                    Button("Show on Map", systemImage: "location") {
+                                    Button("Show on Map", semanticIcon: .goHere) {
                                         redWindowEnvironment.mapCenterCoordinate = recent
                                         redWindowEnvironment.currentRoute = .map
                                     }

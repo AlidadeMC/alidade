@@ -155,7 +155,7 @@ struct CartographySearchView<InitialView: View, ResultsView: View>: View {
                     Label(tagName, systemImage: "tag")
                         .searchCompletion(searchToken)
                 case .origin(let pos):
-                    Label(pos.accessibilityReadout, systemImage: "location")
+                    Label(pos.accessibilityReadout, semanticIcon: .goHere)
                         .searchCompletion(searchToken)
                 }
             }

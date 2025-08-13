@@ -61,7 +61,7 @@ struct RecentLocationsListSection: View {
                     Button {
                         goToPosition?(pos)
                     } label: {
-                        Label("Go Here", systemImage: "location")
+                        Label("Go Here", semanticIcon: .goHere)
                     }
                     Button("Remove from Recents", role: .destructive) {
                         file.manifest.recentLocations?.remove(at: idx)

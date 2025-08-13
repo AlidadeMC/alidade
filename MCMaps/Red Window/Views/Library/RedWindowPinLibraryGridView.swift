@@ -52,7 +52,7 @@ struct RedWindowPinLibraryGridView: View {
                             navigationPath.append(
                                 RedWindowLibraryNavigationPath.pin(mapPin.content, index: mapPin.index))
                         }
-                        Button("Copy Coordinates", systemImage: "document.on.document") {
+                        Button("Copy Coordinates", semanticIcon: .copy) {
                             Task {
                                 let pasteboard = PasteboardActor()
                                 await pasteboard.copy(mapPin.content.position)

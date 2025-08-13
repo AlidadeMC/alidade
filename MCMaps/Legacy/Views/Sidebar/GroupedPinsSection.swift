@@ -54,9 +54,9 @@ struct GroupedPinsSection: View {
                                     viewModel.go(to: pin.position, relativeTo: file)
                                     jumpedToPin?(pin)
                                 } label: {
-                                    Label("Go Here", systemImage: "location")
+                                    Label("Go Here", semanticIcon: .goHere)
                                 }
-                                Button("Copy Coordinates", systemImage: "document.on.document") {
+                                Button("Copy Coordinates", semanticIcon: .copy) {
                                     Task {
                                         let pasteboard = PasteboardActor()
                                         await pasteboard.copy(pin.position)

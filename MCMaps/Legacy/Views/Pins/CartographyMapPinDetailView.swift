@@ -64,14 +64,14 @@ struct CartographyMapPinDetailView: View {
                 }
 
                 HStack {
-                    Label(viewModel.pinLocationLabel, systemImage: "tree")
+                    Label(viewModel.pinLocationLabel, semanticIcon: .overworld)
                         .font(.subheadline)
                         .monospaced()
                         .foregroundStyle(.secondary)
                         .help("Location in Overworld: \(viewModel.pinLocationLabel)")
                         .accessibilityLabel("Location in Overworld")
                         .accessibilityValue(viewModel.pinLocationLabel)
-                    Label(viewModel.netherTranslatedCoordinate, systemImage: "flame")
+                    Label(viewModel.netherTranslatedCoordinate, semanticIcon: .nether)
                         .font(.subheadline)
                         .monospaced()
                         .foregroundStyle(.secondary)
