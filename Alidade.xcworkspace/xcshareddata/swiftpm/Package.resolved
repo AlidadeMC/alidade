@@ -16,7 +16,7 @@
       "location" : "https://github.com/AlidadeMC/CubiomesKit",
       "state" : {
         "branch" : "root",
-        "revision" : "a665756acac0ee5b9fd3a92a07196ea1c348bf93"
+        "revision" : "0a7bb0a707e3261cca2a2c337f9fa4d0f8426227"
       }
     },
     {
@@ -34,7 +34,7 @@
       "location" : "https://github.com/AlidadeMC/mcmap.git",
       "state" : {
         "branch" : "main",
-        "revision" : "67dd6a62320d132d8e16fea6071fe3ebbd8387b4"
+        "revision" : "763def18c6c08080fa3a7d077b1ee826c5a85f08"
       }
     },
     {

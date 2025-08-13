@@ -89,10 +89,9 @@ struct RedWindowPinHeader: RedWindowDetailCell {
                     .foregroundStyle(.primary)
                     .font(.largeTitle)
                     .bold()
-                    Text("(\(Int(pin.position.x)), \(Int(pin.position.y)))")
+                    PinCoordinateStack(pin: pin)
                         .font(.headline)
                         .foregroundStyle(.secondary)
-                        .fontDesign(.monospaced)
                 }
                 Spacer()
             }
@@ -111,7 +110,7 @@ struct RedWindowPinHeader: RedWindowDetailCell {
         Rectangle()
             .fill(
                 Color(pin.color?.swiftUIColor ?? .accent)
-                    .opacity(0.85)
+                    .opacity(0.75)
                     .gradient
             )
     }

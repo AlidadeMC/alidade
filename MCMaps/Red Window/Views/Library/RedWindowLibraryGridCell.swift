@@ -57,6 +57,9 @@ struct RedWindowLibraryGridCell: View {
             Text("(\(pin.position.accessibilityReadout))")
                 .font(.subheadline)
                 .foregroundStyle(.secondary)
+            Text(pin.dimension.rawValue.localizedCapitalized)
+                .font(.subheadline)
+                .foregroundStyle(.tertiary)
         }
         .animation(.default, value: horizontalSizeClass)
     }

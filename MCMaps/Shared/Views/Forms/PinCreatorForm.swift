@@ -26,6 +26,7 @@ struct PinCreatorForm: View {
     @State private var name: String = "Pin"
     @State private var color: CartographyMapPin.Color = .blue
     @State private var updatedLocation = CGPoint.zero
+    @State private var dimension: CartographyMapPin.Dimension = .overworld
 
     @State private var locationX = 0.0
     @State private var locationY = 0.0
@@ -62,6 +63,7 @@ struct PinCreatorForm: View {
                     TextField("Z Coordinate", value: $locationY, format: .number)
                     #endif
                 }
+                WorldCodedDimensionPicker(selection: $dimension)
             } header: {
                 Text("World Location")
             }
@@ -100,7 +102,14 @@ struct PinCreatorForm: View {
             ToolbarItem(placement: .confirmationAction) {
                 Button("Create", systemImage: "checkmark") {
                     dismiss()
-                    completion(CartographyMapPin(named: name, at: updatedLocation, color: color))
+                    completion(
+                        CartographyMapPin(
+                            named: name,
+                            at: updatedLocation,
+                            dimension: dimension,
+                            color: color
+                        )
+                    )
                 }
             }
             #if os(macOS)

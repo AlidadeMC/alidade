@@ -306,17 +306,15 @@
     "Location" : {
 
     },
-    "Location in Nether" : {
-
-    },
-    "Location in Nether: %@" : {
-
-    },
-    "Location in Overworld" : {
-
-    },
-    "Location in Overworld: %@" : {
-
+    "Location in %@: %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Location in %1$@: %2$@"
+          }
+        }
+      }
     },
     "Locations You've Visited" : {
 
@@ -406,6 +404,9 @@
 
     },
     "Pin Color" : {
+
+    },
+    "Pin Dimension" : {
 
     },
     "Pin Here..." : {

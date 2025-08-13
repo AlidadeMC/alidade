@@ -63,27 +63,18 @@ struct CartographyMapPinDetailView: View {
                     }
                 }
 
-                HStack {
-                    Label(viewModel.pinLocationLabel, semanticIcon: .overworld)
-                        .font(.subheadline)
-                        .monospaced()
-                        .foregroundStyle(.secondary)
-                        .help("Location in Overworld: \(viewModel.pinLocationLabel)")
-                        .accessibilityLabel("Location in Overworld")
-                        .accessibilityValue(viewModel.pinLocationLabel)
-                    Label(viewModel.netherTranslatedCoordinate, semanticIcon: .nether)
-                        .font(.subheadline)
-                        .monospaced()
-                        .foregroundStyle(.secondary)
-                        .help("Location in Nether: \(viewModel.netherTranslatedCoordinate)")
-                        .accessibilityLabel("Location in Nether")
-                        .accessibilityValue(viewModel.netherTranslatedCoordinate)
-                }
-                .padding(.vertical, 2)
+                PinCoordinateStack(pin: viewModel.pin.wrappedValue)
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
+                    .padding(.vertical, 2)
             }
 
             .listRowBackground(Color.clear)
             .listRowSeparator(.hidden)
+
+            Group {
+                WorldCodedDimensionPicker(selection: viewModel.pin.dimension)
+            }
 
             Group {
                 if !viewModel.images().isEmpty {

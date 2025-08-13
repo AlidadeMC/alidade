@@ -42,6 +42,8 @@ struct RedWindowPinLibraryListView: View {
                         if horizontalSizeClass == .compact {
                             Text(val.content.position.accessibilityReadout)
                                 .foregroundStyle(.secondary)
+                            Text(val.content.dimension.rawValue.localizedCapitalized)
+                                .foregroundStyle(.tertiary)
                         }
                     }
                 } icon: {
@@ -51,6 +53,7 @@ struct RedWindowPinLibraryListView: View {
                 }
             }
             TableColumn("Location", value: \.content.position.accessibilityReadout)
+            TableColumn("Dimension", value: \.content.dimension.rawValue.localizedCapitalized)
             TableColumn("Tags") { val in
                 Group {
                     if let tags = val.content.tags, !tags.isEmpty {

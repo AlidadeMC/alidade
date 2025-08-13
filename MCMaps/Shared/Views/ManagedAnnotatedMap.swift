@@ -74,6 +74,9 @@ struct ManagedAnnotatedMap<MapContent: View>: View {
         var usedIDs = Set<String>()
 
         for pin in file.pins {
+            let dim = MinecraftWorld.Dimension(fromPinDimension: pin.dimension)
+            if dim != dimension { continue }
+
             let marker = Marker(
                 location: pin.position,
                 title: pin.name,

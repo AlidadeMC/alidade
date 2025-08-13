@@ -131,22 +131,23 @@ struct RedWindowPinDetailView: View {
                 }
             #endif
 
-            ToolbarItem {
-                PhotosPicker(selection: $photosPickerItem, matching: .images) {
-                    Label("Add From Photos", systemImage: "photo.badge.plus")
-                }
-            }
-            ToolbarItem {
-                Button("Add From Files", systemImage: "folder") {
-                    uploadFromFiles.toggle()
-                }
-            }
+            photoUploadToolbar
 
             #if RED_WINDOW
                 if #available(macOS 16, iOS 19, *) {
                     ToolbarSpacer(.fixed)
                 }
             #endif
+
+            ToolbarItem {
+                Menu("Pin Dimension", systemImage: "globe") {
+                    #if os(iOS)
+                        Label("Pin Dimension", systemImage: "globe")
+                            .foregroundStyle(.secondary)
+                    #endif
+                    WorldCodedDimensionPicker(selection: $pin.dimension)
+                }
+            }
 
             ToolbarItem {
                 Menu("Pin Color", systemImage: "paintpalette") {
@@ -190,6 +191,21 @@ struct RedWindowPinDetailView: View {
 
             ToolbarItem {
                 editButton
+            }
+        }
+    }
+
+    private var photoUploadToolbar: some ToolbarContent {
+        Group {
+            ToolbarItem {
+                PhotosPicker(selection: $photosPickerItem, matching: .images) {
+                    Label("Add From Photos", systemImage: "photo.badge.plus")
+                }
+            }
+            ToolbarItem {
+                Button("Add From Files", systemImage: "folder") {
+                    uploadFromFiles.toggle()
+                }
             }
         }
     }
