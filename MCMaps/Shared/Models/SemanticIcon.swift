@@ -28,8 +28,20 @@ typealias BasicLabel = SwiftUI.Label<Text, Image>
 /// }
 /// ```
 enum SemanticIcon: String {
+    /// The player is intending to select a color.
+    case colorSelect = "paintpalette"
+
     /// The player is intending to copy a piece of information.
     case copy = "document.on.document"
+
+    /// The player is intending to make a customization.
+    case customize = "paintbrush.pointed"
+
+    /// The player is intending to select a world dimension.
+    case dimensionSelect = "atom"
+
+    /// The player is intending to select an icon.
+    case iconSelect = "xmark.triangle.circle.square"
 
     /// The player is intending to go to a specific location.
     ///

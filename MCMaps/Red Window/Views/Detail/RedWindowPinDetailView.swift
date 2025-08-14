@@ -42,6 +42,10 @@ struct RedWindowPinDetailView: View {
     @State private var photosPickerItem: PhotosPickerItem?
     @State private var uploadFromFiles = false
 
+    private var shouldDisplayMapView: Bool {
+        return tabBarPlacement != .sidebar && horizontalSizeClass == .regular
+    }
+
     var body: some View {
         @Bindable var env = redWindowEnvironment
 
@@ -59,7 +63,8 @@ struct RedWindowPinDetailView: View {
                     .padding(.horizontal)
                 }
             }
-            if tabBarPlacement != .sidebar, horizontalSizeClass == .regular { mapView }
+            .layoutPriority(1.5)
+            if shouldDisplayMapView { mapView }
         }
         .ignoresSafeArea(edges: .vertical)
         .animation(.interactiveSpring, value: tabBarPlacement)
@@ -131,7 +136,9 @@ struct RedWindowPinDetailView: View {
                 }
             #endif
 
-            photoUploadToolbar
+            ToolbarItem {
+                editButton
+            }
 
             #if RED_WINDOW
                 if #available(macOS 16, iOS 19, *) {
@@ -140,9 +147,13 @@ struct RedWindowPinDetailView: View {
             #endif
 
             ToolbarItem {
-                Menu("Pin Dimension", systemImage: "globe") {
+                pinCustomizationMenu
+            }
+
+            ToolbarItem {
+                Menu("Pin Dimension", systemImage: SemanticIcon.dimensionSelect.rawValue) {
                     #if os(iOS)
-                        Label("Pin Dimension", systemImage: "globe")
+                        Label("Pin Dimension", semanticIcon: .dimensionSelect)
                             .foregroundStyle(.secondary)
                     #endif
                     WorldCodedDimensionPicker(selection: $pin.dimension)
@@ -150,35 +161,7 @@ struct RedWindowPinDetailView: View {
             }
 
             ToolbarItem {
-                Menu("Pin Color", systemImage: "paintpalette") {
-                    #if os(iOS)
-                        Label("Pin Color", systemImage: "paintpalette")
-                            .foregroundStyle(.secondary)
-                    #endif
-                    Picker("Pin Color", selection: $color) {
-                        ForEach(CartographyMapPin.Color.allCases, id: \.self) { color in
-                            Group {
-                                #if os(iOS)
-                                    Label(String(describing: color).localizedCapitalized, systemImage: "circle.fill")
-                                        .tint(color.swiftUIColor)
-                                #else
-                                    Text(String(describing: color).localizedCapitalized)
-                                #endif
-                            }
-                            .tag(color)
-                        }
-                    }
-                }
-            }
-
-            ToolbarItem {
-                Button("Pin Icon", systemImage: "heart.text.square") {
-                    presentIconPicker.toggle()
-                }
-            }
-
-            ToolbarItem {
-                Button("Manage Tags", systemImage: "tag") {
+                Button("Manage Tags…", systemImage: "tag") {
                     presentTagEditor.toggle()
                 }
             }
@@ -189,9 +172,7 @@ struct RedWindowPinDetailView: View {
                 }
             #endif
 
-            ToolbarItem {
-                editButton
-            }
+            photoUploadToolbar
         }
     }
 
@@ -206,6 +187,42 @@ struct RedWindowPinDetailView: View {
                 Button("Add From Files", systemImage: "folder") {
                     uploadFromFiles.toggle()
                 }
+            }
+        }
+    }
+
+    private var pinCustomizationMenu: some View {
+        Menu("Customize Pin", systemImage: "paintbrush.pointed") {
+            #if os(iOS)
+                Label("Customize Pin", semanticIcon: .customize)
+                    .foregroundStyle(.secondary)
+                Divider()
+            #endif
+            Section {
+                Picker("Pin Color", selection: $color) {
+                    ForEach(CartographyMapPin.Color.allCases, id: \.self) { color in
+                        Group {
+                            #if os(iOS)
+                                Label(
+                                    String(describing: color).localizedCapitalized,
+                                    systemImage: "circle.fill"
+                                )
+                                .tint(color.swiftUIColor)
+                            #else
+                                Text(String(describing: color).localizedCapitalized)
+                            #endif
+                        }
+                        .tag(color)
+                    }
+                }
+                .pickerStyle(.inline)
+            } header: {
+                Label("Pin Color", semanticIcon: .colorSelect)
+            }
+            .labelsVisibility(.visible)
+
+            Button("Select Pin Icon…", semanticIcon: .iconSelect) {
+                presentIconPicker.toggle()
             }
         }
     }
@@ -244,24 +261,9 @@ struct RedWindowPinDetailView: View {
     private var mapView: some View {
         Group {
             Divider()
-            Group {
-                if let world = try? MinecraftWorld(worldSettings: file.manifest.worldSettings) {
-                    MinecraftMap(world: world, centerCoordinate: .constant(pin.position)) {
-                        Marker(
-                            location: pin.position,
-                            title: pin.name,
-                            id: pin.id,
-                            color: pin.color?.swiftUIColor ?? .accent,
-                            systemImage: pin.icon?.resolveSFSymbol(in: .pin) ?? "mappin"
-                        )
-                    }
-                    .mapColorScheme(.natural)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .allowsHitTesting(false)
-                }
-            }
-            .frame(idealWidth: 300, maxWidth: 375, maxHeight: .infinity)
+            RedWindowDetailInspector(pin: pin, worldSettings: file.manifest.worldSettings)
         }
+        .layoutPriority(1)
     }
 
     private var editButton: some View {

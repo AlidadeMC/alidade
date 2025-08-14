@@ -5,6 +5,7 @@
 //  Created by Marquis Kurt on 31-01-2025.
 //
 
+import AlidadeUI
 import MCMap
 import SwiftUI
 import TipKit
@@ -88,6 +89,7 @@ struct MCMapsApp: App {
                     Label("Natural Colors", systemImage: "paintpalette")
                 }
                 WorldDimensionPickerView(selection: $redWindowEnvironment.currentDimension)
+                    .labelsVisibility(.visible)
             }
             CommandGroup(replacing: .help) {
                 Link("\(Self.appName) Help", destination: URL(appLink: .help)!)
@@ -100,6 +102,18 @@ struct MCMapsApp: App {
                 }
             }
             if useRedWindowDesign {
+                CommandGroup(after: .pasteboard) {
+                    Button("Configure World...", systemImage: "globe") {
+                        redWindowEnvironment.currentRoute = .worldEdit
+                    }
+                    .keyboardShortcut("E", modifiers: [.command, .shift])
+                }
+                CommandGroup(before: .saveItem) {
+                    Button("Find in File...", systemImage: "magnifyingglass") {
+                        redWindowEnvironment.currentRoute = .search
+                    }
+                    .keyboardShortcut("F", modifiers: [.command, .shift])
+                }
                 CommandGroup(before: .toolbar) {
                     #if os(macOS)
                         let menuItems = RedWindowRoute.allCases.enumerated()

@@ -141,6 +141,9 @@
     "Color" : {
 
     },
+    "Configure World..." : {
+
+    },
     "Copy Coordinates" : {
 
     },
@@ -160,6 +163,9 @@
 
     },
     "Create Tag" : {
+
+    },
+    "Customize Pin" : {
 
     },
     "Debug" : {
@@ -220,6 +226,9 @@
 
     },
     "Feature Flags" : {
+
+    },
+    "Find in File..." : {
 
     },
     "Fortress" : {
@@ -325,6 +334,9 @@
     "Manage Tags" : {
 
     },
+    "Manage Tags…" : {
+
+    },
     "Mansion" : {
 
     },
@@ -412,9 +424,6 @@
     "Pin Here..." : {
 
     },
-    "Pin Icon" : {
-
-    },
     "Pin Inspector" : {
 
     },
@@ -485,6 +494,9 @@
 
     },
     "Select an Icon" : {
+
+    },
+    "Select Pin Icon…" : {
 
     },
     "Send %@ Feedback" : {

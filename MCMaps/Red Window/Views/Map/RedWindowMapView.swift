@@ -102,7 +102,7 @@ struct RedWindowMapView: View {
                 }
                 .toolbar {
                     ToolbarItem {
-                        Menu {
+                        Menu("Map", systemImage: "map") {
                             #if os(iOS)
                                 Label("Map", systemImage: "map")
                                     .foregroundStyle(.secondary)
@@ -113,8 +113,7 @@ struct RedWindowMapView: View {
                             }
                             WorldDimensionPickerView(selection: $env.currentDimension)
                                 .pickerStyle(.inline)
-                        } label: {
-                            Label("Map", systemImage: "map")
+                                .labelsVisibility(.visible)
                         }
                     }
 
