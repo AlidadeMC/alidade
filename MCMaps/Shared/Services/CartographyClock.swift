@@ -93,9 +93,9 @@ class CartographyClock {
     func stop(timer: ClockTimer) {
         switch timer {
         case .bluemap:
-            bluemapTimer?.connect().cancel()
+            bluemap.upstream.connect().cancel()
         case .realtime:
-            realtimeTimer.connect().cancel()
+            realtime.upstream.connect().cancel()
         }
         logger.debug("⏰ \(timer) timer was stopped.")
     }

@@ -43,7 +43,17 @@ struct RedWindowContentView: View {
 
         TabView(selection: $env.currentRoute) {
             Tab(route: .map) {
-                RedWindowMapView(file: $file)
+                // NOTE(alicerunsonfedora): This should be completely unnecessary, but for some reason SwiftUI keeps
+                // the view around, allowing the map's annotations to be continually reconstructed while other tabs are
+                // editing content. This shouldn't be the case, so the map is now only going to display when it's
+                // guaranteed that the current route is the map.
+                //
+                // This should hopefully fix any issues regarding slowdown of editing pin descriptions.
+                Group {
+                    if env.currentRoute == .map {
+                        RedWindowMapView(file: $file)
+                    }
+                }
             }
 
             Tab(route: .worldEdit) {
