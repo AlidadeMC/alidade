@@ -58,7 +58,9 @@ struct RedWindowPinDetailView: View {
                         if !tags.isEmpty {
                             RedWindowPinTagsCell(pin: $pin, isEditing: $editMode, file: $file)
                         }
-                        RedWindowPinGalleryCell(pin: $pin, isEditing: $editMode, file: $file)
+                        if !editMode {
+                            RedWindowPinGalleryCell(pin: $pin, isEditing: $editMode, file: $file)
+                        }
                     }
                     .padding(.horizontal)
                 }
@@ -68,9 +70,7 @@ struct RedWindowPinDetailView: View {
         }
         .ignoresSafeArea(edges: .vertical)
         .animation(.interactiveSpring, value: tabBarPlacement)
-        // NOTE(alicerunsonfedora): The animation causes a flashing problem for some reason. Disabled to as to not
-        // induce seizures from any potential players.
-        //        .animation(.default, value: editMode)
+        .animation(.interactiveSpring, value: editMode)
         .task {
             center = pin.position
             if let currentColor = pin.color {
@@ -123,56 +123,59 @@ struct RedWindowPinDetailView: View {
             }
         }
         .toolbar {
-            ToolbarItem {
-                Button("Show on Map", semanticIcon: .goHere) {
-                    env.mapCenterCoordinate = pin.position
-                    env.currentRoute = .map
+            if !editMode {
+                ToolbarItem {
+                    Button("Show on Map", semanticIcon: .goHere) {
+                        env.mapCenterCoordinate = pin.position
+                        env.currentRoute = .map
+                    }
                 }
-            }
 
-            #if RED_WINDOW
-                if #available(macOS 16, iOS 19, *) {
-                    ToolbarSpacer(.fixed)
-                }
-            #endif
+                #if RED_WINDOW
+                    if #available(macOS 16, iOS 19, *) {
+                        ToolbarSpacer(.fixed)
+                    }
+                #endif
+            }
 
             ToolbarItem {
                 editButton
             }
 
-            #if RED_WINDOW
-                if #available(macOS 16, iOS 19, *) {
-                    ToolbarSpacer(.fixed)
+            if !editMode {
+                #if RED_WINDOW
+                    if #available(macOS 16, iOS 19, *) {
+                        ToolbarSpacer(.fixed)
+                    }
+                #endif
+                ToolbarItem {
+                    pinCustomizationMenu
                 }
-            #endif
 
-            ToolbarItem {
-                pinCustomizationMenu
+                ToolbarItem {
+                    Menu("Pin Dimension", systemImage: SemanticIcon.dimensionSelect.rawValue) {
+                        #if os(iOS)
+                            Label("Pin Dimension", semanticIcon: .dimensionSelect)
+                                .foregroundStyle(.secondary)
+                        #endif
+                        WorldCodedDimensionPicker(selection: $pin.dimension)
+                    }
+                }
+
+                ToolbarItem {
+                    Button("Manage Tags…", systemImage: "tag") {
+                        presentTagEditor.toggle()
+                    }
+                }
+
+                #if RED_WINDOW
+                    if #available(macOS 16, iOS 19, *) {
+                        ToolbarSpacer(.fixed)
+                    }
+                #endif
+
+                photoUploadToolbar
             }
-
-            ToolbarItem {
-                Menu("Pin Dimension", systemImage: SemanticIcon.dimensionSelect.rawValue) {
-                    #if os(iOS)
-                        Label("Pin Dimension", semanticIcon: .dimensionSelect)
-                            .foregroundStyle(.secondary)
-                    #endif
-                    WorldCodedDimensionPicker(selection: $pin.dimension)
-                }
-            }
-
-            ToolbarItem {
-                Button("Manage Tags…", systemImage: "tag") {
-                    presentTagEditor.toggle()
-                }
-            }
-
-            #if RED_WINDOW
-                if #available(macOS 16, iOS 19, *) {
-                    ToolbarSpacer(.fixed)
-                }
-            #endif
-
-            photoUploadToolbar
         }
     }
 

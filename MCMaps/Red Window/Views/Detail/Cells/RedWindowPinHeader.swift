@@ -42,7 +42,7 @@ struct RedWindowPinHeader: RedWindowDetailCell {
 
     var body: some View {
         Group {
-            if let coverImage {
+            if let coverImage, !isEditing {
                 ZStack {
                     Color.black
                     Rectangle()
