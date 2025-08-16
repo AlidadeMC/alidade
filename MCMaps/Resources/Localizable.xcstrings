@@ -144,6 +144,9 @@
     "Configure World..." : {
 
     },
+    "Coordinates" : {
+
+    },
     "Copy Coordinates" : {
 
     },
@@ -556,10 +559,16 @@
     "Tags" : {
 
     },
+    "The End dimension doesn't support fast travel between dimensions unlike the Nether." : {
+
+    },
     "The following flags control experimental features. Proceed with caution." : {
 
     },
     "There are no pins to be removed." : {
+
+    },
+    "This location can only be accessed in the End." : {
 
     },
     "this pin" : {

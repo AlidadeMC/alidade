@@ -64,6 +64,7 @@ struct RedWindowPinDetailView: View {
                             if !tags.isEmpty {
                                 RedWindowPinTagsCell(pin: $pin, isEditing: $editMode, file: $file)
                             }
+                            RedWindowPositionCell(pin: $pin, isEditing: $editMode, file: $file)
                             RedWindowPinGalleryCell(pin: $pin, isEditing: $editMode, file: $file)
                         }
                     }
@@ -183,6 +184,7 @@ struct RedWindowPinDetailView: View {
                             displayInspector.toggle()
                         }
                     }
+                    .keyboardShortcut("/", modifiers: .command)
                 }
             }
         }
