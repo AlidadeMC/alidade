@@ -17,6 +17,8 @@ import SwiftUI
 /// Entering edit mode on the header will allow players to edit the title of the pin, switching to the default system
 /// font.
 struct RedWindowPinHeader: RedWindowDetailCell {
+    @Environment(\.colorSchemeContrast) private var colorSchemeContrast
+
     private enum Constants {
         static let headerHeight = 300.0
     }
@@ -42,7 +44,7 @@ struct RedWindowPinHeader: RedWindowDetailCell {
 
     var body: some View {
         Group {
-            if let coverImage, !isEditing {
+            if let coverImage, !isEditing, colorSchemeContrast == .standard {
                 ZStack {
                     Color.black
                     Rectangle()
@@ -75,12 +77,14 @@ struct RedWindowPinHeader: RedWindowDetailCell {
 
         .frame(height: Constants.headerHeight)
         .backgroundExtensionEffectIfAvailable()
+        .animation(.interactiveSpring, value: colorSchemeContrast)
         .overlay(alignment: .bottomLeading) {
             HStack {
                 VStack(alignment: .leading) {
                     Group {
                         if isEditing {
                             TextField("", text: $pin.name, prompt: Text("Name"))
+                                .textFieldStyle(.roundedBorder)
                         } else {
                             Text(pin.name)
                                 .fontDesign(.serif)

@@ -27,6 +27,7 @@ struct RedWindowDescriptionCell: RedWindowDetailCell {
                 .padding(.top)
             if isEditing {
                 TextEditor(text: $pin.description)
+                    .textFieldStyle(.roundedBorder)
                     .frame(minHeight: 200)
                     .overlay(alignment: .topLeading) {
                         if pin.description.isEmpty {

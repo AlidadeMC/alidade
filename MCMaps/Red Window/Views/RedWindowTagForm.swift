@@ -58,8 +58,9 @@ struct RedWindowTagForm: View {
         .toolbar {
             #if os(iOS)
                 ToolbarItem {
-                    EditButton()
-                        .disabled(tags.isEmpty)
+                    if !tags.isEmpty {
+                        EditButton()
+                    }
                 }
             #endif
             ToolbarItem(placement: .confirmationAction) {

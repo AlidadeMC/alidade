@@ -40,13 +40,16 @@ enum SemanticIcon: String {
     /// The player is intending to select a world dimension.
     case dimensionSelect = "atom"
 
-    /// The player is intending to select an icon.
-    case iconSelect = "xmark.triangle.circle.square"
-
     /// The player is intending to go to a specific location.
     ///
     /// This can also be used to refer to a current location.
     case goHere = "location"
+
+    /// The player is intending to select an icon.
+    case iconSelect = "xmark.triangle.circle.square"
+
+    /// An icon used to indicate an inspector in the app.
+    case inspectorToggle = "sidebar.right"
 
     /// The icon representing the Overworld dimension.
     case overworld = "tree"

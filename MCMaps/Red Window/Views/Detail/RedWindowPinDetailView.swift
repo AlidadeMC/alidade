@@ -31,6 +31,7 @@ struct RedWindowPinDetailView: View {
 
     @State private var tags = Set<String>()
     @State private var displayAlert = false
+    @State private var displayInspector = true
     @State private var center = CGPoint.zero
     @State private var color = CartographyMapPin.Color.blue
     @State private var editMode = false
@@ -42,8 +43,12 @@ struct RedWindowPinDetailView: View {
     @State private var photosPickerItem: PhotosPickerItem?
     @State private var uploadFromFiles = false
 
-    private var shouldDisplayMapView: Bool {
+    private var canDisplayMapView: Bool {
         return tabBarPlacement != .sidebar && horizontalSizeClass == .regular
+    }
+
+    private var shouldDisplayMapView: Bool {
+        return canDisplayMapView && displayInspector
     }
 
     var body: some View {
@@ -55,10 +60,10 @@ struct RedWindowPinDetailView: View {
                     RedWindowPinHeader(pin: $pin, isEditing: $editMode, file: file)
                     Group {
                         RedWindowDescriptionCell(pin: $pin, isEditing: $editMode, file: $file)
-                        if !tags.isEmpty {
-                            RedWindowPinTagsCell(pin: $pin, isEditing: $editMode, file: $file)
-                        }
                         if !editMode {
+                            if !tags.isEmpty {
+                                RedWindowPinTagsCell(pin: $pin, isEditing: $editMode, file: $file)
+                            }
                             RedWindowPinGalleryCell(pin: $pin, isEditing: $editMode, file: $file)
                         }
                     }
@@ -71,6 +76,7 @@ struct RedWindowPinDetailView: View {
         .ignoresSafeArea(edges: .vertical)
         .animation(.interactiveSpring, value: tabBarPlacement)
         .animation(.interactiveSpring, value: editMode)
+        .animation(.interactiveSpring, value: displayInspector)
         .task {
             center = pin.position
             if let currentColor = pin.color {
@@ -123,31 +129,7 @@ struct RedWindowPinDetailView: View {
             }
         }
         .toolbar {
-            if !editMode {
-                ToolbarItem {
-                    Button("Show on Map", semanticIcon: .goHere) {
-                        env.mapCenterCoordinate = pin.position
-                        env.currentRoute = .map
-                    }
-                }
-
-                #if RED_WINDOW
-                    if #available(macOS 16, iOS 19, *) {
-                        ToolbarSpacer(.fixed)
-                    }
-                #endif
-            }
-
-            ToolbarItem {
-                editButton
-            }
-
-            if !editMode {
-                #if RED_WINDOW
-                    if #available(macOS 16, iOS 19, *) {
-                        ToolbarSpacer(.fixed)
-                    }
-                #endif
+            if editMode {
                 ToolbarItem {
                     pinCustomizationMenu
                 }
@@ -161,20 +143,47 @@ struct RedWindowPinDetailView: View {
                         WorldCodedDimensionPicker(selection: $pin.dimension)
                     }
                 }
-
+                RedWindowToolbarSpacer()
                 ToolbarItem {
                     Button("Manage Tags…", systemImage: "tag") {
                         presentTagEditor.toggle()
                     }
                 }
+                RedWindowToolbarSpacer()
+            }
 
-                #if RED_WINDOW
-                    if #available(macOS 16, iOS 19, *) {
-                        ToolbarSpacer(.fixed)
-                    }
-                #endif
-
+            if !editMode {
+                RedWindowToolbarSpacer()
                 photoUploadToolbar
+            }
+
+            RedWindowToolbarSpacer()
+
+            if !editMode {
+                ToolbarItem {
+                    Button("Show on Map", semanticIcon: .goHere) {
+                        env.mapCenterCoordinate = pin.position
+                        env.currentRoute = .map
+                    }
+                }
+            }
+
+            RedWindowToolbarSpacer()
+
+            ToolbarItem {
+                editButton
+            }
+
+            RedWindowToolbarSpacer()
+
+            ToolbarItem {
+                if canDisplayMapView {
+                    Button(displayInspector ? "Hide Inspector" : "Show Inspector", semanticIcon: .inspectorToggle) {
+                        withAnimation {
+                            displayInspector.toggle()
+                        }
+                    }
+                }
             }
         }
     }
@@ -275,23 +284,31 @@ struct RedWindowPinDetailView: View {
                 #if RED_WINDOW
                     if #available(iOS 19, macOS 16, *) {
                         Button(role: .confirm) {
-                            editMode.toggle()
+                            withAnimation {
+                                editMode.toggle()
+                            }
                         }
                     } else {
                         Button("Done", systemImage: "checkmark") {
-                            editMode.toggle()
+                            withAnimation {
+                                editMode.toggle()
+                            }
                         }
                         .buttonStyle(.borderedProminent)
                     }
                 #else
                     Button("Done", systemImage: "checkmark") {
-                        editMode.toggle()
+                        withAnimation {
+                            editMode.toggle()
+                        }
                     }
                     .buttonStyle(.borderedProminent)
                 #endif
             } else {
                 Button("Edit") {
-                    editMode.toggle()
+                    withAnimation {
+                        editMode.toggle()
+                    }
                 }
             }
         }

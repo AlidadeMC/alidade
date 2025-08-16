@@ -73,18 +73,18 @@ struct ContentViewToolbar: ToolbarContent {
             #if os(macOS)
                 ToolbarItem {
                     Button {
-                        viewModel.displayCurrentRouteAsInspector.wrappedValue.toggle()
-                    } label: {
-                        Label("Pin Inspector", image: "mappin.circle.badge.gearshape.fill")
-                    }
-                    .disabled(viewModel.currentRoute?.requiresInspectorDisplay != true)
-                }
-                ToolbarItem {
-                    Button {
                         viewModel.currentRoute = .editWorld
                     } label: {
                         Label("Update World", image: "globe.desk.badge.gearshape.fill")
                     }
+                }
+                ToolbarItem {
+                    Button {
+                        viewModel.displayCurrentRouteAsInspector.wrappedValue.toggle()
+                    } label: {
+                        Label("Pin Inspector", semanticIcon: .inspectorToggle)
+                    }
+                    .disabled(viewModel.currentRoute?.requiresInspectorDisplay != true)
                 }
             #endif
         }

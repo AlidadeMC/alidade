@@ -279,6 +279,9 @@
     "Hide All Tips" : {
 
     },
+    "Hide Inspector" : {
+
+    },
     "Host" : {
 
     },
@@ -515,6 +518,9 @@
 
     },
     "Show in Finder" : {
+
+    },
+    "Show Inspector" : {
 
     },
     "Show on Map" : {

@@ -29,12 +29,14 @@ struct PinCoordinateStack: View {
                 )
                 .accessibilityLabel("Location in " + pin.dimension.rawValue.localizedCapitalized)
                 .accessibilityValue(pin.position.accessibilityReadout)
-            Label("(\(pairing.accessibilityReadout))", semanticIcon: symbol(for: pairedDimension))
-                .help(
-                    "Location in \(pairedDimension.rawValue.localizedCapitalized): \(pairing.accessibilityReadout)"
-                )
-                .accessibilityLabel("Location in " + pairedDimension.rawValue.localizedCapitalized)
-                .accessibilityValue(pairing.accessibilityReadout)
+            if pinHasPairing {
+                Label("(\(pairing.accessibilityReadout))", semanticIcon: symbol(for: pairedDimension))
+                    .help(
+                        "Location in \(pairedDimension.rawValue.localizedCapitalized): \(pairing.accessibilityReadout)"
+                    )
+                    .accessibilityLabel("Location in " + pairedDimension.rawValue.localizedCapitalized)
+                    .accessibilityValue(pairing.accessibilityReadout)
+            }
         }
     }
 
@@ -44,6 +46,10 @@ struct PinCoordinateStack: View {
         case .nether: .nether
         case .end: .end
         }
+    }
+
+    var pinHasPairing: Bool {
+        pin.dimension != .end
     }
 
     var pairing: CGPoint {
