@@ -71,9 +71,9 @@ struct RedWindowPositionCell: RedWindowDetailCell {
     private var alternatePosition: CGPoint {
         switch pin.dimension {
         case .overworld:
-            return CGPoint(x: pin.position.x / 8, y: pin.position.x / 8)
+            return CGPoint(x: pin.position.x / 8, y: pin.position.y / 8)
         case .nether:
-            return CGPoint(x: pin.position.x * 8, y: pin.position.x * 8)
+            return CGPoint(x: pin.position.x * 8, y: pin.position.y * 8)
         case .end:
             return pin.position
         }
