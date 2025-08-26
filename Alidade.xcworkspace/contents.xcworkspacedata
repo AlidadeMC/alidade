@@ -26,6 +26,9 @@
       location = "group:DesignLibrary">
    </FileRef>
    <FileRef
+      location = "group:Easel">
+   </FileRef>
+   <FileRef
       location = "group:Testchamber">
    </FileRef>
 </Workspace>
