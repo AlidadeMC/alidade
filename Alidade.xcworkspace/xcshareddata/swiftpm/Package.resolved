@@ -1,5 +1,5 @@
 {
-  "originHash" : "af1b628a0a0e3b49e27259c0080fc31504c21f8a72d8c6bdf7bdd289582958c6",
+  "originHash" : "892eea5078aae2f1915f2b1d61065877f79b4c83578083920749d63f46a6eb87",
   "pins" : [
     {
       "identity" : "adaptablesidebarsheetview",
@@ -16,7 +16,7 @@
       "location" : "https://github.com/AlidadeMC/CubiomesKit",
       "state" : {
         "branch" : "root",
-        "revision" : "a6d64b403a61fc720b3fd2f4b309de0a6ee9e0e7"
+        "revision" : "6b792021188fd5e047b5b6dccd5e940d382c3835"
       }
     },
     {
@@ -34,7 +34,7 @@
       "location" : "https://github.com/AlidadeMC/mcmap.git",
       "state" : {
         "branch" : "main",
-        "revision" : "f4acc0e230fff99f7fee18c5faab50268236c68a"
+        "revision" : "d75f980b0c99543e46e2d835fa39094354122180"
       }
     },
     {
