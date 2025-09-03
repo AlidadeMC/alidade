@@ -7,17 +7,6 @@
 	<key>Title</key>
 	<string>Feature Flags</string>
 	<key>PreferenceSpecifiers</key>
-	<array>
-		<dict>
-			<key>Type</key>
-			<string>PSToggleSwitchSpecifier</string>
-			<key>Title</key>
-			<string>Red Window</string>
-			<key>Key</key>
-			<string>flags.red_window</string>
-			<key>DefaultValue</key>
-			<false/>
-		</dict>
-	</array>
+	<array/>
 </dict>
 </plist>
