@@ -29,8 +29,6 @@ struct RedWindowContentView: View {
     /// The file to read from and write to.
     @Binding var file: CartographyMapFile
 
-    @FeatureFlagged(.redWindow) private var useRedWindowDesign
-
     @State private var libraryNavigationPath = NavigationPath()
 
     private var subtitle: String {

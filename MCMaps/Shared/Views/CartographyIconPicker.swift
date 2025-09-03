@@ -10,7 +10,6 @@ import SwiftUI
 
 struct CartographyIconPicker: View {
     @Environment(\.dismiss) private var dismiss
-    @FeatureFlagged(.redWindow) private var useRedWindow
 
     @Binding var icon: CartographyIcon
     var context: CartographyIconContext
@@ -23,8 +22,19 @@ struct CartographyIconPicker: View {
     }
 
     var body: some View {
+        Group {
+            if #available(iOS 19.0, macOS 16.0, *) {
+                picker
+                    .searchable(text: $query)
+            } else {
+                picker
+            }
+        }
+    }
+
+    private var picker: some View {
         ScrollView {
-            if !useRedWindow {
+            if #unavailable(iOS 19.0, macOS 16.0) {
                 TextField("Search...", text: $query)
                     .controlSize(.large)
                     .textFieldStyle(.roundedBorder)
@@ -54,9 +64,6 @@ struct CartographyIconPicker: View {
             .padding()
         }
         .frame(idealWidth: 300, minHeight: 450)
-        .if(useRedWindow) { view in
-            view.searchable(text: $query)
-        }
     }
 }
 

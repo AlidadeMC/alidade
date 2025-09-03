@@ -312,9 +312,6 @@
     "Library" : {
 
     },
-    "Liquid Glass Design (Red Window)" : {
-
-    },
     "List" : {
 
     },
@@ -371,6 +368,9 @@
 
     },
     "No Description Written" : {
+
+    },
+    "No new feature flags" : {
 
     },
     "No Photos Uploaded" : {
@@ -563,6 +563,9 @@
 
     },
     "The following flags control experimental features. Proceed with caution." : {
+
+    },
+    "There are no feature flags available in this build." : {
 
     },
     "There are no pins to be removed." : {

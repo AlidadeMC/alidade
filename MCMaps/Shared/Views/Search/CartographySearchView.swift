@@ -16,8 +16,6 @@ import SwiftUI
 /// when the view is in its initial state. Queries are currently handled internally and requires no additional bindings
 /// on the developer's part.
 struct CartographySearchView<InitialView: View, ResultsView: View>: View {
-    @FeatureFlagged(.redWindow) private var useRedWindowDesign
-
     /// A typealias pointing to the search query type.
     typealias SearchQuery = CartographySearchService.Query
 
@@ -71,6 +69,10 @@ struct CartographySearchView<InitialView: View, ResultsView: View>: View {
     var results: (SearchResult) -> ResultsView
 
     private var searchGainedFocus: (() -> Void)?
+
+    private var prompt: LocalizedStringKey {
+        if #available(iOS 19.0, macOS 16.0, *) { "Search" } else { "Go To..." }
+    }
 
     init(
         file: CartographyMapFile,
@@ -138,7 +140,7 @@ struct CartographySearchView<InitialView: View, ResultsView: View>: View {
             // it gets prematurely truncated.
             //
             // For now, set this to 'Search' and watch future betas to see if the search bar size changes at all.
-            prompt: useRedWindowDesign ? "Search" : "Go To..."
+            prompt: prompt
         ) { token in
             switch token {
             case .tag(let tagName):

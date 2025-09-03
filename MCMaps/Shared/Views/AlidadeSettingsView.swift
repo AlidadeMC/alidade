@@ -15,12 +15,6 @@ import SwiftUI
 /// user interface is driven by the Settings bundle for this app.
 @available(macOS 15.0, *)
 struct AlidadeSettingsView: View {
-    @AppStorage(FeatureFlag.redWindow.keyName) private var flagRedWindow = true
-
-    private var isRedWindowActionable: Bool {
-        return if #available(macOS 16, iOS 19, *) { true } else { false }
-    }
-
     var body: some View {
         TabView {
             Tab("Feature Flags", systemImage: "flag.pattern.checkered") {
@@ -37,10 +31,7 @@ struct AlidadeSettingsView: View {
             .inlineBannerVariant(.warning)
             .padding(.top)
             Form {
-                Toggle(isOn: $flagRedWindow) {
-                    Text("Liquid Glass Design (Red Window)")
-                }
-                .disabled(!isRedWindowActionable)
+                InlineBanner("No new feature flags", message: "There are no feature flags available in this build.")
             }
             .formStyle(.grouped)
         }

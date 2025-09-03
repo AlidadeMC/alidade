@@ -21,10 +21,6 @@ import Foundation
 /// }
 /// ```
 enum FeatureFlag {
-    /// The feature flag associated with the new Red Window design.
-    ///
-    /// - SeeAlso: Refer to <doc:RedWindow> for more information on the new design and the corresponding feature flag.
-    case redWindow
 }
 
 extension FeatureFlag {
@@ -32,16 +28,12 @@ extension FeatureFlag {
     ///
     /// This should also correspond to the key used in the app's Settings bundle, whenever applicable.
     var keyName: String {
-        switch self {
-        case .redWindow: return "flags.red_window"
-        }
+        ""
     }
 
     /// Whether the flag is enabled by default.
     var isEnabledByDefault: Bool {
-        switch self {
-        case .redWindow: return if #available(macOS 16, iOS 19, *) { true } else { false }
-        }
+        true
     }
 }
 

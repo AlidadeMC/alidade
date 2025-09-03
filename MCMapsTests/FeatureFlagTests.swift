@@ -11,7 +11,8 @@ import Testing
 @testable import Alidade
 
 struct FeatureFlagTests {
-    @Test func flagDefaultValues() async throws {
+    @Test(.disabled("No new feature flags"))
+    func flagDefaultValues() async throws {
         if #available(iOS 19, macOS 16, *) {
             #expect(FeatureFlag.redWindow.isEnabledByDefault == true)
         } else {
@@ -19,7 +20,8 @@ struct FeatureFlagTests {
         }
     }
 
-    @Test func flagPropertyWrapper() async throws {
+    @Test(.disabled("No new feature flags"))
+    func flagPropertyWrapper() async throws {
         let defaults = UserDefaults(suiteName: "net.marquiskurt.mcmaps.testing") ?? UserDefaults()
         defaults.set(true, forKey: FeatureFlag.redWindow.keyName)
 

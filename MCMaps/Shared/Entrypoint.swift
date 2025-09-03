@@ -19,8 +19,6 @@ struct MCMapsApp: App {
 
     @AppStorage(UserDefaults.Keys.mapNaturalColors.rawValue) private var naturalColors = true
 
-    @FeatureFlagged(.redWindow) private var useRedWindowDesign
-
     @State private var clock = CartographyClock()
     @State private var displayCreationWindow = false
     @State private var proxyMap = MCMapManifest(
@@ -42,7 +40,7 @@ struct MCMapsApp: App {
     var body: some Scene {
         DocumentGroup(newDocument: CartographyMapFile(withManifest: .sampleFile)) { configuration in
             Group {
-                if useRedWindowDesign {
+                if #available(iOS 19.0, macOS 16.0, *) {
                     RedWindowContentView(file: configuration.$document)
                         .environment(redWindowEnvironment)
                 } else {
@@ -72,7 +70,7 @@ struct MCMapsApp: App {
         }
         .commands {
             CommandMenu("Map") {
-                if useRedWindowDesign {
+                if #available(iOS 19.0, macOS 16.0, *) {
                     Button("Go To...", systemImage: "figure.walk") {
                         redWindowEnvironment.currentModalRoute = .warpToLocation
                     }
@@ -101,7 +99,7 @@ struct MCMapsApp: App {
                     Link("Send \(Self.appName) Feedback", destination: feedback)
                 }
             }
-            if useRedWindowDesign {
+            if #available(iOS 19.0, macOS 16.0, *) {
                 CommandGroup(after: .pasteboard) {
                     Button("Configure World...", systemImage: "globe") {
                         redWindowEnvironment.currentRoute = .worldEdit

@@ -86,24 +86,22 @@ struct IntegrationFetchStateView: View {
 }
 
 private struct OrnamentBadge<Content: View>: View {
-    @FeatureFlagged(.redWindow) private var useRedWindowDesign
-
     var content: () -> Content
 
     var body: some View {
-        content()
-            .if(useRedWindowDesign) { view in
-                Group {
-                    #if RED_WINDOW
-                        if #available(macOS 16, iOS 19, *) {
-                            view.glassEffect()
-                        } else {
-                            view.background(Capsule().fill(.thinMaterial))
-                        }
-                    #endif
+        Group {
+            #if RED_WINDOW
+                if #available(macOS 16, iOS 19, *) {
+                    content()
+                        .glassEffect()
+                } else {
+                    content()
+                        .background(Capsule().fill(.thinMaterial))
                 }
-            } `else`: { view in
-                view.background(Capsule().fill(.thinMaterial))
-            }
+            #else
+            content()
+                .background(Capsule().fill(.thinMaterial))
+            #endif
+        }
     }
 }
