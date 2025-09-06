@@ -38,7 +38,7 @@ struct RedWindowPinLibraryGridView: View {
 
     var body: some View {
         ScrollView(.vertical) {
-            LazyVGrid(columns: columns, spacing: 8) {
+            LazyVGrid(columns: columns, alignment: .leading, spacing: 8) {
                 ForEach(pins, id: \.content.self) { mapPin in
                     NavigationLink(value: RedWindowLibraryNavigationPath.pin(mapPin.content, index: mapPin.index)) {
                         RedWindowLibraryGridCell(pin: mapPin.content, file: file)
