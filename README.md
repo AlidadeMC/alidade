@@ -11,6 +11,12 @@ the surrounding world, and pin your favorite locations.
 [Download on Itch (Mac)](https://marquiskurt.itch.io/alidade)
 [Download on the App Store](https://apps.apple.com/us/app/alidade/id6741483898)
 
+> Note: This source code repository for Alidade is being migrated over to
+> [SkyVault](https://source.marquiskurt.net/AlidadeMC/alidade) as part of
+> a larger effort to guarantee long-term sustainability, independent of
+> GitHub. However, pull requests will still be accepted and welcomed on
+> this mirror.
+
 ## Why make Alidade?
 
 The Minecraft community has made countless seed mapping tools and
