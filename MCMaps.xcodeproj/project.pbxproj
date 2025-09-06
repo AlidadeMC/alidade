@@ -918,10 +918,10 @@
 		};
 		954489A62E2D66BD0088B879 /* XCRemoteSwiftPackageReference "mcmap" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/AlidadeMC/mcmap.git";
+			repositoryURL = "https://source.marquiskurt.net/AlidadeMC/mcmap.git";
 			requirement = {
-				branch = main;
-				kind = branch;
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
 			};
 		};
 		955A44362D8F47C600262A6D /* XCRemoteSwiftPackageReference "AdaptableSidebarSheetView" */ = {
@@ -934,10 +934,10 @@
 		};
 		955CD1632DAAE1BE007F6FA1 /* XCRemoteSwiftPackageReference "CubiomesKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/AlidadeMC/CubiomesKit";
+			repositoryURL = "https://source.marquiskurt.net/AlidadeMC/CubiomesKit";
 			requirement = {
-				branch = root;
-				kind = branch;
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
 			};
 		};
 		95DDE9652D57D0E1002B29D9 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */ = {
