@@ -2,7 +2,7 @@
 
 @Metadata {
     @PageImage(purpose: card, source: "Card-Building")
-    @CallToAction(url: "https://github.com/AlidadeMC/alidade/archive/refs/heads/main.zip", purpose: download)
+    @CallToAction(url: "https://source.marquiskurt.net/AlidadeMC/alidade/archive/refs/heads/main.zip", purpose: download)
 }
 
 Build the Alidade app from the source code.
@@ -34,7 +34,7 @@ Download a copy of the code by either pressing the download button at the
 top of this article, or run the following command below in your Terminal:
 
 ```
-git clone --recursive https://github.com/AlidadeMC/alidade.git
+git clone --recursive https://source.marquiskurt.net/AlidadeMC/alidade.git
 ```
 
 > Important: Alidade requires dependencies cloned via Git submodules, such

@@ -6,7 +6,7 @@ Alidade was made possible thanks to the following open-source projects:
 - [**Adaptable Sidebar Sheet**](https://github.com/AlidadeMC/adaptablesidebarsheetview) - Mozilla Public License, v2
 - [**Caching MapKit Tile Overlay**](https://github.com/stadiamaps/mapkit-caching-tile-overlay) - BSD 3-Clause License
 - [**Cubiomes**](https://github.com/Cubitect/cubiomes) - MIT License
-- [**CubiomesKit**](https://github.com/AlidadeMC/cubiomeskit) - Mozilla Public License, v2
+- [**CubiomesKit**](https://source.marquiskurt.net/AlidadeMC/cubiomeskit) - Mozilla Public License, v2
 - [**VersionedCodable**](https://github.com/jrothwell/VersionedCodable) - MIT License
 
 
