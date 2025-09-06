@@ -1,9 +1,10 @@
-# Alidade User Guide
+# Alidade User Guide - v1.x
 
 @Metadata {
     @TitleHeading("User Guide Collection")
     @PageImage(purpose: card, source: "Card-UserGuide")
     @PageColor(yellow)
+    @Available("Alidade", introduced: "1.0", deprecated: "2025.2")
 }
 
 Learn how to use the Alidade app on Mac, iPhone, and iPad.
@@ -26,6 +27,9 @@ Learn how to use the Alidade app on Mac, iPhone, and iPad.
     }
 }
 
+> Note: This guide pertains to Alidade v1. To review the user guide for
+> the latest Alidade release, refer to <doc:UserGuide>.
+
 ## Topics
 
 - <doc:Guide-WorldCreation>
@@ -38,9 +42,3 @@ Learn how to use the Alidade app on Mac, iPhone, and iPad.
 ### Customization
 
 - <doc:Guide-Pins>
-
-### Historical guides
-
-Review user guides for previous versions of Alidade.
-
-- <doc:UserGuide-v1>

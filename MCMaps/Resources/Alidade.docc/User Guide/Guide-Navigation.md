@@ -5,10 +5,14 @@ Navigate and teleport around maps.
 @Metadata {
     @TitleHeading("User Guide")
     @PageColor(yellow)
-    @Available("Alidade", introduced: "1.0")
+    @Available("Alidade", introduced: "2025.2")
     @PageImage(purpose: icon, source: "Icon-Guide")
 }
 
+> Important: The following documentation applies for Alidade 2025.2 when
+> running on macOS 26 Tahoe and later or iOS/iPadOS 26 and later. To review
+> the guide for macOS 15 Sequoia or iOS/iPadOS 18, refer to the guide for
+> v1: <doc:Guide-Navigation-v1>.
 
 ## Move around the map
 
@@ -30,29 +34,26 @@ Navigate and teleport around maps.
 
 ## Jump to a location
 
-1. Tap or click on the search bar labeled **Go To...**.
-2. Type the coordinate you'd like to jump to. For example, to head to
-   (X=12, Z=31), type '`12, 31`'.
-3. Select the **Jump Here** item that appears at the top of the search
-   results.
+While it is possible to head to a location by moving around the map
+manually, Alidade offers a faster way of going to a specific location.
 
-> SeeAlso: For more information on searching, refer to <doc:Guide-Search>.
+1. On the Map tab, press "Go To..." button in the toolbar (denoted by a
+   figure walking) or go to **Map &rsaquo; Go To...** in the menu bar.
+2. In the **Go To** form, type the X and Z coordinates for the location
+   and press the checkmark button to confirm.
+
+### Jump from a pin
+
+You can also quickly jump to a pin from your library on iPadOS and macOS.
+Simply swipe left on the pin you'd like to go to. Alternatively, press and
+hold (or right click) on the pin and select **Go Here**.
 
 ### Switch between dimensions
 
 Alidade supports displaying maps in the Overworld, Nether, and End
-dimensions.
-
-@TabNavigator {
-    @Tab("Mac") {
-        1. In the toolbar, click on the map icon.
-        2. In the dropdown, select the dimension you'd like to view.
-    }
-    @Tab("iPhone and iPad") {
-        1. Tap the map icon that appears on top of the map.
-        2. In the menu, select the dimension you'd like to view.
-    }
-}
+dimensions. On the Map tab, press the map icon in the toolbar, then select
+the dimension you'd like to view. You can also access this from the
+**Map** menu in the menu bar.
 
 > Note: Some maps in other dimensions may not render correctly if the map's
 > Minecraft version doesn't support that dimension and will instead
@@ -64,15 +65,9 @@ Alidade uses a natural color scheme designed to closely resemble the real
 environments in-game. However, some players may prefer to use the
 traditional color schemes used by other tools like Amidst, Chunkbase, etc.
 
-@TabNavigator {
-    @Tab("Mac") {
-        1. In the toolbar, click on the map icon.
-        2. In the dropdown, select the **Natural Colors** entry.
-    }
-    @Tab("iPhone and iPad") {
-        1. Tap the map icon that appears on top of the map.
-        2. In the dropdown, select the **Natural Colors** entry.
-    }
-}
+On the Map tab, press the map icon in the toolbar and de-select
+**Natural Colors**. You can also access this from the **Map** menu in the
+menu bar.
 
-This setting is applied across the entire app, rather than a specific map.
+> Note: This setting is applied across the entire app, rather than
+> a specific map.

@@ -5,7 +5,7 @@ Pin memorable locations and add information about them.
 @Metadata {
     @TitleHeading("User Guide")
     @PageColor(yellow)
-    @Available("Alidade", introduced: "1.0")
+    @Available("Alidade", introduced: "2025.2+")
     @PageImage(purpose: icon, source: "Icon-Guide")
 }
 
@@ -17,155 +17,60 @@ color, and players can write descriptions about specific pins, along with
 providing screenshots of their world at those locations to personalize
 pins.
 
+> Important: The following documentation applies for Alidade 2025.2 when
+> running on macOS 26 Tahoe and later or iOS/iPadOS 26 and later. To review
+> the guide for macOS 15 Sequoia or iOS/iPadOS 18, refer to the guide for
+> v1: <doc:Guide-Navigation-v1>.
 
-### Create a pin arbitrarily
+## Create a pin
 
-@TabNavigator {
-    @Tab("Mac") {
-        1. Click the pin with the plus badge in the toolbar or press
-           Command + P on your keyboard.
-        2. In the **Create Pin** form, provide the name, color, and
-           coordinates for the pin.
-        3. Click **Create** to create the pin. It will be displayed in the
-           sidebar under the Library section.
-    }
-    
-    @Tab("iPhone and iPad") {
-        1. Tap the pin with the plus badge in the toolbar.
-        2. In the **Create Pin** form, provide the name, color, and
-           coordinates for the pin.
-        3. Click **Create** to create the pin. It will be displayed in the
-           sidebar under the Library section.
-    }
-}
+1. On the Map tab, tap the pin icon in the toolbar or go to
+   **Map &rsaquo; Pin Here...** in the menu bar. Alternatively, go to the
+   Library and tap the plus icon in the toolbar.
+2. Provide the name, color, location, and world dimension for the pin you
+   would like to create.
+3. Press the checkmark to confirm and save your changes.
 
-### Create a pin from a recent location
+### Create a pin from a search result
 
-@TabNavigator {
-    @Tab("Mac") {
-        1. Right-click or swipe right on a recent location to create a
-           pin.
-        2. In the **Create Pin** form, provide a name and color you'd like
-           to associate the location with.
-        3. Click **Create** to create the pin. It will be displayed in the
-           sidebar under the Library section.
-    }
-    
-    @Tab("iPhone and iPad") {
-        1. Tap and hold or swipe right on a recent location to create a
-           pin.
-        2. In the **Create Pin** form, provide a name and color you'd like
-           to associate the location with.
-        3. Click **Create** to create the pin. It will be displayed in the
-           sidebar under the Library section.
-    }
-}
+You can also create a pin from a search result when searching for a biome
+or structure. Press and hold or right-click on the search result you'd
+like create a pin of, then select **Create Pin** from the context menu.
 
-### Navigate to a pin
+> SeeAlso: For more information on searching for biomes and structures,
+> refer to <doc:Guide-Search>.
 
-@TabNavigator {
-    @Tab("Mac") {
-        In the Library, click on the pin or right-click and select
-        **Go Here** to visit the pin on the map.
-    }
-    
-    @Tab("iPhone and iPad") {
-        In the Library, tap on the pin or tap and hold and select
-        **Go Here** to visit the pin on the map.
-    }
-}
+## Customize and edit pins
 
-### Update a pin's contents
+Pin can be customized with colors, icons, descriptions and more. Select a
+pin from the tab bar or select the pin you'd like to customize from the
+Library, then press the **Edit** button to enter editing mode.
 
-To open the pin inspector, do the following:
+In this mode, you can change the following:
 
-@Row(numberOfColumns: 5) {
-    @Column(size: 3) {
-        @TabNavigator {
-            @Tab("Mac") {
-                1. Click on the pin you'd like to update or make changes
-                   to.
-                2. The pin should open in an inspector pane on the right of
-                   the window. If the pane isn't visible, click on the Pin
-                   Inspector toolbar item (the icon with a pin and a gear).
-            }
-                
-            @Tab("iPhone and iPad") {
-                1. Tap on the pin you'd like to update or make changes to.
-            }
-        }
+- The pin's name and description
+- The pin's accent color and icon (the paintbrush icon in the toolbar)
+- The pin's dimension (the atom icon in the toolbar)
+- Tags associated with the pin (the tag icon in the toolbar)
 
-        ---
-            
-        The following fields of a pin can be edited:
-
-        - Pressing on the pin's name will let you rename the pin to
-          anything you'd like.
-        - Pressing any of the colored circles about the **About** box will
-          let you change the pin's color.
-        - Pressing on the **About** box at the bottom of the inspector
-          will let you write any notes or description for the pin.
-        
-        > Tip: The pin inspector pane displays two sets of coordinates:
-        > the first being for the overworld (denoted by the tree symbol),
-        > and the second being the Nether coordinate (denoted by a flame
-        > symbol) that you'd need to visit to place a portal and appear at
-        > that location in the overworld.
-    }
-    @Column(size: 2) {
-        ![The pin inspector pane](FileFormat-Pins.png)
-        _Fig. 2_: The pin inspector pane on Mac.
-    }
-}
+Once you are satisfied with your changes, press the checkmark button to
+leave editing mode.
   
-#### Add screenshots and photos to a pin
+### Add screenshots and photos to a pin
 
-@TabNavigator {
-    @Tab("Mac") {
-        - To add a photo from your Photos library, click the "From Photos"
-          option in the **Add Photos** section of the pin inspector. The
-          system photo library picker appears, where you can select the
-          photos you'd like to add to the pin.
-        
-        > Note: Alidade is only given access to the photos you directly
-        > select for upload. It cannot read or write to your photo
-        > library.
-      - To add a photo from your Mac outside of the Photos library, click
-        the "From Finder" option in the **Add Photos** section of the pin
-        inspector. The system will display a file picker where you can
-        select the image you'd like to add to the library.
-    }
-        
-    @Tab("iPhone and iPad") {
-        - To add a photo from your Photos library, tap the **Add Photos**
-          button. If you already have photos added to a pin, swipe left to
-          the end of the photos carousel and tap the plus button.
-        
-        > Note: Alidade is only given access to the photos you directly
-        > select for upload. It cannot read or write to your photo
-        > library.
-    }
-}
+Alidade supports adding photos and screenshots from both the Files app
+(on Mac, the Finder) and the Photos app.
+
+- To select a file via the Files app or the Finder, press the folder icon
+  in the toolbar.
+- To select a photo, press the photo icon in the toolbar.
+
+These photos will also appear in your gallery under the **Gallery** tab.
 
 ## Delete a pin
 
-@TabNavigator {
-    @Tab("Mac") {
-        1. Right-click and select **Delete Pin...** or swipe left on a pin
-           to delete it.
-        2. A new dialog will appear, warning you that any associated
-           photos will be removed along with the pin. To confirm, click
-           **Remove**.
-    }
-    
-    @Tab("iPhone and iPad") {
-        1. Tap and hold and select **Delete Pin...** or swipe left on a
-           pin to delete it.
-       2. A new dialog will appear, warning you that any associated
-          photos will be removed along with the pin. To confirm, tap
-          **Remove**.
-    }
-}
+In the Library tab, press and hold (or right click) on the pin you'd like
+to remove and select **Remove** from the context menu.
 
 > Important: Removing a pin from the library will also remove any
 > associated photos. However, changes only take effect when you close or

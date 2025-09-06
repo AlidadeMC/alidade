@@ -5,7 +5,7 @@ Create and manage Minecraft world maps in Alidade.
 @Metadata {
     @TitleHeading("User Guide")
     @PageColor(yellow)
-    @Available("Alidade", introduced: "2025.2")
+    @Available("Alidade", introduced: "1.0", deprecated: "2025.2")
     @PageImage(purpose: icon, source: "Icon-Guide")
 }
 
@@ -23,8 +23,7 @@ versions.
         2. In the **Create Map** form, enter the name of your world,
            select a Minecraft version, and enter the seed of the world.
            You can use the `/seed` command in your Minecraft world to get
-           the seed to insert. If your world was created with the Large
-           Biomes feature, click the toggle to enable it.
+           the seed to insert.
         3. Click **Create** to create the map.
     }
     @Tab("iPhone and iPad") {
@@ -32,8 +31,7 @@ versions.
         2. In the **Create Map** form, enter the name of your world,
            select a Minecraft version, and enter the seed of the world.
            You can use the `/seed` command in your Minecraft world to get
-           the seed to insert. If your world was created with the Large
-           Biomes feature, tap the toggle to enable it.
+           the seed to insert.
         3. Tap **Create** to create the map.
     }
 }
@@ -56,18 +54,24 @@ versions.
 ### Update map information
 
 If you need to update the world information at a later point in time, you
-can open the world info editor to make changes to the world settings.
+can open the world info editor to retrigger the flow.
 
-> Important: The following documentation applies for Alidade 2025.2 when
-> running on macOS 26 Tahoe and later or iOS/iPadOS 26 and later. To review
-> the guide for macOS 15 Sequoia or iOS/iPadOS 18, refer to the guide for
-> v1: <doc:Guide-Navigation-v1>.
-
-1. Open the world map containing the world you'd like to make changes to.
-2. Navigate to the **World** tab or go to **View &rsaquo; World** in the
-   menu bar.
-3. Perform the changes you'd like to the world. Changes are applied
-   automatically and will be saved when you save the map.
+@TabNavigator {
+    @Tab("Mac") {
+        1. In the world you want to edit, click the "World Info" button
+           (this appears as a globe with a gear).
+        2. In the **World Info** form, update the fields as if you were
+           creating a new map.
+        3. Click **Done** to dismiss the form.
+    }
+    @Tab("iPhone and iPad") {
+        1. In the world you want to edit, tap the name of the file and
+           select **Update World Info**.
+        2. In the **World Info** form, update the fields as if you were
+           creating a new map.
+        3. Tap the back arrow (‹) to go back to the library.
+    }
+}
 
 ### Delete a map
 
