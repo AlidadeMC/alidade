@@ -517,7 +517,7 @@
     "Show All Tips" : {
 
     },
-    "Show common points of interest and where players are on your Minecraft server from the Bluemap plugin.\n[Learn more…](http://example.com)" : {
+    "Show common points of interest and where players are on your Minecraft server from the Bluemap plugin.\n[Learn more…](https://docs.alidade.dev/documentation/alidade/guide-bluemap)" : {
 
     },
     "Show in Finder" : {
@@ -598,7 +598,7 @@
     "Type the name of a tag to filter search results by that tag." : {
 
     },
-    "Update player locations more frequently with Realtime Sync. [Learn more…](https://example.com)" : {
+    "Update player locations more frequently with Realtime Sync. [Learn more…](https://docs.alidade.dev/documentation/alidade/guide-bluemap#Realtime-player-sync)" : {
 
     },
     "Update World" : {
