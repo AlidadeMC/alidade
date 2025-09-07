@@ -48,10 +48,15 @@ struct MyView: View {
 
 ## Feature flags
 
+> Important: This feature flag has been deprecated in favor of using OS
+> availability checks starting with build 85. Setting this flag will do
+> nothing, and this flag has been removed from the Feature Flags pages in
+> Settings.
+
 Most, if not all, of the design changes specific to the new design should
-be gated behind the ``FeatureFlag/redWindow`` feature flag. This is
-checked in views that are required to switch between the current design
-and the new design, such as the body for the main app:
+be gated behind the `redWindow` feature flag. This is checked in views
+that are required to switch between the current design and the new design,
+such as the body for the main app:
 
 ```swift
 import SwiftUI
@@ -97,6 +102,6 @@ Red Window is being mapped out in the following manner:
 
 | Timeframe | Action |
 | --- | --- |
-| **Summer 2025** | Development of Red Window is gated and controlled by feature flags while OS 26 remains in beta (both developer and public). |
+| ~~**Summer 2025**~~ | ~~Development of Red Window is gated and controlled by feature flags while OS 26 remains in beta (both developer and public).~~ |
 | **Fall 2025** | Around the time of the release candidates, the feature flag will be deprecated in favor of OS availability checks. When OS 26 releases and, later, Alidade, Red Window will be available for players on OS 26. Players on macOS 15 Sequoia and iOS/iPadOS 18 will continue to have the current Alidade design. By this time, the feature flag for Red Window will be removed entirely.
 | **Summer 2026** | The current Alidade design will be removed entirely when OS 27 releases, and Red Window will be the only design experience. |

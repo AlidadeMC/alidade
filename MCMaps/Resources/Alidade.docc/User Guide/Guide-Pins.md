@@ -5,7 +5,7 @@ Pin memorable locations and add information about them.
 @Metadata {
     @TitleHeading("User Guide")
     @PageColor(yellow)
-    @Available("Alidade", introduced: "2025.2+")
+    @Available("Alidade", introduced: "2025.2")
     @PageImage(purpose: icon, source: "Icon-Guide")
 }
 

@@ -29,6 +29,7 @@ Learn how to use the Alidade app on Mac, iPhone, and iPad.
 ## Topics
 
 - <doc:Guide-WorldCreation>
+- <doc:Guide-Interface>
 
 ### Search and navigation
 
@@ -38,6 +39,11 @@ Learn how to use the Alidade app on Mac, iPhone, and iPad.
 ### Customization
 
 - <doc:Guide-Pins>
+- <doc:Guide-Gallery>
+
+### Integrate with servers
+
+- <doc:Guide-Bluemap>
 
 ### Historical guides
 

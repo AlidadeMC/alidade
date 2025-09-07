@@ -32,13 +32,13 @@ Learn how to use the Alidade app on Mac, iPhone, and iPad.
 
 ## Topics
 
-- <doc:Guide-WorldCreation>
+- <doc:Guide-WorldCreation-v1>
 
 ### Search and navigation
 
-- <doc:Guide-Navigation>
-- <doc:Guide-Search>
+- <doc:Guide-Navigation-v1>
+- <doc:Guide-Search-v1>
 
 ### Customization
 
-- <doc:Guide-Pins>
+- <doc:Guide-Pins-v1>
