@@ -54,6 +54,9 @@ struct RedWindowMapView: View {
                         .mapColorScheme(useNaturalColors ? .natural : .default)
                     }
                 }
+                #if os(macOS)
+                .toolbarBackgroundVisibility(.hidden, for: .windowToolbar)
+                #endif
                 .animation(.interactiveSpring, value: state)
                 .ignoresSafeArea(.all)
                 .overlay(alignment: .bottomLeading) {
