@@ -22,7 +22,7 @@ Learn how to use the Alidade app on Mac, iPhone, and iPad.
         use Alidade effectively across your devices.
     }
     @Column(size: 2) {
-        @Image(source: "AllDevices",
+        @Image(source: "AllDevices_Legacy",
                alt: "Alidade running on all devices")
     }
 }
