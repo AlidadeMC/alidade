@@ -1,12 +1,12 @@
 {
   "images" : [
     {
-      "filename" : "icon_128x128.png",
+      "filename" : "AppIcon-RedWindow-iOS-Default-64x64@2x.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "icon_256x256.png",
+      "filename" : "AppIcon-RedWindow-iOS-Default-64x64@4x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
