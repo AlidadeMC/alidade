@@ -149,8 +149,6 @@ struct RedWindowSearchView: View {
     }
 
     private func biomesAndStructures(result: CartographySearchService.SearchResult) -> some View {
-        let currentLoc = redWindowEnvironment.mapCenterCoordinate
-
         return Section {
             ForEach(result.biomes) { biome in
                 RedWindowSearchLandmarkResultCell(

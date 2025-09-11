@@ -28,4 +28,7 @@
    <FileRef
       location = "group:Testchamber">
    </FileRef>
+   <FileRef
+      location = "group:FeatureFlags">
+   </FileRef>
 </Workspace>

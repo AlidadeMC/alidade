@@ -20,15 +20,14 @@ import Foundation
 ///     @FeatureFlagged(.redWindow) private var useRedWindowDesign
 /// }
 /// ```
-enum FeatureFlag {
-}
+public enum FeatureFlag {}
 
 extension FeatureFlag {
     /// The name of the key as stored in User Defaults.
     ///
     /// This should also correspond to the key used in the app's Settings bundle, whenever applicable.
     var keyName: String {
-        ""
+        "noflag"
     }
 
     /// Whether the flag is enabled by default.
@@ -37,7 +36,7 @@ extension FeatureFlag {
     }
 }
 
-extension UserDefaults {
+public extension UserDefaults {
     /// Retrieve the flag value for a specified feature flag, or the default value if it isn't already set.
     /// - Parameter flag: The flag to retrieve the value of.
     func bool(forFeatureFlag flag: FeatureFlag) -> Bool {

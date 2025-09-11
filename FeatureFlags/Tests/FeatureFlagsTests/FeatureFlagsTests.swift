@@ -8,7 +8,7 @@
 import Foundation
 import Testing
 
-@testable import Alidade
+@testable import FeatureFlags
 
 struct FeatureFlagTests {
     @Test(.disabled("No new feature flags"))
