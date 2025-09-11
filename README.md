@@ -1,6 +1,6 @@
 # Alidade
 
-<img align="right" src="./MCMaps/Resources/Assets.xcassets/AppIcon.appiconset/icon_128x128.png" alt="Alidade icon"/>
+<img align="right" src="./MCMaps/Resources/Alidade.docc/Resources/AppIcon@2x.png" alt="Alidade icon"/>
 
 Navigate and explore your Minecraft Java worlds
 
