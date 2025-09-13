@@ -21,6 +21,12 @@ Starting with Alidade v2025.2, players with Minecraft servers that have
 this plugin can incorporate its data into their maps directly, making them
 visible on their map.
 
+> Important: You will need to ensure that your Bluemap server supports
+> access through HTTPS to use this functionality in Alidade. You may need
+> to set up a reverse proxy using Caddy or NGINX to allow this behavior.
+>
+> [Set up a reverse proxy &rsaquo;](https://bluemap.bluecolored.de/wiki/webserver/ReverseProxy.html)
+
 ## Enabling Bluemap integration
 
 Bluemap integration is an opt-in feature, requiring that you manually
