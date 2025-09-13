@@ -42,7 +42,8 @@ struct RedWindowLibraryGridCell: View {
                         .fill(Color(pin.color?.swiftUIColor ?? .accent).gradient)
                 }
             }
-            .frame(width: horizontalSizeClass == .compact ? 150 : 180, height: 125)
+            .frame(minWidth: 150, idealWidth: 175, maxWidth: 180)
+            .frame(height: 125)
             .clipped()
             .clipShape(RoundedRectangle(cornerRadius: 10))
             .overlay {

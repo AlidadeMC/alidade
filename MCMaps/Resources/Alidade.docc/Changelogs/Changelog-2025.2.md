@@ -12,6 +12,14 @@ View the release notes for the 2025.2.x release series of Alidade.
 > and improvements may change over time, and the current releases are not
 > indicative of the final release build. Proceed with caution.
 
+## 2025.2 (Build 89) [Release Candidate]
+
+### General Changes
+
+- Adjusted the user interface on macOS to remain consistent with iOS and
+  iPadOS.
+- Updated icon imagery to match the new design language.
+
 ## 2025.2 (Build 87) [Beta]
 
 ### Gallery
