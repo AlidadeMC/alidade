@@ -130,7 +130,7 @@ struct RedWindowContentView: View {
                             }, file: $file)
                         }
                     }
-                    .customizationID("app.tab.library.\(mapPin.content.name.snakeCase)")
+                    .customizationID("app.tab.library.\(mapPin.content.id.uuidString)")
                     .customizationBehavior(.automatic, for: .automatic)
                     .contextMenu {
                         Button("Go Here", semanticIcon: .goHere) {

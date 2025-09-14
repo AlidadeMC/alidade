@@ -12,6 +12,13 @@ View the release notes for the 2025.2.x release series of Alidade.
 > and improvements may change over time, and the current releases are not
 > indicative of the final release build. Proceed with caution.
 
+## 2025.5 (Build 91) [Release Candidate]
+
+### General Changes
+
+- Ensure that the UUID is being used instead of the pin's name so that
+  multiple pins of the same name can still appear in the tab view.
+
 ## 2025.2 (Build 89) [Release Candidate]
 
 ### General Changes
