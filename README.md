@@ -8,8 +8,10 @@ Navigate and explore your Minecraft Java worlds
 browse your various Minecraft Java worlds. Jump to a coordinate and view
 the surrounding world, and pin your favorite locations.
 
-[Download on Itch (Mac)](https://marquiskurt.itch.io/alidade)
-[Download on the App Store](https://apps.apple.com/us/app/alidade/id6741483898)
+[Download on Itch (Mac) &rsaquo;](https://marquiskurt.itch.io/alidade)  
+[Download on the App Store &rsaquo;](https://apps.apple.com/us/app/alidade/id6741483898)
+
+![Alidade running on multiple devices](.readme/devices.png)
 
 > Note: This source code repository for Alidade is being migrated over to
 > [SkyVault](https://source.marquiskurt.net/AlidadeMC/alidade) as part of
@@ -42,13 +44,11 @@ out there, but it exists as an addition to that market.
 - Xcode 16 or later
 - macOS 15.0 Sequoia or later
 
-Clone this repository using `git clone --recursive`, then open the
-`Alidade.xcworkspace` file in Xcode. Select the **Alidade** target to
-build and run the project for your targeted platform.
+For instructions on how to build the Alidade app for your devices, refer
+to the **Building Alidade from Source** article in the app's
+documentation:
 
-> **Note**  
-> While Apple Vision Pro is listed as a supported target, support for this
-> platform hasn't been thoroughly tested.
+[Building Alidade from Source &rsaquo;](https://docs.alidade.dev/documentation/alidade/building)
 
 ## License
 
@@ -61,7 +61,3 @@ LICENSE.txt or visit https://www.mozilla.org/en-US/MPL/2.0/.
 - [**Cubiomes**](https://github.com/Cubitect/cubiomes) - MIT License
 - [**Adaptable Sidebar Sheet**](https://github.com/AlidadeMC/adaptablesidebarsheetview) - Mozilla Public License, v2
 - [**VersionedCodable**](https://github.com/jrothwell/VersionedCodable) - MIT License
-
-**Alidade** is also made possible with these invaluable snippets:
-
-- [Xcode Cloud Snapshot Testing](https://gist.github.com/jaanus/7e14b31f7f445435aadac09d24397da8)
