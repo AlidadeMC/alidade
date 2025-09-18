@@ -283,7 +283,6 @@ struct RedWindowPinDetailView: View {
     private var editButton: some View {
         Group {
             if editMode {
-                #if RED_WINDOW
                     if #available(iOS 19, macOS 16, *) {
                         Button(role: .confirm) {
                             withAnimation {
@@ -298,14 +297,6 @@ struct RedWindowPinDetailView: View {
                         }
                         .buttonStyle(.borderedProminent)
                     }
-                #else
-                    Button("Done", systemImage: "checkmark") {
-                        withAnimation {
-                            editMode.toggle()
-                        }
-                    }
-                    .buttonStyle(.borderedProminent)
-                #endif
             } else {
                 Button("Edit") {
                     withAnimation {

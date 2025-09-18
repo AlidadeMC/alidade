@@ -90,18 +90,13 @@ private struct OrnamentBadge<Content: View>: View {
 
     var body: some View {
         Group {
-            #if RED_WINDOW
-                if #available(macOS 16, iOS 19, *) {
-                    content()
-                        .glassEffect()
-                } else {
-                    content()
-                        .background(Capsule().fill(.thinMaterial))
-                }
-            #else
-            content()
-                .background(Capsule().fill(.thinMaterial))
-            #endif
+            if #available(macOS 16, iOS 19, *) {
+                content()
+                    .glassEffect()
+            } else {
+                content()
+                    .background(Capsule().fill(.thinMaterial))
+            }
         }
     }
 }

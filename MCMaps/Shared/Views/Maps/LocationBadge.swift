@@ -41,15 +41,11 @@ struct LocationBadge: View {
 
     var body: some View {
         Group {
-            #if RED_WINDOW
-                if #available(macOS 16, iOS 19, *) {
-                    mainLabel.glassEffect()
-                } else {
-                    mainLabel.background(Capsule().fill(.thinMaterial))
-                }
-            #else
-            mainLabel.background(Capsule().fill(.thinMaterial))
-            #endif
+            if #available(macOS 16, iOS 19, *) {
+                mainLabel.glassEffect()
+            } else {
+                mainLabel.background(Capsule().fill(.thinMaterial))
+            }
         }
         .padding(8)
         .animation(.default, value: location)

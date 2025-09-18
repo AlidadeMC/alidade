@@ -130,11 +130,9 @@ struct RedWindowMapView: View {
                         }
                     }
 
-                    #if RED_WINDOW
-                        if #available(macOS 16, iOS 19, *) {
-                            ToolbarSpacer(.fixed)
-                        }
-                    #endif
+                    if #available(macOS 16, iOS 19, *) {
+                        ToolbarSpacer(.fixed)
+                    }
 
                     ToolbarItem {
                         Button("Go To", systemImage: "figure.walk") {

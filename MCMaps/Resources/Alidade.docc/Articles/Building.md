@@ -20,7 +20,7 @@ devices in markets where the app is not available.
 
 Ensure that you have the following tools installed on your Mac:
 
-- [Xcode (v16 or later)](https://developer.apple.com/xcode/)
+- [Xcode (v26 or later)](https://developer.apple.com/xcode/)
 - Git (Installable from the Xcode Command Line Tools)
 
 It is also recommended to have an Apple Developer account available for

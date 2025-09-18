@@ -151,11 +151,9 @@ struct RedWindowPinLibraryView: View {
                         .pickerStyle(.inline)
                     }
                 }
-                #if RED_WINDOW
-                    if #available(macOS 16, iOS 19, *) {
-                        ToolbarSpacer(.fixed)
-                    }
-                #endif
+                if #available(macOS 16, iOS 19, *) {
+                    ToolbarSpacer(.fixed)
+                }
                 ToolbarItem {
                     Button("Create Pin", systemImage: "plus") {
                         displayForm.toggle()

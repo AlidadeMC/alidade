@@ -41,7 +41,7 @@ out there, but it exists as an addition to that market.
 ## Build from source
 
 **Requirements**  
-- Xcode 16 or later
+- Xcode 26 or later
 - macOS 15.0 Sequoia or later
 
 For instructions on how to build the Alidade app for your devices, refer

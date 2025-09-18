@@ -39,7 +39,6 @@ struct RedWindowMapWarpForm: View {
         .navigationTitle("Go To Coordinate")
         .toolbar {
             ToolbarItem {
-                #if RED_WINDOW
                 if #available(iOS 19, macOS 16, *) {
                     Button("Go", systemImage: "checkmark", role: .confirm) {
                         redWindowEnvironment.mapCenterCoordinate = CGPoint(x: xCoordinate, y: zCoordinate)
@@ -51,12 +50,6 @@ struct RedWindowMapWarpForm: View {
                         dismiss()
                     }
                 }
-                #else
-                Button("Go") {
-                    redWindowEnvironment.mapCenterCoordinate = CGPoint(x: xCoordinate, y: zCoordinate)
-                    dismiss()
-                }
-                #endif
             }
         }
     }

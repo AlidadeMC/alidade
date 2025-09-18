@@ -37,11 +37,11 @@ jobs:
           xcode-version: '26.0'
       - name: Build DocC
         run: |
-          xcodebuild clean -scheme "Alidade (Red Window, Debugging)" -derivedDataPath /tmp/docbuild -destination "generic/platform=macOS"
-          xcodebuild docbuild -scheme "Alidade (Red Window, Debugging)" -derivedDataPath /tmp/docbuild -destination 'generic/platform=macOS' -skipPackagePluginValidation CODE_SIGNING_ALLOWED=NO;
+          xcodebuild clean -scheme "Alidade (Debugging)" -derivedDataPath /tmp/docbuild -destination "generic/platform=macOS"
+          xcodebuild docbuild -scheme "Alidade (Debugging)" -derivedDataPath /tmp/docbuild -destination 'generic/platform=macOS' -skipPackagePluginValidation CODE_SIGNING_ALLOWED=NO;
           
           $(xcrun --find docc) process-archive \
-            transform-for-static-hosting '/tmp/docbuild/Build/Products/Debug (Red Window)/Alidade.doccarchive' \
+            transform-for-static-hosting '/tmp/docbuild/Build/Products/Debug/Alidade.doccarchive' \
             --output-path docs \
             --hosting-base-path '.';
           
