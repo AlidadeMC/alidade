@@ -117,5 +117,5 @@ local copy wherever possible.
 
 ## Additional resources
 
-[Bluemap &rsaquo;](https://bluemap.bluecolored.de)
-
+[Bluemap &rsaquo;](https://bluemap.bluecolored.de)  
+<doc:BluemapLocal>
