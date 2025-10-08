@@ -12,7 +12,14 @@ View the release notes for the 2025.2.x release series of Alidade.
 > and improvements may change over time, and the current releases are not
 > indicative of the final release build. Proceed with caution.
 
-## 2025.5 (Build 91) [Release Candidate]
+## 2025.2.1 (Build 94)
+
+### General Changes
+
+- Fixes a bug where pins of the same name get saved into the same pin
+  file, potentially causing data loss (ALD-24).
+
+## 2025.2 (Build 91) [Release Candidate]
 
 ### General Changes
 
