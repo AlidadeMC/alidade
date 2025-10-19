@@ -1,5 +1,5 @@
 {
-  "originHash" : "4d6ab47e74cfc982f47fd214337c073944dbf358e8a0d4810f3065b9f0efed51",
+  "originHash" : "f48ea7591c9aa2c66d71db461a2cee2d19ddf50455e046f652d8d6ec2c2bcef4",
   "pins" : [
     {
       "identity" : "adaptablesidebarsheetview",
@@ -35,6 +35,15 @@
       "state" : {
         "revision" : "2e6ca8271820ead3c0bb23f2a85e4419412b29c0",
         "version" : "2.0.1"
+      }
+    },
+    {
+      "identity" : "searchengine",
+      "kind" : "remoteSourceControl",
+      "location" : "https://source.marquiskurt.net/AlidadeMC/searchengine",
+      "state" : {
+        "branch" : "main",
+        "revision" : "9f0cac667452b014bb377f4c61d07bdec395aeb7"
       }
     },
     {
