@@ -10,6 +10,7 @@ import Foundation
 import MCMap
 
 /// A service that searches and filters content in Minecraft worlds and `.mcmap` files.
+@available(*, deprecated, message: "Use v2 of the search engine.")
 class CartographySearchService {
     /// The type of query used to initiate searches.
     typealias Query = String
