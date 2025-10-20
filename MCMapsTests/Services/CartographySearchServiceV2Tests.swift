@@ -114,4 +114,20 @@ struct CartographySearchServiceV2Tests {
         let results = await service.search(query: "dimension: Nether Bastion", in: context)
         #expect(!results.isEmpty)
     }
+
+    @Test func searchReturnsPinsRelativeToDimensionInQuery() async throws {
+        let world = try MinecraftWorld(version: "1.21.3", seed: 123)
+        var file = CartographyMapFile(withManifest: .sampleFile)
+        let service = CartographySearchService_v2()
+
+        file.pins.append(contentsOf: [
+            CartographyMapPin(named: "Testing", at: CGPoint(x: 12, y: 12), dimension: .nether, tags: ["Tag", "Forest"]),
+            CartographyMapPin(named: "Testing Grounds", at: CGPoint(x: 10, y: 10), tags: ["Base"]),
+            CartographyMapPin(named: "Test Test", at: CGPoint(x: 11, y: 11), tags: ["Tag"])
+        ])
+
+        let results = await service.search(query: "#Tag dimension: Nether", in: SearchContext(world: world, file: file))
+        #expect(results.pins.count == 1)
+        #expect(results.pins.allSatisfy { $0.tags?.contains("Tag") != false })
+    }
 }

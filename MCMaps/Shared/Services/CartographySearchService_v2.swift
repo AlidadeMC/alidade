@@ -108,6 +108,11 @@ extension CartographySearchService_v2: AlidadeSearchEngine {
         var newPins = [CartographyMapPin]()
         for pin in pins {
             let nameMatches = pin.name.lowercased().contains(query.request.lowercased())
+
+            if let dimension = MinecraftWorld.Dimension(query: query) {
+                if MinecraftWorld.Dimension(fromPinDimension: pin.dimension) != dimension { continue }
+            }
+            
             if !query.tags.isEmpty, let tags = pin.tags {
                 if tags.isDisjoint(with: query.tags) { continue }
                 if !nameMatches, !query.request.isEmpty { continue }
