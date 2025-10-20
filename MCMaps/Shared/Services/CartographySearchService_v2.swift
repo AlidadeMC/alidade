@@ -18,7 +18,7 @@ class CartographySearchService_v2 {
         var dimension: MinecraftWorld.Dimension = .overworld
     }
 
-    struct SearchResult: Sendable {
+    struct SearchResult: Sendable, Hashable {
         var pins: [CartographyMapPin] = []
         var integratedData: [CartographyMapPin] = []
         var biomes: [CartographyMapPin] = []

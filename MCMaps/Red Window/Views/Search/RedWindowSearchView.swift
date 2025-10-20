@@ -112,7 +112,7 @@ struct RedWindowSearchView: View {
         }
     }
 
-    private func resultList(for result: CartographySearchService.SearchResult) -> some View {
+    private func resultList(for result: CartographySearchService_v2.SearchResult) -> some View {
         return List {
             Section {
                 ForEach(result.pins) { pin in
@@ -148,7 +148,7 @@ struct RedWindowSearchView: View {
         }
     }
 
-    private func biomesAndStructures(result: CartographySearchService.SearchResult) -> some View {
+    private func biomesAndStructures(result: CartographySearchService_v2.SearchResult) -> some View {
         return Section {
             ForEach(result.biomes) { biome in
                 RedWindowSearchLandmarkResultCell(

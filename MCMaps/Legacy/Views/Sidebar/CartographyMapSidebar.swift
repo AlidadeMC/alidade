@@ -89,26 +89,8 @@ struct CartographyMapSidebar: View {
         }
     }
 
-    private func view(forSearchResults results: CartographySearchService.SearchResult) -> some View {
+    private func view(forSearchResults results: CartographySearchService_v2.SearchResult) -> some View {
         Group {
-            if let jumpToCoordinate = results.coordinates.first {
-                NamedLocationView(
-                    name: "Jump Here",
-                    location: jumpToCoordinate,
-                    systemImage: "figure.run",
-                    color: .accent
-                )
-                .onTapGesture {
-                    withAnimation {
-                        viewModel.go(to: jumpToCoordinate, relativeTo: file)
-                        pushToRecentLocations(jumpToCoordinate)
-                        if viewModel.currentRoute != nil {
-                            viewModel.currentRoute = nil
-                        }
-                    }
-                }
-            }
-
             if !results.pins.isEmpty {
                 PinnedLibrarySection(pins: results.pins, viewModel: $viewModel, file: $file)
             }

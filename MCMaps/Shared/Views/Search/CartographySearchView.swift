@@ -5,6 +5,7 @@
 //  Created by Marquis Kurt on 08-06-2025.
 //
 
+import AlidadeSearchEngine
 import AsyncAlgorithms
 import CubiomesKit
 import MCMap
@@ -16,14 +17,7 @@ import SwiftUI
 /// when the view is in its initial state. Queries are currently handled internally and requires no additional bindings
 /// on the developer's part.
 struct CartographySearchView<InitialView: View, ResultsView: View>: View {
-    /// A typealias pointing to the search query type.
-    typealias SearchQuery = CartographySearchService.Query
-
-    /// A typealias pointing to the search result type.
-    typealias SearchResult = CartographySearchService.SearchResult
-
-    /// A typealias pointing to the search token type.
-    typealias SearchToken = CartographySearchService.SearchFilter
+    typealias SearchResult = CartographySearchService_v2.SearchResult
 
     /// An enumeration of the search states the view can undergo.
     enum SearchState: Equatable, Hashable {
@@ -50,8 +44,7 @@ struct CartographySearchView<InitialView: View, ResultsView: View>: View {
     @FocusState private var searchFocused: Bool
 
     @State private var searchState = SearchState.initial
-    @State private var rawQuery: SearchQuery = ""
-    @State private var tokens = [SearchToken]()
+    @State private var rawQuery = ""
 
     /// The file that the search service will perform operations on.
     var file: CartographyMapFile
@@ -88,34 +81,13 @@ struct CartographySearchView<InitialView: View, ResultsView: View>: View {
         self.results = results
     }
 
-    fileprivate init(
-        file: CartographyMapFile,
-        position: MinecraftPoint,
-        dimension: MinecraftWorld.Dimension,
-        initial: @escaping () -> InitialView,
-        results: @escaping (SearchResult) -> ResultsView,
-        searchGainedFocus: (() -> Void)? = nil
-    ) {
-        self.file = file
-        self.position = position
-        self.dimension = dimension
-        self.initial = initial
-        self.results = results
-        self.searchGainedFocus = searchGainedFocus
-    }
-
     /// Assign an action to when the search bar becomes the currently focused element.
     ///
     /// This is typically used in views to adjust the layout, such as with the ``CartographyMapSidebar``.
     func searchBecomesFocused(_ callback: @escaping () -> Void) -> Self {
-        CartographySearchView(
-            file: file,
-            position: position,
-            dimension: dimension,
-            initial: initial,
-            results: results,
-            searchGainedFocus: callback
-        )
+        var newSelf = self
+        newSelf.searchGainedFocus = callback
+        return newSelf
     }
 
     var body: some View {
@@ -131,7 +103,6 @@ struct CartographySearchView<InitialView: View, ResultsView: View>: View {
         }
         .searchable(
             text: $rawQuery,
-            tokens: $tokens,
             placement: Constants.searchFieldPlacement,
 
             // NOTE(alicerunsonfedora): Recent iOS betas changed the search bar placement so it's always in the toolbar
@@ -141,38 +112,9 @@ struct CartographySearchView<InitialView: View, ResultsView: View>: View {
             //
             // For now, set this to 'Search' and watch future betas to see if the search bar size changes at all.
             prompt: prompt
-        ) { token in
-            switch token {
-            case .tag(let tagName):
-                Text(tagName)
-            case .origin(let point):
-                Text("At: (\(point.accessibilityReadout))")
-            }
-        }
+        )
         .searchFocused($searchFocused)
-        .searchSuggestions {
-            ForEach(getSuggestions()) { searchToken in
-                switch searchToken {
-                case .tag(let tagName):
-                    Label(tagName, systemImage: "tag")
-                        .searchCompletion(searchToken)
-                case .origin(let pos):
-                    Label(pos.accessibilityReadout, semanticIcon: .goHere)
-                        .searchCompletion(searchToken)
-                }
-            }
-        }
         .animation(.interactiveSpring, value: searchState)
-        .onChange(of: rawQuery) { _, newValue in
-            if newValue.isEmpty, tokens.isEmpty {
-                searchState = .initial
-            }
-        }
-        .onChange(of: tokens) { _, newValue in
-            if newValue.isEmpty, rawQuery.isEmpty {
-                searchState = .initial
-            }
-        }
         .onChange(of: searchFocused) { _, newValue in
             if newValue { searchGainedFocus?() }
         }
@@ -188,31 +130,14 @@ struct CartographySearchView<InitialView: View, ResultsView: View>: View {
         }
         searchState = .searching
 
-        let service = CartographySearchService()
-        let context = CartographySearchService.SearchContext(
+        let service = CartographySearchService_v2()
+        let context = CartographySearchService_v2.Context(
             world: world,
             file: file,
             position: position,
             dimension: dimension)
-        let filterGroup = CartographySearchService.SearchFilterGroup(filters: Set(tokens))
-        let results = await service.search(for: rawQuery, in: context, filters: filterGroup)
+        let results = await service.search(query: AlidadeSearchQuery(raw: rawQuery), in: context)
         searchState = .found(results)
-    }
-
-    private func getSuggestions() -> [SearchToken] {
-        var searchTokens = [SearchToken]()
-
-        let positionSyntax = /\@\{(-?\d+),\s*(-?\d+)\}/
-        if let match = rawQuery.wholeMatch(of: positionSyntax) {
-            let (_, xCoord, zCoord) = match.output
-            let coordinate = CGPoint(x: Int(xCoord) ?? 0, y: Int(zCoord) ?? 0)
-            searchTokens.append(.origin(coordinate))
-        }
-
-        let fileTags = file.tags
-        let matchingTags = fileTags.filter { tag in rawQuery.lowercased().contains(tag.lowercased()) }
-        searchTokens.append(contentsOf: matchingTags.map { SearchToken.tag($0) })
-        return searchTokens
     }
 }
 
@@ -232,16 +157,12 @@ struct CartographySearchView<InitialView: View, ResultsView: View>: View {
                 target.searchState
             }
 
-            var searchQuery: CartographySearchView.SearchQuery {
+            var searchQuery: String {
                 target.rawQuery
             }
 
             func triggerSearch() async {
                 await target.performSearch()
-            }
-
-            func getSuggestions() -> [SearchToken] {
-                target.getSuggestions()
             }
         }
     }
