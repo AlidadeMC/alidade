@@ -580,6 +580,9 @@
     "Tips" : {
 
     },
+    "To filter results to a specific dimension such as the nether, use the `dimension: Nether` syntax." : {
+
+    },
     "Trail Ruins" : {
 
     },
@@ -592,16 +595,10 @@
     "Type a tag above to create it." : {
 
     },
-    "Type the name of a tag to filter search results by that tag." : {
-
-    },
     "Update player locations more frequently with Realtime Sync. [Learn more…](https://docs.alidade.dev/documentation/alidade/guide-bluemap#Realtime-player-sync)" : {
 
     },
     "Update World" : {
-
-    },
-    "Use the `@{0,0}` syntax to filter search results near a specific coordinate." : {
 
     },
     "Use the search bar to look through your pins, or to locate nearby structures and biomes." : {
@@ -666,6 +663,12 @@
 
     },
     "X Coordinate: " : {
+
+    },
+    "You can filter search results by tags using the `#tag` or `tag: tag` syntax." : {
+
+    },
+    "You can search for landmarks near a specific coordinate using the `@{X, Z}` syntax." : {
 
     },
     "Your Pinned Places" : {
