@@ -33,10 +33,14 @@ struct CartographySearchView<InitialView: View, ResultsView: View>: View {
 
     private enum Constants {
         static var searchFieldPlacement: SearchFieldPlacement {
-            #if os(macOS) || RED_WINDOW
+            #if os(macOS)
                 return .automatic
             #else
+            if #available(iOS 26, *) {
+                return .automatic
+            } else {
                 return .navigationBarDrawer(displayMode: .always)
+            }
             #endif
         }
     }
