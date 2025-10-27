@@ -7,8 +7,8 @@
 
 import AlidadeSearchEngine
 import CubiomesKit
-import MCMap
 import Foundation
+import MCMap
 
 class CartographySearchService_v2 {
     struct Context: Sendable {
@@ -112,7 +112,7 @@ extension CartographySearchService_v2: AlidadeSearchEngine {
             if let dimension = MinecraftWorld.Dimension(query: query) {
                 if MinecraftWorld.Dimension(fromPinDimension: pin.dimension) != dimension { continue }
             }
-            
+
             if !query.tags.isEmpty, let tags = pin.tags {
                 if tags.isDisjoint(with: query.tags) { continue }
                 if !nameMatches, !query.request.isEmpty { continue }

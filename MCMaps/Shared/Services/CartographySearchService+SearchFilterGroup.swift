@@ -8,6 +8,7 @@
 import Foundation
 import MCMap
 
+@available(*, deprecated, message: "Use the query features available in AlidadeSearchEngine.")
 extension CartographySearchService {
     /// An enumeration representing the various filter types for a search.
     enum SearchFilter: Sendable, Hashable, Equatable, Identifiable {
@@ -32,6 +33,7 @@ extension CartographySearchService {
     }
 }
 
+@available(*, deprecated, message: "Use the query features available in AlidadeSearchEngine.")
 extension CartographySearchService.SearchFilterGroup {
     func matchTags(for pin: CartographyMapPin) -> Set<CartographySearchService.SearchFilter> {
         var matches = Set<CartographySearchService.SearchFilter>()
@@ -63,6 +65,7 @@ extension CartographySearchService.SearchFilterGroup {
     }
 }
 
+@available(*, deprecated, message: "Use the query features available in AlidadeSearchEngine.")
 extension CartographySearchService.SearchFilterGroup: Collection {
     typealias Element = CartographySearchService.SearchFilter
     typealias Index = Set<CartographySearchService.SearchFilter>.Index
