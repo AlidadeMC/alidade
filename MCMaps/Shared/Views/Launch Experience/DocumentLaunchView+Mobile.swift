@@ -85,24 +85,3 @@ import SwiftUI
         }
     #endif
 #endif
-
-private struct DocumentLaunchViewButtonModifier: ViewModifier {
-    func body(content: Content) -> some View {
-        content
-            .frame(maxWidth: .infinity)
-            .padding(.horizontal, 16)
-            .padding(.vertical, 10)
-            .background(Color.secondary.opacity(0.1))
-            .controlSize(.extraLarge)
-            .buttonStyle(.borderless)
-            .bold()
-            .clipped()
-            .clipShape(.rect(cornerRadius: 10))
-    }
-}
-
-extension View {
-    func documentLaunchViewButtonStyle() -> some View {
-        self.modifier(DocumentLaunchViewButtonModifier())
-    }
-}
