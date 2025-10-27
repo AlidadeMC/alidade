@@ -66,6 +66,7 @@ struct CartographySearchView<InitialView: View, ResultsView: View>: View {
     var results: (SearchResult) -> ResultsView
 
     private var searchGainedFocus: (() -> Void)?
+    private var autofocus: Bool = false
 
     private var prompt: LocalizedStringKey {
         if #available(iOS 19.0, macOS 16.0, *) { "Search" } else { "Go To..." }
@@ -94,6 +95,14 @@ struct CartographySearchView<InitialView: View, ResultsView: View>: View {
         return newSelf
     }
 
+    /// Automatically focus on the search bar when this view is presented.
+    /// - Parameter isActive: Whether autofocus should be active.
+    func searchAutofocused(_ isActive: Bool = true) -> Self {
+        var newSelf = self
+        newSelf.autofocus = isActive
+        return newSelf
+    }
+
     var body: some View {
         Group {
             switch searchState {
@@ -119,6 +128,11 @@ struct CartographySearchView<InitialView: View, ResultsView: View>: View {
         )
         .searchFocused($searchFocused)
         .animation(.interactiveSpring, value: searchState)
+        .onAppear {
+            if autofocus {
+                searchFocused.toggle()
+            }
+        }
         .onChange(of: searchFocused) { _, newValue in
             if newValue { searchGainedFocus?() }
         }
