@@ -12,6 +12,14 @@ View the release notes for the 2025.2.x release series of Alidade.
 > and improvements may change over time, and the current releases are not
 > indicative of the final release build. Proceed with caution.
 
+## 2025.2.2 (Build 98)
+
+### General Changes
+
+- Fixes search bar placement on iPadOS 26 to be in line with the new
+  guidelines.
+- The document launch window on macOS 26 now uses glass style buttons.
+
 ## 2025.2.1 (Build 94)
 
 ### General Changes
