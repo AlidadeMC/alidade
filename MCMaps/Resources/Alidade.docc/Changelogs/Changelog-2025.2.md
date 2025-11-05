@@ -12,6 +12,15 @@ View the release notes for the 2025.2.x release series of Alidade.
 > and improvements may change over time, and the current releases are not
 > indicative of the final release build. Proceed with caution.
 
+## 2025.2.3 (Build 101)
+
+### General Changes
+
+- Fixes a critical issue that prevents players from using Alidade on
+  iPadOS 26.1. As a consequence, the default tab has been set to the
+  World Editor, and players will need to manually select the map
+  (ALD-29).
+
 ## 2025.2.2 (Build 98)
 
 ### General Changes
