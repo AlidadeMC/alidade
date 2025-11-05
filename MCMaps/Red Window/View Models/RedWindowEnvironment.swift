@@ -14,8 +14,12 @@ import Observation
 /// This is typically set at the app level and can be accessed via `@Environment(RedWindowEnvironment.self)`.
 @Observable
 class RedWindowEnvironment {
+    // NOTE(marquiskurt): It appears that, under iPadOS 26.1, setting this to the 'map' route causes a breaking issue
+    // that prevents players from using the app entirely. It is unclear as to what the cause of this is, since there
+    // are no indicators for what could be causing this issue. So, for now, we're setting the default route to the world
+    // editor. It's not ideal, but it should unblock the current show-stopper (ALD-29).
     /// The app's current route.
-    var currentRoute: RedWindowRoute = .map
+    var currentRoute: RedWindowRoute = .worldEdit
 
     /// The app's current world dimension.
     ///

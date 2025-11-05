@@ -42,6 +42,7 @@ struct MCMapsApp: App {
             Group {
                 if #available(iOS 19.0, macOS 16.0, *) {
                     RedWindowContentView(file: configuration.$document)
+                        .toolbarRole(.editor)
                         .environment(redWindowEnvironment)
                 } else {
                     LegacyContentView(file: configuration.$document)
