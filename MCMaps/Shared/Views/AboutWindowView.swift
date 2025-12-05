@@ -96,6 +96,7 @@ struct AboutWindowView: View {
         }
         .frame(width: 600, height: 400)
         .background(.clear)
+        .glassEffectIfAvailable()
     }
 }
 

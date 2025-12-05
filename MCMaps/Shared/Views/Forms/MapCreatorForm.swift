@@ -63,19 +63,23 @@ struct MapCreatorForm: View {
                     Text("This seed will be converted to: `\(hashedString)`")
                 }
             }
-            .onChange(of: version) { _, newValue in
+            .onChange(of: version, initial: false) { _, newValue in
                 if let verString = String(newValue) {
                     worldSettings.version = verString
                 }
             }
-            .onChange(of: seedString) { _, newValue in
+            .onChange(of: seedString, initial: false) { _, newValue in
+                var seed: Int64
                 if let realNumber = Int64(newValue) {
-                    worldSettings.seed = realNumber
+                    seed = realNumber
                     autoconvert = false
                 } else {
                     let isEmptyField = newValue == ""
-                    worldSettings.seed = isEmptyField ? 0 : Int64(newValue.hashValue)
+                    seed = isEmptyField ? 0 : Int64(newValue.hashValue)
                     autoconvert = !isEmptyField
+                }
+                if seed != worldSettings.seed {
+                    worldSettings.seed = seed
                 }
             }
 
