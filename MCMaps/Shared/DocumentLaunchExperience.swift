@@ -14,7 +14,7 @@ struct DocumentLaunchScene: Scene {
 
     var body: some Scene {
         #if os(macOS)
-            DocumentLaunchView(Self.appName, creating: CartographyMapFile(withManifest: .sampleFile)) {
+            DocumentLaunchView(MCMapsApp.appName, creating: CartographyMapFile(withManifest: .sampleFile)) {
                 EmptyView()
             } background: {
                 Image(.packMcmeta)
