@@ -33,15 +33,7 @@ struct CartographySearchView<InitialView: View, ResultsView: View>: View {
 
     private enum Constants {
         static var searchFieldPlacement: SearchFieldPlacement {
-            #if os(macOS)
-                return .automatic
-            #else
-            if #available(iOS 26, *) {
-                return .automatic
-            } else {
-                return .navigationBarDrawer(displayMode: .always)
-            }
-            #endif
+            .automatic
         }
     }
 
@@ -69,7 +61,7 @@ struct CartographySearchView<InitialView: View, ResultsView: View>: View {
     private var autofocus: Bool = false
 
     private var prompt: LocalizedStringKey {
-        if #available(iOS 19.0, macOS 16.0, *) { "Search" } else { "Go To..." }
+        "Search"
     }
 
     init(

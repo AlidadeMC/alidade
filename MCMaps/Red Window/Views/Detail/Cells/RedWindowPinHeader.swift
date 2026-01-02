@@ -36,7 +36,7 @@ struct RedWindowPinHeader: RedWindowDetailCell {
         LinearGradient(
             colors: [
                 Color.black.opacity(1),
-                Color.black.opacity(0)
+                Color.black.opacity(0),
             ],
             startPoint: .bottom,
             endPoint: .top)
@@ -76,7 +76,7 @@ struct RedWindowPinHeader: RedWindowDetailCell {
         }
 
         .frame(height: Constants.headerHeight)
-        .backgroundExtensionEffectIfAvailable()
+        .backgroundExtensionEffect()
         .animation(.interactiveSpring, value: colorSchemeContrast)
         .overlay(alignment: .bottomLeading) {
             HStack {

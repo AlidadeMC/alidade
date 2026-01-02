@@ -22,15 +22,15 @@ struct RedWindowMapWarpForm: View {
     var body: some View {
         Form {
             #if os(iOS)
-            LabeledContent("X Coordinate") {
-                TextField("X", value: $xCoordinate, format: .number)
-            }
-            LabeledContent("Z Coordinate") {
-                TextField("Z", value: $zCoordinate, format: .number)
-            }
+                LabeledContent("X Coordinate") {
+                    TextField("X", value: $xCoordinate, format: .number)
+                }
+                LabeledContent("Z Coordinate") {
+                    TextField("Z", value: $zCoordinate, format: .number)
+                }
             #else
-            TextField("X", value: $xCoordinate, format: .number)
-            TextField("Z", value: $zCoordinate, format: .number)
+                TextField("X", value: $xCoordinate, format: .number)
+                TextField("Z", value: $zCoordinate, format: .number)
             #endif
         }
         #if os(macOS)
@@ -39,16 +39,9 @@ struct RedWindowMapWarpForm: View {
         .navigationTitle("Go To Coordinate")
         .toolbar {
             ToolbarItem {
-                if #available(iOS 19, macOS 16, *) {
-                    Button("Go", systemImage: "checkmark", role: .confirm) {
-                        redWindowEnvironment.mapCenterCoordinate = CGPoint(x: xCoordinate, y: zCoordinate)
-                        dismiss()
-                    }
-                } else {
-                    Button("Go") {
-                        redWindowEnvironment.mapCenterCoordinate = CGPoint(x: xCoordinate, y: zCoordinate)
-                        dismiss()
-                    }
+                Button("Go", systemImage: "checkmark", role: .confirm) {
+                    redWindowEnvironment.mapCenterCoordinate = CGPoint(x: xCoordinate, y: zCoordinate)
+                    dismiss()
                 }
             }
         }

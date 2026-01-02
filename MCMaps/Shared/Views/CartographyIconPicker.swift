@@ -22,24 +22,12 @@ struct CartographyIconPicker: View {
     }
 
     var body: some View {
-        Group {
-            if #available(iOS 19.0, macOS 16.0, *) {
-                picker
-                    .searchable(text: $query)
-            } else {
-                picker
-            }
-        }
+        picker
+            .searchable(text: $query)
     }
 
     private var picker: some View {
         ScrollView {
-            if #unavailable(iOS 19.0, macOS 16.0) {
-                TextField("Search...", text: $query)
-                    .controlSize(.large)
-                    .textFieldStyle(.roundedBorder)
-                    .padding([.top, .leading, .trailing])
-            }
             if symbols.isEmpty {
                 ContentUnavailableView.search(text: query)
             }

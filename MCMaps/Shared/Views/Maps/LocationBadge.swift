@@ -40,15 +40,10 @@ struct LocationBadge: View {
     }
 
     var body: some View {
-        Group {
-            if #available(macOS 16, iOS 19, *) {
-                mainLabel.glassEffect()
-            } else {
-                mainLabel.background(Capsule().fill(.thinMaterial))
-            }
-        }
-        .padding(8)
-        .animation(.default, value: location)
+        mainLabel
+            .glassEffect()
+            .padding(8)
+            .animation(.default, value: location)
     }
 
     private var mainLabel: some View {

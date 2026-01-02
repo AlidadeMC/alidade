@@ -1,5 +1,5 @@
 {
-  "originHash" : "831cdfa6652071ceedf284025480ee7dd22453f7aa96f34b80e1ec427b813208",
+  "originHash" : "59d007294e3c7904848230f383ffb44de804c2b10fb962683f65e4ea0a44138d",
   "pins" : [
     {
       "identity" : "adaptablesidebarsheetview",
@@ -34,7 +34,7 @@
       "location" : "https://source.marquiskurt.net/marquiskurt/DocumentKit",
       "state" : {
         "branch" : "main",
-        "revision" : "8363b9eb438821a7cf333a34eede64ef4db5b865"
+        "revision" : "5ab0cf6b64a3ea5ed8e8c614e2bfb41e67cdd1d6"
       }
     },
     {
@@ -114,8 +114,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-async-algorithms.git",
       "state" : {
-        "revision" : "042e1c4d9d19748c9c228f8d4ebc97bb1e339b0b",
-        "version" : "1.0.4"
+        "revision" : "6c050d5ef8e1aa6342528460db614e9770d7f804",
+        "version" : "1.1.1"
       }
     },
     {
@@ -141,8 +141,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SimplyDanny/SwiftLintPlugins",
       "state" : {
-        "revision" : "6166499ede0efe43c3809f101d2c3cd409e2b77a",
-        "version" : "0.61.0"
+        "revision" : "ecafb5b056cb7995324f0d310a61f30661d00cad",
+        "version" : "0.62.2"
       }
     },
     {

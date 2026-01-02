@@ -11,6 +11,8 @@ import MCMap
 import SwiftUI
 import TipKit
 
+typealias DocumentContinuation = CheckedContinuation<CartographyMapFile, any Error>
+
 /// The main entry point for the Alidade app.
 @main
 struct MCMapsApp: App {
@@ -43,12 +45,12 @@ struct MCMapsApp: App {
             RedWindowContentView(file: configuration.$document)
                 .toolbarRole(.editor)
                 .environment(redWindowEnvironment)
-            .environment(
-                \.bluemapService,
-                CartographyBluemapService(withConfiguration: configuration.document.integrations.bluemap)
-            )
-            .environment(\.documentURL, configuration.fileURL)
-            .environment(\.clock, clock)
+                .environment(
+                    \.bluemapService,
+                    CartographyBluemapService(withConfiguration: configuration.document.integrations.bluemap)
+                )
+                .environment(\.documentURL, configuration.fileURL)
+                .environment(\.clock, clock)
         }
         .onChange(of: scenePhase) { _, newValue in
             switch newValue {
@@ -62,19 +64,17 @@ struct MCMapsApp: App {
         }
         .commands {
             CommandMenu("Map") {
-                if #available(iOS 19.0, macOS 16.0, *) {
-                    Button("Go To...", systemImage: "figure.walk") {
-                        redWindowEnvironment.currentModalRoute = .warpToLocation
-                    }
-                    .disabled(redWindowEnvironment.currentRoute != .map)
-                    .keyboardShortcut("G", modifiers: [.command])
-                    Button("Pin Here...", systemImage: "mappin.circle") {
-                        redWindowEnvironment.currentModalRoute = .createPin
-                    }
-                    .disabled(redWindowEnvironment.currentRoute != .map)
-                    .keyboardShortcut("P", modifiers: [.command])
-                    Divider()
+                Button("Go To...", systemImage: "figure.walk") {
+                    redWindowEnvironment.currentModalRoute = .warpToLocation
                 }
+                .disabled(redWindowEnvironment.currentRoute != .map)
+                .keyboardShortcut("G", modifiers: [.command])
+                Button("Pin Here...", systemImage: "mappin.circle") {
+                    redWindowEnvironment.currentModalRoute = .createPin
+                }
+                .disabled(redWindowEnvironment.currentRoute != .map)
+                .keyboardShortcut("P", modifiers: [.command])
+                Divider()
                 Toggle(isOn: $naturalColors) {
                     Label("Natural Colors", systemImage: "paintpalette")
                 }
@@ -91,33 +91,31 @@ struct MCMapsApp: App {
                     Link("Send \(Self.appName) Feedback", destination: feedback)
                 }
             }
-            if #available(iOS 19.0, macOS 16.0, *) {
-                CommandGroup(after: .pasteboard) {
-                    Button("Configure World...", systemImage: "globe") {
-                        redWindowEnvironment.currentRoute = .worldEdit
-                    }
-                    .keyboardShortcut("E", modifiers: [.command, .shift])
+            CommandGroup(after: .pasteboard) {
+                Button("Configure World...", systemImage: "globe") {
+                    redWindowEnvironment.currentRoute = .worldEdit
                 }
-                CommandGroup(before: .saveItem) {
-                    Button("Find in File...", systemImage: "magnifyingglass") {
-                        redWindowEnvironment.currentRoute = .search
-                    }
-                    .keyboardShortcut("F", modifiers: [.command, .shift])
+                .keyboardShortcut("E", modifiers: [.command, .shift])
+            }
+            CommandGroup(before: .saveItem) {
+                Button("Find in File...", systemImage: "magnifyingglass") {
+                    redWindowEnvironment.currentRoute = .search
                 }
-                CommandGroup(before: .toolbar) {
-                    #if os(macOS)
-                        let menuItems = RedWindowRoute.allCases.enumerated()
-                    #else
-                        let menuItems = RedWindowRoute.allCases.enumerated().reversed()
-                    #endif
-                    ForEach(Array(menuItems), id: \.element.id) { (index, route) in
-                        let character = Character("\(index + 1)")
+                .keyboardShortcut("F", modifiers: [.command, .shift])
+            }
+            CommandGroup(before: .toolbar) {
+                #if os(macOS)
+                    let menuItems = RedWindowRoute.allCases.enumerated()
+                #else
+                    let menuItems = RedWindowRoute.allCases.enumerated().reversed()
+                #endif
+                ForEach(Array(menuItems), id: \.element.id) { (index, route) in
+                    let character = Character("\(index + 1)")
 
-                        Button(route.name, systemImage: route.symbol) {
-                            redWindowEnvironment.currentRoute = route
-                        }
-                        .keyboardShortcut(KeyEquivalent(character), modifiers: .command)
+                    Button(route.name, systemImage: route.symbol) {
+                        redWindowEnvironment.currentRoute = route
                     }
+                    .keyboardShortcut(KeyEquivalent(character), modifiers: .command)
                 }
             }
         }
@@ -158,23 +156,7 @@ struct MCMapsApp: App {
             }
         #endif
 
-        DocumentLaunchView(Self.appName, creating: CartographyMapFile(withManifest: .sampleFile)) {
-            EmptyView()
-        } background: {
-            Image(.packMcmeta)
-                .resizable()
-                .scaledToFill()
-        }
-        .appIcon("App Pin Static")
-        .displayCreationForm {
-            NavigationStack {
-                MapCreatorForm(
-                    worldName: $proxyMap.name,
-                    worldSettings: $proxyMap.worldSettings,
-                    integrations: .constant(CartographyMapFile(withManifest: .sampleFile).integrations)
-                )
-            }
-        }
+        DocumentLaunchScene(proxyMap: $proxyMap)
 
         #if os(macOS)
             Window("About \(Self.appName)", id: "about") {

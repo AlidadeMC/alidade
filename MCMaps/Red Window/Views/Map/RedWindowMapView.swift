@@ -55,7 +55,7 @@ struct RedWindowMapView: View {
                     }
                 }
                 #if os(macOS)
-                .toolbarBackgroundVisibility(.hidden, for: .windowToolbar)
+                    .toolbarBackgroundVisibility(.hidden, for: .windowToolbar)
                 #endif
                 .animation(.interactiveSpring, value: state)
                 .ignoresSafeArea(.all)
@@ -63,21 +63,21 @@ struct RedWindowMapView: View {
                     IntegrationFetchStateView(state: state)
                         .padding(8)
                         .opacity(file.integrations.enabled ? 1 : 0)
-                    #if os(macOS)
-                        .padding(.bottom, 4)
-                    #endif
+                        #if os(macOS)
+                            .padding(.bottom, 4)
+                        #endif
                 }
                 .overlay(alignment: .bottomTrailing) {
                     LocationBadge(location: env.mapCenterCoordinate)
                         .environment(\.contentTransitionAddsDrawingGroup, true)
                         .labelStyle(.titleAndIcon)
-                    #if os(macOS)
-                        .padding(.bottom, 4)
-                        // NOTE(alicerunsonfedora): This applies the zoom control's width (36) with some extra padding,
-                        // but it's unclear how this will change over time, let alone whether this is the right way to
-                        // offset the badge to prevent obstructions (see ALD-20).
-                        .padding(.trailing, 48)
-                    #endif
+                        #if os(macOS)
+                            .padding(.bottom, 4)
+                            // NOTE(alicerunsonfedora): This applies the zoom control's width (36) with some extra padding,
+                            // but it's unclear how this will change over time, let alone whether this is the right way to
+                            // offset the badge to prevent obstructions (see ALD-20).
+                            .padding(.trailing, 48)
+                        #endif
                 }
                 .onChange(of: env.currentModalRoute, initial: false) { _, newValue in
                     guard let newValue else { return }
@@ -130,9 +130,7 @@ struct RedWindowMapView: View {
                         }
                     }
 
-                    if #available(macOS 16, iOS 19, *) {
-                        ToolbarSpacer(.fixed)
-                    }
+                    ToolbarSpacer(.fixed)
 
                     ToolbarItem {
                         Button("Go To", systemImage: "figure.walk") {

@@ -121,6 +121,9 @@
     "Create a new tag..." : {
 
     },
+    "Create Map" : {
+
+    },
     "Create Pin" : {
 
     },
@@ -402,9 +405,6 @@
 
     },
     "Search for nearby biomes and structures, pinned places, and any marked locations from integrations like Bluemap." : {
-
-    },
-    "Search..." : {
 
     },
     "Searching..." : {

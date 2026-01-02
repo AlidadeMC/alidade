@@ -84,7 +84,8 @@ struct AboutWindowView: View {
                 let contents = try String(contentsOf: creditsPath, encoding: .utf8)
                 creditsPane = try AttributedString(
                     markdown: contents,
-                    options: AttributedString
+                    options:
+                        AttributedString
                         .MarkdownParsingOptions(
                             allowsExtendedAttributes: true,
                             interpretedSyntax: .inlineOnlyPreservingWhitespace
@@ -96,7 +97,6 @@ struct AboutWindowView: View {
         }
         .frame(width: 600, height: 400)
         .background(.clear)
-        .glassEffectIfAvailable()
     }
 }
 

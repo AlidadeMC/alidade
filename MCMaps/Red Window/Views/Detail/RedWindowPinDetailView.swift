@@ -144,21 +144,21 @@ struct RedWindowPinDetailView: View {
                         WorldCodedDimensionPicker(selection: $pin.dimension)
                     }
                 }
-                RedWindowToolbarSpacer()
+                ToolbarSpacer(.fixed)
                 ToolbarItem {
                     Button("Manage Tags…", systemImage: "tag") {
                         presentTagEditor.toggle()
                     }
                 }
-                RedWindowToolbarSpacer()
+                ToolbarSpacer(.fixed)
             }
 
             if !editMode {
-                RedWindowToolbarSpacer()
+                ToolbarSpacer(.fixed)
                 photoUploadToolbar
             }
 
-            RedWindowToolbarSpacer()
+            ToolbarSpacer(.fixed)
 
             if !editMode {
                 ToolbarItem {
@@ -169,13 +169,13 @@ struct RedWindowPinDetailView: View {
                 }
             }
 
-            RedWindowToolbarSpacer()
+            ToolbarSpacer(.fixed)
 
             ToolbarItem {
                 editButton
             }
 
-            RedWindowToolbarSpacer()
+            ToolbarSpacer(.fixed)
 
             ToolbarItem {
                 if canDisplayMapView {
@@ -283,20 +283,12 @@ struct RedWindowPinDetailView: View {
     private var editButton: some View {
         Group {
             if editMode {
-                    if #available(iOS 19, macOS 16, *) {
-                        Button(role: .confirm) {
-                            withAnimation {
-                                editMode.toggle()
-                            }
-                        }
-                    } else {
-                        Button("Done", systemImage: "checkmark") {
-                            withAnimation {
-                                editMode.toggle()
-                            }
-                        }
-                        .buttonStyle(.borderedProminent)
+                Button("Done", systemImage: "checkmark") {
+                    withAnimation {
+                        editMode.toggle()
                     }
+                }
+                .buttonStyle(.borderedProminent)
             } else {
                 Button("Edit") {
                     withAnimation {

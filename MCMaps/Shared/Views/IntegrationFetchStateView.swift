@@ -76,9 +76,9 @@ struct IntegrationFetchStateView: View {
     var body: some View {
         OrnamentBadge {
             Label(title, systemImage: symbol)
-            .padding(1)
-            .padding(.horizontal, 4)
-            .padding(.vertical, 2)
+                .padding(1)
+                .padding(.horizontal, 4)
+                .padding(.vertical, 2)
         }
         .contentTransition(.symbolEffect(.replace))
         .help(help)
@@ -89,14 +89,7 @@ private struct OrnamentBadge<Content: View>: View {
     var content: () -> Content
 
     var body: some View {
-        Group {
-            if #available(macOS 16, iOS 19, *) {
-                content()
-                    .glassEffect()
-            } else {
-                content()
-                    .background(Capsule().fill(.thinMaterial))
-            }
-        }
+        content()
+            .glassEffect()
     }
 }

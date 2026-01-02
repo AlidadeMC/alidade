@@ -42,7 +42,7 @@ out there, but it exists as an addition to that market.
 
 **Requirements**  
 - Xcode 26 or later
-- macOS 15.0 Sequoia or later
+- macOS 26.0 Tahoe or later
 
 For instructions on how to build the Alidade app for your devices, refer
 to the **Building Alidade from Source** article in the app's
