@@ -10,26 +10,6 @@
     "(%@)" : {
 
     },
-    "(%lf, %lf)" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "(%1$lf, %2$lf)"
-          }
-        }
-      }
-    },
-    "(%lld, %lld)" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "(%1$lld, %2$lld)"
-          }
-        }
-      }
-    },
     "%@" : {
 
     },
@@ -69,9 +49,6 @@
     "^[%lld Tag](inflect: true)" : {
 
     },
-    "About" : {
-
-    },
     "About %@" : {
 
     },
@@ -82,9 +59,6 @@
 
     },
     "Add From Photos" : {
-
-    },
-    "Add Photos" : {
 
     },
     "Add photos from your device to show this place and what makes it special." : {
@@ -108,16 +82,10 @@
     "Are you sure you want to remove '%@'?" : {
 
     },
-    "Are you sure you want to remove %@?" : {
-
-    },
     "Are you sure you want to remove %lld pins?" : {
 
     },
     "Bastion" : {
-
-    },
-    "Biomes" : {
 
     },
     "Biomes and Structures" : {
@@ -150,13 +118,7 @@
     "Create" : {
 
     },
-    "Create a Map" : {
-
-    },
     "Create a new tag..." : {
-
-    },
-    "Create Map" : {
 
     },
     "Create Pin" : {
@@ -169,12 +131,6 @@
 
     },
     "Debug" : {
-
-    },
-    "Delete Pin..." : {
-
-    },
-    "Deleting this pin will also remove its photos from the map." : {
 
     },
     "Desert Pyramid" : {
@@ -199,9 +155,6 @@
 
     },
     "Edit" : {
-
-    },
-    "Edit World" : {
 
     },
     "Enable Integration" : {
@@ -234,13 +187,7 @@
     "Fortress" : {
 
     },
-    "From Finder" : {
-
-    },
     "From Integrations" : {
-
-    },
-    "From Photos" : {
 
     },
     "Gallery" : {
@@ -373,28 +320,13 @@
     "No Photos Uploaded" : {
 
     },
-    "No Pin Selected" : {
-
-    },
-    "No results found." : {
-
-    },
-    "No Route Available" : {
-
-    },
     "No Tags" : {
 
     },
     "No tags for this place." : {
 
     },
-    "No view was defined for route %@" : {
-
-    },
     "Ocean Ruin" : {
-
-    },
-    "Open a Map..." : {
 
     },
     "Open in New Window" : {
@@ -404,9 +336,6 @@
 
     },
     "Overworld" : {
-
-    },
-    "Photos" : {
 
     },
     "Photos you add to your pinned places will appear here." : {
@@ -427,12 +356,6 @@
     "Pin Here..." : {
 
     },
-    "Pin Inspector" : {
-
-    },
-    "Pin..." : {
-
-    },
     "Player Death Markers" : {
 
     },
@@ -451,16 +374,10 @@
     "Realtime Sync" : {
 
     },
-    "Recents" : {
-
-    },
     "Refresh every: ^[%lld second](inflect: true)" : {
 
     },
     "Remove" : {
-
-    },
-    "Remove from Recents" : {
 
     },
     "Remove Tag" : {
@@ -517,16 +434,10 @@
     "Show common points of interest and where players are on your Minecraft server from the Bluemap plugin.\n[Learn more…](https://docs.alidade.dev/documentation/alidade/guide-bluemap)" : {
 
     },
-    "Show in Finder" : {
-
-    },
     "Show Inspector" : {
 
     },
     "Show on Map" : {
-
-    },
-    "Structures" : {
 
     },
     "Swamp Hut" : {
@@ -571,9 +482,6 @@
     "This location can only be accessed in the End." : {
 
     },
-    "this pin" : {
-
-    },
     "This seed will be converted to: `%@`" : {
 
     },
@@ -596,9 +504,6 @@
 
     },
     "Update player locations more frequently with Realtime Sync. [Learn more…](https://docs.alidade.dev/documentation/alidade/guide-bluemap#Realtime-player-sync)" : {
-
-    },
-    "Update World" : {
 
     },
     "Use the search bar to look through your pins, or to locate nearby structures and biomes." : {
@@ -648,12 +553,6 @@
 
     },
     "Write a description for what makes this place special." : {
-
-    },
-    "Write a description..." : {
-
-    },
-    "Write a tag..." : {
 
     },
     "X" : {

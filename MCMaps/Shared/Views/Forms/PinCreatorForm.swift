@@ -10,6 +10,11 @@ import MCMap
 import SwiftUI
 
 // NOTE(alicerunsonfedora): Perhaps this can get replaced with the new pin detail view?
+extension CartographyMapPin.Color: @retroactive CaseIterable {
+    public static var allCases: [CartographyMapPin.Color] {
+        [.red, .orange, .yellow, .green, .blue, .indigo, .gray, .brown, .pink]
+    }
+}
 
 /// A form for creating a map pin.
 ///

@@ -6,6 +6,7 @@
 //
 
 import AlidadeUI
+import DocumentKitSwiftUI
 import MCMap
 import SwiftUI
 import TipKit
@@ -39,19 +40,9 @@ struct MCMapsApp: App {
 
     var body: some Scene {
         DocumentGroup(newDocument: CartographyMapFile(withManifest: .sampleFile)) { configuration in
-            Group {
-                if #available(iOS 19.0, macOS 16.0, *) {
-                    RedWindowContentView(file: configuration.$document)
-                        .toolbarRole(.editor)
-                        .environment(redWindowEnvironment)
-                } else {
-                    LegacyContentView(file: configuration.$document)
-                        .toolbarRole(.editor)
-                        #if os(iOS)
-                            .toolbarVisibility(.hidden, for: .navigationBar)
-                        #endif
-                }
-            }
+            RedWindowContentView(file: configuration.$document)
+                .toolbarRole(.editor)
+                .environment(redWindowEnvironment)
             .environment(
                 \.bluemapService,
                 CartographyBluemapService(withConfiguration: configuration.document.integrations.bluemap)
@@ -167,9 +158,23 @@ struct MCMapsApp: App {
             }
         #endif
 
-        DocumentLaunchView(
-            viewModel: DocumentLaunchViewModel(displayCreationWindow: $displayCreationWindow, proxyMap: $proxyMap)
-        )
+        DocumentLaunchView(Self.appName, creating: CartographyMapFile(withManifest: .sampleFile)) {
+            EmptyView()
+        } background: {
+            Image(.packMcmeta)
+                .resizable()
+                .scaledToFill()
+        }
+        .appIcon("App Pin Static")
+        .displayCreationForm {
+            NavigationStack {
+                MapCreatorForm(
+                    worldName: $proxyMap.name,
+                    worldSettings: $proxyMap.worldSettings,
+                    integrations: .constant(CartographyMapFile(withManifest: .sampleFile).integrations)
+                )
+            }
+        }
 
         #if os(macOS)
             Window("About \(Self.appName)", id: "about") {
