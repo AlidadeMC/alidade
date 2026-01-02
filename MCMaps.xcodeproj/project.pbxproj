@@ -442,8 +442,9 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MCMaps/Resources/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Alidade;
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
-				INFOPLIST_KEY_NSHumanReadableCopyright = "(C) 2025 Marquis Kurt. All rights reserved.";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "(C) 2025-2026 Marquis Kurt. All rights reserved.";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -499,8 +500,9 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MCMaps/Resources/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Alidade;
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
-				INFOPLIST_KEY_NSHumanReadableCopyright = "(C) 2025 Marquis Kurt. All rights reserved.";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "(C) 2025-2026 Marquis Kurt. All rights reserved.";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -651,8 +653,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://source.marquiskurt.net/AlidadeMC/CubiomesKit";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.0.0;
+				branch = root;
+				kind = branch;
 			};
 		};
 		956603712EA588CC0049C15D /* XCRemoteSwiftPackageReference "searchengine" */ = {

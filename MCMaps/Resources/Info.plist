@@ -23,15 +23,9 @@
 			<string>$(PRODUCT_BUNDLE_IDENTIFIER).minecraftmap</string>
 		</dict>
 	</array>
-	<key>ITSAppUsesNonExemptEncryption</key>
-	<false/>
 	<key>UTExportedTypeDeclarations</key>
 	<array>
 		<dict>
-			<key>UTTypeIconFiles</key>
-			<array>
-				<string>FilePreview_iOS.png</string>
-			</array>
 			<key>LSTypeIsPackage</key>
 			<true/>
 			<key>UTTypeConformsTo</key>
@@ -41,6 +35,10 @@
 			</array>
 			<key>UTTypeDescription</key>
 			<string>Minecraft Map File</string>
+			<key>UTTypeIconFiles</key>
+			<array>
+				<string>FilePreview_iOS.png</string>
+			</array>
 			<key>UTTypeIcons</key>
 			<dict>
 				<key>UTTypeIconBackgroundName</key>

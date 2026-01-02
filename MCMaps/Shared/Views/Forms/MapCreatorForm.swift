@@ -64,7 +64,7 @@ struct MapCreatorForm: View {
                 }
             }
             .onChange(of: version, initial: false) { _, newValue in
-                if let verString = String(newValue) {
+                if let verString = String(newValue), worldSettings.version != verString {
                     worldSettings.version = verString
                 }
             }
