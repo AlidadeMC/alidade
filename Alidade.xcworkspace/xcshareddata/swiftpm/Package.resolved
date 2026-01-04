@@ -1,5 +1,5 @@
 {
-  "originHash" : "ff6658dab789c514046581470c37cff144e3cb255248d43ea617a7a656060abb",
+  "originHash" : "0ff18f511a0f08c23ccf1f43db222b8d2c3b13fc604d0c5c9c486f718023cf9b",
   "pins" : [
     {
       "identity" : "adaptablesidebarsheetview",
@@ -43,7 +43,7 @@
       "location" : "https://source.marquiskurt.net/marquiskurt/imageprocessing",
       "state" : {
         "branch" : "main",
-        "revision" : "ec6482f6cc50146456857e4928d9ad95b4629801"
+        "revision" : "232fb1b5124864c7428efb0f51870fa1451f4348"
       }
     },
     {
@@ -150,8 +150,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SimplyDanny/SwiftLintPlugins",
       "state" : {
-        "revision" : "ecafb5b056cb7995324f0d310a61f30661d00cad",
-        "version" : "0.62.2"
+        "revision" : "707f7face5524fe918f82dd39c5c80cb3e591a44",
+        "version" : "0.63.0"
       }
     },
     {

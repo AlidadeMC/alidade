@@ -5,6 +5,7 @@
 //  Created by Marquis Kurt on 24-07-2025.
 //
 
+import ImageProcessing
 import MCMap
 import SwiftUI
 
@@ -38,12 +39,9 @@ struct CartographyIconPicker: View {
                         dismiss()
                     } label: {
                         Image(cartographyIcon: icon, in: context)
-                            .font(.title)
-                            .aspectRatio(1, contentMode: .fit)
-                            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
-                            .clipped()
-                            .aspectRatio(1, contentMode: .fit)
+                            .maxFillFit(contentMode: .fit)
                             .foregroundStyle(.secondary)
+                            .font(.title)
                     }
                     .buttonStyle(.plain)
 

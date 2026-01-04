@@ -96,11 +96,7 @@ struct CartographyGalleryView: View {
 
     private func cell(for image: Data) -> some View {
         Image(data: image)
-            .resizable()
-            .aspectRatio(contentMode: scaledToFill ? .fill : .fit)
-            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
-            .clipped()
-            .aspectRatio(1, contentMode: .fit)
+            .maxFillFit(contentMode: scaledToFill ? .fill : .fit)
     }
 
     private func getURL(forImageNamed name: String) -> URL? {
