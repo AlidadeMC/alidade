@@ -61,3 +61,4 @@ LICENSE.txt or visit https://www.mozilla.org/en-US/MPL/2.0/.
 - [**Cubiomes**](https://github.com/Cubitect/cubiomes) - MIT License
 - [**Adaptable Sidebar Sheet**](https://github.com/AlidadeMC/adaptablesidebarsheetview) - Mozilla Public License, v2
 - [**VersionedCodable**](https://github.com/jrothwell/VersionedCodable) - MIT License
+- [**ImageProcessing**](https://source.marquiskurt.net/marquiskurt/imageprocessing) - MIT License
