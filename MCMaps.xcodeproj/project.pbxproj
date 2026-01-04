@@ -10,6 +10,7 @@
 		9504030F2D4D7E0A00F51903 /* CubiomesKit in Frameworks */ = {isa = PBXBuildFile; productRef = 9504030E2D4D7E0A00F51903 /* CubiomesKit */; };
 		95141F562F0874D200DAF47D /* DocumentKit in Frameworks */ = {isa = PBXBuildFile; productRef = 95141F552F0874D200DAF47D /* DocumentKit */; };
 		951FE2BC2D5937630091BE11 /* ViewInspector in Frameworks */ = {isa = PBXBuildFile; productRef = 951FE2BB2D5937630091BE11 /* ViewInspector */; };
+		95317F2E2F0B0FB9007BCDA0 /* ImageProcessing in Frameworks */ = {isa = PBXBuildFile; productRef = 95317F2D2F0B0FB9007BCDA0 /* ImageProcessing */; };
 		953CBB1D2E12FBD400C54DFD /* Testchamber in Frameworks */ = {isa = PBXBuildFile; productRef = 953CBB1C2E12FBD400C54DFD /* Testchamber */; };
 		954489A82E2D66BD0088B879 /* MCMap in Frameworks */ = {isa = PBXBuildFile; productRef = 954489A72E2D66BD0088B879 /* MCMap */; };
 		955A44382D8F47C600262A6D /* AdaptableSidebarSheetView in Frameworks */ = {isa = PBXBuildFile; productRef = 955A44372D8F47C600262A6D /* AdaptableSidebarSheetView */; };
@@ -76,6 +77,7 @@
 				95141F562F0874D200DAF47D /* DocumentKit in Frameworks */,
 				95F6B0AD2DADE504006A1B8C /* AsyncAlgorithms in Frameworks */,
 				954489A82E2D66BD0088B879 /* MCMap in Frameworks */,
+				95317F2E2F0B0FB9007BCDA0 /* ImageProcessing in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -140,6 +142,7 @@
 				954489A72E2D66BD0088B879 /* MCMap */,
 				956603722EA588CC0049C15D /* AlidadeSearchEngine */,
 				95141F552F0874D200DAF47D /* DocumentKit */,
+				95317F2D2F0B0FB9007BCDA0 /* ImageProcessing */,
 			);
 			productName = MCMaps;
 			productReference = 950402CF2D4D522100F51903 /* Alidade.app */;
@@ -210,6 +213,7 @@
 				954489A62E2D66BD0088B879 /* XCRemoteSwiftPackageReference "mcmap" */,
 				956603712EA588CC0049C15D /* XCRemoteSwiftPackageReference "searchengine" */,
 				95141F542F0874D200DAF47D /* XCRemoteSwiftPackageReference "DocumentKit" */,
+				95317F2C2F0B0FB9007BCDA0 /* XCRemoteSwiftPackageReference "imageprocessing" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 950402D02D4D522100F51903 /* Products */;
@@ -647,6 +651,14 @@
 				minimumVersion = 0.10.1;
 			};
 		};
+		95317F2C2F0B0FB9007BCDA0 /* XCRemoteSwiftPackageReference "imageprocessing" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://source.marquiskurt.net/marquiskurt/imageprocessing";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 		954489A62E2D66BD0088B879 /* XCRemoteSwiftPackageReference "mcmap" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://source.marquiskurt.net/AlidadeMC/mcmap.git";
@@ -711,6 +723,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 951FE2BA2D5937630091BE11 /* XCRemoteSwiftPackageReference "ViewInspector" */;
 			productName = ViewInspector;
+		};
+		95317F2D2F0B0FB9007BCDA0 /* ImageProcessing */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 95317F2C2F0B0FB9007BCDA0 /* XCRemoteSwiftPackageReference "imageprocessing" */;
+			productName = ImageProcessing;
 		};
 		953CBB1C2E12FBD400C54DFD /* Testchamber */ = {
 			isa = XCSwiftPackageProductDependency;

@@ -5,6 +5,7 @@
 //  Created by Marquis Kurt on 19-06-2025.
 //
 
+import ImageProcessing
 import MCMap
 import SwiftUI
 

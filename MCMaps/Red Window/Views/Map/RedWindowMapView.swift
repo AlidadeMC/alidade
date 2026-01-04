@@ -73,9 +73,9 @@ struct RedWindowMapView: View {
                         .labelStyle(.titleAndIcon)
                         #if os(macOS)
                             .padding(.bottom, 4)
-                            // NOTE(alicerunsonfedora): This applies the zoom control's width (36) with some extra padding,
-                            // but it's unclear how this will change over time, let alone whether this is the right way to
-                            // offset the badge to prevent obstructions (see ALD-20).
+                            // NOTE(alicerunsonfedora): This applies the zoom control's width (36) with some extra
+                            // padding, but it's unclear how this will change over time, let alone whether this is the
+                            // right way to offset the badge to prevent obstructions (see ALD-20).
                             .padding(.trailing, 48)
                         #endif
                 }

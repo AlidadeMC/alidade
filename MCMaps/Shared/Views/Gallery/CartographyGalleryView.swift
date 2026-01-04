@@ -5,6 +5,7 @@
 //  Created by Marquis Kurt on 16-07-2025.
 //
 
+import ImageProcessing
 import AlidadeUI
 import MCMap
 import QuickLook

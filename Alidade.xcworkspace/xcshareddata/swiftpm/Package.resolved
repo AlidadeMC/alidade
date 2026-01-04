@@ -1,5 +1,5 @@
 {
-  "originHash" : "59d007294e3c7904848230f383ffb44de804c2b10fb962683f65e4ea0a44138d",
+  "originHash" : "ff6658dab789c514046581470c37cff144e3cb255248d43ea617a7a656060abb",
   "pins" : [
     {
       "identity" : "adaptablesidebarsheetview",
@@ -35,6 +35,15 @@
       "state" : {
         "branch" : "main",
         "revision" : "5ab0cf6b64a3ea5ed8e8c614e2bfb41e67cdd1d6"
+      }
+    },
+    {
+      "identity" : "imageprocessing",
+      "kind" : "remoteSourceControl",
+      "location" : "https://source.marquiskurt.net/marquiskurt/imageprocessing",
+      "state" : {
+        "branch" : "main",
+        "revision" : "ec6482f6cc50146456857e4928d9ad95b4629801"
       }
     },
     {
