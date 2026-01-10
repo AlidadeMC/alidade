@@ -5,6 +5,7 @@
 //  Created by Marquis Kurt on 19-06-2025.
 //
 
+import Bedrock
 import SwiftUI
 
 struct RedWindowTagForm: View {
@@ -23,7 +24,7 @@ struct RedWindowTagForm: View {
                 HStack {
                     TextField("Create Tag", text: $tagToAdd, prompt: Text("Tag Name"))
                         .onSubmit(submitTag)
-                    if !tagToAdd.isEmpty {
+                    if tagToAdd.isNotEmpty {
                         Button("Create", action: submitTag)
                     }
                 }
@@ -58,7 +59,7 @@ struct RedWindowTagForm: View {
         .toolbar {
             #if os(iOS)
                 ToolbarItem {
-                    if !tags.isEmpty {
+                    if tags.isNotEmpty {
                         EditButton()
                     }
                 }

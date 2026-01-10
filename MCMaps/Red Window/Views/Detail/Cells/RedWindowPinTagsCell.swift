@@ -5,6 +5,7 @@
 //  Created by Marquis Kurt on 19-06-2025.
 //
 
+import Bedrock
 import MCMap
 import SwiftUI
 
@@ -28,7 +29,7 @@ struct RedWindowPinTagsCell: RedWindowDetailCell {
                 .font(.system(.title3, design: .serif))
                 .bold()
                 .padding(.top)
-            if let tags = pin.tags, !tags.isEmpty {
+            if let tags = pin.tags, tags.isNotEmpty {
                 ScrollView(.horizontal) {
                     HStack {
                         ForEach(Array(tags), id: \.self) { tag in

@@ -5,6 +5,7 @@
 //  Created by Marquis Kurt on 19-06-2025.
 //
 
+import Bedrock
 import ImageProcessing
 import MCMap
 import SwiftUI
@@ -41,7 +42,7 @@ struct RedWindowPinGalleryCell: RedWindowDetailCell {
                 .bold()
                 .padding(.top)
                 .fontDesign(.serif)
-            if let images = pin.images, !images.isEmpty {
+            if let images = pin.images, images.isNotEmpty {
                 ScrollView(.horizontal) {
                     HStack {
                         ForEach(Array(images), id: \.self) { image in

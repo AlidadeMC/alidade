@@ -1,5 +1,5 @@
 {
-  "originHash" : "0ff18f511a0f08c23ccf1f43db222b8d2c3b13fc604d0c5c9c486f718023cf9b",
+  "originHash" : "b6c947ba620e8c547ec62d58f069d5162d74b0fd18eeaf6118950d877a40cccd",
   "pins" : [
     {
       "identity" : "adaptablesidebarsheetview",
@@ -17,6 +17,15 @@
       "state" : {
         "branch" : "main",
         "revision" : "cf60b8103f4884ee285e50a1e2bb22747bccd42d"
+      }
+    },
+    {
+      "identity" : "bedrock",
+      "kind" : "remoteSourceControl",
+      "location" : "https://source.marquiskurt.net/marquiskurt/bedrock",
+      "state" : {
+        "branch" : "main",
+        "revision" : "09531b45563096baec22e4b3590c48708c1955b0"
       }
     },
     {

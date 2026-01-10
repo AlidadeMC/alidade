@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9500D89C2F1229FA00B4A633 /* Bedrock in Frameworks */ = {isa = PBXBuildFile; productRef = 9500D89B2F1229FA00B4A633 /* Bedrock */; };
+		9500D89E2F1229FA00B4A633 /* BedrockUI in Frameworks */ = {isa = PBXBuildFile; productRef = 9500D89D2F1229FA00B4A633 /* BedrockUI */; };
 		9504030F2D4D7E0A00F51903 /* CubiomesKit in Frameworks */ = {isa = PBXBuildFile; productRef = 9504030E2D4D7E0A00F51903 /* CubiomesKit */; };
 		95141F562F0874D200DAF47D /* DocumentKit in Frameworks */ = {isa = PBXBuildFile; productRef = 95141F552F0874D200DAF47D /* DocumentKit */; };
 		951FE2BC2D5937630091BE11 /* ViewInspector in Frameworks */ = {isa = PBXBuildFile; productRef = 951FE2BB2D5937630091BE11 /* ViewInspector */; };
@@ -69,10 +71,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				9504030F2D4D7E0A00F51903 /* CubiomesKit in Frameworks */,
+				9500D89E2F1229FA00B4A633 /* BedrockUI in Frameworks */,
 				955A44382D8F47C600262A6D /* AdaptableSidebarSheetView in Frameworks */,
 				95FB72D02DE255630003CC61 /* AlidadeUI in Frameworks */,
 				956603732EA588CC0049C15D /* AlidadeSearchEngine in Frameworks */,
 				955CD1652DAAE1BE007F6FA1 /* CubiomesKit in Frameworks */,
+				9500D89C2F1229FA00B4A633 /* Bedrock in Frameworks */,
 				955A4D682D932A6500262A6D /* DesignLibrary in Frameworks */,
 				95141F562F0874D200DAF47D /* DocumentKit in Frameworks */,
 				95F6B0AD2DADE504006A1B8C /* AsyncAlgorithms in Frameworks */,
@@ -143,6 +147,8 @@
 				956603722EA588CC0049C15D /* AlidadeSearchEngine */,
 				95141F552F0874D200DAF47D /* DocumentKit */,
 				95317F2D2F0B0FB9007BCDA0 /* ImageProcessing */,
+				9500D89B2F1229FA00B4A633 /* Bedrock */,
+				9500D89D2F1229FA00B4A633 /* BedrockUI */,
 			);
 			productName = MCMaps;
 			productReference = 950402CF2D4D522100F51903 /* Alidade.app */;
@@ -214,6 +220,7 @@
 				956603712EA588CC0049C15D /* XCRemoteSwiftPackageReference "searchengine" */,
 				95141F542F0874D200DAF47D /* XCRemoteSwiftPackageReference "DocumentKit" */,
 				95317F2C2F0B0FB9007BCDA0 /* XCRemoteSwiftPackageReference "imageprocessing" */,
+				9500D89A2F1229FA00B4A633 /* XCRemoteSwiftPackageReference "bedrock" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 950402D02D4D522100F51903 /* Products */;
@@ -635,6 +642,14 @@
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		9500D89A2F1229FA00B4A633 /* XCRemoteSwiftPackageReference "bedrock" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://source.marquiskurt.net/marquiskurt/bedrock";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 		95141F542F0874D200DAF47D /* XCRemoteSwiftPackageReference "DocumentKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://source.marquiskurt.net/marquiskurt/DocumentKit";
@@ -710,6 +725,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		9500D89B2F1229FA00B4A633 /* Bedrock */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9500D89A2F1229FA00B4A633 /* XCRemoteSwiftPackageReference "bedrock" */;
+			productName = Bedrock;
+		};
+		9500D89D2F1229FA00B4A633 /* BedrockUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9500D89A2F1229FA00B4A633 /* XCRemoteSwiftPackageReference "bedrock" */;
+			productName = BedrockUI;
+		};
 		9504030E2D4D7E0A00F51903 /* CubiomesKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = CubiomesKit;

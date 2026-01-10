@@ -5,6 +5,7 @@
 //  Created by Marquis Kurt on 19-10-2025.
 //
 
+import Bedrock
 import AlidadeSearchEngine
 import CubiomesKit
 import Foundation
@@ -113,9 +114,9 @@ extension CartographySearchService_v2: AlidadeSearchEngine {
                 if MinecraftWorld.Dimension(fromPinDimension: pin.dimension) != dimension { continue }
             }
 
-            if !query.tags.isEmpty, let tags = pin.tags {
+            if query.tags.isNotEmpty, let tags = pin.tags {
                 if tags.isDisjoint(with: query.tags) { continue }
-                if !nameMatches, !query.request.isEmpty { continue }
+                if !nameMatches, query.request.isNotEmpty { continue }
                 newPins.append(pin)
                 continue
             }

@@ -5,6 +5,7 @@
 //  Created by Marquis Kurt on 15-06-2025.
 //
 
+import Bedrock
 import CubiomesKit
 import MCMap
 import PhotosUI
@@ -61,7 +62,7 @@ struct RedWindowPinDetailView: View {
                     Group {
                         RedWindowDescriptionCell(pin: $pin, isEditing: $editMode, file: $file)
                         if !editMode {
-                            if !tags.isEmpty {
+                            if tags.isNotEmpty {
                                 RedWindowPinTagsCell(pin: $pin, isEditing: $editMode, file: $file)
                             }
                             RedWindowPositionCell(pin: $pin, isEditing: $editMode, file: $file)

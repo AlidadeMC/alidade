@@ -5,6 +5,7 @@
 //  Created by Marquis Kurt on 16-06-2025.
 //
 
+import Bedrock
 import CubiomesKit
 import MCMap
 import SwiftUI
@@ -56,7 +57,7 @@ struct RedWindowPinLibraryListView: View {
             TableColumn("Dimension", value: \.content.dimension.rawValue.localizedCapitalized)
             TableColumn("Tags") { val in
                 Group {
-                    if let tags = val.content.tags, !tags.isEmpty {
+                    if let tags = val.content.tags, tags.isNotEmpty {
                         ViewThatFits {
                             HStack {
                                 ForEach(Array(tags), id: \.self) { tag in

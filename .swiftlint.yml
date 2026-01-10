@@ -19,7 +19,6 @@ type_body_length:
 file_length:
   warning: 500
   error: 1200
-
 type_name:
   min_length: 3
   max_length:
@@ -39,4 +38,11 @@ identifier_name:
     - id
     - URL
 
+custom_rules:
+  prefer_is_not_empty:
+    name: "Prefer Bedrock isNotEmpty"
+    regex: "(\\![a-zA-Z0-9\\_\\.]+\\.isEmpty)"
+    capture_group: 0
+    message: "Prefer to use the isNotEmpty property from Bedrock."
+    severity: warning
 reporter: "xcode"
