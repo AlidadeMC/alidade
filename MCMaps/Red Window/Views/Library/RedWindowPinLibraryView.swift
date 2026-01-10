@@ -5,6 +5,7 @@
 //  Created by Marquis Kurt on 16-06-2025.
 //
 
+import BedrockUI
 import CubiomesKit
 import MCMap
 import SwiftUI
@@ -122,9 +123,7 @@ struct RedWindowPinLibraryView: View {
                             file.pins[index] = newValue
                         }, file: $file
                     )
-                    #if os(iOS)
-                        .navigationTransition(.zoom(sourceID: pin, in: namespace))
-                    #endif
+                    .zoomTransition(sourceID: pin, namespace: namespace)
                 }
             }
             .sheet(isPresented: $displayForm) {
