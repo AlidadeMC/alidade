@@ -5,6 +5,7 @@
 //  Created by Marquis Kurt on 16-06-2025.
 //
 
+import BedrockUI
 import MCMap
 import SwiftUI
 
@@ -12,7 +13,7 @@ import SwiftUI
 ///
 /// This routing system works in conjunction with the new designs via Red Window to provide programmatic navigation.
 /// Tabs and navigation links should supply this value to enable routing accordingly.
-enum RedWindowRoute: Identifiable, Hashable {
+enum RedWindowRoute: Identifiable {
     /// A unique identifier for the current route.
     var id: Self { self }
 
@@ -52,9 +53,9 @@ extension RedWindowRoute: CaseIterable {
     }
 }
 
-extension RedWindowRoute {
+extension RedWindowRoute: TabRoute {
     /// The localized name for the route.
-    var name: LocalizedStringKey {
+    var nameKey: LocalizedStringResource {
         switch self {
         case .map: "Map"
         case .worldEdit: "World"
@@ -77,5 +78,13 @@ extension RedWindowRoute {
         case .search: "magnifyingglass"
         case .pin: "mappin"
         }
+    }
+
+    var name: String {
+        String(localized: nameKey)
+    }
+
+    var icon: TabRouteIcon {
+        .system(symbol)
     }
 }

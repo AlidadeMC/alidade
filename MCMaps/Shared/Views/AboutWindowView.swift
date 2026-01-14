@@ -5,6 +5,7 @@
 //  Created by Marquis Kurt on 15-03-2025.
 //
 
+import BedrockUI
 import SwiftUI
 
 /// A view for displaying information about the current app.
@@ -18,7 +19,7 @@ struct AboutWindowView: View {
         static let paneWidth: Double = 300.0
     }
     private var version: String {
-        return String(localized: "v\(MCMapsApp.version) (Build \(MCMapsApp.buildNumber))")
+        return String(localized: "v\(MCMapsApp.information.version) (Build \(MCMapsApp.information.buildNumber))")
     }
 
     @State private var creditsPane: AttributedString?
@@ -31,13 +32,13 @@ struct AboutWindowView: View {
                         .resizable()
                         .scaledToFit()
                         .frame(width: Constants.appIconSize, height: Constants.appIconSize)
-                    Text(MCMapsApp.appName)
+                    Text(MCMapsApp.information.name)
                         .font(.title)
                         .bold()
                     Text(version)
                         .font(.headline)
                         .foregroundStyle(.secondary)
-                    Text(MCMapsApp.copyrightString)
+                    Text(MCMapsApp.information.copyrightString)
                         .foregroundStyle(.tertiary)
                         .padding(.top, 4)
                 }

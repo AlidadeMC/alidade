@@ -108,7 +108,7 @@ struct RedWindowContentView: View {
             }
 
             TabSection("Library") {
-                Tab(route: .allPins) {
+                Tab(route: RedWindowRoute.allPins) {
                     RedWindowPinLibraryView(file: $file, path: $libraryNavigationPath)
                 }
                 .customizationID("app.tab.library.all_pins")

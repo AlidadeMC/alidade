@@ -1,5 +1,5 @@
 {
-  "originHash" : "b6c947ba620e8c547ec62d58f069d5162d74b0fd18eeaf6118950d877a40cccd",
+  "originHash" : "5b6c6710680d77b6e4bd00ea91c40413fed194ed74b9d07645fdc66d23c69807",
   "pins" : [
     {
       "identity" : "adaptablesidebarsheetview",
@@ -25,7 +25,7 @@
       "location" : "https://source.marquiskurt.net/marquiskurt/bedrock",
       "state" : {
         "branch" : "main",
-        "revision" : "09531b45563096baec22e4b3590c48708c1955b0"
+        "revision" : "c189b5be8fbbb73a486188f795dd1b6b209595c7"
       }
     },
     {

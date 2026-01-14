@@ -30,8 +30,8 @@ struct MCMapsApp: App {
     @State private var redWindowEnvironment = RedWindowEnvironment()
 
     init() {
-        UserDefaults.standard.set(Self.version, forKey: "CFBundleShortVersionString")
-        UserDefaults.standard.set(Self.buildNumber, forKey: "CFBundleVersion")
+        UserDefaults.standard.set(Self.information.version, forKey: "CFBundleShortVersionString")
+        UserDefaults.standard.set(Self.information.buildNumber, forKey: "CFBundleVersion")
         UserDefaults.standard.synchronize()
         do {
             try Tips.configure()
@@ -82,13 +82,13 @@ struct MCMapsApp: App {
                     .labelsVisibility(.visible)
             }
             CommandGroup(replacing: .help) {
-                Link("\(Self.appName) Help", destination: URL(appLink: .help)!)
+                Link("\(Self.information.name) Help", destination: URL(appLink: .help)!)
                 Divider()
                 if let docs = URL(appLink: .docs) {
-                    Link("View \(Self.appName) Documentation", destination: docs)
+                    Link("View \(Self.information.name) Documentation", destination: docs)
                 }
                 if let feedback = URL(appLink: .issues) {
-                    Link("Send \(Self.appName) Feedback", destination: feedback)
+                    Link("Send \(Self.information.name) Feedback", destination: feedback)
                 }
             }
             CommandGroup(after: .pasteboard) {
@@ -122,12 +122,12 @@ struct MCMapsApp: App {
         #if os(macOS)
             .commands {
                 CommandGroup(replacing: .appInfo) {
-                    Button("About \(Self.appName)") {
+                    Button("About \(Self.information.name)") {
                         openWindow(id: .about)
                     }
                 }
                 CommandGroup(after: .windowArrangement) {
-                    Button("Welcome to \(Self.appName)") {
+                    Button("Welcome to \(Self.information.name)") {
                         openWindow(id: .launch)
                     }
                     .keyboardShortcut("0", modifiers: [.shift, .command])
@@ -159,7 +159,7 @@ struct MCMapsApp: App {
         DocumentLaunchScene(proxyMap: $proxyMap)
 
         #if os(macOS)
-            Window("About \(Self.appName)", id: "about") {
+            Window("About \(Self.information.name)", id: "about") {
                 AboutWindowView()
                     .containerBackground(.thickMaterial, for: .window)
             }
