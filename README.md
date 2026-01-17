@@ -58,7 +58,7 @@ LICENSE.txt or visit https://www.mozilla.org/en-US/MPL/2.0/.
 
 **Alidade** is made possible by the following open source libraries:
 
-- [**Cubiomes**](https://github.com/Cubitect/cubiomes) - MIT License
-- [**VersionedCodable**](https://github.com/jrothwell/VersionedCodable) - MIT License
-- [**ImageProcessing**](https://source.marquiskurt.net/marquiskurt/imageprocessing) - MIT License
 - [**Bedrock**](https://source.marquiskurt.net/marquiskurt/bedrock) - MIT License
+- [**Cubiomes**](https://github.com/Cubitect/cubiomes) - MIT License
+- [**ImageProcessing**](https://source.marquiskurt.net/marquiskurt/imageprocessing) - MIT License
+- [**VersionedCodable**](https://github.com/jrothwell/VersionedCodable) - MIT License
