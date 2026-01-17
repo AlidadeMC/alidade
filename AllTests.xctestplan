@@ -38,14 +38,7 @@
   "testTargets" : [
     {
       "target" : {
-        "containerPath" : "container:Modules\/DesignLibrary",
-        "identifier" : "DesignLibraryTests",
-        "name" : "DesignLibraryTests"
-      }
-    },
-    {
-      "target" : {
-        "containerPath" : "container:MCMaps.xcodeproj",
+        "containerPath" : "container:Alidade.xcodeproj",
         "identifier" : "950402DF2D4D522200F51903",
         "name" : "AlidadeTests"
       }
@@ -55,6 +48,13 @@
         "containerPath" : "container:Modules\/AlidadeUI",
         "identifier" : "AlidadeUITests",
         "name" : "AlidadeUITests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:Modules\/DesignLibrary",
+        "identifier" : "DesignLibraryTests",
+        "name" : "DesignLibraryTests"
       }
     },
     {

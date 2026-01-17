@@ -18,7 +18,7 @@
                BlueprintIdentifier = "950402CE2D4D522100F51903"
                BuildableName = "Alidade.app"
                BlueprintName = "Alidade"
-               ReferencedContainer = "container:MCMaps.xcodeproj">
+               ReferencedContainer = "container:Alidade.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -30,7 +30,7 @@
       shouldUseLaunchSchemeArgsEnv = "YES">
       <TestPlans>
          <TestPlanReference
-            reference = "container:SanityTests.xctestplan"
+            reference = "container:AllTests.xctestplan"
             default = "YES">
          </TestPlanReference>
       </TestPlans>
@@ -69,22 +69,6 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "950402CE2D4D522100F51903"
-            BuildableName = "Alidade.app"
-            BlueprintName = "Alidade"
-            ReferencedContainer = "container:MCMaps.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
-   </LaunchAction>
-   <ProfileAction
-      buildConfiguration = "Debug"
-      shouldUseLaunchSchemeArgsEnv = "YES"
-      savedToolIdentifier = ""
-      useCustomWorkingDirectory = "NO"
-      debugDocumentVersioning = "YES">
       <BuildableProductRunnable
          runnableDebuggingMode = "0">
          <BuildableReference
@@ -92,9 +76,16 @@
             BlueprintIdentifier = "950402CE2D4D522100F51903"
             BuildableName = "Alidade.app"
             BlueprintName = "Alidade"
-            ReferencedContainer = "container:MCMaps.xcodeproj">
+            ReferencedContainer = "container:Alidade.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
+   </LaunchAction>
+   <ProfileAction
+      buildConfiguration = "Debug"
+      shouldUseLaunchSchemeArgsEnv = "YES"
+      savedToolIdentifier = ""
+      useCustomWorkingDirectory = "NO"
+      debugDocumentVersioning = "YES">
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

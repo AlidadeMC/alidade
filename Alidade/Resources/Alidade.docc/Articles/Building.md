@@ -34,12 +34,8 @@ Download a copy of the code by either pressing the download button at the
 top of this article, or run the following command below in your Terminal:
 
 ```
-git clone --recursive https://source.marquiskurt.net/AlidadeMC/alidade.git
+git clone https://source.marquiskurt.net/AlidadeMC/alidade.git
 ```
-
-> Important: Alidade requires dependencies cloned via Git submodules, such
-> as Cubiomes. Ensure that you initialize or clone with the `--recursive`
-> flag to get all of the dependencies.
 
 ## Building the project
 

@@ -41,7 +41,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		9504037F2D4DAD3700F51903 /* Exceptions for "MCMaps" folder in "Alidade" target */ = {
+		9504037F2D4DAD3700F51903 /* Exceptions for "Alidade" folder in "Alidade" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Resources/Acknowledgements.rb,
@@ -52,17 +52,17 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		950402D12D4D522100F51903 /* MCMaps */ = {
+		950402D12D4D522100F51903 /* Alidade */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				9504037F2D4DAD3700F51903 /* Exceptions for "MCMaps" folder in "Alidade" target */,
+				9504037F2D4DAD3700F51903 /* Exceptions for "Alidade" folder in "Alidade" target */,
 			);
-			path = MCMaps;
+			path = Alidade;
 			sourceTree = "<group>";
 		};
-		950402E32D4D522200F51903 /* MCMapsTests */ = {
+		950402E32D4D522200F51903 /* AlidadeTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = MCMapsTests;
+			path = AlidadeTests;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -104,8 +104,8 @@
 		950402C62D4D522100F51903 = {
 			isa = PBXGroup;
 			children = (
-				950402D12D4D522100F51903 /* MCMaps */,
-				950402E32D4D522200F51903 /* MCMapsTests */,
+				950402D12D4D522100F51903 /* Alidade */,
+				950402E32D4D522200F51903 /* AlidadeTests */,
 				950402D02D4D522100F51903 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -137,7 +137,7 @@
 				95DDE9672D57D0E9002B29D9 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				950402D12D4D522100F51903 /* MCMaps */,
+				950402D12D4D522100F51903 /* Alidade */,
 			);
 			name = Alidade;
 			packageProductDependencies = (
@@ -173,7 +173,7 @@
 				950402E22D4D522200F51903 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				950402E32D4D522200F51903 /* MCMapsTests */,
+				950402E32D4D522200F51903 /* AlidadeTests */,
 			);
 			name = AlidadeTests;
 			packageProductDependencies = (
@@ -204,7 +204,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 950402CA2D4D522100F51903 /* Build configuration list for PBXProject "MCMaps" */;
+			buildConfigurationList = 950402CA2D4D522100F51903 /* Build configuration list for PBXProject "Alidade" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -264,14 +264,14 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
-				"$(SRCROOT)/MCMaps/Resources/Credits.md",
-				"$(SRCROOT)/MCMaps/Resources/Acknowledgements.rb",
+				"$(SRCROOT)/Alidade/Resources/Credits.md",
+				"$(SRCROOT)/Alidade/Resources/Acknowledgements.rb",
 			);
 			name = "Rebuild Acknowledgements";
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(SRCROOT)/MCMaps/Resources/Settings.bundle/en.lproj/Credits.strings",
+				"$(SRCROOT)/Alidade/Resources/Settings.bundle/en.lproj/Credits.strings",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -440,11 +440,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-RedWindow";
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = MCMaps/Resources/MCMaps.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Alidade/Resources/Alidade.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 105;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_ASSET_PATHS = "MCMaps/Resources/Preview\\ Assets.xcassets";
+				DEVELOPMENT_ASSET_PATHS = "\"Alidade/Resources/Preview Assets.xcassets\"";
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_INCOMING_NETWORK_CONNECTIONS = NO;
@@ -460,7 +460,7 @@
 				ENABLE_RESOURCE_ACCESS_USB = NO;
 				ENABLE_USER_SELECTED_FILES = readwrite;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = MCMaps/Resources/Info.plist;
+				INFOPLIST_FILE = Alidade/Resources/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Alidade;
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
@@ -498,11 +498,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-RedWindow";
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = MCMaps/Resources/MCMaps.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Alidade/Resources/Alidade.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 105;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_ASSET_PATHS = "MCMaps/Resources/Preview\\ Assets.xcassets";
+				DEVELOPMENT_ASSET_PATHS = "\"Alidade/Resources/Preview Assets.xcassets\"";
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_INCOMING_NETWORK_CONNECTIONS = NO;
@@ -518,7 +518,7 @@
 				ENABLE_RESOURCE_ACCESS_USB = NO;
 				ENABLE_USER_SELECTED_FILES = readwrite;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = MCMaps/Resources/Info.plist;
+				INFOPLIST_FILE = Alidade/Resources/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Alidade;
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
@@ -602,7 +602,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		950402CA2D4D522100F51903 /* Build configuration list for PBXProject "MCMaps" */ = {
+		950402CA2D4D522100F51903 /* Build configuration list for PBXProject "Alidade" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				950402F22D4D522200F51903 /* Debug */,

@@ -14,7 +14,7 @@
       location = "group:CONTRIBUTING.MD">
    </FileRef>
    <FileRef
-      location = "group:MCMaps.xcodeproj">
+      location = "group:Alidade.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:AlidadeUI Playground/AlidadeUI Playground.xcodeproj">

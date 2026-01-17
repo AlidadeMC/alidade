@@ -14,7 +14,7 @@
   "testTargets" : [
     {
       "target" : {
-        "containerPath" : "container:MCMaps.xcodeproj",
+        "containerPath" : "container:Alidade.xcodeproj",
         "identifier" : "950402DF2D4D522200F51903",
         "name" : "AlidadeTests"
       }
