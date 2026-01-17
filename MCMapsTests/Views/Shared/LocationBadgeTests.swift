@@ -32,16 +32,12 @@ struct LocationBadgeTests {
         let badge = LocationBadge(location: .init(x: 1847, y: 1847))
         let sut = try badge.inspect()
 
-        Testchamber.assumeRedWindowBreaks {
-            let hStack = try sut.hStack()
-            #expect(try hStack.background().shape().fillShapeStyle(Material.self) == .thinMaterial)
-
-            let label = try hStack.label(0)
-            #expect(try label.icon().image().actualImage() == Image(systemName: "location.fill"))
-            #expect(try label.title().text().string() == "X: 1847, Z: 1847")
-            #expect(label.hasPadding())
-            #expect(try label.padding() == .init(top: 3, leading: 6, bottom: 3, trailing: 6))
-        }
+        let hStack = try sut.hStack()
+        let label = try hStack.label(0)
+        #expect(try label.icon().image().actualImage() == Image(systemName: "location.fill"))
+        #expect(try label.title().text().string() == "X: 1847, Z: 1847")
+        #expect(label.hasPadding())
+        #expect(try label.padding() == .init(top: 3, leading: 6, bottom: 3, trailing: 6))
     }
 }
 

@@ -34,24 +34,4 @@ public enum Testchamber {
         return false
         #endif
     }
-
-    /// Run a test that is known to be faulty under the Red Window build scheme.
-    /// - Parameter comment: A corresponding comment for the issue.
-    /// - Parameter sourceLocation: Where the faulty call occurs.
-    /// - Parameter target: The test to be executed.
-    public static func assumeRedWindowBreaks(
-        _ comment: Comment? = nil,
-        at sourceLocation: SourceLocation = #_sourceLocation,
-        when target: @escaping () throws -> Void
-    ) {
-        if #available(iOS 19, macOS 16, *) {
-            withKnownIssue(comment, isIntermittent: true, sourceLocation: sourceLocation) {
-                try target()
-            }
-        } else {
-            #expect(throws: Never.self, sourceLocation: sourceLocation) {
-                try target()
-            }
-        }
-    }
 }

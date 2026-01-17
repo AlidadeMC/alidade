@@ -51,11 +51,9 @@ struct FiniteColorPickerTests {
         let picker = FiniteColorPicker("", selection: color, in: Self.colors)
         let sut = try picker.inspect()
 
-        Testchamber.assumeRedWindowBreaks {
-            let button = try sut.find(viewWithTag: expectedColor)
-            try button.button().tap()
-            #expect(color.wrappedValue == expectedColor)
-        }
+        let button = try sut.find(viewWithTag: expectedColor)
+        try button.button().tap()
+        #expect(color.wrappedValue == expectedColor)
     }
 
     @Test(.tags(.finiteColorPicker))

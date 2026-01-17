@@ -54,7 +54,7 @@
       "target" : {
         "containerPath" : "container:MCMaps.xcodeproj",
         "identifier" : "950402DF2D4D522200F51903",
-        "name" : "MCMapsTests"
+        "name" : "AlidadeTests"
       }
     }
   ],

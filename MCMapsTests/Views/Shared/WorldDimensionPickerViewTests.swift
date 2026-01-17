@@ -26,26 +26,19 @@ struct WorldDimensionPickerViewTests {
         let overworld = try picker.label(0)
         #expect(try overworld.title().text().string() == "Overworld")
         #expect(try overworld.icon().image().actualImage() == Image(semanticIcon: .overworld))
-        Testchamber.assumeRedWindowBreaks {
-            let tag = try overworld.tag()
-            #expect(tag as? MinecraftWorld.Dimension == MinecraftWorld.Dimension.overworld)
-
-        }
+        let tag = try overworld.tag()
+        #expect(tag as? MinecraftWorld.Dimension == MinecraftWorld.Dimension.overworld)
 
         let nether = try picker.label(1)
         #expect(try nether.title().text().string() == "Nether")
         #expect(try nether.icon().image().actualImage() == Image(semanticIcon: .nether))
-        Testchamber.assumeRedWindowBreaks {
-            let tag = try nether.tag()
-            #expect(tag as? MinecraftWorld.Dimension == MinecraftWorld.Dimension.nether)
-        }
+        let netherTag = try nether.tag()
+        #expect(netherTag as? MinecraftWorld.Dimension == MinecraftWorld.Dimension.nether)
 
         let end = try picker.label(2)
         #expect(try end.title().text().string() == "End")
         #expect(try end.icon().image().actualImage() == Image(semanticIcon: .end))
-        Testchamber.assumeRedWindowBreaks {
-            let tag = try end.tag()
-            #expect(tag as? MinecraftWorld.Dimension == MinecraftWorld.Dimension.end)
-        }
+        let endTag = try end.tag()
+        #expect(endTag as? MinecraftWorld.Dimension == MinecraftWorld.Dimension.end)
     }
 }
