@@ -38,16 +38,9 @@
   "testTargets" : [
     {
       "target" : {
-        "containerPath" : "container:MCMapFormat",
-        "identifier" : "MCMapFormatTests",
-        "name" : "MCMapFormatTests"
-      }
-    },
-    {
-      "target" : {
-        "containerPath" : "container:AlidadeUI",
-        "identifier" : "AlidadeUITests",
-        "name" : "AlidadeUITests"
+        "containerPath" : "container:Modules\/DesignLibrary",
+        "identifier" : "DesignLibraryTests",
+        "name" : "DesignLibraryTests"
       }
     },
     {
@@ -55,6 +48,20 @@
         "containerPath" : "container:MCMaps.xcodeproj",
         "identifier" : "950402DF2D4D522200F51903",
         "name" : "AlidadeTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:Modules\/AlidadeUI",
+        "identifier" : "AlidadeUITests",
+        "name" : "AlidadeUITests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:Modules\/FeatureFlags",
+        "identifier" : "FeatureFlagsTests",
+        "name" : "FeatureFlagsTests"
       }
     }
   ],

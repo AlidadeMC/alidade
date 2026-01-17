@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9507C3782F1C30BB00134A94 /* AlidadeUI in Frameworks */ = {isa = PBXBuildFile; productRef = 9507C3772F1C30BB00134A94 /* AlidadeUI */; };
 		95FB76262DE39CBB0003CC61 /* AlidadeUI in Frameworks */ = {isa = PBXBuildFile; productRef = 95FB76252DE39CBB0003CC61 /* AlidadeUI */; };
 		95FB76322DE3B53C0003CC61 /* AlidadeUI Tests.xctestplan in Resources */ = {isa = PBXBuildFile; fileRef = 95FB76312DE3B53C0003CC61 /* AlidadeUI Tests.xctestplan */; };
 /* End PBXBuildFile section */
@@ -30,6 +31,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				95FB76262DE39CBB0003CC61 /* AlidadeUI in Frameworks */,
+				9507C3782F1C30BB00134A94 /* AlidadeUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -74,6 +76,7 @@
 			name = "AlidadeUI Playground";
 			packageProductDependencies = (
 				95FB76252DE39CBB0003CC61 /* AlidadeUI */,
+				9507C3772F1C30BB00134A94 /* AlidadeUI */,
 			);
 			productName = "AlidadeUI Playground";
 			productReference = 95FB75F62DE39A470003CC61 /* AlidadeUI Playground.app */;
@@ -104,7 +107,7 @@
 			mainGroup = 95FB75ED2DE39A470003CC61;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				95FB76242DE39CBB0003CC61 /* XCLocalSwiftPackageReference "../AlidadeUI" */,
+				9507C3762F1C30BB00134A94 /* XCLocalSwiftPackageReference "../Modules/AlidadeUI" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 95FB75F72DE39A470003CC61 /* Products */;
@@ -366,13 +369,17 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		95FB76242DE39CBB0003CC61 /* XCLocalSwiftPackageReference "../AlidadeUI" */ = {
+		9507C3762F1C30BB00134A94 /* XCLocalSwiftPackageReference "../Modules/AlidadeUI" */ = {
 			isa = XCLocalSwiftPackageReference;
-			relativePath = ../AlidadeUI;
+			relativePath = ../Modules/AlidadeUI;
 		};
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		9507C3772F1C30BB00134A94 /* AlidadeUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = AlidadeUI;
+		};
 		95FB76252DE39CBB0003CC61 /* AlidadeUI */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = AlidadeUI;

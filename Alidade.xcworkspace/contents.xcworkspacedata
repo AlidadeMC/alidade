@@ -20,15 +20,15 @@
       location = "group:AlidadeUI Playground/AlidadeUI Playground.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:AlidadeUI">
+      location = "group:Modules/AlidadeUI">
    </FileRef>
    <FileRef
-      location = "group:DesignLibrary">
+      location = "group:Modules/DesignLibrary">
    </FileRef>
    <FileRef
-      location = "group:Testchamber">
+      location = "group:Modules/FeatureFlags">
    </FileRef>
    <FileRef
-      location = "group:FeatureFlags">
+      location = "group:Modules/Testchamber">
    </FileRef>
 </Workspace>
