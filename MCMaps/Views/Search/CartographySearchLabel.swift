@@ -5,6 +5,7 @@
 //  Created by Marquis Kurt on 08-06-2025.
 //
 
+import BedrockUI
 import SwiftUI
 
 /// A simple view that displays when the ``CartographySearchView`` is currently performing a search.
