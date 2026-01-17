@@ -35,7 +35,7 @@
 
 /* Begin PBXFileReference section */
 		950402CF2D4D522100F51903 /* Alidade.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Alidade.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		950402E02D4D522200F51903 /* MCMapsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MCMapsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		950402E02D4D522200F51903 /* AlidadeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AlidadeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -110,7 +110,7 @@
 			isa = PBXGroup;
 			children = (
 				950402CF2D4D522100F51903 /* Alidade.app */,
-				950402E02D4D522200F51903 /* MCMapsTests.xctest */,
+				950402E02D4D522200F51903 /* AlidadeTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -154,9 +154,9 @@
 			productReference = 950402CF2D4D522100F51903 /* Alidade.app */;
 			productType = "com.apple.product-type.application";
 		};
-		950402DF2D4D522200F51903 /* MCMapsTests */ = {
+		950402DF2D4D522200F51903 /* AlidadeTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 950402F72D4D522200F51903 /* Build configuration list for PBXNativeTarget "MCMapsTests" */;
+			buildConfigurationList = 950402F72D4D522200F51903 /* Build configuration list for PBXNativeTarget "AlidadeTests" */;
 			buildPhases = (
 				950402DC2D4D522200F51903 /* Sources */,
 				950402DD2D4D522200F51903 /* Frameworks */,
@@ -170,13 +170,13 @@
 			fileSystemSynchronizedGroups = (
 				950402E32D4D522200F51903 /* MCMapsTests */,
 			);
-			name = MCMapsTests;
+			name = AlidadeTests;
 			packageProductDependencies = (
 				951FE2BB2D5937630091BE11 /* ViewInspector */,
 				953CBB1C2E12FBD400C54DFD /* Testchamber */,
 			);
 			productName = MCMapsTests;
-			productReference = 950402E02D4D522200F51903 /* MCMapsTests.xctest */;
+			productReference = 950402E02D4D522200F51903 /* AlidadeTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -228,7 +228,7 @@
 			projectRoot = "";
 			targets = (
 				950402CE2D4D522100F51903 /* Alidade */,
-				950402DF2D4D522200F51903 /* MCMapsTests */,
+				950402DF2D4D522200F51903 /* AlidadeTests */,
 			);
 		};
 /* End PBXProject section */
@@ -615,7 +615,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		950402F72D4D522200F51903 /* Build configuration list for PBXNativeTarget "MCMapsTests" */ = {
+		950402F72D4D522200F51903 /* Build configuration list for PBXNativeTarget "AlidadeTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				950402F82D4D522200F51903 /* Debug */,

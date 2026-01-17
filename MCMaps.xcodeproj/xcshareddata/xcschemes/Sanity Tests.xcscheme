@@ -41,8 +41,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "950402DF2D4D522200F51903"
-               BuildableName = "MCMapsTests.xctest"
-               BlueprintName = "MCMapsTests"
+               BuildableName = "AlidadeTests.xctest"
+               BlueprintName = "AlidadeTests"
                ReferencedContainer = "container:MCMaps.xcodeproj">
             </BuildableReference>
          </TestableReference>
