@@ -61,6 +61,30 @@ public struct SystemIcon: View {
 /// }
 /// ```
 public struct FormHeader<Icon: View>: View {
+    enum Constants {
+        private static var useLeadingSettingsStyle: Bool {
+            #if os(macOS)
+            return false
+            #else
+            if #available(iOS 26.2, *) {
+                return true
+            } else {
+                return false
+            }
+            #endif
+        }
+        static var alignment: HorizontalAlignment {
+            Self.useLeadingSettingsStyle ? .leading : .center
+        }
+
+        static var textAlignment: TextAlignment {
+            Self.useLeadingSettingsStyle ? .leading: .center
+        }
+
+        static var baseSize: CGFloat {
+            Self.useLeadingSettingsStyle ? 64 : 76
+        }
+    }
     var icon: () -> Icon
     var title: () -> Text
     var description: () -> Text
@@ -78,23 +102,39 @@ public struct FormHeader<Icon: View>: View {
     }
 
     public var body: some View {
+        #if os(macOS)
+            centeredHeader
+        #else
+            if #available(iOS 26.2, *) {
+                header
+            } else {
+                centeredHeader
+            }
+        #endif
+    }
+
+    var centeredHeader: some View {
         HStack {
             Spacer()
-            VStack {
-                icon()
-                    .scaledToFit()
-                    .frame(width: 76 * baseSize, height: 76 * baseSize)
-                    .clipped()
-                    .clipShape(RoundedRectangle(cornerRadius: 16))
-                title()
-                    .font(.title2)
-                    .bold()
-                description()
-                    .multilineTextAlignment(.center)
-                    .font(.subheadline)
-            }
-            .padding(.vertical)
+            header
+                .padding(.vertical)
             Spacer()
+        }
+    }
+
+    var header: some View {
+        VStack(alignment: Constants.alignment) {
+            icon()
+                .scaledToFit()
+                .frame(width: Constants.baseSize * baseSize, height: Constants.baseSize * baseSize)
+                .clipped()
+                .clipShape(RoundedRectangle(cornerRadius: 16))
+            title()
+                .font(.title2)
+                .bold()
+            description()
+                .multilineTextAlignment(Constants.textAlignment)
+                .foregroundStyle(.secondary)
         }
     }
 }
