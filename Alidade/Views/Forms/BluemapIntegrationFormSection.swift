@@ -21,10 +21,11 @@ struct BluemapIntegrationFormSection: View {
             FormHeader(name: "bluemap") {
                 Text("Bluemap")
             } description: {
-                // swiftlint:disable:next line_length
+                // swiftlint:disable line_length
                 Text(
                     "Show common points of interest and where players are on your Minecraft server from the Bluemap plugin.\n[Learn more…](https://docs.alidade.dev/documentation/alidade/guide-bluemap)"
                 )
+                // swiftlint:enable line_length
             }
             Toggle("Enable Integration", isOn: $integration.enabled)
         } footer: {
@@ -50,10 +51,11 @@ struct BluemapIntegrationFormSection: View {
         } header: {
             Text("Bluemap Server")
         } footer: {
-            // swiftlint:disable:next line_length
+            // swiftlint:disable line_length
             Text(
                 "Update player locations more frequently with Realtime Sync. [Learn more…](https://docs.alidade.dev/documentation/alidade/guide-bluemap#Realtime-player-sync)"
             )
+            // swiftlint:enable line_length
         }
         .disabled(!integration.enabled)
 

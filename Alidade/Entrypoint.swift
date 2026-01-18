@@ -15,7 +15,7 @@ typealias DocumentContinuation = CheckedContinuation<CartographyMapFile, any Err
 
 /// The main entry point for the Alidade app.
 @main
-struct MCMapsApp: App {
+struct Alidade: App {
     @Environment(\.scenePhase) private var scenePhase
     @Environment(\.openWindow) private var openWindow
     @Environment(\.openURL) private var openURL
@@ -131,7 +131,7 @@ struct MCMapsApp: App {
 #if os(macOS)
     private struct AboutWindow: Scene {
         var body: some Scene {
-            Window("About \(MCMapsApp.information.name)", id: "about") {
+            Window("About \(Alidade.information.name)", id: "about") {
                 AboutWindowView()
                     .containerBackground(.thickMaterial, for: .window)
             }
@@ -145,14 +145,14 @@ struct MCMapsApp: App {
 #endif
 
 #if DEBUG
-    extension MCMapsApp {
+    extension Alidade {
         var testHooks: TestHooks { TestHooks(target: self) }
 
         @MainActor
         struct TestHooks {
-            private let target: MCMapsApp
+            private let target: Alidade
 
-            fileprivate init(target: MCMapsApp) {
+            fileprivate init(target: Alidade) {
                 self.target = target
             }
 

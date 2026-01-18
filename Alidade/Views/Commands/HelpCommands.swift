@@ -11,13 +11,13 @@ import SwiftUI
 struct HelpCommands: Commands {
     var body: some Commands {
         CommandGroup(replacing: .help) {
-            Link("\(MCMapsApp.information.name) Help", destination: URL(appLink: .help)!)
+            Link("\(Alidade.information.name) Help", destination: URL(appLink: .help)!)
             Divider()
             if let docs = URL(appLink: .docs) {
-                Link("View \(MCMapsApp.information.name) Documentation", destination: docs)
+                Link("View \(Alidade.information.name) Documentation", destination: docs)
             }
             if let feedback = URL(appLink: .issues) {
-                Link("Send \(MCMapsApp.information.name) Feedback", destination: feedback)
+                Link("Send \(Alidade.information.name) Feedback", destination: feedback)
             }
         }
     }

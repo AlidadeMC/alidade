@@ -12,7 +12,7 @@ import Foundation
 actor MockNetworkServicable: NetworkServiceable {
     public private(set) var urlsVisited = [URL]()
 
-    func get<T: Codable & Sendable>(url: URL) async throws(Alidade.NetworkServicableError) -> T {
+    func get<T: Codable & Sendable>(url: URL) async throws(NetworkServicableError) -> T {
         urlsVisited.append(url)
         switch url.absoluteString {
         case "https://bluemap.augenwaldburg.tld/maps/world/live/players.json":

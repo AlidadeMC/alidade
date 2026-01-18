@@ -18,7 +18,7 @@ import Testing
 @MainActor
 struct MCMapsAppTests {
     @Test func appInit() throws {
-        let app = MCMapsApp()
+        let app = Alidade()
         let sut = app.testHooks
 
         #expect(sut.displayCreationWindow == false)

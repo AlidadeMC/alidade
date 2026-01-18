@@ -19,7 +19,7 @@ struct AboutWindowView: View {
         static let paneWidth: Double = 300.0
     }
     private var version: String {
-        return String(localized: "v\(MCMapsApp.information.version) (Build \(MCMapsApp.information.buildNumber))")
+        return String(localized: "v\(Alidade.information.version) (Build \(Alidade.information.buildNumber))")
     }
 
     @State private var creditsPane: AttributedString?
@@ -32,13 +32,13 @@ struct AboutWindowView: View {
                         .resizable()
                         .scaledToFit()
                         .frame(width: Constants.appIconSize, height: Constants.appIconSize)
-                    Text(MCMapsApp.information.name)
+                    Text(Alidade.information.name)
                         .font(.title)
                         .bold()
                     Text(version)
                         .font(.headline)
                         .foregroundStyle(.secondary)
-                    Text(MCMapsApp.information.copyrightString)
+                    Text(Alidade.information.copyrightString)
                         .foregroundStyle(.tertiary)
                         .padding(.top, 4)
                 }
