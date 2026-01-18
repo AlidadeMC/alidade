@@ -110,38 +110,14 @@ struct MCMapsApp: App {
         #endif
         #if DEBUG
             .commands {
-                CommandMenu("Debug") {
-                    Menu("Tips") {
-                        Button("Show All Tips") {
-                            Tips.showAllTipsForTesting()
-                        }
-                        Button("Hide All Tips") {
-                            Tips.hideAllTipsForTesting()
-                        }
-                        Button("Reset Tip Datastore") {
-                            do {
-                                try Tips.resetDatastore()
-                            } catch {
-                                print("Failed to reset datastore: \(error.localizedDescription)")
-                            }
-                        }
-                    }
-                }
+                DebugCommands()
             }
         #endif
 
         DocumentLaunchScene(proxyMap: $proxyMap)
 
         #if os(macOS)
-            Window("About \(Self.information.name)", id: "about") {
-                AboutWindowView()
-                    .containerBackground(.thickMaterial, for: .window)
-            }
-            .windowStyle(.hiddenTitleBar)
-            .windowResizability(.contentSize)
-            .windowToolbarStyle(.unified)
-            .windowBackgroundDragBehavior(.enabled)
-
+            AboutWindow()
             Settings {
                 AlidadeSettingsView()
                     .presentedWindowToolbarStyle(.unifiedCompact)
@@ -151,6 +127,22 @@ struct MCMapsApp: App {
         CartographyGalleryScene()
     }
 }
+
+#if os(macOS)
+    private struct AboutWindow: Scene {
+        var body: some Scene {
+            Window("About \(MCMapsApp.information.name)", id: "about") {
+                AboutWindowView()
+                    .containerBackground(.thickMaterial, for: .window)
+            }
+            .windowStyle(.hiddenTitleBar)
+            .windowResizability(.contentSize)
+            .windowToolbarStyle(.unified)
+            .windowBackgroundDragBehavior(.enabled)
+
+        }
+    }
+#endif
 
 #if DEBUG
     extension MCMapsApp {
