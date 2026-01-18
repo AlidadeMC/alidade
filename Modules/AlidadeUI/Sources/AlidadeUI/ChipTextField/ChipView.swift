@@ -48,8 +48,10 @@ struct ChipView: View {
 #Preview {
     VStack {
         ChipView(text: "Chips")
-        ChipView(text: "Foo", onDelete: {
-            print("I was tapped!")
-        })
+        ChipView(
+            text: "Foo",
+            onDelete: {
+                print("I was tapped!")
+            })
     }
 }

@@ -49,7 +49,7 @@ public struct FiniteColorPicker: View {
             static let pinColorSize = 28.0
         #endif
     }
-    
+
     @Binding var selection: Color
 
     var title: LocalizedStringKey
@@ -117,8 +117,6 @@ public struct FiniteColorPicker: View {
         }
     }
 }
-
-
 
 #Preview {
     @Previewable @State var currentColor = Color.blue

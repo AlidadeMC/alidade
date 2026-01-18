@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-public extension View {
+extension View {
     /// Conditionally apply a modifier based on a given property.
     ///
     /// This is typically used to handle modifiers that cannot be easily checked with a ternary condition:
@@ -26,7 +26,7 @@ public extension View {
     /// - Parameter condition: The condition that determine whether the changes should be applied.
     /// - Parameter transform: The transformation closure that will conditionally apply modifiers.
     @ViewBuilder
-    func `if`<Content: View, AlternateContent: View>(
+    public func `if`<Content: View, AlternateContent: View>(
         _ condition: Bool,
         apply transform: (Self) -> Content,
         else alternateTransform: ((Self) -> AlternateContent)
@@ -56,7 +56,7 @@ public extension View {
     /// - Parameter condition: The condition that determine whether the changes should be applied.
     /// - Parameter transform: The transformation closure that will conditionally apply modifiers.
     @ViewBuilder
-    func `if`<Content: View>(_ condition: Bool, apply transform: (Self) -> Content) -> some View {
+    public func `if`<Content: View>(_ condition: Bool, apply transform: (Self) -> Content) -> some View {
         if condition {
             transform(self)
         } else {

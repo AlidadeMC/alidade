@@ -50,12 +50,12 @@ public struct NamedTextField: View {
 
     public var body: some View {
         #if os(macOS)
-        TextField(title, text: $text)
-        #else
-        LabeledContent(title) {
             TextField(title, text: $text)
-                .foregroundStyle(isEnabled ? Color.primary : Color.secondary)
-        }
+        #else
+            LabeledContent(title) {
+                TextField(title, text: $text)
+                    .foregroundStyle(isEnabled ? Color.primary : Color.secondary)
+            }
         #endif
     }
 }

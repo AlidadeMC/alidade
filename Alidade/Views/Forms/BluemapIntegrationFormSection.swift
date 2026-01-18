@@ -22,7 +22,9 @@ struct BluemapIntegrationFormSection: View {
                 Text("Bluemap")
             } description: {
                 // swiftlint:disable:next line_length
-                Text("Show common points of interest and where players are on your Minecraft server from the Bluemap plugin.\n[Learn more…](https://docs.alidade.dev/documentation/alidade/guide-bluemap)")
+                Text(
+                    "Show common points of interest and where players are on your Minecraft server from the Bluemap plugin.\n[Learn more…](https://docs.alidade.dev/documentation/alidade/guide-bluemap)"
+                )
             }
             Toggle("Enable Integration", isOn: $integration.enabled)
         } footer: {
@@ -34,9 +36,9 @@ struct BluemapIntegrationFormSection: View {
         Section {
             NamedTextField("Host", text: $integration.baseURL)
                 .disabled(!integration.enabled)
-            #if os(iOS)
-                .keyboardType(.URL)
-            #endif
+                #if os(iOS)
+                    .keyboardType(.URL)
+                #endif
             Stepper(
                 "Refresh every: ^[\(Int(integration.refreshRate)) second](inflect: true)",
                 value: $integration.refreshRate,
@@ -49,7 +51,9 @@ struct BluemapIntegrationFormSection: View {
             Text("Bluemap Server")
         } footer: {
             // swiftlint:disable:next line_length
-            Text("Update player locations more frequently with Realtime Sync. [Learn more…](https://docs.alidade.dev/documentation/alidade/guide-bluemap#Realtime-player-sync)")
+            Text(
+                "Update player locations more frequently with Realtime Sync. [Learn more…](https://docs.alidade.dev/documentation/alidade/guide-bluemap#Realtime-player-sync)"
+            )
         }
         .disabled(!integration.enabled)
 
@@ -74,14 +78,14 @@ struct BluemapIntegrationFormSection: View {
 }
 
 #if os(iOS)
-#Preview {
-    @Previewable @State var integration = MCMapBluemapIntegration(baseURL: "mcmap.augenwaldburg.com")
-    NavigationStack {
-        Form {
-            BluemapIntegrationFormSection(integration: $integration)
+    #Preview {
+        @Previewable @State var integration = MCMapBluemapIntegration(baseURL: "mcmap.augenwaldburg.com")
+        NavigationStack {
+            Form {
+                BluemapIntegrationFormSection(integration: $integration)
+            }
+            .navigationTitle("Bluemap")
+            .navigationBarTitleDisplayMode(.inline)
         }
-        .navigationTitle("Bluemap")
-        .navigationBarTitleDisplayMode(.inline)
     }
-}
 #endif

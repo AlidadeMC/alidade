@@ -16,7 +16,7 @@ extension NamedLocationView.CoordinateDisplayMode: @retroactive Hashable {
         switch (lhs, rhs) {
         case (.absolute, .absolute):
             return true
-        case let (.relative(lhsCoord), .relative(rhsCoord)):
+        case (.relative(let lhsCoord), .relative(let rhsCoord)):
             return lhsCoord == rhsCoord
         default:
             return false
@@ -75,7 +75,7 @@ struct NamedLocationDemoView: View {
                 } header: {
                     Text("Basic Configuration")
                 }
-                
+
                 Section {
                     TextField("System Image", text: $symbol)
                         .autocorrectionDisabled()

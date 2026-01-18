@@ -20,7 +20,7 @@ struct ChipViewTests {
         let sut = try chip.inspect()
 
         #expect(chip.onDelete == nil)
-        
+
         #expect(throws: AnyError.self) {
             try sut.find(viewWithAccessibilityLabel: "Remove Chip")
         }

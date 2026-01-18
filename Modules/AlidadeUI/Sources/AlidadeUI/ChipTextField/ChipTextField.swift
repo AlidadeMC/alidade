@@ -79,13 +79,13 @@ public struct ChipTextField: View {
         ///
         /// Chips will appear before the text entry field.
         case leading
-        
+
         /// The trailing placement of the text field.
         ///
         /// Chips will appear after the text entry field.
         case trailing
     }
-    
+
     /// The chips being edited by this view.
     @Binding public var chips: ChipCollection
 
@@ -277,7 +277,8 @@ private struct ChipPreviewViewModel {
             }
             Section {
                 ChipTextField(
-                    "Tags", chips: $viewModel.chips)
+                    "Tags", chips: $viewModel.chips
+                )
                 .chipPlacement(.trailing)
             } header: {
                 Text("With Prefilled Content, Trailing Chips")
@@ -292,21 +293,24 @@ private struct ChipPreviewViewModel {
 
             Section {
                 ChipTextField(
-                    "Tags", chips: $viewModel.emptyChips)
+                    "Tags", chips: $viewModel.emptyChips
+                )
                 .chipTextFieldStyle(.roundedBorder)
             } header: {
                 Text("Standard, Bordered")
             }
             Section {
                 ChipTextField(
-                    "Tags", chips: $viewModel.chips)
+                    "Tags", chips: $viewModel.chips
+                )
                 .chipTextFieldStyle(.roundedBorder)
             } header: {
                 Text("With Prefilled Content, Rounded Border")
             }
             Section {
                 ChipTextField(
-                    "Tags", chips: $viewModel.chips)
+                    "Tags", chips: $viewModel.chips
+                )
                 .chipTextFieldStyle(.borderless)
             } header: {
                 Text("With Prefilled Content, Borderless")
@@ -322,20 +326,20 @@ private struct ChipPreviewViewModel {
 // MARK: Test Hooks
 
 #if DEBUG
-extension ChipTextField {
-    var testHooks: TestHooks { TestHooks(target: self) }
+    extension ChipTextField {
+        var testHooks: TestHooks { TestHooks(target: self) }
 
-    @MainActor
-    struct TestHooks {
-        private let target: ChipTextField
-        
-        fileprivate init(target: ChipTextField) {
-            self.target = target
-        }
+        @MainActor
+        struct TestHooks {
+            private let target: ChipTextField
 
-        var text: String {
-            self.target.text
+            fileprivate init(target: ChipTextField) {
+                self.target = target
+            }
+
+            var text: String {
+                self.target.text
+            }
         }
     }
-}
 #endif

@@ -17,7 +17,7 @@ struct FiniteColorPickerDemoView: View {
     var availableColors: [Color] {
         [.red, .orange, .yellow, .green, .blue, .indigo, .purple, .gray]
     }
-    
+
     var body: some View {
         DemoPage {
             Section {
@@ -39,7 +39,7 @@ struct FiniteColorPickerDemoView: View {
                 } header: {
                     Text("Basic Configuration")
                 }
-                
+
                 Section {
                     Picker("Color Style", selection: $colorStyle) {
                         Text("Automatic").tag(FiniteColorPicker.ColorStyle.automatic)

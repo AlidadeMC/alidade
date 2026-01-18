@@ -17,7 +17,6 @@ struct CartographyBluemapServiceTests {
         let integration = MCMapBluemapIntegration(baseURL: "bluemap.augenwaldburg.tld")
         let service = CartographyBluemapService(withConfiguration: integration, session: session)
 
-
         await #expect(throws: Never.self) {
             let resp: BluemapPlayerResponse? = try await service.fetch(endpoint: .players, for: .overworld)
             #expect(resp?.players.count == 1)
@@ -26,9 +25,10 @@ struct CartographyBluemapServiceTests {
 
         #expect(await !session.urlsVisited.isEmpty)
         #expect(
-            await session.urlsVisited.first == URL(
-                string: "https://bluemap.augenwaldburg.tld/maps/world/live/players.json"
-            )
+            await session.urlsVisited.first
+                == URL(
+                    string: "https://bluemap.augenwaldburg.tld/maps/world/live/players.json"
+                )
         )
     }
 
@@ -36,7 +36,6 @@ struct CartographyBluemapServiceTests {
         let session = MockNetworkServicable()
         let integration = MCMapBluemapIntegration(baseURL: "bluemap.augenwaldburg.tld")
         let service = CartographyBluemapService(withConfiguration: integration, session: session)
-
 
         await #expect(throws: Never.self) {
             let resp: [String: BluemapMarkerAnnotationGroup]? = try await service.fetch(
@@ -50,9 +49,10 @@ struct CartographyBluemapServiceTests {
 
         #expect(await !session.urlsVisited.isEmpty)
         #expect(
-            await session.urlsVisited.first == URL(
-                string: "https://bluemap.augenwaldburg.tld/maps/world/live/markers.json"
-            )
+            await session.urlsVisited.first
+                == URL(
+                    string: "https://bluemap.augenwaldburg.tld/maps/world/live/markers.json"
+                )
         )
     }
 }

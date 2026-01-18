@@ -110,7 +110,7 @@ actor CartographyIntegrationService {
                 return true
             case (.mismatchingService, .mismatchingService):
                 return true
-            case let (.fetchTaskFailed(lhsErr), .fetchTaskFailed(rhsErr)):
+            case (.fetchTaskFailed(let lhsErr), .fetchTaskFailed(let rhsErr)):
                 return lhsErr.localizedDescription == rhsErr.localizedDescription
             default:
                 return false

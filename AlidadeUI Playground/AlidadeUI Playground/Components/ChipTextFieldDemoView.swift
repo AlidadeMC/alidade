@@ -35,11 +35,11 @@ struct ChipTextFieldDemoView: View {
                     TextField("Title", text: $titleText)
                     Toggle("Submit with Spaces", isOn: $submitWithSpaces)
                     TextField("Prompt", text: $promptText)
-                    
+
                 } header: {
                     Text("Basic Configuration")
                 }
-                
+
                 Section {
                     Picker("Chip Placement", selection: $chipPlacement) {
                         Text("Leading").tag(ChipTextField.ChipPlacement.leading)

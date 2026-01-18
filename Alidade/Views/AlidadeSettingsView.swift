@@ -27,7 +27,8 @@ struct AlidadeSettingsView: View {
         VStack {
             InlineBanner(
                 "Here be dragons",
-                message: "The following flags control experimental features. Proceed with caution.")
+                message: "The following flags control experimental features. Proceed with caution."
+            )
             .inlineBannerVariant(.warning)
             .padding(.top)
             Form {

@@ -8,8 +8,8 @@
 import Bedrock
 import ImageProcessing
 import MCMap
-import SwiftUI
 import QuickLook
+import SwiftUI
 
 /// The cell used to display the images associated with this pin.
 ///
@@ -68,7 +68,7 @@ struct RedWindowPinGalleryCell: RedWindowDetailCell {
                     systemImage: "photo.stack",
                     description: Text("Add photos from your device to show this place and what makes it special.")
                 )
-                    .fontDesign(.serif)
+                .fontDesign(.serif)
             }
         }
         .quickLookPreview($imageToPreview, in: imageURLs)

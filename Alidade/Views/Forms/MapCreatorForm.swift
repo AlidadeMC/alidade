@@ -87,7 +87,9 @@ struct MapCreatorForm: View {
                 // swiftlint:disable line_length
                 InlineBanner(
                     "Alidade works with Minecraft: Java Edition.",
-                    message: "Maps that use version numbers and seeds from _Minecraft: Java Edition_ will work with Alidade. Minecraft (Bedrock) is currently not supported.")
+                    message:
+                        "Maps that use version numbers and seeds from _Minecraft: Java Edition_ will work with Alidade. Minecraft (Bedrock) is currently not supported."
+                )
                 // swiftlint:enable line_length
                 .inlineBannerVariant(.information)
             #endif
@@ -103,7 +105,7 @@ struct MapCreatorForm: View {
                             }
                             .navigationTitle("Bluemap")
                             #if os(macOS)
-                            .formStyle(.grouped)
+                                .formStyle(.grouped)
                             #endif
                         } label: {
                             Label {
@@ -143,7 +145,7 @@ struct MapCreatorForm: View {
             integrations: $file.integrations,
             displayMode: .edit
         )
-            .navigationTitle("New World")
+        .navigationTitle("New World")
     }
 }
 

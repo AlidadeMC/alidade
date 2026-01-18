@@ -5,8 +5,8 @@
 //  Created by Marquis Kurt on 16-07-2025.
 //
 
-import ImageProcessing
 import AlidadeUI
+import ImageProcessing
 import MCMap
 import QuickLook
 import SwiftUI
@@ -76,7 +76,7 @@ struct CartographyGalleryView: View {
         .quickLookPreview($currentPhotoURL, in: imageURLs)
         .navigationTitle("Gallery")
         #if os(macOS)
-        .navigationSubtitle(context.documentBaseURL?.lastPathComponent ?? "Untitled Map")
+            .navigationSubtitle(context.documentBaseURL?.lastPathComponent ?? "Untitled Map")
         #endif
         .animation(.interactiveSpring, value: scaledToFill)
         .toolbar {

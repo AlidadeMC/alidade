@@ -47,7 +47,7 @@ struct CartographySearchServiceV2Tests {
         file.pins.append(contentsOf: [
             CartographyMapPin(named: "Testing", at: CGPoint(x: 12, y: 12), tags: ["Tag", "Forest"]),
             CartographyMapPin(named: "Testing Grounds", at: CGPoint(x: 10, y: 10), tags: ["Base"]),
-            CartographyMapPin(named: "Test Test", at: CGPoint(x: 11, y: 11), tags: ["Tag"])
+            CartographyMapPin(named: "Test Test", at: CGPoint(x: 11, y: 11), tags: ["Tag"]),
         ])
 
         let results = await service.search(query: query, in: SearchContext(world: world, file: file))
@@ -87,7 +87,7 @@ struct CartographySearchServiceV2Tests {
         let context = SearchContext(world: world, file: file, position: .zero)
 
         let originResults = await service.search(query: "Frozen River", in: context)
-        
+
         let results = await service.search(
             query: "Frozen River @{1000, 1000}",
             in: context)
@@ -121,9 +121,10 @@ struct CartographySearchServiceV2Tests {
         let service = CartographySearchService_v2()
 
         file.pins.append(contentsOf: [
-            CartographyMapPin(named: "Testing", at: CGPoint(x: 12, y: 12), dimension: .nether, tags: ["Tag", "Forest"]),
+            CartographyMapPin(
+                named: "Testing", at: CGPoint(x: 12, y: 12), dimension: .nether, tags: ["Tag", "Forest"]),
             CartographyMapPin(named: "Testing Grounds", at: CGPoint(x: 10, y: 10), tags: ["Base"]),
-            CartographyMapPin(named: "Test Test", at: CGPoint(x: 11, y: 11), tags: ["Tag"])
+            CartographyMapPin(named: "Test Test", at: CGPoint(x: 11, y: 11), tags: ["Tag"]),
         ])
 
         let results = await service.search(query: "#Tag dimension: Nether", in: SearchContext(world: world, file: file))

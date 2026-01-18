@@ -14,7 +14,7 @@ import TipKit
 struct WorldDimensionPickerTipTests {
     @Test func tipConfiguration() async throws {
         let tip = WorldDimensionPickerTip()
-        
+
         #expect(tip.title == Text("Switch between dimensions."))
         #expect(WorldDimensionPickerTip.viewDisplayed.id == "dimensionpicker.displayed")
         #expect(tip.message != nil)

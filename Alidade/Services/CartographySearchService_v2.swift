@@ -5,8 +5,8 @@
 //  Created by Marquis Kurt on 19-10-2025.
 //
 
-import Bedrock
 import AlidadeSearchEngine
+import Bedrock
 import CubiomesKit
 import Foundation
 import MCMap

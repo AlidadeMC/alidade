@@ -52,20 +52,20 @@ struct PinCreatorForm: View {
             Section {
                 Group {
                     #if os(iOS)
-                    LabeledContent("X Coordinate: ") {
-                        TextField("X Coordinate", value: $locationX, format: .number)
-                    }
+                        LabeledContent("X Coordinate: ") {
+                            TextField("X Coordinate", value: $locationX, format: .number)
+                        }
                     #else
-                    TextField("X Coordinate", value: $locationX, format: .number)
+                        TextField("X Coordinate", value: $locationX, format: .number)
                     #endif
                 }
                 Group {
                     #if os(iOS)
-                    LabeledContent("Z Coordinate: ") {
-                        TextField("Z Coordinate", value: $locationY, format: .number)
-                    }
+                        LabeledContent("Z Coordinate: ") {
+                            TextField("Z Coordinate", value: $locationY, format: .number)
+                        }
                     #else
-                    TextField("Z Coordinate", value: $locationY, format: .number)
+                        TextField("Z Coordinate", value: $locationY, format: .number)
                     #endif
                 }
                 WorldCodedDimensionPicker(selection: $dimension)

@@ -13,7 +13,7 @@ import Testing
 struct PinActionOnboardingTipTests {
     @Test func tipConfiguration() async throws {
         let tip = PinActionOnboardingTip()
-        
+
         #expect(tip.title == Text("Pin a location."))
         #expect(tip.message != nil)
         #expect(tip.image == nil)

@@ -7,8 +7,8 @@
 
 import CubiomesKit
 import MCMap
-import os
 import SwiftUI
+import os
 
 /// An abstract view used to manage providing annotations for a map.
 ///

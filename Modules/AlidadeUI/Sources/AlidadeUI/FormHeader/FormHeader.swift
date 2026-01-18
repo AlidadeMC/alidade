@@ -99,12 +99,12 @@ public struct FormHeader<Icon: View>: View {
     }
 }
 
-public extension FormHeader {
+extension FormHeader {
     /// Initialize a form header view with an image from an asset catalog.
     /// - Parameter name: The name of the image asset to use.
     /// - Parameter title: The form header's title. Generally, this should be the name of the form or form section.
     /// - Parameter description: The form header's description.
-    init(name: String, title: @escaping () -> Text, description: @escaping () -> Text) where Icon == Image {
+    public init(name: String, title: @escaping () -> Text, description: @escaping () -> Text) where Icon == Image {
         self.title = title
         self.description = description
         self.icon = {
@@ -118,7 +118,7 @@ public extension FormHeader {
     /// - Parameter tint: The background tint to use. Defaults to the app's accent color.
     /// - Parameter title: The form header's title. Generally, this should be the name of the form or form section.
     /// - Parameter description: The form header's description.
-    init(
+    public init(
         systemImage: String,
         tint: Color = .accentColor,
         title: @escaping () -> Text,
@@ -138,17 +138,21 @@ public extension FormHeader {
             FormHeader(systemImage: "wifi") {
                 Text("Wi-Fi")
             } description: {
-                Text("Connect to Wi-Fi, view available networks, and manage settings for joining networks and nearby hotspots. [Learn more...](https://example.com)")
+                Text(
+                    "Connect to Wi-Fi, view available networks, and manage settings for joining networks and nearby hotspots. [Learn more...](https://example.com)"
+                )
             }
         } header: {
             Text("System Image (Default Tint)")
         }
-        
+
         Section {
             FormHeader(systemImage: "questionmark.circle", tint: .gray) {
                 Text("Help")
             } description: {
-                Text("Browse manuals and help guides to find and resolve your issue. [Learn more...](https://example.com)")
+                Text(
+                    "Browse manuals and help guides to find and resolve your issue. [Learn more...](https://example.com)"
+                )
             }
         } header: {
             Text("System Image (Custom Tint)")
@@ -160,7 +164,9 @@ public extension FormHeader {
             } title: {
                 Text("Activities")
             } description: {
-                Text("I am an old woman; I'm yesterday's news. I dream in black and white, and I see it all through laser eyes. [Learn more...](https://example.com)")
+                Text(
+                    "I am an old woman; I'm yesterday's news. I dream in black and white, and I see it all through laser eyes. [Learn more...](https://example.com)"
+                )
             }
         } header: {
             Text("Custom Icon View")

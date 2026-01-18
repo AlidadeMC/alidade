@@ -30,11 +30,11 @@ enum NetworkServicableError: Error {
 
     var localizedDescription: String {
         switch self {
-        case let .session(error):
+        case .session(let error):
             error.localizedDescription
-        case let .nonHTTPResponse(response):
+        case .nonHTTPResponse(let response):
             "The response that was returned wasn't an HTTP response (\(type(of: response))"
-        case let .invalidResponseStatus(code):
+        case .invalidResponseStatus(let code):
             "The response return a non-OK code: \(code)"
         }
     }

@@ -17,7 +17,7 @@ struct FormHeaderDemoView: View {
 
     @State private var demoType = DemoType.systemImage
     @State private var systemTint = Color.blue
-    
+
     var body: some View {
         DemoPage {
             Section {
@@ -26,13 +26,17 @@ struct FormHeaderDemoView: View {
                     FormHeader(systemImage: "wifi", tint: systemTint) {
                         Text("Wi-Fi")
                     } description: {
-                        Text("Connect to Wi-Fi, view available networks, and manage settings for joining networks and nearby hotspots. [Learn more...](https://example.com)")
+                        Text(
+                            "Connect to Wi-Fi, view available networks, and manage settings for joining networks and nearby hotspots. [Learn more...](https://example.com)"
+                        )
                     }
                 case .imageAsset:
                     FormHeader(name: "Swift") {
                         Text("Wi-Fi")
                     } description: {
-                        Text("Connect to Wi-Fi, view available networks, and manage settings for joining networks and nearby hotspots. [Learn more...](https://example.com)")
+                        Text(
+                            "Connect to Wi-Fi, view available networks, and manage settings for joining networks and nearby hotspots. [Learn more...](https://example.com)"
+                        )
                     }
                 case .custom:
                     FormHeader {
@@ -40,10 +44,12 @@ struct FormHeaderDemoView: View {
                     } title: {
                         Text("Wi-Fi")
                     } description: {
-                        Text("Connect to Wi-Fi, view available networks, and manage settings for joining networks and nearby hotspots. [Learn more...](https://example.com)")
+                        Text(
+                            "Connect to Wi-Fi, view available networks, and manage settings for joining networks and nearby hotspots. [Learn more...](https://example.com)"
+                        )
                     }
                 }
-                
+
             } header: {
                 Text("Demo")
             }

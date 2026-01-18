@@ -5,18 +5,18 @@
 //  Created by Marquis Kurt on 12-08-2025.
 //
 
-#if canImport(AppKit)
-import AppKit
-#endif
-
-#if canImport(UIKit)
-import UIKit
-#endif
-
 import Foundation
 import Testing
 
 @testable import Alidade
+
+#if canImport(AppKit)
+    import AppKit
+#endif
+
+#if canImport(UIKit)
+    import UIKit
+#endif
 
 struct PasteboardActorTests {
     @Test func pasteboardCopiesString() async throws {

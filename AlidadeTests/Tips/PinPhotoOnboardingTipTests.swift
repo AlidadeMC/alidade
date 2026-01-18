@@ -6,15 +6,15 @@
 //
 
 import SwiftUI
-import TipKit
 import Testing
+import TipKit
 
 @testable import Alidade
 
 struct PinPhotoOnboardingTipTests {
     @Test func tipConfiguration() async throws {
         let tip = PinPhotoOnboardingTip()
-        
+
         #expect(tip.title == Text("Make it memorable."))
         #expect(tip.message != nil)
         #expect(tip.image != nil)

@@ -32,7 +32,7 @@ struct ChipTextFieldTests {
         let chips = Binding(wrappedValue: Set<String>())
         let textField = ChipTextField("Foo", chips: chips, prompt: "Write a tag...")
             .chipPlacement(.trailing)
-        
+
         #expect(textField.chips == [])
         #expect(textField.title == "Foo")
         #expect(textField.submitWithSpaces == true)
@@ -44,7 +44,7 @@ struct ChipTextFieldTests {
         let chips = Binding(wrappedValue: Set<String>())
         let textField = ChipTextField("Foo", chips: chips)
             .chipTextFieldStyle(.roundedBorder)
-        
+
         #expect(textField.chips == [])
         #expect(textField.title == "Foo")
         #expect(textField.submitWithSpaces == true)
@@ -57,7 +57,7 @@ struct ChipTextFieldTests {
         let chips = Binding(wrappedValue: Set<String>())
         let textField = ChipTextField("Foo", chips: chips)
             .chipPlacement(.trailing)
-        
+
         #expect(textField.chips == [])
         #expect(textField.title == "Foo")
         #expect(textField.submitWithSpaces == true)
@@ -70,7 +70,7 @@ struct ChipTextFieldTests {
         let chips = Binding(wrappedValue: Set<String>())
         let textField = ChipTextField("Foo", chips: chips)
             .titleStyle(.muted)
-        
+
         #expect(textField.chips == [])
         #expect(textField.title == "Foo")
         #expect(textField.submitWithSpaces == true)
@@ -95,7 +95,7 @@ struct ChipTextFieldTests {
         let textField = ChipTextField("Foo", chips: chips)
 
         textField.updateText(to: "Augenwaldburg")
-        
+
         let view = try textField.inspect()
         try view.hStack().callOnSubmit()
 

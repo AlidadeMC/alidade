@@ -29,7 +29,7 @@ struct InlineBannerDemoView: View {
                 } header: {
                     Text("Basic Configuration")
                 }
-                
+
                 Section {
                     Picker("Variant", selection: $variant) {
                         Text("Information").tag(InlineBanner.Variant.information)

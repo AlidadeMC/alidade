@@ -93,10 +93,10 @@ public struct InlineBanner: View {
         }
         .labelStyle(.inlineBanner)
         #if os(macOS)
-        .padding()
-        .background(RoundedRectangle(cornerRadius: 4).fill(backgroundColor))
+            .padding()
+            .background(RoundedRectangle(cornerRadius: 4).fill(backgroundColor))
         #else
-        .background(backgroundColor)
+            .background(backgroundColor)
         #endif
         .foregroundStyle(foregroundColor)
         .listRowBackground(backgroundColor)
@@ -147,29 +147,37 @@ public struct InlineBanner: View {
 #Preview {
     Form {
         Section {
-            InlineBanner("The door is locked.",
-                message: "Provide the correct `code` to _unlock_ this door, Signorina.")
+            InlineBanner(
+                "The door is locked.",
+                message: "Provide the correct `code` to _unlock_ this door, Signorina."
+            )
             .inlineBannerVariant(.information)
         } header: {
             Text("Inline Banner, Information")
         }
         Section {
-            InlineBanner("Truth recovered",
-                message: "This is as **close** to the truth as we will ever get, Signorina.")
+            InlineBanner(
+                "Truth recovered",
+                message: "This is as **close** to the truth as we will ever get, Signorina."
+            )
             .inlineBannerVariant(.success)
         } header: {
             Text("Inline Banner, Success")
         }
         Section {
-            InlineBanner("Here be maze men",
-                message: "Moments not saved will be lost to time.")
+            InlineBanner(
+                "Here be maze men",
+                message: "Moments not saved will be lost to time."
+            )
             .inlineBannerVariant(.warning)
         } header: {
             Text("Inline Banner, Warning")
         }
         Section {
-            InlineBanner("Out of cloud credits",
-                message: "Contact your administrator for more details, Signorina.")
+            InlineBanner(
+                "Out of cloud credits",
+                message: "Contact your administrator for more details, Signorina."
+            )
             .inlineBannerVariant(.error)
         } header: {
             Text("Inline Banner, Error")

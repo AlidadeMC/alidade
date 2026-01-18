@@ -19,7 +19,7 @@ struct IfModifierTests {
             .if(shouldSwitch) { view in
                 view.font(.headline)
             }
-        
+
         let sut = try myText.inspect()
         #expect(throws: (any Error).self) {
             try sut.text().attributes().font()

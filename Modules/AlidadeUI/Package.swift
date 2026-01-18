@@ -10,7 +10,7 @@ let package = Package(
         // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
             name: "AlidadeUI",
-            targets: ["AlidadeUI"]),
+            targets: ["AlidadeUI"])
     ],
     dependencies: [
         .package(url: "https://github.com/nalexn/ViewInspector", from: "0.10.0"),

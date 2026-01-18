@@ -36,10 +36,10 @@ extension FeatureFlag {
     }
 }
 
-public extension UserDefaults {
+extension UserDefaults {
     /// Retrieve the flag value for a specified feature flag, or the default value if it isn't already set.
     /// - Parameter flag: The flag to retrieve the value of.
-    func bool(forFeatureFlag flag: FeatureFlag) -> Bool {
+    public func bool(forFeatureFlag flag: FeatureFlag) -> Bool {
         guard let value = self.value(forKey: flag.keyName) as? Bool else {
             return flag.isEnabledByDefault
         }
@@ -49,7 +49,7 @@ public extension UserDefaults {
     /// Set the value for a feature flag.
     /// - Parameter value: Whether the feature flag is enabled.
     /// - Parameter flag: The feature flag to enable or disable.
-    func setValue(_ value: Bool, forFeatureFlag flag: FeatureFlag) {
+    public func setValue(_ value: Bool, forFeatureFlag flag: FeatureFlag) {
         self.setValue(value, forKey: flag.keyName)
     }
 }

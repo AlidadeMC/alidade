@@ -56,7 +56,7 @@ struct RedWindowSearchView: View {
                 }
             }
             #if os(macOS)
-            .searchAutofocused()
+                .searchAutofocused()
             #endif
             .sheet(isPresented: $pinCreationRequest.displayForm) {
                 NavigationStack {

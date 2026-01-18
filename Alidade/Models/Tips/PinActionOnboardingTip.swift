@@ -28,9 +28,9 @@ struct PinActionOnboardingTip: Tip {
 
     var message: Text? {
         #if os(macOS)
-        Text("Swipe or right click on a recent location to add it to your library.")
+            Text("Swipe or right click on a recent location to add it to your library.")
         #else
-        Text("Swipe or tap and hold on a recent location to add it to your library.")
+            Text("Swipe or tap and hold on a recent location to add it to your library.")
         #endif
     }
 }

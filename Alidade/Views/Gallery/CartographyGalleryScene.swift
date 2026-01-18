@@ -22,7 +22,7 @@ struct CartographyGalleryScene: Scene {
             #endif
         }
         #if os(macOS)
-        .restorationBehavior(.disabled)
+            .restorationBehavior(.disabled)
         #endif
     }
 }

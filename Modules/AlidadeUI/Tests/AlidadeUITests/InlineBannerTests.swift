@@ -33,7 +33,7 @@ struct InlineBannerTests {
         #expect(try labelContents.text(1).string() == "This is as close to the truth as we will get.")
 
         let labelIcon = try label.icon().image()
-        
+
         #expect(try labelIcon.actualImage() == Image(systemName: "info.circle"))
     }
 
@@ -43,12 +43,12 @@ struct InlineBannerTests {
             (Variant.information, "info.circle"),
             (Variant.success, "checkmark.circle"),
             (Variant.warning, "exclamationmark.triangle"),
-            (Variant.error, "exclamationmark.circle")
+            (Variant.error, "exclamationmark.circle"),
         ])
     func viewSystemImageFromVariant(variant: Variant, systemImage: String) throws {
         let banner = InlineBanner("Truth Recovered", message: "This is as close to the truth as we will get.")
             .inlineBannerVariant(variant)
-        
+
         #expect(banner.systemImage == systemImage)
     }
 
@@ -58,7 +58,7 @@ struct InlineBannerTests {
             (Variant.information, Theme.infoBackground, Theme.infoForeground),
             (Variant.success, Theme.successBackground, Theme.successForeground),
             (Variant.warning, Theme.warningBackground, Theme.warningForeground),
-            (Variant.error, Theme.errorBackground, Theme.errorForeground)
+            (Variant.error, Theme.errorBackground, Theme.errorForeground),
         ])
     func viewColorFromVariant(variant: Variant, background: ColorSchemeSet, foreground: ColorSchemeSet) throws {
         let banner = InlineBanner("Truth Recovered", message: "This is as close to the truth as we will get.")

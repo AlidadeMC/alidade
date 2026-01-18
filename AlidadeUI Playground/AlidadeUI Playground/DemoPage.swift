@@ -17,7 +17,7 @@ struct DemoPage<Content: View, ConfigurationContent: View>: View {
 
     var content: () -> Content
     var inspector: () -> ConfigurationContent
-    
+
     var body: some View {
         Form {
             content()
@@ -26,7 +26,7 @@ struct DemoPage<Content: View, ConfigurationContent: View>: View {
             }
         }
         #if os(macOS)
-        .formStyle(.grouped)
+            .formStyle(.grouped)
         #endif
         .inspector(isPresented: $displayInspector) {
             Form {

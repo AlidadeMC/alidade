@@ -9,7 +9,7 @@ let package = Package(
         .library(
             name: "Testchamber",
             targets: ["Testchamber"]
-        ),
+        )
     ],
     targets: [
         .target(

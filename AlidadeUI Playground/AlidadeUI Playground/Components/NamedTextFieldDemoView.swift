@@ -11,7 +11,7 @@ import SwiftUI
 struct NamedTextFieldDemoView: View {
     @State private var title = "Title"
     @State private var currentText = ""
-    
+
     var body: some View {
         DemoPage {
             Section {

@@ -37,7 +37,7 @@ struct CartographyClockTests {
         clock.start(timer: .bluemap)
 
         try await Task.sleep(for: .seconds(1))
-        
+
         clock.stop(timer: .bluemap)
     }
 }

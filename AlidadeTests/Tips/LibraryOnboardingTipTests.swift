@@ -14,7 +14,7 @@ import TipKit
 struct LibraryOnboardingTipTests {
     @Test func tipConfiguration() async throws {
         let tip = LibraryOnboardingTip()
-        
+
         #expect(tip.title == Text("Browse and search your library."))
         #expect(tip.message != nil)
         #expect(tip.image == nil)

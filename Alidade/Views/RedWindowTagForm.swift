@@ -34,7 +34,8 @@ struct RedWindowTagForm: View {
             Section {
                 if tags.isEmpty {
                     ContentUnavailableView(
-                        "No Tags", systemImage: "tag", description: Text("Type a tag above to create it."))
+                        "No Tags", systemImage: "tag", description: Text("Type a tag above to create it.")
+                    )
                     .listRowBackground(Color.clear)
                 } else {
                     List {

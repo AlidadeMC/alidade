@@ -21,17 +21,17 @@ public enum Testchamber {
     /// specific platforms.
     public static func platform(is expectation: Platform) -> Bool {
         #if os(macOS)
-        return expectation == .macOS
+            return expectation == .macOS
         #elseif os(iOS)
-        return expectation == .iOS
+            return expectation == .iOS
         #elseif os(tvOS)
-        return expectation == .tvOS
+            return expectation == .tvOS
         #elseif os(watchOS)
-        return expectation == .watchOS
+            return expectation == .watchOS
         #elseif os(visionOS)
-        return expectation == .visionOS
+            return expectation == .visionOS
         #else
-        return false
+            return false
         #endif
     }
 }

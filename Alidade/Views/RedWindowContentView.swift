@@ -123,11 +123,12 @@ struct RedWindowContentView: View {
                         value: RedWindowRoute.pin(mapPin.content.id)
                     ) {
                         NavigationStack {
-                            RedWindowPinDetailView(pin: Binding {
-                                return file.pins[mapPin.index]
-                            } set: { newValue in
-                                file.pins[mapPin.index] = newValue
-                            }, file: $file)
+                            RedWindowPinDetailView(
+                                pin: Binding {
+                                    return file.pins[mapPin.index]
+                                } set: { newValue in
+                                    file.pins[mapPin.index] = newValue
+                                }, file: $file)
                         }
                     }
                     .customizationID("app.tab.library.\(mapPin.content.id.uuidString)")
@@ -156,7 +157,7 @@ struct RedWindowContentView: View {
             #endif
         }
         #if os(macOS)
-        .navigationSubtitle(subtitle)
+            .navigationSubtitle(subtitle)
         #endif
         .tabViewStyle(.sidebarAdaptable)
         .tabViewCustomization($file.appState.tabCustomization)

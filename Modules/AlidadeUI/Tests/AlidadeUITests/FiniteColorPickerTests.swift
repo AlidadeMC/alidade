@@ -23,7 +23,7 @@ struct FiniteColorPickerTests {
 
         #expect(picker.colorStyle == .automatic)
         #expect(picker.allowCustomSelection == false)
-        
+
         let sut = try picker.inspect()
         #expect(!sut.isAbsent)
 
@@ -60,7 +60,7 @@ struct FiniteColorPickerTests {
     func viewAllowCustomSelection() throws {
         let color = Binding<Color>(wrappedValue: .blue)
         let picker = FiniteColorPicker("", selection: color, in: Self.colors).includeCustomSelection()
-        
+
         #expect(picker.allowCustomSelection == true)
     }
 
@@ -68,7 +68,7 @@ struct FiniteColorPickerTests {
     func viewColorStyle() throws {
         let color = Binding<Color>(wrappedValue: .blue)
         let picker = FiniteColorPicker("", selection: color, in: Self.colors).colorStyle(.gradient)
-        
+
         #expect(picker.colorStyle == .gradient)
     }
 }
