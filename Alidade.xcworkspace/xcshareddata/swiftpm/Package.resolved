@@ -1,5 +1,5 @@
 {
-  "originHash" : "e6d052dce115d67116cd2b1a8973227c707a521210ca034e5b402be7f4ecada0",
+  "originHash" : "a4de89db7d10118a7cde0beb94d9b8c9219ef9406fd8ffbc2efeaf0765bcd6fa",
   "pins" : [
     {
       "identity" : "adwaita-swift",
@@ -16,7 +16,7 @@
       "location" : "https://source.marquiskurt.net/marquiskurt/bedrock",
       "state" : {
         "branch" : "main",
-        "revision" : "5c716b3b403288a6bf78833879720030f6e2a227"
+        "revision" : "562dfb821d0953a833d4ef62ee5c347434aa44c3"
       }
     },
     {
