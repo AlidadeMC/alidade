@@ -12,24 +12,14 @@
     "codeCoverage" : {
       "targets" : [
         {
-          "containerPath" : "container:MCMaps.xcodeproj",
+          "containerPath" : "container:Alidade.xcodeproj",
           "identifier" : "950402CE2D4D522100F51903",
           "name" : "Alidade"
         },
         {
-          "containerPath" : "container:AlidadeUI",
+          "containerPath" : "container:Modules\/AlidadeUI",
           "identifier" : "AlidadeUI",
           "name" : "AlidadeUI"
-        },
-        {
-          "containerPath" : "container:AlidadeUI",
-          "identifier" : "AlidadeUITests",
-          "name" : "AlidadeUITests"
-        },
-        {
-          "containerPath" : "container:MCMaps.xcodeproj",
-          "identifier" : "950402DF2D4D522200F51903",
-          "name" : "MCMapsTests"
         }
       ]
     },
