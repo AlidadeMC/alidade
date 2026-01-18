@@ -66,13 +66,11 @@ extension MinecraftStructure {
     /// Creates a structure from a localized string.
     /// - Parameter string: The string to parse and match against.
     init?(string: String) {
-        for structure in Self.allCases {
-            if structure.name.localizedLowercase == string.localizedLowercase {  // swiftlint:disable:this for_where
-                self = structure
-                return
-            }
+        guard let structure = Self.allCases.first(where: { $0.name.localizedLowercase == string.localizedLowercase })
+        else {
+            return nil
         }
-        return nil
+        self = structure
     }
 
     /// The pin color associated with the structure.
