@@ -7,6 +7,7 @@
 
 import AlidadeUI
 import SwiftUI
+import FeatureFlags
 
 /// A view that displays the app's settings.
 ///
@@ -15,6 +16,8 @@ import SwiftUI
 /// user interface is driven by the Settings bundle for this app.
 @available(macOS 15.0, *)
 struct AlidadeSettingsView: View {
+    @AppStorage(FeatureFlag.drawings.keyName) private var flagDrawings = false
+
     var body: some View {
         TabView {
             Tab("Feature Flags", systemImage: "flag.pattern.checkered") {
@@ -32,7 +35,9 @@ struct AlidadeSettingsView: View {
             .inlineBannerVariant(.warning)
             .padding(.top)
             Form {
-                InlineBanner("No new feature flags", message: "There are no feature flags available in this build.")
+                Toggle(isOn: $flagDrawings) {
+                    Text("Map Drawings")
+                }
             }
             .formStyle(.grouped)
         }

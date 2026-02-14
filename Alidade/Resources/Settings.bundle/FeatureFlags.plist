@@ -7,6 +7,17 @@
 	<key>Title</key>
 	<string>Feature Flags</string>
 	<key>PreferenceSpecifiers</key>
-	<array/>
+	<array>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Map Drawings</string>
+			<key>Key</key>
+			<string>flags.features.map_drawings</string>
+			<key>DefaultValue</key>
+			<false/>
+		</dict>
+	</array>
 </dict>
 </plist>

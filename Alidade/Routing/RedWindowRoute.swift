@@ -23,6 +23,9 @@ enum RedWindowRoute: Identifiable {
     /// The gallery tab.
     case gallery
 
+    /// The drawings tab.
+    case drawings
+
     /// The world tab.
     ///
     /// Used to show a form for editing world settings.
@@ -64,6 +67,7 @@ extension RedWindowRoute: TabRoute {
         case .allPinsCompact: "Library"
         case .search: "Search"
         case .pin: "Pin"
+        case .drawings: "Drawings"
         }
     }
 
@@ -77,6 +81,7 @@ extension RedWindowRoute: TabRoute {
         case .allPinsCompact: "books.vertical"
         case .search: "magnifyingglass"
         case .pin: "mappin"
+        case .drawings: "pencil.and.outline"
         }
     }
 

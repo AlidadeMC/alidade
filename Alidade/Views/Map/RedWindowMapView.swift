@@ -7,6 +7,7 @@
 
 import AlidadeUI
 import CubiomesKit
+import FeatureFlags
 import MCMap
 import SwiftUI
 import os
@@ -26,6 +27,8 @@ struct RedWindowMapView: View {
 
     @Environment(RedWindowEnvironment.self) private var redWindowEnvironment
 
+    @FeatureFlagged(.drawings) private var allowMapDrawings
+
     /// The file containing the information about the world, integrations, etc.
     @Binding var file: CartographyMapFile
 
@@ -35,6 +38,7 @@ struct RedWindowMapView: View {
     @State private var displayWarpForm = false
     @State private var displayPinForm = false
     @State private var integrationState = IntegrationFetchState.initial
+    @State private var isDrawingOnMap = false
 
     var body: some View {
         @Bindable var env = redWindowEnvironment
@@ -52,6 +56,11 @@ struct RedWindowMapView: View {
                         }
                         .ornaments(.all)
                         .mapColorScheme(useNaturalColors ? .natural : .default)
+                        #if os(iOS)
+                            .allowsPencilKitDrawings(allowMapDrawings)
+                            .activateDrawingCanvas(isDrawing: $isDrawingOnMap)
+                            .addedMapDrawing(storeDrawing(_:))
+                        #endif
                     }
                 }
                 #if os(macOS)
@@ -113,37 +122,83 @@ struct RedWindowMapView: View {
                         #endif
                     }
                 }
-                .toolbar {
-                    ToolbarItem {
-                        Menu("Map", systemImage: "map") {
-                            #if os(iOS)
-                                Label("Map", systemImage: "map")
-                                    .foregroundStyle(.secondary)
-                            #endif
-                            Divider()
-                            Toggle(isOn: $useNaturalColors) {
-                                Label("Natural Colors", systemImage: "paintpalette")
-                            }
-                            WorldDimensionPickerView(selection: $env.currentDimension)
-                                .pickerStyle(.inline)
-                                .labelsVisibility(.visible)
-                        }
-                    }
+                .toolbar { toolbar(env) }
+            }
+        }
+    }
 
+    private func storeDrawing(_ drawing: MinecraftMapDrawing) {
+        guard file.supportedFeatures.contains(.drawings) else {
+            return
+        }
+        let mapCoordinate = CGPoint(projectedFrom: drawing.location)
+        let rect = CartographyDrawing.DrawingOverlay.MapRect(
+            x: Int(mapCoordinate.x),
+            z: Int(mapCoordinate.y),
+            width: Int(drawing.mapRect.width),
+            height: Int(drawing.mapRect.height)
+        )
+        let storedDrawing = CartographyDrawing(
+            data: CartographyDrawing.DrawingOverlay(
+                coordinate: mapCoordinate,
+                drawing: drawing.drawing,
+                mapRect: rect
+            )
+        )
+        file.drawings.append(storedDrawing)
+    }
+
+    private func toolbar(_ environment: RedWindowEnvironment) -> some ToolbarContent {
+        @Bindable var env = environment
+        return Group {
+            ToolbarItem {
+                Menu("Map", systemImage: "map") {
+                    #if os(iOS)
+                        Label("Map", systemImage: "map")
+                            .foregroundStyle(.secondary)
+                    #endif
+                    Divider()
+                    Toggle(isOn: $useNaturalColors) {
+                        Label("Natural Colors", systemImage: "paintpalette")
+                    }
+                    WorldDimensionPickerView(selection: $env.currentDimension)
+                        .pickerStyle(.inline)
+                        .labelsVisibility(.visible)
+                }
+            }
+
+            ToolbarSpacer(.fixed)
+
+            ToolbarItem {
+                Button("Go To", systemImage: "figure.walk") {
+                    displayWarpForm.toggle()
+                }
+            }
+            #if os(iOS)
+                if allowMapDrawings, !isDrawingOnMap {
                     ToolbarSpacer(.fixed)
-
+                }
+            #endif
+            ToolbarItem {
+                Button("Pin Here...", systemImage: "mappin.circle") {
+                    displayPinForm.toggle()
+                }
+            }
+            #if os(iOS)
+                if allowMapDrawings {
                     ToolbarItem {
-                        Button("Go To", systemImage: "figure.walk") {
-                            displayWarpForm.toggle()
-                        }
-                    }
-                    ToolbarItem {
-                        Button("Pin Here...", systemImage: "mappin.circle") {
-                            displayPinForm.toggle()
+                        Button(
+                            "Draw",
+                            systemImage: isDrawingOnMap ? "checkmark" : "pencil.and.outline",
+                            role: isDrawingOnMap ? .confirm : .close
+                        ) {
+                            withAnimation {
+                                isDrawingOnMap.toggle()
+                            }
                         }
                     }
                 }
-            }
+            #endif
         }
     }
 }

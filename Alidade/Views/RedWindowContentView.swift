@@ -6,6 +6,7 @@
 //
 
 import CubiomesKit
+import FeatureFlags
 import MCMap
 import SwiftUI
 
@@ -25,6 +26,8 @@ struct RedWindowContentView: View {
     @Environment(\.bluemapService) private var bluemapService
     @Environment(\.documentURL) private var documentURL
     @Environment(\.openWindow) private var openWindow
+
+    @FeatureFlagged(.drawings) private var showMapDrawings
 
     /// The file to read from and write to.
     @Binding var file: CartographyMapFile
@@ -101,6 +104,21 @@ struct RedWindowContentView: View {
                         context: CartographyGalleryWindowContext(file: file, documentBaseURL: documentURL)
                     )
                 }
+            }
+
+            if showMapDrawings {
+                Tab(route: .drawings) {
+                    NavigationStack {
+                        ContentUnavailableView(
+                            "Mind the Gap",
+                            systemImage: "square.dashed",
+                            description: Text("This view hasn't been constructed yet."))
+                    }
+                }
+                .customizationID("app.tab.drawings")
+                #if os(iOS)
+                    .defaultVisibility(.hidden, for: .tabBar)
+                #endif
             }
 
             Tab(value: .search, role: .search) {

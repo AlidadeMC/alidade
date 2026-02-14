@@ -20,19 +20,24 @@ import Foundation
 ///     @FeatureFlagged(.redWindow) private var useRedWindowDesign
 /// }
 /// ```
-public enum FeatureFlag {}
+public enum FeatureFlag {
+    case drawings
+}
 
 extension FeatureFlag {
     /// The name of the key as stored in User Defaults.
     ///
     /// This should also correspond to the key used in the app's Settings bundle, whenever applicable.
-    var keyName: String {
-        "noflag"
+    public var keyName: String {
+        switch self {
+        case .drawings:
+            "flags.features.map_drawings"
+        }
     }
 
     /// Whether the flag is enabled by default.
     var isEnabledByDefault: Bool {
-        true
+        false
     }
 }
 

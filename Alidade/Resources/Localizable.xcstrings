@@ -157,6 +157,12 @@
     "Done" : {
 
     },
+    "Draw" : {
+
+    },
+    "Drawings" : {
+
+    },
     "Edit" : {
 
     },
@@ -293,7 +299,13 @@
     "Map" : {
 
     },
+    "Map Drawings" : {
+
+    },
     "Maps that use version numbers and seeds from _Minecraft: Java Edition_ will work with Alidade. Minecraft (Bedrock) is currently not supported." : {
+
+    },
+    "Mind the Gap" : {
 
     },
     "Minecraft Version" : {
@@ -315,9 +327,6 @@
 
     },
     "No Description Written" : {
-
-    },
-    "No new feature flags" : {
 
     },
     "No Photos Uploaded" : {
@@ -473,9 +482,6 @@
     "The following flags control experimental features. Proceed with caution." : {
 
     },
-    "There are no feature flags available in this build." : {
-
-    },
     "There are no pins to be removed." : {
 
     },
@@ -483,6 +489,9 @@
 
     },
     "This seed will be converted to: `%@`" : {
+
+    },
+    "This view hasn't been constructed yet." : {
 
     },
     "Tips" : {
