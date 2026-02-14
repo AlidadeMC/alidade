@@ -33,3 +33,9 @@ extension CartographyMapPin.Color {
         }
     }
 }
+
+extension CartographyMapPin {
+    func resolveColor() -> SwiftUI.Color {
+        self.color?.swiftUIColor ?? .accent
+    }
+}

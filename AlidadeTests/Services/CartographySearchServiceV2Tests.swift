@@ -14,13 +14,13 @@ import Testing
 @testable import Alidade
 
 struct CartographySearchServiceV2Tests {
-    typealias SearchContext = CartographySearchService_v2.Context
+    typealias SearchContext = CartographySearchService.Context
 
     @Test("Empty query")
     func searchReturnsNoResultsOnEmptyQuery() async throws {
         let world = try MinecraftWorld(version: "1.21.3", seed: 123)
         let file = CartographyMapFile(withManifest: .sampleFile)
-        let service = CartographySearchService_v2()
+        let service = CartographySearchService()
 
         let results = await service.search(query: "", in: SearchContext(world: world, file: file))
         #expect(results.isEmpty)
@@ -30,7 +30,7 @@ struct CartographySearchServiceV2Tests {
     func searchReturnsPinsByName(query: AlidadeSearchQuery) async throws {
         let world = try MinecraftWorld(version: "1.21.3", seed: 123)
         let file = CartographyMapFile(withManifest: .sampleFile)
-        let service = CartographySearchService_v2()
+        let service = CartographySearchService()
 
         let results = await service.search(query: query, in: SearchContext(world: world, file: file))
         #expect(results.pins.count == 1)
@@ -42,7 +42,7 @@ struct CartographySearchServiceV2Tests {
     func searchReturnsPinsWithTag(query: AlidadeSearchQuery) async throws {
         let world = try MinecraftWorld(version: "1.21.3", seed: 123)
         var file = CartographyMapFile(withManifest: .sampleFile)
-        let service = CartographySearchService_v2()
+        let service = CartographySearchService()
 
         file.pins.append(contentsOf: [
             CartographyMapPin(named: "Testing", at: CGPoint(x: 12, y: 12), tags: ["Tag", "Forest"]),
@@ -58,7 +58,7 @@ struct CartographySearchServiceV2Tests {
     @Test func searchReturnsNearbyStructures() async throws {
         let world = try MinecraftWorld(version: "1.21.3", seed: 123)
         let file = CartographyMapFile(withManifest: .sampleFile)
-        let service = CartographySearchService_v2()
+        let service = CartographySearchService()
 
         let results = await service.search(
             query: "mineshaft",
@@ -73,7 +73,7 @@ struct CartographySearchServiceV2Tests {
     @Test func searchReturnsNearbyBiomes() async throws {
         let world = try MinecraftWorld(version: "1.21.3", seed: 123)
         let file = CartographyMapFile(withManifest: .sampleFile)
-        let service = CartographySearchService_v2()
+        let service = CartographySearchService()
         let results = await service.search(
             query: "Frozen River",
             in: SearchContext(world: world, file: file, position: .zero))
@@ -83,7 +83,7 @@ struct CartographySearchServiceV2Tests {
     @Test func searchReturnsNearbyBiomesRelativeToFilteredOrigin() async throws {
         let world = try MinecraftWorld(version: "1.21.3", seed: 123)
         let file = CartographyMapFile(withManifest: .sampleFile)
-        let service = CartographySearchService_v2()
+        let service = CartographySearchService()
         let context = SearchContext(world: world, file: file, position: .zero)
 
         let originResults = await service.search(query: "Frozen River", in: context)
@@ -98,7 +98,7 @@ struct CartographySearchServiceV2Tests {
     @Test func searchReturnsBiomeResultsRelativeToDimensionInQuery() async throws {
         let world = try MinecraftWorld(version: "1.21.3", seed: 123)
         let file = CartographyMapFile(withManifest: .sampleFile)
-        let service = CartographySearchService_v2()
+        let service = CartographySearchService()
         let context = SearchContext(world: world, file: file, position: .zero, dimension: .nether)
 
         let results = await service.search(query: "dimension: Overworld Frozen River", in: context)
@@ -108,7 +108,7 @@ struct CartographySearchServiceV2Tests {
     @Test func searchReturnsStructureResultsRelativeToDimensionInQuery() async throws {
         let world = try MinecraftWorld(version: "1.21.3", seed: 123)
         let file = CartographyMapFile(withManifest: .sampleFile)
-        let service = CartographySearchService_v2()
+        let service = CartographySearchService()
         let context = SearchContext(world: world, file: file, position: .zero, dimension: .overworld)
 
         let results = await service.search(query: "dimension: Nether Bastion", in: context)
@@ -118,7 +118,7 @@ struct CartographySearchServiceV2Tests {
     @Test func searchReturnsPinsRelativeToDimensionInQuery() async throws {
         let world = try MinecraftWorld(version: "1.21.3", seed: 123)
         var file = CartographyMapFile(withManifest: .sampleFile)
-        let service = CartographySearchService_v2()
+        let service = CartographySearchService()
 
         file.pins.append(contentsOf: [
             CartographyMapPin(

@@ -30,8 +30,7 @@ struct RedWindowLibraryGridCell: View {
             Group {
                 if let coverImage {
                     ZStack {
-                        Rectangle()
-                            .fill(Color(pin.color?.swiftUIColor ?? .accent).gradient)
+                        baseBackground
                         Image(data: coverImage)
                             .resizable()
                             .scaledToFill()
@@ -39,8 +38,7 @@ struct RedWindowLibraryGridCell: View {
                             .blendMode(.multiply)
                     }
                 } else {
-                    Rectangle()
-                        .fill(Color(pin.color?.swiftUIColor ?? .accent).gradient)
+                    baseBackground
                 }
             }
             .frame(minWidth: 150, idealWidth: 175, maxWidth: 180)
@@ -64,6 +62,11 @@ struct RedWindowLibraryGridCell: View {
                 .foregroundStyle(.tertiary)
         }
         .animation(.default, value: horizontalSizeClass)
+    }
+
+    private var baseBackground: some View {
+        Rectangle()
+            .fill(Color(pin.resolveColor()).gradient)
     }
 
     private var coverImage: Data? {

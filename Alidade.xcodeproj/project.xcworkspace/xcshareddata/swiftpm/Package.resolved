@@ -1,0 +1,159 @@
+{
+  "originHash" : "c225b9a7c90e00f27f3de746c726309e1df34d0a6314a18f2963106a6b6374a1",
+  "pins" : [
+    {
+      "identity" : "adwaita-swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://git.aparoksha.dev/aparoksha/adwaita-swift",
+      "state" : {
+        "branch" : "main",
+        "revision" : "2072c160408210b7589205bb7f5c64321bbfe9cc"
+      }
+    },
+    {
+      "identity" : "bedrock",
+      "kind" : "remoteSourceControl",
+      "location" : "https://source.marquiskurt.net/marquiskurt/bedrock",
+      "state" : {
+        "branch" : "main",
+        "revision" : "4c725cdf0257cc54f371d30516dc9d004cbc40e4"
+      }
+    },
+    {
+      "identity" : "cubiomeskit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://source.marquiskurt.net/AlidadeMC/CubiomesKit",
+      "state" : {
+        "branch" : "root",
+        "revision" : "49a54ea0ff00f3f1340c3a450869823ae3126bfa"
+      }
+    },
+    {
+      "identity" : "documentkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://source.marquiskurt.net/marquiskurt/DocumentKit",
+      "state" : {
+        "branch" : "main",
+        "revision" : "5ab0cf6b64a3ea5ed8e8c614e2bfb41e67cdd1d6"
+      }
+    },
+    {
+      "identity" : "imageprocessing",
+      "kind" : "remoteSourceControl",
+      "location" : "https://source.marquiskurt.net/marquiskurt/imageprocessing",
+      "state" : {
+        "branch" : "main",
+        "revision" : "6b44d42805589ca83a8f4a779a79856c74193892"
+      }
+    },
+    {
+      "identity" : "levenshtein-transformations",
+      "kind" : "remoteSourceControl",
+      "location" : "https://git.aparoksha.dev/aparoksha/levenshtein-transformations",
+      "state" : {
+        "branch" : "main",
+        "revision" : "06577a2c4c6419ed859e34a8fb7be87a3b8975da"
+      }
+    },
+    {
+      "identity" : "localized",
+      "kind" : "remoteSourceControl",
+      "location" : "https://git.aparoksha.dev/aparoksha/localized",
+      "state" : {
+        "branch" : "main",
+        "revision" : "29d4c3fe923ef095a0be2b95cf9b31171edf918b"
+      }
+    },
+    {
+      "identity" : "mapkit-caching-tile-overlay",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/stadiamaps/mapkit-caching-tile-overlay",
+      "state" : {
+        "revision" : "600f218ccc090678ab46bab162a82f63949eb04f",
+        "version" : "1.1.0"
+      }
+    },
+    {
+      "identity" : "mcmap",
+      "kind" : "remoteSourceControl",
+      "location" : "https://source.marquiskurt.net/AlidadeMC/mcmap.git",
+      "state" : {
+        "revision" : "2e6ca8271820ead3c0bb23f2a85e4419412b29c0",
+        "version" : "2.0.1"
+      }
+    },
+    {
+      "identity" : "meta",
+      "kind" : "remoteSourceControl",
+      "location" : "https://git.aparoksha.dev/aparoksha/meta",
+      "state" : {
+        "branch" : "main",
+        "revision" : "f47727df52b1c2b36dec5df1c2bd10dc63e4c7d6"
+      }
+    },
+    {
+      "identity" : "meta-sqlite",
+      "kind" : "remoteSourceControl",
+      "location" : "https://git.aparoksha.dev/aparoksha/meta-sqlite",
+      "state" : {
+        "branch" : "main",
+        "revision" : "6e7940c06a5ac92b10faf5c62b19fb6a02aea59c"
+      }
+    },
+    {
+      "identity" : "searchengine",
+      "kind" : "remoteSourceControl",
+      "location" : "https://source.marquiskurt.net/AlidadeMC/searchengine",
+      "state" : {
+        "branch" : "main",
+        "revision" : "fe6a0765c4df895c87effdaa46a5fa72057eb850"
+      }
+    },
+    {
+      "identity" : "sqlite.swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/stephencelis/SQLite.swift",
+      "state" : {
+        "revision" : "0c08856385fe24f7b76d8c51842d78a196e8e817",
+        "version" : "0.15.5"
+      }
+    },
+    {
+      "identity" : "swiftlintplugins",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/SimplyDanny/SwiftLintPlugins",
+      "state" : {
+        "revision" : "8a4640d14777685ba8f14e832373160498fbab92",
+        "version" : "0.63.2"
+      }
+    },
+    {
+      "identity" : "versionedcodable",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/jrothwell/VersionedCodable.git",
+      "state" : {
+        "revision" : "bc46608052e6bb9e12ebbfd9b4fa1f6d19724a6b",
+        "version" : "1.2.4"
+      }
+    },
+    {
+      "identity" : "viewinspector",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/nalexn/ViewInspector",
+      "state" : {
+        "revision" : "e9a06346499a3a889165647e3f23f8a7b2609a1c",
+        "version" : "0.10.3"
+      }
+    },
+    {
+      "identity" : "yams",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/jpsim/Yams",
+      "state" : {
+        "revision" : "3d6871d5b4a5cd519adf233fbb576e0a2af71c17",
+        "version" : "5.4.0"
+      }
+    }
+  ],
+  "version" : 3
+}

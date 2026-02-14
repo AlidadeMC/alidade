@@ -8,13 +8,9 @@ Learn and understand Alidade's architecture and view hierarchy.
 
 ## Overview
 
-> Important: To view information about the legacy architecture, refer to
-> the <doc:LegacyArchitecture> article.
-
-Under the **Red Window** design, Alidade provides a consistent
-architecture and user interface that applies across Mac, iPhone, and iPad.
-This article will cover how the app is structured and how it interacts
-with other views.
+Alidade provides a consistent architecture and user interface that applies
+across Mac, iPhone, and iPad. This article will cover how the app is
+structured and how it interacts with other views.
 
 ### Rationale
 
@@ -29,18 +25,17 @@ portable views while leveraging what SwiftUI has to offer.
 
 ## Entrypoint
 
-Much like the legacy architecture, the main app starts at the
-``MCMapsApp`` entrypoint. Here, the ``RedWindowContentView`` is created,
-which receives the currently open file as an argument. Information about
-the current app state is passed through as an environment object,
-``RedWindowEnvironment``. This environment object contains key information
-such as which tab route is currently active, what pins should be deleted,
-etc:
+The main app starts at the ``Alidade`` entrypoint. Here, the
+``RedWindowContentView`` is created, which receives the currently open file
+as an argument. Information about the current app state is passed through
+as an environment object, ``RedWindowEnvironment``. This environment
+object contains key information such as which tab route is currently
+active, what pins should be deleted, etc:
 
 ```swift
 import SwiftUI
 
-struct MCMapsApp: App {
+struct Alidade: App {
     @State private var redWindowEnv = RedWindowEnvironment()
     var body: some Scene {
         DocumentGroup(...) { configuration in
@@ -50,8 +45,6 @@ struct MCMapsApp: App {
     }
 }
 ```
-
-This effectively replaces the old ``CartographyMapViewModel``.
 
 At this time, any integration services are also set up. For example, the
 Bluemap integration service is provided as an environment variable to the

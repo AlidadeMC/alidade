@@ -8,6 +8,10 @@
 
 Understand the changes that control the new Liquid Glass design.
 
+> Important: The information contained in this article is out of date and
+> should not be referenced. For archival purposes, this tech note remains
+> in the documentation.
+
 The next major version of Alidade will feature a new, refined design that
 leverages and embraces the Liquid Glass design system Apple introduced at
 WWDC 2025. This new Alidade redesign is codenamed _Red Window_, and it

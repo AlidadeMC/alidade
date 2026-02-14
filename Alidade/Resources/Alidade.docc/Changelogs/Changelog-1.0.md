@@ -15,8 +15,7 @@ View the release notes for the 1.x releases of Alidade.
 - **Fixed**: Changing the "Natural Colors" setting on a map wouldn't
   refresh the entire map.
 - To further ensure compatibility with future `.mcmap` package formats,
-  files saved in Alidade will now apply a ``MCMapManifest_v1/manifestVersion``
-  key.
+  files saved in Alidade will now apply a `manifestVersion` key.
 
 ## 1.0 (Build 43)
 

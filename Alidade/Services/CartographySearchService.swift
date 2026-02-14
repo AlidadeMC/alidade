@@ -11,7 +11,7 @@ import CubiomesKit
 import Foundation
 import MCMap
 
-class CartographySearchService_v2 {
+class CartographySearchService {
     struct Context: Sendable {
         var world: MinecraftWorld
         var file: CartographyMapFile
@@ -41,7 +41,7 @@ class CartographySearchService_v2 {
     }
 }
 
-extension CartographySearchService_v2: AlidadeSearchEngine {
+extension CartographySearchService: AlidadeSearchEngine {
     func search(query: AlidadeSearchQuery, in context: Context) async -> SearchResult {
         var results = SearchResult()
         var position = context.position

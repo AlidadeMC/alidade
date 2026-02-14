@@ -77,19 +77,20 @@ contributors to read through.
 ### Architecture and View Hierarchy
 
 - <doc:Architecture>
-- <doc:LegacyArchitecture>
-- ``MCMapsApp``
+- ``Alidade``
 
 ### Launch experience
-- ``DocumentLaunchView-6qz0r``
-- ``RecentDocumentsList``
-- ``DocumentLaunchViewModel``
+- ``DocumentContinuation``
+- ``DocumentLaunchView``
+- ``DocumentLaunchScene``
 
 ### Services
 
 - <doc:Integrations>
-- ``CartographyIntegrationService``
+- ``CartographyClock``
 - ``CartographySearchService``
+- ``CartographyIntegrationService``
+- ``PasteboardActor``
 
 ### Map Ornaments
 
@@ -103,8 +104,18 @@ contributors to read through.
 
 ### Pickers
 
-- ``CartographyMapPinColorPicker``
 - ``WorldDimensionPickerView``
+
+### Icons
+
+- ``SemanticIcon``
+- ``CartographyIconPicker``
+
+### Command Groups
+
+- ``MapCommands``
+- ``HelpCommands``
+- ``DebugCommands``
 
 ### Tips and Onboarding
 
@@ -132,6 +143,4 @@ contributors to read through.
 
 ### Settings and Feature Flags
 
-- ``FeatureFlag``
-- ``FeatureFlagged``
 - ``AlidadeSettingsView``

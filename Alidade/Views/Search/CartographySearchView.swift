@@ -16,7 +16,7 @@ import SwiftUI
 /// when the view is in its initial state. Queries are currently handled internally and requires no additional bindings
 /// on the developer's part.
 struct CartographySearchView<InitialView: View, ResultsView: View>: View {
-    typealias SearchResult = CartographySearchService_v2.SearchResult
+    typealias SearchResult = CartographySearchService.SearchResult
 
     /// An enumeration of the search states the view can undergo.
     enum SearchState: Equatable, Hashable {
@@ -78,8 +78,6 @@ struct CartographySearchView<InitialView: View, ResultsView: View>: View {
     }
 
     /// Assign an action to when the search bar becomes the currently focused element.
-    ///
-    /// This is typically used in views to adjust the layout, such as with the ``CartographyMapSidebar``.
     func searchBecomesFocused(_ callback: @escaping () -> Void) -> Self {
         var newSelf = self
         newSelf.searchGainedFocus = callback
@@ -139,8 +137,8 @@ struct CartographySearchView<InitialView: View, ResultsView: View>: View {
         }
         searchState = .searching
 
-        let service = CartographySearchService_v2()
-        let context = CartographySearchService_v2.Context(
+        let service = CartographySearchService()
+        let context = CartographySearchService.Context(
             world: world,
             file: file,
             position: position,
