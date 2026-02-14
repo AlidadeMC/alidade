@@ -2,15 +2,6 @@
   "originHash" : "beb3e3e26df95278e1d07377876f346c763bf2d520e4b3831a916750d30560f6",
   "pins" : [
     {
-      "identity" : "adwaita-swift",
-      "kind" : "remoteSourceControl",
-      "location" : "https://git.aparoksha.dev/aparoksha/adwaita-swift",
-      "state" : {
-        "branch" : "main",
-        "revision" : "2072c160408210b7589205bb7f5c64321bbfe9cc"
-      }
-    },
-    {
       "identity" : "bedrock",
       "kind" : "remoteSourceControl",
       "location" : "https://source.marquiskurt.net/marquiskurt/bedrock",
@@ -34,7 +25,7 @@
       "location" : "https://source.marquiskurt.net/marquiskurt/DocumentKit",
       "state" : {
         "branch" : "main",
-        "revision" : "5ab0cf6b64a3ea5ed8e8c614e2bfb41e67cdd1d6"
+        "revision" : "8ced7f8b0cde259531fa7a12663c9a93fd39dcfe"
       }
     },
     {
@@ -44,24 +35,6 @@
       "state" : {
         "branch" : "main",
         "revision" : "6b44d42805589ca83a8f4a779a79856c74193892"
-      }
-    },
-    {
-      "identity" : "levenshtein-transformations",
-      "kind" : "remoteSourceControl",
-      "location" : "https://git.aparoksha.dev/aparoksha/levenshtein-transformations",
-      "state" : {
-        "branch" : "main",
-        "revision" : "06577a2c4c6419ed859e34a8fb7be87a3b8975da"
-      }
-    },
-    {
-      "identity" : "localized",
-      "kind" : "remoteSourceControl",
-      "location" : "https://git.aparoksha.dev/aparoksha/localized",
-      "state" : {
-        "branch" : "main",
-        "revision" : "29d4c3fe923ef095a0be2b95cf9b31171edf918b"
       }
     },
     {
@@ -83,39 +56,12 @@
       }
     },
     {
-      "identity" : "meta",
-      "kind" : "remoteSourceControl",
-      "location" : "https://git.aparoksha.dev/aparoksha/meta",
-      "state" : {
-        "branch" : "main",
-        "revision" : "f47727df52b1c2b36dec5df1c2bd10dc63e4c7d6"
-      }
-    },
-    {
-      "identity" : "meta-sqlite",
-      "kind" : "remoteSourceControl",
-      "location" : "https://git.aparoksha.dev/aparoksha/meta-sqlite",
-      "state" : {
-        "branch" : "main",
-        "revision" : "6e7940c06a5ac92b10faf5c62b19fb6a02aea59c"
-      }
-    },
-    {
       "identity" : "searchengine",
       "kind" : "remoteSourceControl",
       "location" : "https://source.marquiskurt.net/AlidadeMC/searchengine",
       "state" : {
         "branch" : "main",
         "revision" : "fe6a0765c4df895c87effdaa46a5fa72057eb850"
-      }
-    },
-    {
-      "identity" : "sqlite.swift",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/stephencelis/SQLite.swift",
-      "state" : {
-        "revision" : "0c08856385fe24f7b76d8c51842d78a196e8e817",
-        "version" : "0.15.5"
       }
     },
     {
@@ -143,15 +89,6 @@
       "state" : {
         "revision" : "e9a06346499a3a889165647e3f23f8a7b2609a1c",
         "version" : "0.10.3"
-      }
-    },
-    {
-      "identity" : "yams",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/jpsim/Yams",
-      "state" : {
-        "revision" : "3d6871d5b4a5cd519adf233fbb576e0a2af71c17",
-        "version" : "5.4.0"
       }
     }
   ],
