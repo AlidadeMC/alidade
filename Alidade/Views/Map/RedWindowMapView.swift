@@ -58,7 +58,7 @@ struct RedWindowMapView: View {
                         .mapColorScheme(useNaturalColors ? .natural : .default)
                         #if os(iOS)
                             .allowsPencilKitDrawings(allowMapDrawings)
-                            .activateDrawingCanvas(isDrawing: $isDrawingOnMap)
+                            .activateDrawingCanvas(isDrawing: $isDrawingOnMap, clearWhenDismissed: true)
                             .addedMapDrawing(storeDrawing(_:))
                         #endif
                     }
@@ -148,40 +148,42 @@ struct RedWindowMapView: View {
         file.drawings.append(storedDrawing)
     }
 
+    // NOTE(marquiskurt): Since this toolbar function is just a view provider, I've disabled the lint warning for now.
+    // swiftlint:disable:next function_body_length
     private func toolbar(_ environment: RedWindowEnvironment) -> some ToolbarContent {
         @Bindable var env = environment
         return Group {
-            ToolbarItem {
-                Menu("Map", systemImage: "map") {
-                    #if os(iOS)
-                        Label("Map", systemImage: "map")
-                            .foregroundStyle(.secondary)
-                    #endif
-                    Divider()
-                    Toggle(isOn: $useNaturalColors) {
-                        Label("Natural Colors", systemImage: "paintpalette")
+            if !isDrawingOnMap {
+                ToolbarItem {
+                    Menu("Map", systemImage: "map") {
+                        #if os(iOS)
+                            Label("Map", systemImage: "map")
+                                .foregroundStyle(.secondary)
+                        #endif
+                        Divider()
+                        Toggle(isOn: $useNaturalColors) {
+                            Label("Natural Colors", systemImage: "paintpalette")
+                        }
+                        WorldDimensionPickerView(selection: $env.currentDimension)
+                            .pickerStyle(.inline)
+                            .labelsVisibility(.visible)
                     }
-                    WorldDimensionPickerView(selection: $env.currentDimension)
-                        .pickerStyle(.inline)
-                        .labelsVisibility(.visible)
                 }
-            }
-
-            ToolbarSpacer(.fixed)
-
-            ToolbarItem {
-                Button("Go To", systemImage: "figure.walk") {
-                    displayWarpForm.toggle()
+                ToolbarSpacer(.fixed)
+                ToolbarItem {
+                    Button("Go To", systemImage: "figure.walk") {
+                        displayWarpForm.toggle()
+                    }
                 }
-            }
-            #if os(iOS)
-                if allowMapDrawings, !isDrawingOnMap {
-                    ToolbarSpacer(.fixed)
-                }
-            #endif
-            ToolbarItem {
-                Button("Pin Here...", systemImage: "mappin.circle") {
-                    displayPinForm.toggle()
+                #if os(iOS)
+                    if allowMapDrawings {
+                        ToolbarSpacer(.fixed)
+                    }
+                #endif
+                ToolbarItem {
+                    Button("Pin Here...", systemImage: "mappin.circle") {
+                        displayPinForm.toggle()
+                    }
                 }
             }
             #if os(iOS)
