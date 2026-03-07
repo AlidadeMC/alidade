@@ -7,7 +7,7 @@
       "location" : "https://source.marquiskurt.net/marquiskurt/bedrock",
       "state" : {
         "branch" : "main",
-        "revision" : "4c725cdf0257cc54f371d30516dc9d004cbc40e4"
+        "revision" : "b58dcbfda6f1815466cdead1a4aa32b7ef3963ce"
       }
     },
     {
@@ -16,7 +16,7 @@
       "location" : "https://source.marquiskurt.net/AlidadeMC/CubiomesKit",
       "state" : {
         "branch" : "root",
-        "revision" : "2dc2b492b5e9cd06e7bc3fb408dd8e2106e62cad"
+        "revision" : "c9f45b2d268dab1018fb133bd250d6617c99004f"
       }
     },
     {

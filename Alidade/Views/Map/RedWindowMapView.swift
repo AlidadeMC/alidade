@@ -8,6 +8,7 @@
 import AlidadeUI
 import CubiomesKit
 import FeatureFlags
+import MapKit
 import MCMap
 import SwiftUI
 import os
@@ -40,6 +41,13 @@ struct RedWindowMapView: View {
     @State private var integrationState = IntegrationFetchState.initial
     @State private var isDrawingOnMap = false
 
+    private var drawingOverlays: [MinecraftDrawing] {
+        guard self.file.supportedFeatures.contains(.drawings) else { return [] }
+        return self.file.drawings.map { drawing in
+            MinecraftDrawing(model: MinecraftMapDrawing(cartographyDrawing: drawing))
+        }
+    }
+
     var body: some View {
         @Bindable var env = redWindowEnvironment
 
@@ -52,6 +60,7 @@ struct RedWindowMapView: View {
                             centerCoordinate: $env.mapCenterCoordinate,
                             dimension: env.currentDimension
                         ) {
+                            drawingOverlays
                             annotations
                         }
                         .ornaments(.all)
@@ -133,8 +142,8 @@ struct RedWindowMapView: View {
         }
         let mapCoordinate = CGPoint(projectedFrom: drawing.location)
         let rect = CartographyDrawing.DrawingOverlay.MapRect(
-            x: Int(mapCoordinate.x),
-            z: Int(mapCoordinate.y),
+            x: Int(drawing.mapRect.minX),
+            z: Int(drawing.mapRect.minY),
             width: Int(drawing.mapRect.width),
             height: Int(drawing.mapRect.height)
         )
