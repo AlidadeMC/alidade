@@ -42,7 +42,7 @@ struct RedWindowMapView: View {
     @State private var isDrawingOnMap = false
 
     private var drawingOverlays: [MinecraftDrawing] {
-        guard self.file.supportedFeatures.contains(.drawings) else { return [] }
+        guard allowMapDrawings, self.file.supportedFeatures.contains(.drawings) else { return [] }
         return self.file.drawings.map { drawing in
             MinecraftDrawing(model: MinecraftMapDrawing(cartographyDrawing: drawing))
         }
