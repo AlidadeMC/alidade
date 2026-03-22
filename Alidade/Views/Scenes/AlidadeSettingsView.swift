@@ -16,14 +16,32 @@ import FeatureFlags
 /// user interface is driven by the Settings bundle for this app.
 @available(macOS 15.0, *)
 struct AlidadeSettingsView: View {
-    @AppStorage(FeatureFlag.drawings.keyName) private var flagDrawings = false
+    @AppStorage(UserDefaults.Keys.generalMacSearchAutofocus.rawValue)
+    private var searchAutoFocus = true
+
+    @AppStorage(FeatureFlag.drawings.keyName)
+    private var flagDrawings = false
 
     var body: some View {
         TabView {
+            Tab("General", systemImage: "gear") {
+                generalSettingsView
+            }
+
             Tab("Feature Flags", systemImage: "flag.pattern.checkered") {
                 featureFlagsView
             }
         }
+        .frame(maxWidth: 450, minHeight: 300)
+    }
+
+    private var generalSettingsView: some View {
+        Form {
+            Toggle(isOn: $searchAutoFocus) {
+                Text("Automatically focus the search bar when going to the Search tab")
+            }
+        }
+        .formStyle(.grouped)
     }
 
     private var featureFlagsView: some View {

@@ -47,6 +47,7 @@ struct RedWindowDescriptionCell: RedWindowDetailCell {
                     } else {
                         Text(pin.description)
                             .padding(.top)
+                            .textSelection(.enabled)
                     }
                 }
                 .fontDesign(.serif)

@@ -85,6 +85,9 @@
     "Are you sure you want to remove %lld pins?" : {
 
     },
+    "Automatically focus the search bar when going to the Search tab" : {
+
+    },
     "Bastion" : {
 
     },
@@ -203,6 +206,9 @@
 
     },
     "Gallery is Empty" : {
+
+    },
+    "General" : {
 
     },
     "Geode" : {

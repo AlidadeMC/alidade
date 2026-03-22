@@ -97,6 +97,9 @@ struct CartographyGalleryView: View {
     private func cell(for image: Data) -> some View {
         Image(data: image)
             .maxFillFit(contentMode: scaledToFill ? .fill : .fit)
+            #if os(macOS)
+                .pointerStyle(.zoomIn)
+            #endif
     }
 
     private func getURL(forImageNamed name: String) -> URL? {

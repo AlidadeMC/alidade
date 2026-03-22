@@ -70,6 +70,7 @@ struct RedWindowPinDetailView: View {
                         }
                     }
                     .padding(.horizontal)
+                    Spacer(minLength: 64)
                 }
             }
             .layoutPriority(1.5)

@@ -6,9 +6,13 @@
 //
 
 import Foundation
+import SwiftUI
 
 extension UserDefaults {
     enum Keys: String, Sendable {
+        @available(macOS 26, *)
+        case generalMacSearchAutofocus = "general.searchAutoFocus"
+
         case mapNaturalColors = "map.naturalColors"
     }
 

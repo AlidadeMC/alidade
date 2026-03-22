@@ -56,6 +56,9 @@ struct RedWindowPinGalleryCell: RedWindowDetailCell {
                                         .frame(minHeight: 150, maxHeight: 200)
                                         .clipped()
                                         .clipShape(RoundedRectangle(cornerRadius: 10))
+                                        #if os(macOS)
+                                            .pointerStyle(.zoomIn)
+                                        #endif
                                 }
                             }
                         }

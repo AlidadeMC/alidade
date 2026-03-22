@@ -31,6 +31,11 @@ struct RedWindowSearchView: View {
 
     @Environment(RedWindowEnvironment.self) private var redWindowEnvironment
 
+    #if os(macOS)
+        @AppStorage(UserDefaults.Keys.generalMacSearchAutofocus.rawValue)
+        private var searchAutofocus = true
+    #endif
+
     /// The file that will be searched through.
     @Binding var file: CartographyMapFile
 
@@ -56,7 +61,7 @@ struct RedWindowSearchView: View {
                 }
             }
             #if os(macOS)
-                .searchAutofocused()
+                .searchAutofocused(searchAutofocus)
             #endif
             .sheet(isPresented: $pinCreationRequest.displayForm) {
                 NavigationStack {
