@@ -14,6 +14,7 @@ extension UserDefaults {
         case generalMacSearchAutofocus = "general.searchAutoFocus"
 
         case mapNaturalColors = "map.naturalColors"
+        case mapCoordinateIndicator = "map.coordinateIndicator"
     }
 
     func valueExists(forKey key: Keys) -> Bool {

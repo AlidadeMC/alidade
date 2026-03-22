@@ -8,8 +8,8 @@
 import AlidadeUI
 import CubiomesKit
 import FeatureFlags
-import MapKit
 import MCMap
+import MapKit
 import SwiftUI
 import os
 
@@ -35,6 +35,9 @@ struct RedWindowMapView: View {
 
     @AppStorage(UserDefaults.Keys.mapNaturalColors.rawValue)
     private var useNaturalColors = true
+
+    @AppStorage(UserDefaults.Keys.mapCoordinateIndicator.rawValue)
+    private var showMapCoordinateIndicator = true
 
     @State private var displayWarpForm = false
     @State private var displayPinForm = false
@@ -86,16 +89,18 @@ struct RedWindowMapView: View {
                         #endif
                 }
                 .overlay(alignment: .bottomTrailing) {
-                    LocationBadge(location: env.mapCenterCoordinate)
-                        .environment(\.contentTransitionAddsDrawingGroup, true)
-                        .labelStyle(.titleAndIcon)
-                        #if os(macOS)
-                            .padding(.bottom, 4)
-                            // NOTE(alicerunsonfedora): This applies the zoom control's width (36) with some extra
-                            // padding, but it's unclear how this will change over time, let alone whether this is the
-                            // right way to offset the badge to prevent obstructions (see ALD-20).
-                            .padding(.trailing, 48)
-                        #endif
+                    if showMapCoordinateIndicator {
+                        LocationBadge(location: env.mapCenterCoordinate)
+                            .environment(\.contentTransitionAddsDrawingGroup, true)
+                            .labelStyle(.titleAndIcon)
+                            #if os(macOS)
+                                .padding(.bottom, 4)
+                                // NOTE(alicerunsonfedora): This applies the zoom control's width (36) with some extra
+                                // padding, but it's unclear how this will change over time, let alone whether this is
+                                // the right way to offset the badge to prevent obstructions (see ALD-20).
+                                .padding(.trailing, 48)
+                            #endif
+                    }
                 }
                 .onChange(of: env.currentModalRoute, initial: false) { _, newValue in
                     guard let newValue else { return }
@@ -172,6 +177,13 @@ struct RedWindowMapView: View {
                         Divider()
                         Toggle(isOn: $useNaturalColors) {
                             Label("Natural Colors", systemImage: "paintpalette")
+                        }
+                        Section {
+                            Toggle(isOn: $showMapCoordinateIndicator) {
+                                Label("Coordinate Indicator", systemImage: "location")
+                            }
+                        } header: {
+                            Text("Ornaments")
                         }
                         WorldDimensionPickerView(selection: $env.currentDimension)
                             .pickerStyle(.inline)

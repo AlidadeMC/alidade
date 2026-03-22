@@ -11,6 +11,7 @@ import SwiftUI
 /// A group of commands used to control the map in Alidade.
 struct MapCommands: Commands {
     @AppStorage(UserDefaults.Keys.mapNaturalColors.rawValue) private var naturalColors = true
+    @AppStorage(UserDefaults.Keys.mapCoordinateIndicator.rawValue) private var showMapCoordinateIndicator = true
     @Bindable var redWindowEnvironment: RedWindowEnvironment
 
     init(environment: RedWindowEnvironment) {
@@ -32,6 +33,13 @@ struct MapCommands: Commands {
             Divider()
             Toggle(isOn: $naturalColors) {
                 Label("Natural Colors", systemImage: "paintpalette")
+            }
+            Section {
+                Toggle(isOn: $showMapCoordinateIndicator) {
+                    Label("Coordinate Indicator", systemImage: "location")
+                }
+            } header: {
+                Text("Ornaments")
             }
             WorldDimensionPickerView(selection: $redWindowEnvironment.currentDimension)
                 .labelsVisibility(.visible)
