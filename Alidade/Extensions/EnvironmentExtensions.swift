@@ -16,4 +16,7 @@ extension EnvironmentValues {
 
     /// The current clock handler.
     @Entry var clock = CartographyClock()
+
+    /// The cache for resolved drawing images.
+    @Entry var drawingCache = DrawingCacheService()
 }

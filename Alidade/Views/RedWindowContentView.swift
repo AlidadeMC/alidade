@@ -108,12 +108,7 @@ struct RedWindowContentView: View {
 
             if showMapDrawings {
                 Tab(route: .drawings) {
-                    NavigationStack {
-                        ContentUnavailableView(
-                            "Mind the Gap",
-                            systemImage: "square.dashed",
-                            description: Text("This view hasn't been constructed yet."))
-                    }
+                    DrawingPage(file: $file)
                 }
                 .customizationID("app.tab.drawings")
                 #if os(iOS)

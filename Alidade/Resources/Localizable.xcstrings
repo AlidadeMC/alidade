@@ -46,6 +46,9 @@
         }
       }
     },
+    "^[%lld drawing](inflect: true) will no longer be displayed on the map, and you will no longer be able to access them in this document." : {
+
+    },
     "^[%lld Tag](inflect: true)" : {
 
     },
@@ -77,6 +80,12 @@
 
     },
     "Any associated images will be removed, and they will no longer be visible in the Gallery." : {
+
+    },
+    "Any drawings you add to your map will be available here." : {
+
+    },
+    "Are you sure you want to delete %@?" : {
 
     },
     "Are you sure you want to remove '%@'?" : {
@@ -142,6 +151,12 @@
     "Debug" : {
 
     },
+    "Delete" : {
+
+    },
+    "Delete ^[%lld Drawing](inflect: true)" : {
+
+    },
     "Desert Pyramid" : {
 
     },
@@ -155,6 +170,9 @@
 
     },
     "Display" : {
+
+    },
+    "Don't Delete" : {
 
     },
     "Don't Remove" : {
@@ -314,9 +332,6 @@
     "Maps that use version numbers and seeds from _Minecraft: Java Edition_ will work with Alidade. Minecraft (Bedrock) is currently not supported." : {
 
     },
-    "Mind the Gap" : {
-
-    },
     "Minecraft Version" : {
 
     },
@@ -336,6 +351,9 @@
 
     },
     "No Description Written" : {
+
+    },
+    "No Drawings Available" : {
 
     },
     "No Photos Uploaded" : {
@@ -434,6 +452,9 @@
     "Seed" : {
 
     },
+    "Select" : {
+
+    },
     "Select an Icon" : {
 
     },
@@ -501,9 +522,6 @@
 
     },
     "This seed will be converted to: `%@`" : {
-
-    },
-    "This view hasn't been constructed yet." : {
 
     },
     "Tips" : {

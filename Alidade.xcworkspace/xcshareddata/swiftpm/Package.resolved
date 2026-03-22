@@ -7,7 +7,7 @@
       "location" : "https://source.marquiskurt.net/marquiskurt/bedrock",
       "state" : {
         "branch" : "main",
-        "revision" : "b58dcbfda6f1815466cdead1a4aa32b7ef3963ce"
+        "revision" : "0d2403e8e3f13e4589d44095d1910a4656de31c4"
       }
     },
     {
@@ -34,7 +34,7 @@
       "location" : "https://source.marquiskurt.net/marquiskurt/imageprocessing",
       "state" : {
         "branch" : "main",
-        "revision" : "6b44d42805589ca83a8f4a779a79856c74193892"
+        "revision" : "8d2dc57f5c3f8fc0e1f7d7f00377623d975de639"
       }
     },
     {
