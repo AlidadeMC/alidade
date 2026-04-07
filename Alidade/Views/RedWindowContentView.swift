@@ -43,7 +43,7 @@ struct RedWindowContentView: View {
         @Bindable var env = redWindowEnvironment
 
         TabView(selection: $env.currentRoute) {
-            Tab(route: .map) {
+            Tab(route: RedWindowRoute.map) {
                 // NOTE(alicerunsonfedora): This should be completely unnecessary, but for some reason SwiftUI keeps
                 // the view around, allowing the map's annotations to be continually reconstructed while other tabs are
                 // editing content. This shouldn't be the case, so the map is now only going to display when it's
@@ -56,8 +56,13 @@ struct RedWindowContentView: View {
                     }
                 }
             }
+            .customizationID("app.tab.map")
+            #if os(iOS)
+                .customizationBehavior(.reorderable, for: .tabBar)
+                .customizationBehavior(.disabled, for: .sidebar)
+            #endif
 
-            Tab(route: .worldEdit) {
+            Tab(route: RedWindowRoute.worldEdit) {
                 NavigationStack {
                     MapCreatorForm(
                         worldName: $file.manifest.name,
@@ -77,16 +82,17 @@ struct RedWindowContentView: View {
                 .customizationBehavior(.disabled, for: .sidebar)
             #endif
 
-            Tab(route: .allPinsCompact) {
+            Tab(route: RedWindowRoute.allPinsCompact) {
                 RedWindowPinLibraryView(file: $file, path: $libraryNavigationPath)
             }
             .hidden(horizontalSizeClass != .compact)
             .customizationID("app.tab.library")
             #if os(iOS)
-                .customizationBehavior(.disabled, for: .automatic)
+                .customizationBehavior(.disabled, for: .sidebar)
+                .customizationBehavior(.reorderable, for: .tabBar)
             #endif
 
-            Tab(route: .gallery) {
+            Tab(route: RedWindowRoute.gallery) {
                 NavigationStack {
                     CartographyGalleryView(
                         context: CartographyGalleryWindowContext(
@@ -107,7 +113,7 @@ struct RedWindowContentView: View {
             }
 
             if showMapDrawings {
-                Tab(route: .drawings) {
+                Tab(route: RedWindowRoute.drawings) {
                     DrawingPage(file: $file)
                 }
                 .customizationID("app.tab.drawings")
@@ -128,6 +134,7 @@ struct RedWindowContentView: View {
                 .tabPlacement(.sidebarOnly)
                 #if os(iOS)
                     .customizationBehavior(.disabled, for: .sidebar)
+                    .customizationBehavior(.reorderable, for: .tabBar)
                 #endif
                 ForEach(IndexedPinCollection(file.pins)) { (mapPin: IndexedPinCollection.Element) in
                     Tab(
@@ -167,6 +174,7 @@ struct RedWindowContentView: View {
             .hidden(horizontalSizeClass == .compact)
             #if os(iOS)
                 .customizationBehavior(.disabled, for: .sidebar)
+                .customizationBehavior(.reorderable, for: .tabBar)
             #endif
         }
         #if os(macOS)
