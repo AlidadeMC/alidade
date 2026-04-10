@@ -148,9 +148,6 @@
     "Customize Pin" : {
 
     },
-    "Debug" : {
-
-    },
     "Delete" : {
 
     },
@@ -257,9 +254,6 @@
 
     },
     "Here be dragons" : {
-
-    },
-    "Hide All Tips" : {
 
     },
     "Hide Inspector" : {
@@ -428,9 +422,6 @@
     "Remove..." : {
 
     },
-    "Reset Tip Datastore" : {
-
-    },
     "Ruined Portal" : {
 
     },
@@ -468,9 +459,6 @@
 
     },
     "Shipwreck" : {
-
-    },
-    "Show All Tips" : {
 
     },
     "Show common points of interest and where players are on your Minecraft server from the Bluemap plugin.\n[Learn more…](https://docs.alidade.dev/documentation/alidade/guide-bluemap)" : {
@@ -522,9 +510,6 @@
 
     },
     "This seed will be converted to: `%@`" : {
-
-    },
-    "Tips" : {
 
     },
     "To filter results to a specific dimension such as the nether, use the `dimension: Nether` syntax." : {
