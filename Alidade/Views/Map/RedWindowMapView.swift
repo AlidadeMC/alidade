@@ -69,8 +69,12 @@ struct RedWindowMapView: View {
                         .ornaments(.all)
                         .mapColorScheme(useNaturalColors ? .natural : .default)
                         #if os(iOS)
-                            .allowsPencilKitDrawings(allowMapDrawings)
-                            .activateDrawingCanvas(isDrawing: $isDrawingOnMap, clearWhenDismissed: true)
+                        .allowsPencilKitDrawings(allowMapDrawings)
+                        .activateDrawingCanvas(
+                            isDrawing: $isDrawingOnMap,
+                            clearWhenDismissed: true,
+                            autosubmitsWhenDismissed: true
+                        )
                             .addedMapDrawing(storeDrawing(_:))
                         #endif
                     }
