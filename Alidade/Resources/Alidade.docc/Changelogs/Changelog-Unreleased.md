@@ -45,4 +45,6 @@ time as new versions and features are added.
   - Use `origin: {X,Z}` to localize results to a specific origin point.
   - Use `dimension: <dimension>` to filter results to a specific
     dimension.
-
+- On macOS, the search bar is now automatically focused when navigating to
+  the search bar. This can be disabled in the settings via 'Automatically
+  focus the search bar when going to the Search tab' (ALD-26).

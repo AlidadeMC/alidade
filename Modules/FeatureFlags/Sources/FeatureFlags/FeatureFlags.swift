@@ -22,6 +22,7 @@ import Foundation
 /// ```
 public enum FeatureFlag {
     case drawings
+    case collaborations
 }
 
 extension FeatureFlag {
@@ -32,12 +33,19 @@ extension FeatureFlag {
         switch self {
         case .drawings:
             "flags.features.map_drawings"
+        case .collaborations:
+            "flags.features.document_collaboration"
         }
     }
 
     /// Whether the flag is enabled by default.
     var isEnabledByDefault: Bool {
-        false
+        switch self {
+        case .drawings:
+            return false
+        case .collaborations:
+            return false
+        }
     }
 }
 

@@ -19,9 +19,6 @@ struct AlidadeSettingsView: View {
     @AppStorage(UserDefaults.Keys.generalMacSearchAutofocus.rawValue)
     private var searchAutoFocus = true
 
-    @AppStorage(FeatureFlag.drawings.keyName)
-    private var flagDrawings = false
-
     var body: some View {
         TabView {
             Tab("General", systemImage: "gear") {
@@ -52,12 +49,7 @@ struct AlidadeSettingsView: View {
             )
             .inlineBannerVariant(.warning)
             .padding(.top)
-            Form {
-                Toggle(isOn: $flagDrawings) {
-                    Text("Map Drawings")
-                }
-            }
-            .formStyle(.grouped)
+            FeatureFlagView()
         }
     }
 }
