@@ -14,7 +14,7 @@ The following document outlines the changes in each version of the app
 across Mac, iPhone, and iPad. You can find the release notes for each
 release series below in the topics.
 
-The current latest release is **1.0.1**.
+The current latest release is **2025.2.3**.
 
 
 ## Topics

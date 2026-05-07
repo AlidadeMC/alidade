@@ -12,6 +12,15 @@ View the release notes for the 2025.2.x release series of Alidade.
 > and improvements may change over time, and the current releases are not
 > indicative of the final release build. Proceed with caution.
 
+## 2025.2.4 (Build 131)
+
+### General Changes
+
+- Fixes an issue where opening multiple documents in iOS and iPadOS could
+  result in a blank screen (ALD-32).
+- The "Map" tab has been restored as the default tab, and the tab can now
+  be reordered in the tab bar (ALD-29, ALD-32).
+
 ## 2025.2.3 (Build 101)
 
 ### General Changes
