@@ -28,6 +28,7 @@ struct RedWindowContentView: View {
     @Environment(\.openWindow) private var openWindow
 
     @FeatureFlagged(.drawings) private var showMapDrawings
+    @FeatureFlagged(.collaborations) private var documentCollaborations
 
     /// The file to read from and write to.
     @Binding var file: CartographyMapFile
@@ -182,6 +183,11 @@ struct RedWindowContentView: View {
         #endif
         .tabViewStyle(.sidebarAdaptable)
         .tabViewCustomization($file.appState.tabCustomization)
+        .tabViewSidebarBottomBar {
+            if documentCollaborations, let url = documentURL {
+                CollaborationBottomBar(url: url)
+            }
+        }
         .animation(.interactiveSpring, value: env.currentRoute)
         .onChange(of: horizontalSizeClass, initial: true) { _, newSizeClass in
             switch (newSizeClass, env.currentRoute) {

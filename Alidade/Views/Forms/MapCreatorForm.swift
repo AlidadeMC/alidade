@@ -7,6 +7,7 @@
 
 import AlidadeUI
 import CubiomesKit
+import FeatureFlags
 import MCMap
 import SwiftUI
 
@@ -32,11 +33,20 @@ struct MapCreatorForm: View {
     var displayMode: DisplayMode = .create
 
     @Environment(\.colorScheme) private var colorScheme
+    @Environment(\.documentURL) private var documentURL
+    @Environment(\.tabBarPlacement) private var tabBarPlacement
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+
+    @FeatureFlagged(.collaborations) private var documentCollaborations
 
     @State private var seedString = ""
     @State private var invalidVersion = false
     @State private var autoconvert = false
     @State private var version = MC_1_21_WD
+
+    private var shouldShowCollaborationButton: Bool {
+        documentCollaborations && (horizontalSizeClass == .compact || tabBarPlacement != .sidebar)
+    }
 
     #if DEBUG
         internal var didAppear: ((Self) -> Void)?
@@ -132,6 +142,14 @@ struct MapCreatorForm: View {
             #if DEBUG
                 self.didAppear?(self)
             #endif
+        }
+        .toolbar {
+            if shouldShowCollaborationButton, let url = documentURL {
+                ToolbarItem {
+                    CollaborationToolbarItem(contentsOf: url)
+                        .frame(width: 36, height: 36)
+                }
+            }
         }
     }
 }
