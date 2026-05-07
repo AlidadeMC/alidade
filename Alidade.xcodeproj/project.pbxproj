@@ -658,6 +658,8 @@
 				branch = main;
 				kind = branch;
 			};
+			traits = (
+			);
 		};
 		95141F542F0874D200DAF47D /* XCRemoteSwiftPackageReference "DocumentKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
