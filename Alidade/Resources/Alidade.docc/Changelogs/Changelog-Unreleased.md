@@ -19,6 +19,21 @@ time as new versions and features are added.
 
 - Alidade 2026.1 now requires iOS/macOS 26 or later.
 
+### Collaboration
+
+> Important: The document collaboration features are in an experimental
+> state and are controlled by the feature flag
+> `flags.features.document_collaboration`. Visit the Alidade Settings page
+> to enable the feature.
+
+> Warning: Document collaboration features are _highly_ experimental and
+> should not be enabled for production environments! Features are subject
+> to change at any given moment and should not be relied upon, since it
+> may result in data loss. Continue at your own risk!
+
+- Players can now invite other players to collaborate on maps through
+  iCloud Drive similar to apps like Pages, Numbers, and Keynote.
+
 ### Drawings
 
 > Important: The Drawings feature is currently in beta and is controlled
