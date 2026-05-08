@@ -29,16 +29,35 @@ struct AlidadeSettingsView: View {
                 featureFlagsView
             }
         }
-        .frame(maxWidth: 450, minHeight: 300)
+        .tabViewStyle(.sidebarAdaptable)
+        .tabViewSidebarBottomBar {
+            HStack {
+                VStack(alignment: .leading) {
+                    Text("\(Alidade.information.name)")
+                        .font(.headline)
+                    Text("v\(Alidade.information.version) (\(Alidade.information.buildNumber))")
+                        .font(.subheadline)
+                }
+                Spacer()
+            }
+            .padding(.horizontal, 8)
+            .padding(.vertical, 2)
+            .frame(minWidth: 200, maxWidth: 250)
+        }
+        .formStyle(.grouped)
     }
 
     private var generalSettingsView: some View {
         Form {
-            Toggle(isOn: $searchAutoFocus) {
-                Text("Automatically focus the search bar when going to the Search tab")
+            Section {
+                Toggle(isOn: $searchAutoFocus) {
+                    Text("Automatically focus the search bar when going to the Search tab")
+                }
+            } header: {
+                Text("Search")
             }
         }
-        .formStyle(.grouped)
+        .navigationTitle("General")
     }
 
     private var featureFlagsView: some View {
@@ -48,8 +67,8 @@ struct AlidadeSettingsView: View {
                 message: "The following flags control experimental features. Proceed with caution."
             )
             .inlineBannerVariant(.warning)
-            .padding(.top)
             FeatureFlagView()
         }
+        .navigationTitle("Feature Flags")
     }
 }

@@ -25,6 +25,8 @@ public enum FeatureFlag {
     case collaborations
 }
 
+extension FeatureFlag: Hashable, CaseIterable {}
+
 extension FeatureFlag {
     /// The name of the key as stored in User Defaults.
     ///

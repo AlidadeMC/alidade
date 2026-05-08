@@ -19,6 +19,9 @@ enum WindowID: String {
     /// The ID for opening the "Welcome to Alidade" window on macOS.
     @available(macOS 15.0, *)
     case launch
+
+    @available(macOS 26.0, *)
+    case settings
 }
 
 extension OpenWindowAction {

@@ -28,5 +28,15 @@ public struct FeatureFlagView: View {
             }
         }
         .formStyle(.grouped)
+        .toolbar {
+            Button("Reset") {
+                resetFlagsToDefaults()
+            }
+        }
+    }
+
+    private func resetFlagsToDefaults() {
+        flagDrawings = FeatureFlag.drawings.isEnabledByDefault
+        collaborationFeatures = FeatureFlag.drawings.isEnabledByDefault
     }
 }

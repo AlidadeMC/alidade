@@ -100,6 +100,12 @@ struct Alidade: App {
                         openWindow(id: .about)
                     }
                 }
+                CommandGroup(replacing: .appSettings) {
+                    Button("Settings...", systemImage: "gear") {
+                        openWindow(id: .settings)
+                    }
+                    .keyboardShortcut(",", modifiers: .command)
+                }
                 CommandGroup(after: .windowArrangement) {
                     Button("Welcome to \(Self.information.name)") {
                         openWindow(id: .launch)
@@ -118,10 +124,13 @@ struct Alidade: App {
 
         #if os(macOS)
             AboutWindow()
-            Settings {
+            Window("Settings", id: "settings") {
                 AlidadeSettingsView()
-                    .presentedWindowToolbarStyle(.unifiedCompact)
+                    .frame(width: 700)
+                    .frame(minHeight: 350)
             }
+            .windowResizability(.contentSize)
+            .windowIdealSize(.fitToContent)
         #endif
 
         CartographyGalleryScene()
