@@ -8,10 +8,6 @@ View the release notes for the 2025.2.x release series of Alidade.
     @PageImage(purpose: card, source: "Card-Changelog")
 }
 
-> Important: The following release is **pre-release software**. Features
-> and improvements may change over time, and the current releases are not
-> indicative of the final release build. Proceed with caution.
-
 ## 2025.2.4 (Build 131)
 
 ### General Changes
