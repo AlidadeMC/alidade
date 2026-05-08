@@ -18,6 +18,10 @@ time as new versions and features are added.
 ### General
 
 - Alidade 2026.1 now requires iOS/macOS 26 or later.
+- Players can now set a preferred system color scheme for Alidade
+  specifically in the Settings view.
+- The Settings view has been redesigned on macOS to match more closely to
+  other Liquid Glass apps.
 
 ### Collaboration
 
