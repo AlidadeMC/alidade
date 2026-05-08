@@ -51,6 +51,7 @@ struct Alidade: App {
                 )
                 .environment(\.documentURL, configuration.fileURL)
                 .environment(\.clock, clock)
+                .usePreferredAppearance()
         }
         .onChange(of: scenePhase) { _, newValue in
             switch newValue {
@@ -126,6 +127,7 @@ struct Alidade: App {
             AboutWindow()
             Window("Settings", id: "settings") {
                 AlidadeSettingsView()
+                    .usePreferredAppearance()
                     .frame(width: 700)
                     .frame(minHeight: 350)
             }

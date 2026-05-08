@@ -85,6 +85,9 @@
     "Any drawings you add to your map will be available here." : {
 
     },
+    "Appearance" : {
+
+    },
     "Are you sure you want to delete %@?" : {
 
     },
@@ -146,6 +149,9 @@
 
     },
     "Customize Pin" : {
+
+    },
+    "Dark" : {
 
     },
     "Delete" : {
@@ -284,6 +290,9 @@
 
     },
     "Library" : {
+
+    },
+    "Light" : {
 
     },
     "List" : {
@@ -531,6 +540,9 @@
 
     },
     "Update player locations more frequently with Realtime Sync. [Learn more…](https://docs.alidade.dev/documentation/alidade/guide-bluemap#Realtime-player-sync)" : {
+
+    },
+    "Use system appearance" : {
 
     },
     "Use the search bar to look through your pins, or to locate nearby structures and biomes." : {

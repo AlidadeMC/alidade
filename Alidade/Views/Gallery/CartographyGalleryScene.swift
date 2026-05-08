@@ -17,6 +17,7 @@ struct CartographyGalleryScene: Scene {
             NavigationStack {
                 CartographyGalleryView(context: galleryCtx.wrappedValue ?? .empty())
             }
+            .usePreferredAppearance()
             #if os(iOS)
                 .toolbarRole(.browser)
             #endif

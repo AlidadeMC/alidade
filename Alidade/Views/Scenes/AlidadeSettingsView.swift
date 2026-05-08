@@ -6,8 +6,8 @@
 //
 
 import AlidadeUI
-import SwiftUI
 import FeatureFlags
+import SwiftUI
 
 /// A view that displays the app's settings.
 ///
@@ -16,6 +16,9 @@ import FeatureFlags
 /// user interface is driven by the Settings bundle for this app.
 @available(macOS 15.0, *)
 struct AlidadeSettingsView: View {
+    @AppStorage(UserDefaults.Keys.generalAppearance.rawValue)
+    private var preferredColorScheme = PreferredColorScheme.automatic
+
     @AppStorage(UserDefaults.Keys.generalMacSearchAutofocus.rawValue)
     private var searchAutoFocus = true
 
@@ -49,6 +52,11 @@ struct AlidadeSettingsView: View {
 
     private var generalSettingsView: some View {
         Form {
+            Picker("Appearance", selection: $preferredColorScheme) {
+                ForEach(PreferredColorScheme.allCases, id: \.self) { option in
+                    Text(option.readableName).tag(option)
+                }
+            }
             Section {
                 Toggle(isOn: $searchAutoFocus) {
                     Text("Automatically focus the search bar when going to the Search tab")

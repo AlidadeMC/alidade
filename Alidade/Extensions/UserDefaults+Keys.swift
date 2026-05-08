@@ -15,6 +15,8 @@ extension UserDefaults {
 
         case mapNaturalColors = "map.naturalColors"
         case mapCoordinateIndicator = "map.coordinateIndicator"
+
+        case generalAppearance = "general.colorScheme"
     }
 
     func valueExists(forKey key: Keys) -> Bool {
@@ -25,7 +27,15 @@ extension UserDefaults {
         self.bool(forKey: key.rawValue)
     }
 
+    func string(forKey key: Keys) -> String {
+        self.string(forKey: key.rawValue) ?? ""
+    }
+
     func set(_ value: Bool, forKey key: Keys) {
+        self.set(value, forKey: key.rawValue)
+    }
+
+    func set(_ value: String, forKey key: Keys) {
         self.set(value, forKey: key.rawValue)
     }
 }

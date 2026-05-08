@@ -18,6 +18,7 @@ struct AboutWindowView: View {
         static let appIconSize: Double = 128.0
         static let paneWidth: Double = 300.0
     }
+
     private var version: String {
         return String(localized: "v\(Alidade.information.version) (Build \(Alidade.information.buildNumber))")
     }
@@ -75,7 +76,7 @@ struct AboutWindowView: View {
             .frame(width: Constants.paneWidth)
             .frame(maxHeight: .infinity)
             .background(.windowBackground)
-
+            .usePreferredAppearance()
         }
         .task {
             guard let creditsPath = Bundle.main.url(forResource: "Credits", withExtension: "md") else {
