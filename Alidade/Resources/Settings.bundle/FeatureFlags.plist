@@ -10,6 +10,14 @@
 	<array>
 		<dict>
 			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>Feature Flags</string>
+			<key>FooterText</key>
+			<string>featureflag_disclaimer</string>
+		</dict>
+		<dict>
+			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 			<key>Title</key>
 			<string>Map Drawings</string>

@@ -32,20 +32,6 @@
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
-			<string></string>
-		</dict>
-		<dict>
-			<key>Type</key>
-			<string>PSChildPaneSpecifier</string>
-			<key>Title</key>
-			<string>Feature Flags</string>
-			<key>File</key>
-			<string>FeatureFlags</string>
-		</dict>
-		<dict>
-			<key>Type</key>
-			<string>PSGroupSpecifier</string>
-			<key>Title</key>
 			<string>About Alidade</string>
 		</dict>
 		<dict>
@@ -75,6 +61,20 @@
 			<string>Credits</string>
 			<key>File</key>
 			<string>Credits</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string></string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+			<key>Title</key>
+			<string>Feature Flags</string>
+			<key>File</key>
+			<string>FeatureFlags</string>
 		</dict>
 	</array>
 </dict>

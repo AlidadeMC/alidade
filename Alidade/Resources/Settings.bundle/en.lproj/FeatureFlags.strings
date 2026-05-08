@@ -1,1 +1,4 @@
 "Red Window" = "Liquid Glass Design (Red Window)";
+"Map Drawings" = "Map Drawings";
+"Document Collaboration" = "Document Collaboration";
+"featureflag_disclaimer" = "Feature flags are experimental in nature and should not be used in production environments. Documents and data may be lost when enabling these flags.";
