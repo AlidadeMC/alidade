@@ -82,6 +82,7 @@ struct AlidadeSettingsView: View {
                 message: "The following flags control experimental features. Proceed with caution."
             )
             .inlineBannerVariant(.warning)
+            .padding(.top)
             FeatureFlagView()
         }
         .navigationTitle("Feature Flags")

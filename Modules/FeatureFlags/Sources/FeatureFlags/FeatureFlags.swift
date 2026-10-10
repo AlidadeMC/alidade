@@ -44,7 +44,7 @@ extension FeatureFlag {
     var isEnabledByDefault: Bool {
         switch self {
         case .drawings:
-            return false
+            return true
         case .collaborations:
             return false
         }
