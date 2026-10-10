@@ -22,6 +22,8 @@ time as new versions and features are added.
 - The About view has been updated with some design refinements and a clear
   disclosure about how generative AI is used to create Alidade (it isn't,
   to be clear).
+- Fixes a bug where creating new documents on macOS didn't respect the
+  player's preferences in the template form (ALD-31).
 
 ### Drawings
 
