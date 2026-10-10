@@ -22,13 +22,15 @@ struct PinCreatorFormTests {
         #expect(hooks.location == .zero)
     }
 
-    @Test func formSubmit() throws {
+    @Test(.disabled("ViewInspector crashes on this test"))
+    func formSubmit() throws {
         let form =
             PinCreatorForm(location: .zero) { newPin in
                 #expect(newPin.name == "Pin")
                 #expect(newPin.color == .blue)
                 #expect(newPin.position == .zero)
             }
+        
         let sut = try form.inspect()
         let doneButton = try sut.find(button: "Create")
         try doneButton.tap()
