@@ -79,6 +79,7 @@ struct CartographyGalleryView: View {
             .navigationSubtitle(context.documentBaseURL?.lastPathComponent ?? "Untitled Map")
         #endif
         .animation(.interactiveSpring, value: scaledToFill)
+        .usePreferredToolbarBackground()
         .toolbar {
             ToolbarItem {
                 Button(

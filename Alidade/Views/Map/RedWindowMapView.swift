@@ -79,9 +79,6 @@ struct RedWindowMapView: View {
                         #endif
                     }
                 }
-                #if os(macOS)
-                    .toolbarBackgroundVisibility(.hidden, for: .windowToolbar)
-                #endif
                 .animation(.interactiveSpring, value: state)
                 .ignoresSafeArea(.all)
                 .overlay(alignment: .bottomLeading) {
@@ -143,6 +140,7 @@ struct RedWindowMapView: View {
                 .toolbar { toolbar(env) }
             }
         }
+        .usePreferredToolbarBackground()
     }
 
     private func storeDrawing(_ drawing: MinecraftMapDrawing) {

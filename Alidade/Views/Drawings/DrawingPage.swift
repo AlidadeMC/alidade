@@ -40,6 +40,7 @@ struct DrawingPage: View {
                 .animation(.interactiveSpring, value: isEditing)
                 .animation(.interactiveSpring, value: requestedDeletion)
                 .animation(.interactiveSpring, value: deletables)
+                .usePreferredToolbarBackground()
                 .toolbar {
                     if isEditing {
                         ToolbarItem {
