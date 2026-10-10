@@ -14,7 +14,7 @@ Alidade was made possible thanks to the following open-source projects:
 **Special Thanks**
 - Christine Kearney-Kurt
 - Michael Kurt
-- Jo Kurt
+- Jo Kearney-Rueben
 - Em Belkowitz
 - Paul Straw
 - Zack Snyder (The3DPrintist)

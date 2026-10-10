@@ -19,7 +19,6 @@ struct AboutWindowViewTests {
         let about = AboutWindowView()
         let sut = try about.inspect()
         #expect(!about.testHooks.versionString.isEmpty)
-        #expect(about.testHooks.creditsFile == nil)
         #expect(!sut.isAbsent)
     }
 }

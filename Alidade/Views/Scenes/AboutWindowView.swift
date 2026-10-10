@@ -16,23 +16,26 @@ import SwiftUI
 struct AboutWindowView: View {
     private enum Constants {
         static let appIconSize: Double = 128.0
-        static let paneWidth: Double = 300.0
+        static let paneWidth: Double = 325.0
+        static let windowHeight: Double = 425.0
     }
 
     private var version: String {
         return String(localized: "v\(Alidade.information.version) (Build \(Alidade.information.buildNumber))")
     }
 
-    @State private var creditsPane: AttributedString?
-
     var body: some View {
         HStack(spacing: 0) {
             VStack {
                 VStack {
-                    Image("AppIcon-static")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: Constants.appIconSize, height: Constants.appIconSize)
+                    Group {
+                        Image("AppIcon-static")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: Constants.appIconSize, height: Constants.appIconSize)
+                    }
+                    .balatroCardEffect(speed: 0.5, rotation: 2, direction: .clockwise)
+                    .padding(2)
                     Text(Alidade.information.name)
                         .font(.title)
                         .bold()
@@ -42,9 +45,10 @@ struct AboutWindowView: View {
                     Text(Alidade.information.copyrightString)
                         .foregroundStyle(.tertiary)
                         .padding(.top, 4)
+                        .padding(.horizontal, 4)
                 }
 
-                VStack {
+                VStack(alignment: .leading) {
                     if let github = URL(appLink: .github) {
                         Link(destination: github) {
                             Label("View Source Code", systemImage: "hammer")
@@ -65,39 +69,14 @@ struct AboutWindowView: View {
             }
             .frame(width: Constants.paneWidth)
             .frame(maxHeight: .infinity)
-            Group {
-                if let creditsPane {
-                    ScrollView {
-                        Text(creditsPane)
-                            .padding(.horizontal, 12)
-                    }
-                }
-            }
-            .frame(width: Constants.paneWidth)
-            .frame(maxHeight: .infinity)
-            .background(.windowBackground)
-            .usePreferredAppearance()
+
+            CreditsScrollView()
+                .frame(width: Constants.paneWidth)
+                .frame(maxHeight: .infinity)
+                .background(.windowBackground)
+                .usePreferredAppearance()
         }
-        .task {
-            guard let creditsPath = Bundle.main.url(forResource: "Credits", withExtension: "md") else {
-                return
-            }
-            do {
-                let contents = try String(contentsOf: creditsPath, encoding: .utf8)
-                creditsPane = try AttributedString(
-                    markdown: contents,
-                    options:
-                        AttributedString
-                        .MarkdownParsingOptions(
-                            allowsExtendedAttributes: true,
-                            interpretedSyntax: .inlineOnlyPreservingWhitespace
-                        )
-                )
-            } catch {
-                print("Failed to get credits file: \(error.localizedDescription)")
-            }
-        }
-        .frame(width: 600, height: 400)
+        .frame(width: Constants.paneWidth * 2, height: Constants.windowHeight)
         .background(.clear)
     }
 }
@@ -116,10 +95,6 @@ struct AboutWindowView: View {
 
             var versionString: String {
                 target.version
-            }
-
-            var creditsFile: AttributedString? {
-                target.creditsPane
             }
         }
     }

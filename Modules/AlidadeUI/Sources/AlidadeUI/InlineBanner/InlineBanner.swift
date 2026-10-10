@@ -32,6 +32,16 @@ import SwiftUI
 /// ```
 public struct InlineBanner: View {
     @Environment(\.colorScheme) private var colorScheme
+    
+    private enum Constants {
+        static let cornerRadius: CGFloat = {
+            if #available(macOS 26, iOS 26, *) {
+                return 12.0
+            } else {
+                return 4.0
+            }
+        }()
+    }
 
     /// An enumeration representing the variants of an inline banner.
     public enum Variant: Sendable {
@@ -54,6 +64,11 @@ public struct InlineBanner: View {
         ///
         /// Use this variant to display message that indicate an action has failed, or something critical has occurred.
         case error
+        
+        /// The "authored by humans" variant.
+        ///
+        /// Use this variant to display a relevant "Authored By Humans" message.
+        case humanAuthored
     }
 
     var title: LocalizedStringKey
@@ -94,7 +109,7 @@ public struct InlineBanner: View {
         .labelStyle(.inlineBanner)
         #if os(macOS)
             .padding()
-            .background(RoundedRectangle(cornerRadius: 4).fill(backgroundColor))
+            .background(RoundedRectangle(cornerRadius: Constants.cornerRadius).fill(backgroundColor))
         #else
             .background(backgroundColor)
         #endif
@@ -114,6 +129,8 @@ public struct InlineBanner: View {
             "exclamationmark.triangle"
         case .error:
             "exclamationmark.circle"
+        case .humanAuthored:
+            "figure.2.left.holdinghands"
         }
     }
 
@@ -127,6 +144,8 @@ public struct InlineBanner: View {
             SemanticColors.Alert.warningBackground.resolve(with: colorScheme)
         case .error:
             SemanticColors.Alert.errorBackground.resolve(with: colorScheme)
+        case .humanAuthored:
+            SemanticColors.Alert.humanAuthoredBackground.resolve(with: colorScheme)
         }
     }
 
@@ -140,6 +159,8 @@ public struct InlineBanner: View {
             SemanticColors.Alert.warningForeground.resolve(with: colorScheme)
         case .error:
             SemanticColors.Alert.errorForeground.resolve(with: colorScheme)
+        case .humanAuthored:
+            SemanticColors.Alert.humanAuthoredForeground.resolve(with: colorScheme)
         }
     }
 }

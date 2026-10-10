@@ -18,6 +18,9 @@ extension InlineBanner.Variant {
             "Warning"
         case .error:
             "Error"
+        case .humanAuthored:
+            // NOTE: The title speaks for itself.
+            ""
         }
     }
 }

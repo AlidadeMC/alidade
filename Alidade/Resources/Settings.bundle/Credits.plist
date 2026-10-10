@@ -12,6 +12,14 @@
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
+			<string>Authored By Humans</string>
+			<key>FooterText</key>
+			<string>GEN_AI_DISCLOSURE</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
 			<string>Acknowledgements</string>
 			<key>FooterText</key>
 			<string>credit_text</string>

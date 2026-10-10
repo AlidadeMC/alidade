@@ -145,12 +145,13 @@ struct Alidade: App {
             Window("About \(Alidade.information.name)", id: "about") {
                 AboutWindowView()
                     .containerBackground(.thickMaterial, for: .window)
+                    .windowMinimizeBehavior(.disabled)
+                    .windowResizeBehavior(.disabled)
             }
             .windowStyle(.hiddenTitleBar)
             .windowResizability(.contentSize)
             .windowToolbarStyle(.unified)
             .windowBackgroundDragBehavior(.enabled)
-
         }
     }
 #endif

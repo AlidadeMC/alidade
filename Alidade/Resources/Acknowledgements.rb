@@ -41,6 +41,8 @@ credit_text = trimmed.join("\\n")
 credits_file = "\"Credits\" = \"Credits\";\n\"credit_text\"=\""
 credits_file << credit_text
 credits_file << "\";\n"
+credits_file << "\"Authored By Humans\" = \"Authored By Humans\";\n"
+credits_file << "\"GEN_AI_DISCLOSURE\" = \"Assets and code for Alidade and its direct dependencies such as CubiomesKit are created by humans without generative AI tools.\";";
 
 File.open(output_file, 'w') { |file|
     file.write(credits_file)

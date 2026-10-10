@@ -97,6 +97,9 @@
     "Are you sure you want to remove %lld pins?" : {
 
     },
+    "Authored By Humans" : {
+
+    },
     "Automatically focus the search bar when going to the Search tab" : {
 
     },
@@ -190,6 +193,9 @@
     "Drawings" : {
 
     },
+    "E" : {
+
+    },
     "Edit" : {
 
     },
@@ -231,6 +237,17 @@
     },
     "Gallery is Empty" : {
 
+    },
+    "GEN_AI_DISCLOSURE" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Assets and code for Alidade and its direct dependencies such as CubiomesKit are created by humans without generative AI tools."
+          }
+        }
+      }
     },
     "General" : {
 

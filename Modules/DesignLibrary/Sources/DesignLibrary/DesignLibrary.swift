@@ -51,6 +51,8 @@ public enum SemanticColors {
             light: Color(.Primitive.Yellow._100), dark: Color(.Primitive.Yellow._700))
         public static let errorBackground = ColorSchemeSet(
             light: Color(.Primitive.Red._100), dark: Color(.Primitive.Red._700))
+        public static let humanAuthoredBackground = ColorSchemeSet(
+            light: Color(.Primitive.Purple._100), dark: Color(.Primitive.Purple._700))
 
         public static let infoForeground = ColorSchemeSet(
             light: Color(.Primitive.Blue._600), dark: Color(.Primitive.Blue._200))
@@ -60,5 +62,7 @@ public enum SemanticColors {
             light: Color(.Primitive.Yellow._600), dark: Color(.Primitive.Yellow._200))
         public static let errorForeground = ColorSchemeSet(
             light: Color(.Primitive.Red._600), dark: Color(.Primitive.Red._200))
+        public static let humanAuthoredForeground = ColorSchemeSet(
+            light: Color(.Primitive.Purple._600), dark: Color(.Primitive.Purple._200))
     }
 }
