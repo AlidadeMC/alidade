@@ -80,6 +80,7 @@ struct RedWindowPinDetailView: View {
         .animation(.interactiveSpring, value: tabBarPlacement)
         .animation(.interactiveSpring, value: editMode)
         .animation(.interactiveSpring, value: displayInspector)
+        .usePreferredToolbarBackground()
         .task {
             center = pin.position
             if let currentColor = pin.color {

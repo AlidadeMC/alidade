@@ -30,6 +30,16 @@
 		</dict>
 		<dict>
 			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Show toolbar backgrounds</string>
+			<key>Key</key>
+			<string>general.drawToolbarBackgrounds</string>
+			<key>DefaultValue</key>
+			<false/>
+		</dict>
+		<dict>
+			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
 			<string>About Alidade</string>

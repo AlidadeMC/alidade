@@ -102,6 +102,7 @@ struct RedWindowPinHeader: RedWindowDetailCell {
             }
             .padding()
         }
+        .allowsHitTesting(false)
     }
 
     private var coverImage: Data? {

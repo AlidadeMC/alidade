@@ -17,6 +17,7 @@ extension UserDefaults {
         case mapCoordinateIndicator = "map.coordinateIndicator"
 
         case generalAppearance = "general.colorScheme"
+        case generalToolbarBackgrounds = "general.drawToolbarBackgrounds"
     }
 
     func valueExists(forKey key: Keys) -> Bool {

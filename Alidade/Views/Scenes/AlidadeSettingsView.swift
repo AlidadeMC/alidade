@@ -19,6 +19,9 @@ struct AlidadeSettingsView: View {
     @AppStorage(UserDefaults.Keys.generalAppearance.rawValue)
     private var preferredColorScheme = PreferredColorScheme.automatic
 
+    @AppStorage(UserDefaults.Keys.generalToolbarBackgrounds.rawValue)
+    private var showToolbarBackgrounds = false
+
     @AppStorage(UserDefaults.Keys.generalMacSearchAutofocus.rawValue)
     private var searchAutoFocus = true
 
@@ -57,6 +60,10 @@ struct AlidadeSettingsView: View {
                     Text(option.readableName).tag(option)
                 }
             }
+            Toggle(isOn: $showToolbarBackgrounds) {
+                Text("Show toolbar backgrounds")
+            }
+
             Section {
                 Toggle(isOn: $searchAutoFocus) {
                     Text("Automatically focus the search bar when going to the Search tab")
