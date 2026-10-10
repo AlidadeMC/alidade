@@ -5,6 +5,8 @@
 //  Created by Marquis Kurt on 18-06-2025.
 //
 
+import Bedrock
+
 /// A request to delete a pin from a given file.
 ///
 /// This type is used in the ``RedWindowEnvironment`` to signal to the environment that the player is requesting to

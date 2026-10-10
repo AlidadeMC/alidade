@@ -1,0 +1,96 @@
+{
+  "originHash" : "c225b9a7c90e00f27f3de746c726309e1df34d0a6314a18f2963106a6b6374a1",
+  "pins" : [
+    {
+      "identity" : "bedrock",
+      "kind" : "remoteSourceControl",
+      "location" : "https://source.marquiskurt.net/marquiskurt/bedrock",
+      "state" : {
+        "branch" : "main",
+        "revision" : "06ff5be7e24e2986a0641cde20f3af002a634495"
+      }
+    },
+    {
+      "identity" : "cubiomeskit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://source.marquiskurt.net/AlidadeMC/CubiomesKit",
+      "state" : {
+        "branch" : "root",
+        "revision" : "487da168346ac06d64363f5b36fc480ad5d3af5e"
+      }
+    },
+    {
+      "identity" : "documentkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://source.marquiskurt.net/marquiskurt/DocumentKit",
+      "state" : {
+        "branch" : "main",
+        "revision" : "8ced7f8b0cde259531fa7a12663c9a93fd39dcfe"
+      }
+    },
+    {
+      "identity" : "imageprocessing",
+      "kind" : "remoteSourceControl",
+      "location" : "https://source.marquiskurt.net/marquiskurt/imageprocessing",
+      "state" : {
+        "branch" : "main",
+        "revision" : "888e416b4d78bf22d29a411c2d840635baf4b9b6"
+      }
+    },
+    {
+      "identity" : "mapkit-caching-tile-overlay",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/stadiamaps/mapkit-caching-tile-overlay",
+      "state" : {
+        "revision" : "600f218ccc090678ab46bab162a82f63949eb04f",
+        "version" : "1.1.0"
+      }
+    },
+    {
+      "identity" : "mcmap",
+      "kind" : "remoteSourceControl",
+      "location" : "https://source.marquiskurt.net/AlidadeMC/mcmap.git",
+      "state" : {
+        "revision" : "2e6ca8271820ead3c0bb23f2a85e4419412b29c0",
+        "version" : "2.0.1"
+      }
+    },
+    {
+      "identity" : "searchengine",
+      "kind" : "remoteSourceControl",
+      "location" : "https://source.marquiskurt.net/AlidadeMC/searchengine",
+      "state" : {
+        "branch" : "main",
+        "revision" : "fe6a0765c4df895c87effdaa46a5fa72057eb850"
+      }
+    },
+    {
+      "identity" : "swiftlintplugins",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/SimplyDanny/SwiftLintPlugins",
+      "state" : {
+        "revision" : "ef7d692fc6706e8f5628e26bcafaefa445c58a97",
+        "version" : "0.65.1"
+      }
+    },
+    {
+      "identity" : "versionedcodable",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/jrothwell/VersionedCodable.git",
+      "state" : {
+        "revision" : "bc46608052e6bb9e12ebbfd9b4fa1f6d19724a6b",
+        "version" : "1.2.4"
+      }
+    },
+    {
+      "identity" : "viewinspector",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/nalexn/ViewInspector",
+      "state" : {
+        "revision" : "e9a06346499a3a889165647e3f23f8a7b2609a1c",
+        "version" : "0.10.3"
+      }
+    }
+  ],
+  "version" : 3
+}
