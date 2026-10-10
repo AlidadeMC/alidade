@@ -12,6 +12,22 @@ View the release notes for the 2026.1.x release series of Alidade.
 > and improvements may change over time, and the current releases are not
 > indicative of the final release build. Proceed with caution.
 
+## 2026.1 (Build 156) [Beta]
+
+### General
+
+- Players can now toggle toolbar backgrounds based on their preferences
+  in the General settings.
+- The About view has been updated with some design refinements and a clear
+  disclosure about how generative AI is used to create Alidade (it isn't,
+  to be clear).
+- Fixes a bug where creating new documents on macOS didn't respect the
+  player's preferences in the template form (ALD-31).
+
+### Drawings
+
+- The Drawings feature flag is now on by default.
+
 ## 2026.1 (Build 132) [Beta]
 
 ### General
