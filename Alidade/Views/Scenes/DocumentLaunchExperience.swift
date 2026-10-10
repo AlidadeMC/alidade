@@ -29,6 +29,9 @@ struct DocumentLaunchScene: Scene {
                     integrations: .constant(CartographyMapFile(withManifest: .sampleFile).integrations)
                 )
             }
+            .appliedTemplate($proxyMap) { template in
+                CartographyMapFile(withManifest: template)
+            }
         #else
             DocumentLaunchView(proxyMap: $proxyMap)
         #endif
