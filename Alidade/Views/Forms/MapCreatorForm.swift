@@ -28,7 +28,13 @@ struct MapCreatorForm: View {
     /// A binding to the world settings for a Minecraft world.
     @Binding var worldSettings: MCMapManifestWorldSettings
 
+    /// A binding to the integrations available to the file.
     @Binding var integrations: CartographyMapFile.Integrations
+
+    /// The file's reported version.
+    /// If this value is `nil`, the property isn't displayed in the form.
+    /// If this value is `nil`, the property isn't displayed in the form.
+    var fileVersion: Int? = CartographyMapFile.Manifest.version
 
     var displayMode: DisplayMode = .create
 
@@ -55,6 +61,11 @@ struct MapCreatorForm: View {
     var body: some View {
         Form {
             TextField("Name", text: $worldName)
+            if let fileVersion {
+                LabeledContent("File Version", value: "\(fileVersion)")
+                    .monospacedDigit()
+            }
+
             Section {
                 Picker("Minecraft Version", selection: $version) {
                     ForEach(MinecraftVersion.allCases, id: \.rawValue) { ver in
@@ -62,6 +73,7 @@ struct MapCreatorForm: View {
                     }
                 }
                 NamedTextField("Seed", text: $seedString)
+                    .monospacedDigit()
                 Toggle(isOn: $worldSettings.largeBiomes) {
                     Text("Large Biomes")
                 }

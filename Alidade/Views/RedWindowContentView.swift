@@ -69,6 +69,7 @@ struct RedWindowContentView: View {
                         worldName: $file.manifest.name,
                         worldSettings: $file.manifest.worldSettings,
                         integrations: $file.integrations,
+                        fileVersion: file.manifest.manifestVersion,
                         displayMode: .edit
                     )
                     #if os(macOS)
