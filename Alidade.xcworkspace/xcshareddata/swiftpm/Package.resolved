@@ -7,7 +7,7 @@
       "location" : "https://source.marquiskurt.net/marquiskurt/bedrock",
       "state" : {
         "branch" : "main",
-        "revision" : "36ff706d2366b61a891a8bd8f642234c519cb073"
+        "revision" : "06ff5be7e24e2986a0641cde20f3af002a634495"
       }
     },
     {
@@ -34,7 +34,7 @@
       "location" : "https://source.marquiskurt.net/marquiskurt/imageprocessing",
       "state" : {
         "branch" : "main",
-        "revision" : "ab3db4a7695648fb859c1409f39afd82061e8c2e"
+        "revision" : "888e416b4d78bf22d29a411c2d840635baf4b9b6"
       }
     },
     {
@@ -69,8 +69,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SimplyDanny/SwiftLintPlugins",
       "state" : {
-        "revision" : "8a4640d14777685ba8f14e832373160498fbab92",
-        "version" : "0.63.2"
+        "revision" : "ef7d692fc6706e8f5628e26bcafaefa445c58a97",
+        "version" : "0.65.1"
       }
     },
     {
