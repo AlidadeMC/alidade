@@ -13,6 +13,10 @@ the surrounding world, and pin your favorite locations.
 
 ![Alidade running on multiple devices](.readme/devices.png)
 
+> **🧑‍🤝‍🧑 Authored By Humans**  
+> Assets and code for Alidade and its direct dependencies such as
+> CubiomesKit are created by humans without generative AI tools.
+
 > Note: This source code repository for Alidade is being migrated over to
 > [SkyVault](https://source.marquiskurt.net/AlidadeMC/alidade) as part of
 > a larger effort to guarantee long-term sustainability, independent of
