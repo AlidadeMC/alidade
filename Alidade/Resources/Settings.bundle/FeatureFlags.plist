@@ -24,7 +24,7 @@
 			<key>Key</key>
 			<string>flags.features.map_drawings</string>
 			<key>DefaultValue</key>
-			<false/>
+			<true/>
 		</dict>
 		<dict>
 			<key>Type</key>
